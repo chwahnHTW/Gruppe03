@@ -10,3 +10,4 @@ public class History {
 		// Speichern der Spielergebnisse in History
 		}
 }
+

@@ -3,10 +3,10 @@ package Model;
 public class GameInstance {
 
 	Player[] players;
-	Player currentPlayer;
 	String[] result;
 	Deck deck;
 	Card boardCard;
+	Rule rule;
 	
 	
 	GameInstance(Player[] players){
@@ -16,6 +16,6 @@ public class GameInstance {
 	
 	private void startGame() {};
 	
-	private void method() {};
+	private void endGame() {};
 	
 }

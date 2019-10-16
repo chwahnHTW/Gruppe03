@@ -1,5 +1,9 @@
 package View;
 
-public class BoardView {
+import Model.GameInstance;
 
+public class BoardView {
+GameInstance gameInstace;
+
+	
 }
