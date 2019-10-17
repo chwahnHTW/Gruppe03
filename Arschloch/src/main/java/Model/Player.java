@@ -1,5 +1,6 @@
 package Model;
 
+import java.awt.List;
 import java.lang.reflect.Array;
 
 /**
@@ -13,9 +14,10 @@ import java.lang.reflect.Array;
  */
 public class Player {
 
+	
 	String name;
-	Card[] cards;
-
+	List hand;
+	Card[] handCards;
 	/**
 	 * Der Spieler
 	 * 
@@ -48,8 +50,8 @@ public class Player {
 	 * 
 	 * @return: Die Karten des Spielers
 	 */
-	public Card[] getCards() {
-		return cards;
+	public List getHand() {
+		return hand;
 	}
 
 	/**
@@ -57,8 +59,8 @@ public class Player {
 	 * 
 	 * @param cards: Die Karten des Spielers
 	 */
-	public void setCards(Card[] cards) {
-		this.cards = cards;
+	public void setHand(List hand) {
+		this.hand = hand;
 	}
 
 }

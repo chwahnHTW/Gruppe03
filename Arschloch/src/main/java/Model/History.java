@@ -1,5 +1,7 @@
 package Model;
 
+import java.awt.List;
+
 /**
  * 
  *
@@ -13,6 +15,7 @@ package Model;
 public class History {
 
 	GameInstance[] gameHistory;
+	List spielHistorie;
 	Rule rule;
 	
 	
