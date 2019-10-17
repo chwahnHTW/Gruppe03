@@ -12,8 +12,11 @@ package Model;
  */
 public class History {
 
-	GameInstance gameInstance;
-
+	GameInstance[] gameHistory;
+	Rule rule;
+	
+	
+	
 	/**
 	 * Die Spielhistorie
 	 */

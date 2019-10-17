@@ -1,7 +1,11 @@
 package Control;
 
+import Model.GameInstance;
+
 public class RoundController {
 
+	GameInstance gameInstance;
+	
 	public RoundController() {};
 	
 	

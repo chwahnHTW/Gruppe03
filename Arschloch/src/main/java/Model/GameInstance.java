@@ -1,5 +1,7 @@
 package Model;
 
+import java.awt.List;
+
 /**
  * 
  *
@@ -14,9 +16,9 @@ public class GameInstance {
 
 	Player[] players;
 	String[] result;
-	Deck deck;
+	List deck;
 	Card boardCard;
-	Rule rule;
+	Player currentPlayer;
 
 	/**
 	 * 
