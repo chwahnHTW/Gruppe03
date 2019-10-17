@@ -1,5 +1,15 @@
 package Model;
 
+/**
+ * 
+ *
+ * @author Kaya Löher, Kim Anh Ngyuen, Christian Wahnsiedler
+ * Email-Adresse: s0564784@htw-berlin.de, ...
+ *
+ *
+ * Diese Klasse stellt die Instanz eines Spiels dar. 
+ *
+ */
 public class GameInstance {
 
 	Player[] players;
@@ -7,15 +17,25 @@ public class GameInstance {
 	Deck deck;
 	Card boardCard;
 	Rule rule;
-	
-	
-	GameInstance(Player[] players){
+
+	/**
+	 * 
+	 * @param players ist ein Array aus den Spielern
+	 */
+	GameInstance(Player[] players) {
 		this.players = players;
-}
-	
-	
-	private void startGame() {};
-	
-	private void endGame() {};
-	
+	}
+
+	/**
+	 * startet das Spiel
+	 */
+	private void startGame() {
+	};
+
+	/**
+	 * beendet das Spiel
+	 */
+	private void endGame() {
+	};
+
 }
