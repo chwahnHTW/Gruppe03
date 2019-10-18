@@ -14,17 +14,35 @@ import java.lang.reflect.Array;
  */
 public class Player {
 
-	
+	int userId;
 	String name;
 	List hand;
 	Card[] handCards;
+	
+	
 	/**
 	 * Der Spieler
 	 * 
 	 * @param name
 	 */
-	Player(String name) {
+	Player(String name, int userid, List hand) {
 		this.name = name;
+		this.userId = userid;
+		this.hand = hand;
+	}
+	
+	/**
+	 * @return the userId
+	 */
+	public int getUserId() {
+		return userId;
+	}
+
+	/**
+	 * @param userId the userId to set
+	 */
+	public void setUserId(int userId) {
+		this.userId = userId;
 	}
 
 	/**

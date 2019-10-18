@@ -19,7 +19,6 @@ public class History {
 	Rule rule;
 	
 	
-	
 	/**
 	 * Die Spielhistorie
 	 */

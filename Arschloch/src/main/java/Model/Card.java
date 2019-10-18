@@ -15,6 +15,16 @@ public class Card {
 	int number;
 	String symbol;
 
+	enum color_val {
+//		enums lassen sich am besten in eigenen Klassen generieren, auf die dann nur zugegriffen wird.
+		HERZ, KARO, PIK, KREUZ
+	}
+
+//	enum numb_val { 
+//	In einem Enum lassen sich keine Zahlen abbilden, steht zur Diskussion, ob es hier sinnvoll ist.
+//		BUBE, DAME, KÖNIG, ASS
+//	};
+
 	/**
 	 * Bildet eine Karte
 	 * 
@@ -24,6 +34,7 @@ public class Card {
 	Card(int number, String symbol) {
 		this.number = number;
 		this.symbol = symbol;
+		
 	}
 
 	/**

@@ -16,28 +16,31 @@ public class GameInstance {
 
 	Player[] players;
 	String[] result;
-	List deck;
-	Card boardCard;
+	List deck; //die Karten, die momentan im Spiel sind
+	Card[] boardCards; //da es mehrere Karten sein können, die momentan auf dem Tisch liegen
 	Player currentPlayer;
 
 	/**
+	 * Enthält die Informationen, die während eines Spiels vorrangig wichtig sind.
 	 * 
 	 * @param players ist ein Array aus den Spielern
 	 */
-	GameInstance(Player[] players) {
+	GameInstance(Player[] players, Player currentPlayer, Card[] currentBoard) {
 		this.players = players;
+		this.currentPlayer = currentPlayer;
+		this.boardCards = currentBoard;
 	}
 
 	/**
 	 * startet das Spiel
 	 */
 	private void startGame() {
-	};
+	}
 
 	/**
 	 * beendet das Spiel
 	 */
 	private void endGame() {
-	};
+	}
 
 }
