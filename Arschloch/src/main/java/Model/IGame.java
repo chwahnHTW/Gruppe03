@@ -105,4 +105,10 @@ public interface IGame {
 	 * Speichert das Ergebnis des Spiels in die Spielhistorie
 	 */
 	public void saveResultToHistory();
+	
+	/**
+	 * GUI wird initialisiert.
+	 * 
+	 */
+	public void init();
 }
