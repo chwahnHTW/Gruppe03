@@ -1,15 +1,15 @@
 package Model;
 
 import java.awt.List;
-import java.lang.reflect.Array;
 
 /**
  * 
  *
- * @author Kaya Löher, Kim Anh Ngyuen, Christian Wahnsiedler Email-Adresse:
- *         s0564784@htw-berlin.de, ...
+ * @authors 		Kaya Löher 				| Kim Anh Nguyen 		| Christian Wahnsiedler 
+ * Email-Adresse: 	s0564784@htw-berlin.de	| s0563958@htw-berlin.de| s0557193@htw-berlin.de
  * 
- *         Der Spieler
+ * 
+ * Stellt einen Spieler dar.
  *
  */
 public class Player {
@@ -21,9 +21,11 @@ public class Player {
 	
 	
 	/**
-	 * Der Spieler
+	 * Generiert einen Spieler.
 	 * 
-	 * @param name
+	 * @param name: Der Name des Spielers
+	 * @param userid: Die Id des Spielers
+	 * @param hand: Die Karten, die der Spieler besitzt
 	 */
 	Player(String name, int userid, List hand) {
 		this.name = name;
@@ -32,21 +34,25 @@ public class Player {
 	}
 	
 	/**
-	 * @return the userId
+	 * Gibt die Userid zurück
+	 * 
+	 * @return die userId ces Spielers
 	 */
 	public int getUserId() {
 		return userId;
 	}
 
 	/**
-	 * @param userId the userId to set
+	 * Setzt die Userid.
+	 * 
+	 * @param userId: die userId des Spielers
 	 */
 	public void setUserId(int userId) {
 		this.userId = userId;
 	}
 
 	/**
-	 * Gibt den Namen eines Spielers zurück
+	 * Gibt den Namen eines Spielers zurück.
 	 * 
 	 * @return: der Name des Spielers
 	 */
@@ -55,7 +61,7 @@ public class Player {
 	}
 
 	/**
-	 * Setzt den Namen eines Spielers
+	 * Setzt den Namen eines Spielers.
 	 * 
 	 * @param name: Der Name des Spielers
 	 */
@@ -64,7 +70,7 @@ public class Player {
 	}
 
 	/**
-	 * gibt das Array der Karten, die der Spieler hat, zurück
+	 * Gibt das Array der Karten, die der Spieler hat, zurück.
 	 * 
 	 * @return: Die Karten des Spielers
 	 */
@@ -73,7 +79,7 @@ public class Player {
 	}
 
 	/**
-	 * setzt die Karten, die der Spieler bekommen soll
+	 * setzt die Karten, die der Spieler bekommen soll.
 	 * 
 	 * @param cards: Die Karten des Spielers
 	 */
