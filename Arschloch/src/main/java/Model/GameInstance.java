@@ -1,6 +1,5 @@
 package Model;
 
-import java.awt.List;
 import java.util.LinkedList;
 
 /**
@@ -12,23 +11,22 @@ import java.util.LinkedList;
  *
  *
  * Diese Klasse stellt die Instanz eines Spiels dar. 
+ * Ein Spiel beinhaltet die Spieler, das momentane Rundenergebnis, die Karten, mit denen gerade gespielt wird und den aktuellen Spieler.
  * Hier läuft das Spiel im Großteil ab.
  *
  */
 public class GameInstance {
 
 	LinkedList<Player> players;
-	LinkedList<Integer>result;
+	LinkedList<Integer> result;
 	LinkedList<Card> boardCards;
 	Player currentPlayer;
 
 	/**
 	 * Enthält die Informationen, die während eines Spiels vorrangig wichtig sind.
 	 * 
-	 * @param players ist eine LinkedList<Player> aus den Spielern
 	 */
 	GameInstance() {
 	}
-
 
 }

@@ -1,33 +1,30 @@
 package Model;
 
-import java.util.LinkedList;
-
+/**
+ * 
+ *
+ * @authors 		Kaya Löher 				| Kim Anh Nguyen 		| Christian Wahnsiedler 
+ * Email-Adresse: 	s0564784@htw-berlin.de	| s0563958@htw-berlin.de| s0557193@htw-berlin.de
+ * 
+ * Diese Klasse stellt eine Karte dar.
+ * Eine Karte besteht aus einer Zahl und einer Farbe.
+ *
+ */
 public class Card {
 	int number;
 	String symbol;
 
-	enum color_val {
-//		enums lassen sich am besten in eigenen Klassen generieren, auf die dann nur zugegriffen wird.
-		HERZ, KARO, PIK, KREUZ
-	}
-
-//	enum numb_val { 
-//	In einem Enum lassen sich keine Zahlen abbilden, steht zur Diskussion, ob es hier sinnvoll ist.
-//		BUBE, DAME, KÖNIG, ASS
-//	};
-
-	
 	/**
-	 * Bildet eine Karte bestehend aus Zahl und Farbe der Karte.
+	 * Der Konstruktor bildet eine Karte bestehend aus Zahl und Farbe der Karte.
 	 * 
 	 * @param number: Zahl einer Karte
-	 * @param symbol: Farbe/Symbol einer Karte
-	 * @return 
+	 * @param symbol: Farbe einer Karte
+	 * @return
 	 */
 	Card(int number, String symbol) {
 		this.number = number;
 		this.symbol = symbol;
-		
+
 	}
 
 	/**
@@ -46,21 +43,21 @@ public class Card {
 	 */
 	public void setNumber(int number) {
 		this.number = number;
-	} 
+	}
 
 	/**
-	 * Gibt die Farbe/Symbol einer Karte zurück
+	 * Gibt die Farbe einer Karte zurück.
 	 * 
-	 * @return: Farbe/Symbol der Karte
+	 * @return: Farbe der Karte
 	 */
 	public String getSymbol() {
 		return symbol;
-	} 
+	}
 
 	/**
-	 * Setzt die Farbe/Symbol einer Karte
+	 * Setzt die Farbe einer Karte.
 	 * 
-	 * @param symbol: Farbe/Symbol einer Karte
+	 * @param symbol: Farbe einer Karte
 	 */
 	public void setSymbol(String symbol) {
 		this.symbol = symbol;

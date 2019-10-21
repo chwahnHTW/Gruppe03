@@ -10,7 +10,7 @@ import java.util.LinkedList;
  * Email-Adresse: 	s0564784@htw-berlin.de	| s0563958@htw-berlin.de| s0557193@htw-berlin.de
  * 
  * 
- * Stellt einen Spieler dar.
+ * Stellt einen Spieler dar. Ein Spieler besteht aus einem Namen, einer Id und den Karten, die er während eines Spiels besitzt.
  *
  */
 public class Player {
@@ -18,8 +18,7 @@ public class Player {
 	int userId;
 	String name;
 	LinkedList<Card> handCards;
-	
-	
+
 	/**
 	 * Generiert einen Spieler.
 	 * 
@@ -31,7 +30,7 @@ public class Player {
 		this.name = name;
 		this.userId = userid;
 	}
-	
+
 	/**
 	 * Gibt die Userid zurück
 	 * 
