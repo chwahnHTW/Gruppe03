@@ -1,16 +1,7 @@
 package Model;
 
-/**
- * 
- *
- * @author Kaya Löher, Kim Anh Ngyuen, Christian Wahnsiedler Email-Adresse:
- *         s0564784@htw-berlin.de, ...
- * 
- * 
- * 
- *         Stellt eine Karte dar.
- *
- */
+import java.util.LinkedList;
+
 public class Card {
 	int number;
 	String symbol;
@@ -25,11 +16,13 @@ public class Card {
 //		BUBE, DAME, KÖNIG, ASS
 //	};
 
+	
 	/**
-	 * Bildet eine Karte
+	 * Bildet eine Karte bestehend aus Zahl und Farbe der Karte.
 	 * 
 	 * @param number: Zahl einer Karte
 	 * @param symbol: Farbe/Symbol einer Karte
+	 * @return 
 	 */
 	Card(int number, String symbol) {
 		this.number = number;
@@ -38,7 +31,7 @@ public class Card {
 	}
 
 	/**
-	 * gibt die Zahl einer Karte zurück
+	 * Gibt die Zahl einer Karte zurück.
 	 * 
 	 * @return: Zahl der Karte
 	 */
@@ -47,27 +40,27 @@ public class Card {
 	}
 
 	/**
-	 * setzt die Zahl einer Karte
+	 * Setzt die Zahl einer Karte.
 	 * 
 	 * @param number: Zahl der Karte
 	 */
 	public void setNumber(int number) {
 		this.number = number;
-	}
+	} 
 
 	/**
-	 * gibt die Farbe (Herz, Pik, Kreuz, Karo) einer Karte zurück
+	 * Gibt die Farbe/Symbol einer Karte zurück
 	 * 
-	 * @return: Farbe der Karte
+	 * @return: Farbe/Symbol der Karte
 	 */
 	public String getSymbol() {
 		return symbol;
-	}
+	} 
 
 	/**
-	 * setzt die Farbe einer Karte
+	 * Setzt die Farbe/Symbol einer Karte
 	 * 
-	 * @param symbol: Farbe einer Karte
+	 * @param symbol: Farbe/Symbol einer Karte
 	 */
 	public void setSymbol(String symbol) {
 		this.symbol = symbol;

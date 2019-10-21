@@ -5,11 +5,12 @@ import java.awt.List;
 /**
  * 
  *
- * @author Kaya Löher, Kim Anh Ngyuen, Christian Wahnsiedler Email-Adresse:
- *         s0564784@htw-berlin.de, ...
+ * @authors 		Kaya Löher 				| Kim Anh Nguyen 		| Christian Wahnsiedler 
+ * Email-Adresse: 	s0564784@htw-berlin.de	| s0563958@htw-berlin.de| s0557193@htw-berlin.de
  * 
  * 
- *         Hier wird die Spielhistorie gespeichert.
+ * 
+ * Hier wird die Spielhistorie gespeichert.
  *
  */
 public class History {

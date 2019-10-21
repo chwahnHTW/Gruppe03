@@ -3,10 +3,12 @@ package Model;
 /**
  * 
  *
- * @author Kaya Löher, Kim Anh Ngyuen, Christian Wahnsiedler Email-Adresse:
- *         s0564784@htw-berlin.de, ...
+ * @authors 		Kaya Löher 				| Kim Anh Nguyen 		| Christian Wahnsiedler 
+ * Email-Adresse: 	s0564784@htw-berlin.de	| s0563958@htw-berlin.de| s0557193@htw-berlin.de
  * 
  * 
+ * Hier wird das Spiel gestartet. 
+ * Es wird eine GameInstance generiert.
  * 
  *
  */
@@ -24,7 +26,7 @@ public class Init {
 	}
 
 	/**
-	 * Gibt den Spieleraccount wieder
+	 * Gibt die Anzahl der Spieler wieder
 	 * 
 	 * @param gameInstance: welche Instanz des Spiels gespielt wird
 	 */
