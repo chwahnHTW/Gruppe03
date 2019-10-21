@@ -1,6 +1,7 @@
 package Model;
 
 import java.awt.List;
+import java.util.LinkedList;
 
 /**
  * 
@@ -16,32 +17,18 @@ import java.awt.List;
  */
 public class GameInstance {
 
-	Player[] players;
+	LinkedList<Player> players;
 	String[] result;
-	Card[] boardCards; //da es mehrere Karten sein können, die momentan auf dem Tisch liegen
+	LinkedList<Card> boardCards;
 	Player currentPlayer;
 
 	/**
 	 * Enthält die Informationen, die während eines Spiels vorrangig wichtig sind.
 	 * 
-	 * @param players ist ein Array aus den Spielern
+	 * @param players ist eine LinkedList<Player> aus den Spielern
 	 */
-	GameInstance(Player[] players, Player currentPlayer, Card[] currentBoard) {
-		this.players = players;
-		this.currentPlayer = currentPlayer;
-		this.boardCards = currentBoard;
+	GameInstance() {
 	}
 
-	/**
-	 * startet das Spiel
-	 */
-	private void startGame() {
-	}
-
-	/**
-	 * beendet das Spiel
-	 */
-	private void endGame() {
-	}
 
 }

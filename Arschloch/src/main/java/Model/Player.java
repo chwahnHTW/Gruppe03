@@ -1,6 +1,7 @@
 package Model;
 
 import java.awt.List;
+import java.util.LinkedList;
 
 /**
  * 
@@ -16,8 +17,7 @@ public class Player {
 
 	int userId;
 	String name;
-	List hand;
-	Card[] handCards;
+	LinkedList<Card> handCards;
 	
 	
 	/**
@@ -27,10 +27,9 @@ public class Player {
 	 * @param userid: Die Id des Spielers
 	 * @param hand: Die Karten, die der Spieler besitzt
 	 */
-	Player(String name, int userid, List hand) {
+	Player(String name, int userid) {
 		this.name = name;
 		this.userId = userid;
-		this.hand = hand;
 	}
 	
 	/**
@@ -74,8 +73,8 @@ public class Player {
 	 * 
 	 * @return: Die Karten des Spielers
 	 */
-	public List getHand() {
-		return hand;
+	public LinkedList<Card> getHand() {
+		return handCards;
 	}
 
 	/**
@@ -83,8 +82,8 @@ public class Player {
 	 * 
 	 * @param cards: Die Karten des Spielers
 	 */
-	public void setHand(List hand) {
-		this.hand = hand;
+	public void setHand(LinkedList<Card> handCards) {
+		this.handCards = handCards;
 	}
 
 }

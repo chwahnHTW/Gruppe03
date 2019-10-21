@@ -41,6 +41,12 @@ public interface IGame {
 	
 	/**
 	 * In einer Runde kann jeder Spieler Karten spielen.
+	 * Hier wählt der Spieler aus, welche Karte(n) von seiner Hand er spielen möchte.
+	 */
+	public void selectCards();
+	
+	/**
+	 * In einer Runde kann jeder Spieler Karten spielen.
 	 * Hier spielt der Spieler seine Karte(n) aus.
 	 */
 	public void playCards();
@@ -76,14 +82,15 @@ public interface IGame {
 	public LinkedList<String> getResult();
 	
 	/**
-	 * Vergleich der Karten der Hand eines Spielers, um zu ermitteln, welche Karte die höchste ist.
+	 * Vergleich der Karten der Hand eines Spielers, um zu ermitteln, welche Karte die höchste ist. Kann gespielte Karten mit boardCards vergleichen.
 	 * @return 
 	 */
 	public Comparable<Card> compareCards();
 	
 	/**
 	 * 
-	 * @return Der Status des Spiels
+	 * @return Der Status des Spiels. "Running" oder "Finished". 
+	 * Zu Beginn "Running", nachdem alle bis auf den letzten Speieler ihre Karten abgelegt haben auf "Finished"
 	 */
 	public String gameState();
 	
