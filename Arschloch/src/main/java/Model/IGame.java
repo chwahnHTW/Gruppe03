@@ -29,7 +29,7 @@ public interface IGame {
 	 * 
 	 * @return Anzahl der Spieler
 	 */
-	public int setPlayercount();
+	public int setPlayercount(IGame gameInstance);
 
 	/**
 	 * Ein Spieler wird erstellt.
@@ -41,50 +41,50 @@ public interface IGame {
 	/**
 	 * Das Spiel wird beendet.
 	 */
-	public void endGame();
+	public void endGame(IGame gameInstance);
 
 	/**
 	 * In einer Runde kann jeder Spieler Karten spielen. Hier wählt der Spieler aus, welche Karte(n) von seiner Hand er spielen möchte.
 	 */
-	public LinkedList<Card> selectCards();
+	public LinkedList<Card> selectCards(IGame player);
 
 	/**
 	 * In einer Runde kann jeder Spieler Karten spielen. Hier spielt der Spieler seine Karte(n) aus.
 	 */
-	public void playCards();
+	public void playCards(IGame gameInstance);
 
 	/**
 	 * Am Anfang des Spiels werden zwischen Gewinner und Verlierer des letzten Spiels Karten getauscht. 
 	 * Dies wird hier relaisiert.
 	 */
-	public void swapCards();
+	public void swapCards(IGame gameInstance);
 
 	/**
 	 * Der Spieler, der in einer Runde an der Reihe ist wird hier ermittelt.
 	 * 
 	 * @return der akutelle Spieler einer Runde
 	 */
-	public Player getCurrentPlayer();
+	public Player getCurrentPlayer(IGame gameInstance);
 
 	/**
 	 * Der Spieler, der als nächstes an der Reihe ist.
 	 * 
 	 * @return Der nächste Spieler
 	 */
-	public Player getNextPlayer();
+	public Player getNextPlayer(IGame gameInstance);
 
 	/**
 	 * Hier wird das Ergebnis der Runde gesetzt. 
 	 * Der Spieler, der als letzter Karten abgegeben hat, ist dann an der Reihe.
 	 */
-	public void setResult();
+	public void setResult(IGame gameInstance);
 
 	/**
 	 * Das Ergebnis der letzten Runde wird hier gespeichert, um die Reihenfolge der Spieler für weitere Züge festzulegen.
 	 * 
 	 * @return Das Ergebnis der letzte Runde
 	 */
-	public LinkedList<String> getResult();
+	public LinkedList<String> getResult(IGame gameInstance);
 
 	/**
 	 * Vergleich der Karten der Hand eines Spielers, um zu ermitteln, welche Karte die höchste ist. 
@@ -92,7 +92,7 @@ public interface IGame {
 	 * 
 	 * @return Reihenfolge der Karten der Spieler
 	 */
-	public Comparable<Card> compareCards();
+	public Comparable<Card> compareCards(IGame cardList);
 
 	/**
 	 * Der Spielstatus eines Spiels.
@@ -100,23 +100,23 @@ public interface IGame {
 	 * 
 	 * @return Der Status des Spiels. "Running" oder "Finished"
 	 */
-	public String gameState();
+	public String gameState(IGame gameInstance);
 
 	/**
 	 * Gibt den ersten Spieler zurück. Entweder das Arschloch oder der Spieler mit der Karo7.
 	 * 
 	 * @return der Spieler, der das Spiel beginnen darf
 	 */
-	public Player getInitialPlayer();
+	public Player getInitialPlayer(IGame gameInstance);
 
 	/**
 	 * Speichert das Ergebnis des Spiels in die Spielhistorie
 	 */
-	public void saveResultToHistory();
+	public void saveResultToHistory(IGame gameInstance);
 
 	/**
 	 * GUI wird initialisiert.
 	 * 
 	 */
-	public void init();
+	public void init(IGame gameInstance);
 }
