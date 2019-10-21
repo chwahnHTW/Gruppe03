@@ -43,7 +43,7 @@ public interface IGame {
 	 * In einer Runde kann jeder Spieler Karten spielen.
 	 * Hier wählt der Spieler aus, welche Karte(n) von seiner Hand er spielen möchte.
 	 */
-	public void selectCards();
+	public LinkedList<Card> selectCards();
 	
 	/**
 	 * In einer Runde kann jeder Spieler Karten spielen.
