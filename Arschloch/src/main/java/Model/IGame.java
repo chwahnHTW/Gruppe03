@@ -100,7 +100,7 @@ public interface IGame {
 	 * 
 	 * @return Der Status des Spiels. "Running" oder "Finished"
 	 */
-	public String gameState(IGame gameInstance);
+	public String getGameState(IGame gameInstance);
 
 	/**
 	 * Gibt den ersten Spieler zurück. Entweder das Arschloch oder der Spieler mit der Karo7.
