@@ -18,7 +18,7 @@ import java.util.LinkedList;
 public class GameInstance {
 
 	LinkedList<Player> players;
-	String[] result;
+	LinkedList<Integer>result;
 	LinkedList<Card> boardCards;
 	Player currentPlayer;
 
