@@ -55,13 +55,17 @@ public interface IGame {
 	 * --> IGameInstance
 	 * 
 	 * In einer Runde kann jeder Spieler Karten spielen. Hier wählt der Spieler aus, welche Karte(n) von seiner Hand er spielen möchte.
+	 * @return Liste mit Karten, die der Spieler ausgewaehlt hat
 	 */
 	public LinkedList<Card> selectCards(Player player);
 
 	/**
 	 * --> IGameInstance
 	 * 
+	 *@Parameters: selectedCards 
+	 * 
 	 * In einer Runde kann jeder Spieler Karten spielen. Hier spielt der Spieler seine Karte(n) aus.
+	 * Die Karten wurden in der Methode selectCards ausgewaehlt
 	 */
 	public void playCards(LinkedList<Card> selectedCards);
 
