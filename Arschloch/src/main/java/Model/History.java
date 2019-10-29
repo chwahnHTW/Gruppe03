@@ -19,7 +19,7 @@ import java.util.LinkedList;
 public class History {
 
 	LinkedList<GameInstance> history;
-	Rule rule;
+	Rules rule;
 
 	/**
 	 * Die Spielhistorie
