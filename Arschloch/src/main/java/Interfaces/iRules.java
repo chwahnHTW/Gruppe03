@@ -3,6 +3,9 @@
  */
 package Interfaces;
 
+import java.util.LinkedList;
+
+import Model.Player;
 import Model.Rules;
 
 /**
@@ -19,6 +22,6 @@ public interface iRules {
 	 * 
 	 * @param rules: Regeln, die für ein Spiel gelten sollen.
 	 */
-	public void setRules(Rules rules);
+	public void calculateRules(LinkedList<Player> playerList);
 
 }
