@@ -1,25 +1,21 @@
 package Model;
 
 import static org.junit.jupiter.api.Assertions.*;
+import org.junit.Test;
+import org.junit.Assert;
 
-import org.junit.jupiter.api.Test;
 
-class CardTest {
+public class CardTest {
 
 	/*
-	 * create Card, set Symbol  and test if Card.Symbol euals the symbol you chose
+	 * create Card, set Symbol  and test if Card.Symbol equals the symbol you chose
 	 */
 	@Test
-	void testCardSetSymbol() {
-		fail("Not yet implemented");
+	public void testCard() {
+		Card card = new Card(7, "ACE");
+		Assert.assertEquals(card.number,7);
+		Assert.assertEquals(card.symbol,"ACE");
 	}
 	
-	/*
-	 * create Card, set Number and test if Card.Number equals the number you gave it
-	 */
-	@Test
-	void testCardSetNumber() {
-		fail("Not yet implemented");
-	}
 
 }
