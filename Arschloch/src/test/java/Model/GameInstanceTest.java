@@ -34,7 +34,7 @@ class GameInstanceTest {
 	
 	
 	/*
-	 * create GameInstance+Player with one card, call select(), see if returned card is the right one 
+	 * create GameInstance + Player with one card, call select(), see if returned card is the right one 
 	 */
 	@Test
 	void testSelectCards() {

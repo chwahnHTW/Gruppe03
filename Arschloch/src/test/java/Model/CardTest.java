@@ -7,26 +7,19 @@ import org.junit.jupiter.api.Test;
 class CardTest {
 
 	/*
-	 * create Player, setName() and test if Player.getName() == the name you chose
+	 * create Card, set Symbol  and test if Card.Symbol euals the symbol you chose
 	 */
 	@Test
-	void testPlayerSetName() {
+	void testCardSetSymbol() {
 		fail("Not yet implemented");
 	}
 	
 	/*
-	 * create Player, setHand() and test if Player.getHandCards() equals the cards you gave him
+	 * create Card, set Number and test if Card.Number equals the number you gave it
 	 */
 	@Test
-	void testPlayerSetHand() {
+	void testCardSetNumber() {
 		fail("Not yet implemented");
 	}
-	
-	/*
-	 * create Player, setId() and test if Player.getId() equals the id you gave him
-	 */
-	@Test
-	void testPlayerSetId() {
-		fail("Not yet implemented");
-	}
+
 }
