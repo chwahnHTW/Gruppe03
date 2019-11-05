@@ -1,5 +1,7 @@
 package Model;
 
+import Interfaces.iCard;
+
 /**
  * 
  *
@@ -10,7 +12,7 @@ package Model;
  * Eine Karte besteht aus einer Zahl und einer Farbe.
  *
  */
-public class Card {
+public class Card{
 	int number;
 	String symbol;
 
@@ -27,40 +29,5 @@ public class Card {
 
 	}
 
-	/**
-	 * Gibt die Zahl einer Karte zurück.
-	 * 
-	 * @return: Zahl der Karte
-	 */
-	public int getNumber() {
-		return number;
-	}
-
-	/**
-	 * Setzt die Zahl einer Karte.
-	 * 
-	 * @param number: Zahl der Karte
-	 */
-	public void setNumber(int number) {
-		this.number = number;
-	}
-
-	/**
-	 * Gibt die Farbe einer Karte zurück.
-	 * 
-	 * @return: Farbe der Karte
-	 */
-	public String getSymbol() {
-		return symbol;
-	}
-
-	/**
-	 * Setzt die Farbe einer Karte.
-	 * 
-	 * @param symbol: Farbe einer Karte
-	 */
-	public void setSymbol(String symbol) {
-		this.symbol = symbol;
-	}
-
+	
 }

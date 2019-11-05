@@ -43,4 +43,40 @@ public interface iPlayer {
 	 */
 	public void setHand(LinkedList<Card> handCards);
 
+	
+	
+	/**
+	 * Gibt die Userid zurück
+	 * 
+	 * @return die userId ces Spielers
+	 */
+	public int getUserId();
+	
+	
+	
+	/**
+	 * Setzt die Userid.
+	 * 
+	 * @param userId: die userId des Spielers
+	 */
+	public void setUserId(int userId);
+	
+	
+	
+	/**
+	 * Gibt den Namen eines Spielers zurück.
+	 * 
+	 * @return: der Name des Spielers
+	 */
+	public String getName();
+	
+	
+	/**
+	 * Setzt den Namen eines Spielers.
+	 * 
+	 * @param name: Der Name des Spielers
+	 */
+	public void setName(String name);
+
+	
 }
