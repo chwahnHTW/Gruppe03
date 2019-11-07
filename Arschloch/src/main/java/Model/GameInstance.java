@@ -1,6 +1,6 @@
 package Model;
 
-import java.util.LinkedList;
+import java.util.List;
 
 /**
  * 
@@ -17,9 +17,9 @@ import java.util.LinkedList;
  */
 public class GameInstance {
 
-	LinkedList<Player> players;
-	LinkedList<Integer> result;
-	LinkedList<Card> boardCards;
+	List<Player> players;
+	List<Integer> result;
+	List<Card> boardCards;
 	Player currentPlayer;
 
 	/**
