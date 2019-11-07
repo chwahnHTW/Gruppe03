@@ -1,6 +1,6 @@
 package Model;
 
-import java.util.LinkedList;
+import java.util.List;
 
 /**
  * 
@@ -16,7 +16,7 @@ public class Player {
 
 	int userId;
 	String name;
-	LinkedList<Card> handCards;
+	List<Card> handCards;
 
 	/**
 	 * Generiert einen Spieler.
@@ -71,7 +71,7 @@ public class Player {
 	 * 
 	 * @return: Die Karten des Spielers
 	 */
-	public LinkedList<Card> getHand() {
+	public List<Card> getHand() {
 		return handCards;
 	}
 
@@ -80,7 +80,7 @@ public class Player {
 	 * 
 	 * @param cards: Die Karten des Spielers
 	 */
-	public void setHand(LinkedList<Card> handCards) {
+	public void setHand(List<Card> handCards) {
 		this.handCards = handCards;
 	}
 

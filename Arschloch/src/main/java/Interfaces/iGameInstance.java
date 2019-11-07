@@ -3,7 +3,7 @@
  */
 package Interfaces;
 
-import java.util.LinkedList;
+import java.util.List;
 
 import Model.Card;
 import Model.GameInstance;
@@ -36,7 +36,7 @@ public interface iGameInstance {
 	 * 
 	 * @return Liste mit Karten, die der Spieler ausgewaehlt hat
 	 */
-	public LinkedList<Card> selectCards(Player player);
+	public List<Card> selectCards(Player player);
 
 	/**
 	 * --> IGameInstance
@@ -47,7 +47,7 @@ public interface iGameInstance {
 	 *              der Spieler seine Karte(n) aus. Die Karten wurden in der Methode
 	 *              selectCards ausgewaehlt
 	 */
-	public void playCards(LinkedList<Card> selectedCards);
+	public void playCards(List<Card> selectedCards);
 
 	/**
 	 * --> IGameInstance
@@ -91,7 +91,7 @@ public interface iGameInstance {
 	 * 
 	 * @return Das Ergebnis der letzte Runde
 	 */
-	public LinkedList<String> getResult(GameInstance game);
+	public List<String> getResult(GameInstance game);
 
 	/**
 	 * --> IGameInstance

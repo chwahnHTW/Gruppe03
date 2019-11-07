@@ -1,7 +1,6 @@
 package Model;
 
-import java.awt.List;
-import java.util.LinkedList;
+import java.util.List;
 
 /**
  * 
@@ -18,7 +17,7 @@ import java.util.LinkedList;
  */
 public class History {
 
-	LinkedList<GameInstance> history;
+	List<GameInstance> history;
 	Rules rule;
 
 	/**
