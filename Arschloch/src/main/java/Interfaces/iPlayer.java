@@ -3,7 +3,7 @@
  */
 package Interfaces;
 
-import java.util.LinkedList;
+import java.util.List;
 
 import Model.Card;
 import Model.Player;
@@ -34,13 +34,13 @@ public interface iPlayer {
 	 * 
 	 * @return: Die Karten des Spielers
 	 */
-	public LinkedList<Card> getHand();
+	public List<Card> getHand();
 
 	/**
 	 * setzt die Karten, die der Spieler bekommen soll.
 	 * 
 	 * @param cards: Die Karten des Spielers
 	 */
-	public void setHand(LinkedList<Card> handCards);
+	public void setHand(List<Card> handCards);
 
 }
