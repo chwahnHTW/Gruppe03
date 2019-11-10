@@ -1,6 +1,5 @@
-package Model;
+package cardmgmt;
 
-import Interfaces.iCard;
 
 /**
  * 
@@ -26,7 +25,6 @@ public class Card{
 	Card(int number, String symbol) {
 		this.number = number;
 		this.symbol = symbol;
-
 	}
 
 	

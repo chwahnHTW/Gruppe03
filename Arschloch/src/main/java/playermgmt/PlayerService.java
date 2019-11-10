@@ -1,12 +1,13 @@
 /**
  * 
  */
-package Interfaces;
+package playermgmt;
 
 import java.util.LinkedList;
+import java.util.List;
 
-import Model.Card;
-import Model.Player;
+import cardmgmt.Card;
+import playermgmt.Player;
 
 /**
  *
@@ -18,7 +19,7 @@ import Model.Player;
  *          eine Hand an Karten zugewiesen
  *
  */
-public interface iPlayer {
+public interface PlayerService {
 
 	/**
 	 * --> IPlayer
@@ -27,14 +28,14 @@ public interface iPlayer {
 	 * 
 	 * @return ein Spieler
 	 */
-	public Player createPlayer(int userid, String name);
+	public Player createPlayer();
 
 	/**
 	 * Gibt das Array der Karten, die der Spieler hat, zurück.
 	 * 
 	 * @return: Die Karten des Spielers
 	 */
-	public LinkedList<Card> getHand();
+	public List getHand();
 
 	/**
 	 * setzt die Karten, die der Spieler bekommen soll.
@@ -62,7 +63,6 @@ public interface iPlayer {
 	public void setUserId(int userId);
 	
 	
-	
 	/**
 	 * Gibt den Namen eines Spielers zurück.
 	 * 
@@ -78,5 +78,26 @@ public interface iPlayer {
 	 */
 	public void setName(String name);
 
+	/**
+	 * In einer Runde kann jeder Spieler Karten spielen. Hier wählt der Spieler aus,
+	 * welche Karte(n) von seiner Hand er spielen möchte.
+	 * 
+	 * @return Liste mit Karten, die der Spieler ausgewaehlt hat
+	 */
+	public List selectCards(List boardCards);
+	
+	/*
+	 * Method to check if a player still has cards or not
+	 */
+	public Boolean hasCards();
+
+	public String getPlayerNameInput();
+	
+	public List getPlayerMove();
+	
+	public int getPlayerCountInput();
+
+
+	
 	
 }

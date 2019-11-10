@@ -1,13 +1,18 @@
 /**
  * 
  */
-package Interfaces;
-
+package gamemgmt;
 import java.util.LinkedList;
+import java.util.List;
 
-import Model.Card;
-import Model.GameInstance;
-import Model.Player;
+import cardmgmt.Card;
+import gamemgmt.GameInstance;
+import playermgmt.Player;
+import playermgmt.PlayerService;
+
+
+
+
 
 /**
  *
@@ -17,16 +22,25 @@ import Model.Player;
  * 
  *
  */
-public interface iGameInstance {
+public interface GameInstanceService {
 
 	/**
 	 * --> IGameInstance
 	 * 
-	 * Die Anzahl der Spieler wird festgelegt.
+	 * Die Anzahl der Spieler wird vom User eingegeben und erfasst.
 	 * 
 	 * @return Anzahl der Spieler
 	 */
-	public int setPlayercount(Player[] playercount);
+	public int determinePlayercount();
+	
+	/**
+	 * --> IGameInstance
+	 * 
+	 * Gemäß des in determinePlayercount ermittleten Wertes werden Spieler erstellt
+	 * 
+	 * @return Anzahl der Spieler
+	 */
+	public void setPlayercount(int playerCount);
 
 	/**
 	 * --> IGameInstance
@@ -36,7 +50,7 @@ public interface iGameInstance {
 	 * 
 	 * @return Liste mit Karten, die der Spieler ausgewaehlt hat
 	 */
-	public LinkedList<Card> selectCards(Player player);
+	public List selectCards(PlayerService player);
 
 	/**
 	 * --> IGameInstance
@@ -47,7 +61,7 @@ public interface iGameInstance {
 	 *              der Spieler seine Karte(n) aus. Die Karten wurden in der Methode
 	 *              selectCards ausgewaehlt
 	 */
-	public void playCards(LinkedList<Card> selectedCards);
+	public void playCards(PlayerService player, List selectedCards);
 
 	/**
 	 * --> IGameInstance
@@ -55,7 +69,7 @@ public interface iGameInstance {
 	 * Am Anfang des Spiels werden zwischen Gewinner und Verlierer des letzten
 	 * Spiels Karten getauscht. Dies wird hier relaisiert.
 	 */
-	public void swapCards(GameInstance game);
+	public void swapCards(List players);
 
 	/**
 	 * --> IGameInstance
@@ -73,7 +87,7 @@ public interface iGameInstance {
 	 * 
 	 * @return Der nächste Spieler
 	 */
-	public Player getNextPlayer(GameInstance game);
+	public PlayerService getNextPlayer() throws NullPointerException;
 
 	/**
 	 * --> IGameInstance
@@ -81,7 +95,7 @@ public interface iGameInstance {
 	 * Hier wird das Ergebnis der Runde gesetzt. Der Spieler, der als letzter Karten
 	 * abgegeben hat, ist dann an der Reihe.
 	 */
-	public void setResult(GameInstance game);
+	public List getResult(GameInstanceService game);
 
 	/**
 	 * --> IGameInstance
@@ -91,17 +105,8 @@ public interface iGameInstance {
 	 * 
 	 * @return Das Ergebnis der letzte Runde
 	 */
-	public LinkedList<String> getResult(GameInstance game);
+	public void setResult(GameInstanceService game);
 
-	/**
-	 * --> IGameInstance
-	 * 
-	 * Vergleich der Karten der Hand eines Spielers, um zu ermitteln, welche Karte
-	 * die höchste ist. Kann gespielte Karten mit boardCards vergleichen.
-	 * 
-	 * @return Reihenfolge der Karten der Spieler
-	 */
-	public Comparable<Card> compareCards(Player[] players);
 
 	/**
 	 * --> IGameInstance
@@ -111,7 +116,7 @@ public interface iGameInstance {
 	 * 
 	 * @return Der Status des Spiels. "Running" oder "Finished"
 	 */
-	public String getGameState(GameInstance game);
+	public String getGameState(GameInstanceService game);
 
 	/**
 	 * --> IGameInstance
@@ -121,6 +126,18 @@ public interface iGameInstance {
 	 * 
 	 * @return der Spieler, der das Spiel beginnen darf
 	 */
-	public Player getInitialPlayer(Player[] players);
+	public PlayerService getInitialPlayer();
+	
+	
+	
+	/**
+	 * --> GameInstanceService
+	 * 
+	 * Initiiert Eingabeaufforderung
+	 * 
+	 * @return Eingabe
+	 */
+	public List getPlayerMove(PlayerService player);
+	
 
 }

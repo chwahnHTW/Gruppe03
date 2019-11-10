@@ -1,6 +1,10 @@
-package Model;
+package playermgmt;
 
 import java.util.LinkedList;
+
+import cardmgmt.Card;
+
+
 
 /**
  * 

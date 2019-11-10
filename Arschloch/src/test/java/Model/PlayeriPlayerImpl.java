@@ -4,7 +4,7 @@ import java.util.LinkedList;
 
 import Interfaces.iPlayer;
 
-public class PlayeriPlayerImpl extends Player implements iPlayer{
+public class PlayeriPlayerImpl extends Player implements iPlayer {
 
 	PlayeriPlayerImpl(String name, int userid) {
 		super(name, userid);
@@ -13,7 +13,7 @@ public class PlayeriPlayerImpl extends Player implements iPlayer{
 	public Player createPlayer(int userid, String name) {
 		return new Player(name, userid);
 	}
-	
+
 	/**
 	 * Gibt die Userid zurück
 	 * 
@@ -26,7 +26,8 @@ public class PlayeriPlayerImpl extends Player implements iPlayer{
 	/**
 	 * Setzt die Userid.
 	 * 
-	 * @param userId: die userId des Spielers
+	 * @param userId:
+	 *            die userId des Spielers
 	 */
 	public void setUserId(int userId) {
 		this.userId = userId;
@@ -44,7 +45,8 @@ public class PlayeriPlayerImpl extends Player implements iPlayer{
 	/**
 	 * Setzt den Namen eines Spielers.
 	 * 
-	 * @param name: Der Name des Spielers
+	 * @param name:
+	 *            Der Name des Spielers
 	 */
 	public void setName(String name) {
 		this.name = name;
@@ -62,11 +64,11 @@ public class PlayeriPlayerImpl extends Player implements iPlayer{
 	/**
 	 * setzt die Karten, die der Spieler bekommen soll.
 	 * 
-	 * @param cards: Die Karten des Spielers
+	 * @param cards:
+	 *            Die Karten des Spielers
 	 */
 	public void setHand(LinkedList<Card> handCards) {
 		this.handCards = handCards;
 	}
-
 
 }

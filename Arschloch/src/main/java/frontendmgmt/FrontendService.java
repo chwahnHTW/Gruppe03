@@ -1,9 +1,9 @@
 /**
  * 
  */
-package Interfaces;
+package frontendmgmt;
 
-import Model.GameInstance;
+import gamemgmt.GameInstance;
 
 /** 
 *
@@ -12,7 +12,7 @@ import Model.GameInstance;
 * 
 *
 */
-public interface iFrontend {
+public interface FrontendService {
 	
 	/**
 	 * --> IFrontend

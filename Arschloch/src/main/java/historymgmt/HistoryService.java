@@ -1,9 +1,13 @@
 /**
  * 
  */
-package Interfaces;
+package historymgmt;
 
-import Model.GameInstance;
+import java.util.LinkedList;
+import java.util.List;
+
+import gamemgmt.GameInstance;
+import gamemgmt.GameInstanceService;
 
 /**
  *
@@ -13,7 +17,7 @@ import Model.GameInstance;
  * 
  *
  */
-public interface iHistory {
+public interface HistoryService {
 
 	/**
 	 * --> IHistory
@@ -21,5 +25,10 @@ public interface iHistory {
 	 * Speichert das Ergebnis des Spiels in die Spielhistorie
 	 */
 	public void saveResultToHistory(GameInstance game);
+
+	public void persist(GameInstanceService game);
+
+
+	public List getResult(GameInstanceService game);
 
 }

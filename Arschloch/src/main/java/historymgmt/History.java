@@ -1,7 +1,9 @@
-package Model;
+package historymgmt;
 
 import java.awt.List;
 import java.util.LinkedList;
+
+import gamemgmt.GameInstance;
 
 /**
  * 
@@ -19,7 +21,6 @@ import java.util.LinkedList;
 public class History {
 
 	LinkedList<GameInstance> history;
-	Rules rule;
 
 	/**
 	 * Die Spielhistorie

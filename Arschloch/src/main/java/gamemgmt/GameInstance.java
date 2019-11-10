@@ -1,6 +1,11 @@
-package Model;
+package gamemgmt;
 
 import java.util.LinkedList;
+import java.util.List;
+
+import cardmgmt.Card;
+import playermgmt.Player;
+
 
 /**
  * 
@@ -17,10 +22,10 @@ import java.util.LinkedList;
  */
 public class GameInstance {
 
-	LinkedList<Player> players;
-	LinkedList<Integer> result;
-	LinkedList<Card> boardCards;
-	Player currentPlayer;
+	public List players;
+	public List result;
+	public List boardCards;
+	public Player currentPlayer;
 
 	/**
 	 * Enthält die Informationen, die während eines Spiels vorrangig wichtig sind.
