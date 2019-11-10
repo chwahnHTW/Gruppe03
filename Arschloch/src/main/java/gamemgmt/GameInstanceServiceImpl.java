@@ -131,10 +131,4 @@ public class GameInstanceServiceImpl implements GameInstanceService {
 		return player.getPlayerMove();
 	}
 
-
-
-
-
-
-
 }

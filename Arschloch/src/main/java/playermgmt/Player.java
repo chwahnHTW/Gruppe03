@@ -1,6 +1,7 @@
 package playermgmt;
 
 import java.util.LinkedList;
+import java.util.List;
 
 import cardmgmt.Card;
 
@@ -20,7 +21,7 @@ public class Player {
 
 	int userId;
 	String name;
-	LinkedList<Card> handCards;
+	List handCards;
 
 	/**
 	 * Generiert einen Spieler.

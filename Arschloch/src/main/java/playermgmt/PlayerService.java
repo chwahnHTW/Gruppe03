@@ -35,14 +35,15 @@ public interface PlayerService {
 	 * 
 	 * @return: Die Karten des Spielers
 	 */
-	public List getHand();
+	public List getHand(Player player);
 
 	/**
 	 * setzt die Karten, die der Spieler bekommen soll.
 	 * 
 	 * @param cards: Die Karten des Spielers
 	 */
-	public void setHand(LinkedList<Card> handCards);
+	
+	public void setHand(List<Card> cards, Player player);
 
 	
 	
@@ -51,7 +52,7 @@ public interface PlayerService {
 	 * 
 	 * @return die userId ces Spielers
 	 */
-	public int getUserId();
+	public int getUserId(Player player);
 	
 	
 	
@@ -60,7 +61,6 @@ public interface PlayerService {
 	 * 
 	 * @param userId: die userId des Spielers
 	 */
-	public void setUserId(int userId);
 	
 	
 	/**
@@ -68,7 +68,7 @@ public interface PlayerService {
 	 * 
 	 * @return: der Name des Spielers
 	 */
-	public String getName();
+	public String getName(Player player);
 	
 	
 	/**
@@ -97,7 +97,7 @@ public interface PlayerService {
 	
 	public int getPlayerCountInput();
 
-
+	public int generateId();
 	
 	
 }
