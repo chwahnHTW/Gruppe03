@@ -21,7 +21,7 @@ public class Player {
 
 	int userId;
 	String name;
-	List handCards;
+	List<Card> handCards;
 
 	/**
 	 * Generiert einen Spieler.
@@ -34,5 +34,46 @@ public class Player {
 		this.name = name;
 		this.userId = userid;
 	}
+	
+	/**
+	 * Gibt die Userid zurück
+	 * 
+	 * @return die userId ces Spielers
+	 */
+	public int getUserId(Player player) {
+		return userId;
+	}
+	
+	public void setUserId() {
+		
+	}
+	
+	public String getName(Player player) {
+		return name;
+	}
+	
+	public void setName() {
+		
+	}
+	
+	/**
+	 * Gibt das Array der Karten, die der Spieler hat, zurück.
+	 * 
+	 * @return: Die Karten des Spielers
+	 */
+	public List<Card> getHand(Player player){
+		return handCards;
+	}
+
+	/**
+	 * setzt die Karten, die der Spieler bekommen soll.
+	 * 
+	 * @param cards: Die Karten des Spielers
+	 */
+	
+	public void setHand(List<Card> cards, Player player) {
+		
+	}
+
 
 }
