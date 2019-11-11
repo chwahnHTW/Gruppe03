@@ -89,7 +89,7 @@ public interface PlayerService {
 	/*
 	 * Method to check if a player still has cards or not
 	 */
-	public Boolean hasCards();
+	public Boolean hasCards(Player player);
 
 	public String getPlayerNameInput();
 	
@@ -98,6 +98,7 @@ public interface PlayerService {
 	public int getPlayerCountInput();
 
 	public int generateId();
+	
 	
 	
 }

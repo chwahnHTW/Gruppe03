@@ -8,9 +8,11 @@ import java.util.List;
 
 
 import cardmgmt.Card;
+import frontendmgmt.FrontendService;
 
 public class PlayerServiceImpl implements PlayerService{
 	
+	FrontendService frontendService;
 
 	public Player createPlayer(){
 		String name = "";
@@ -51,15 +53,9 @@ public class PlayerServiceImpl implements PlayerService{
 
 	public void setName(String name) {
 
-		
 	}
 
 	public List selectCards(List boardCards) {
-
-		return null;
-	}
-
-	public Boolean hasCards() {
 
 		return null;
 	}
@@ -78,10 +74,16 @@ public class PlayerServiceImpl implements PlayerService{
 		return 0;
 	}
 
+	public Boolean hasCards(Player player) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 	public int generateId() {
 		// TODO Auto-generated method stub
 		return 0;
 	}
+
 
 
 }

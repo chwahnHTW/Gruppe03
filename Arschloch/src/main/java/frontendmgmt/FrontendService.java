@@ -37,4 +37,6 @@ public interface FrontendService {
 	 * 
 	 */
 	public void init(GameInstance game);
+	
+	public void getUserCountInput();
 }

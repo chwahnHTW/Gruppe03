@@ -6,6 +6,7 @@ import playermgmt.PlayerService;
 
 public interface CardService {
 
+	// getter und setter in domain klassen 
 	
 	/**
 	 * Gibt die Zahl einer Karte zurück.
@@ -25,9 +26,17 @@ public interface CardService {
 	
 	public List orderCardsByValue(List cards);
 
+// methoden die palyer benutzen in palyer verschieben
 
+	/**
+	 * 
+	 * @param player
+	 * @param selectedCards
+	 */
 	public void removeFromHand(PlayerService player, List selectedCards);
 	
 	public void addToHand(PlayerService player, List selectedCards);
+	
+	public List generateDeck();
 	
 }

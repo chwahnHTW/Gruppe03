@@ -12,6 +12,7 @@ import playermgmt.PlayerService;
 public class GameInstanceServiceImpl implements GameInstanceService {
 
 	GameInstance gameInstance;
+	// gameinstance übergeben 
 	PlayerService playerService;
 	CardService cardService;
 	HistoryService historyService;
@@ -87,6 +88,7 @@ public class GameInstanceServiceImpl implements GameInstanceService {
 		return historyService.getResult(game);
 	}
 
+	
 	public String getGameState(GameInstanceService game) {
 		int finishedPlayers = 0 ;
 		
