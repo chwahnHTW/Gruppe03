@@ -24,15 +24,26 @@ public class Player {
 	List<Card> handCards;
 
 	/**
+	 * Ein Enum, welches die Rolle darstellt, welche ein Spieler haben kann.
+	 */
+	public enum Rolle {
+
+		PRAESIDENT1, PRAESIDENT2, MITTELKIND, ARSCHLOCH1, ARSCHLOCH2;
+
+	}
+
+	/**
 	 * Generiert einen Spieler.
 	 * 
 	 * @param name: Der Name des Spielers
 	 * @param userid: Die Id des Spielers
-	 * @param hand: Die Karten, die der Spieler besitzt
+	 * @param handCards: Die Karten, die der Spieler besitzt
 	 */
-	Player(String name, int userid) {
+	Player(String name, int userid, List<Card> handCards, Rolle role ) {
 		this.name = name;
 		this.userId = userid;
+		this.handCards = handCards;
+		this.role = role;
 	}
 	
 	/**
