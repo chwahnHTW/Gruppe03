@@ -28,7 +28,11 @@ public interface HistoryService {
 
 	public void persist(GameInstanceService game);
 
-
+	/**
+	 * Ist das eine Liste aus Playern oder aus welchem Typ?
+	 * @param game
+	 * @return
+	 */
 	public List getResult(GameInstanceService game);
 
 }

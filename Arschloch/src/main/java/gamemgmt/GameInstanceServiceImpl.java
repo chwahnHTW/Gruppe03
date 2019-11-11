@@ -11,7 +11,7 @@ import playermgmt.PlayerService;
 
 public class GameInstanceServiceImpl implements GameInstanceService {
 
-	GameInstance gameInstance;
+	//GameInstance gameInstance;
 	// gameinstance übergeben 
 	PlayerService playerService;
 	CardService cardService;
@@ -23,19 +23,22 @@ public class GameInstanceServiceImpl implements GameInstanceService {
 	}
 
 	public void setPlayercount(int playerCount) {
-	for ( int i = 0; i<playerCount;i++) {
-	playerService.createPlayer();
-	}
+		for ( int i = 0; i<playerCount;i++) {
+			playerService.createPlayer();
+		}
 	}
 
-	public List selectCards(PlayerService player) {
-		return player.selectCards(gameInstance.boardCards);
+	public List<Card> selectCards(PlayerService playerService) {
+		return playerService.selectCards(null);
+		//return player.selectCards(gameInstance.boardCards);
 	}
 	
 
-	public void playCards(PlayerService player, List selectedCards) {
-	cardService.removeFromHand(player, selectedCards);
-	gameInstance.boardCards = selectedCards;
+	public void playCards(PlayerService player, List<Card> selectedCards) {
+		playerService.removeFromHand(player, selectedCards);
+		
+//		cardService.removeFromHand(player, selectedCards);
+//		gameInstance.boardCards = selectedCards;
 	}
 
 	

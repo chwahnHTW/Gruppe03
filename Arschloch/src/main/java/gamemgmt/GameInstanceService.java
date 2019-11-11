@@ -7,6 +7,7 @@ import java.util.List;
 
 import cardmgmt.Card;
 import gamemgmt.GameInstance;
+import historymgmt.History;
 import playermgmt.Player;
 import playermgmt.PlayerService;
 
@@ -95,7 +96,7 @@ public interface GameInstanceService {
 	 * Hier wird das Ergebnis der Runde gesetzt. Der Spieler, der als letzter Karten
 	 * abgegeben hat, ist dann an der Reihe.
 	 */
-	public List getResult(GameInstanceService game);
+	public List<History> getResult(GameInstanceService game);
 
 	/**
 	 * --> IGameInstance
