@@ -29,54 +29,9 @@ public interface PlayerService {
 	 * @return ein Spieler
 	 */
 	public Player createPlayer();
-
-	/**
-	 * Gibt das Array der Karten, die der Spieler hat, zurück.
-	 * 
-	 * @return: Die Karten des Spielers
-	 */
-	public List getHand(Player player);
-
-	/**
-	 * setzt die Karten, die der Spieler bekommen soll.
-	 * 
-	 * @param cards: Die Karten des Spielers
-	 */
 	
-	public void setHand(List<Card> cards, Player player);
-
+	public int generateId();
 	
-	
-	/**
-	 * Gibt die Userid zurück
-	 * 
-	 * @return die userId ces Spielers
-	 */
-	public int getUserId(Player player);
-	
-	
-	
-	/**
-	 * Setzt die Userid.
-	 * 
-	 * @param userId: die userId des Spielers
-	 */
-	
-	
-	/**
-	 * Gibt den Namen eines Spielers zurück.
-	 * 
-	 * @return: der Name des Spielers
-	 */
-	public String getName(Player player);
-	
-	
-	/**
-	 * Setzt den Namen eines Spielers.
-	 * 
-	 * @param name: Der Name des Spielers
-	 */
-	public void setName(String name);
 
 	/**
 	 * In einer Runde kann jeder Spieler Karten spielen. Hier wählt der Spieler aus,
@@ -84,7 +39,7 @@ public interface PlayerService {
 	 * 
 	 * @return Liste mit Karten, die der Spieler ausgewaehlt hat
 	 */
-	public List selectCards(List boardCards);
+	public List<Card> selectCards(List<Card> boardCards);
 	
 	/*
 	 * Method to check if a player still has cards or not
@@ -93,16 +48,28 @@ public interface PlayerService {
 
 	public String getPlayerNameInput();
 	
-	public List getPlayerMove();
+	public List<Player> getPlayerMove();
 	
 	public int getPlayerCountInput();
 
-	public int generateId();
 	
-	public void removeFromHand(PlayerService player, List selectedCards);
+	/**
+	 * Zu den untenstehenden Methoden:
+	 * wir wollen ja die Karten zum Beispiel von Arschloch zu Praesident hinzufuegen, richtig?
+	 * Da wir die Karten, die ein Spieler auf einer Hand hat, ueber den Spieler selbst ablegen/speichern,
+	 * waere es doch sinnvoll als Parameter die zwei Spieler zu uebergeben und ueber die Spieler an die Karten ranzukommen.
+	 * So trennen wir spezifische Methoden, also Methoden mit Parameter Spieler nur in SpielerService
+	 * und alle Methode mit Parameter Karte nur in KarteService. Klingt das sinnvol fuer euch?
+	 * 
+	 * Oder ist die Methode swapCards in GameInstance schon damit gemeint?
+	 */
 	
-	public void addToHand(PlayerService player, List selectedCards);
+//	public void removeFromHand(PlayerService player, List<Card> selectedCards);
+//	
+//	public void addToHand(PlayerService player, List<Card> selectedCards);
 	
+	public void removeFromHand(PlayerService praesident, PlayerService arschloch);
 	
+	public void addToHand(PlayerService praesident, PlayerService arschloch);
 	
 }

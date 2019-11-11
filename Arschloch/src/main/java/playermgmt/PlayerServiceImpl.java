@@ -20,42 +20,20 @@ public class PlayerServiceImpl implements PlayerService{
 		
         BufferedReader reader =
                 new BufferedReader(new InputStreamReader(System.in));
-	try {
-		System.out.print("Name: ");
-		name = reader.readLine();
-		
-	} catch (IOException e) {
-		e.printStackTrace();
-	}  
-	System.out.println("Name is " + name);
-	Player newPlayer = new Player(name, this.generateId());
-	return newPlayer;
+        try {
+			System.out.print("Name: ");
+			name = reader.readLine();
+			
+		} catch (IOException e) {
+			e.printStackTrace();
+		}  
+		System.out.println("Name is " + name);
+		Player newPlayer = new Player(name, this.generateId());
+		return newPlayer;
 	
 	}
 
-	public List getHand(Player player) {
-		return player.handCards;
-	}
-
-	public void setHand(List<Card> cards, Player player){
-		player.handCards = cards;	
-	}	
-	
-	
-	public int getUserId(Player player) {
-		return player.userId;
-	}
-
-	public String getName(Player player) {
-
-		return player.name;
-	}
-
-	public void setName(String name) {
-
-	}
-
-	public List selectCards(List boardCards) {
+	public List<Card> selectCards(List<Card> boardCards) {
 
 		return null;
 	}
@@ -65,7 +43,7 @@ public class PlayerServiceImpl implements PlayerService{
 		return null;
 	}
 
-	public List getPlayerMove() {
+	public List<Player> getPlayerMove() {
 		return null;
 	}
 
@@ -79,11 +57,19 @@ public class PlayerServiceImpl implements PlayerService{
 		return null;
 	}
 
+	public void removeFromHand(PlayerService praesident, PlayerService arschloch) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	public void addToHand(PlayerService praesident, PlayerService arschloch) {
+		// TODO Auto-generated method stub
+		
+	}
+
 	public int generateId() {
 		// TODO Auto-generated method stub
 		return 0;
 	}
-
-
 
 }
