@@ -50,7 +50,7 @@ public interface GameInstanceService {
 	 * 
 	 * @return Liste mit Karten, die der Spieler ausgewaehlt hat
 	 */
-	public List selectCards(PlayerService player);
+	public List<Card> selectCards(PlayerService player);
 
 	/**
 	 * --> IGameInstance
@@ -61,7 +61,7 @@ public interface GameInstanceService {
 	 *              der Spieler seine Karte(n) aus. Die Karten wurden in der Methode
 	 *              selectCards ausgewaehlt
 	 */
-	public void playCards(PlayerService player, List selectedCards);
+	public void playCards(PlayerService player, List<Card> selectedCards);
 
 	/**
 	 * --> IGameInstance
@@ -69,7 +69,7 @@ public interface GameInstanceService {
 	 * Am Anfang des Spiels werden zwischen Gewinner und Verlierer des letzten
 	 * Spiels Karten getauscht. Dies wird hier relaisiert.
 	 */
-	public void swapCards(List players);
+	public void swapCards(List<Player> players);
 
 	/**
 	 * --> IGameInstance
@@ -137,7 +137,7 @@ public interface GameInstanceService {
 	 * 
 	 * @return Eingabe
 	 */
-	public List getPlayerMove(PlayerService player);
+	public List<Player> getPlayerMove(PlayerService player);
 	
 
 }
