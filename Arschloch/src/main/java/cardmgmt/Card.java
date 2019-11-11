@@ -14,32 +14,35 @@ package cardmgmt;
 public class Card{
 	
 	public enum Zahl {
-
 		SIEBEN, ACHT, NEUN, ZEHN, BUBE , DAMEN, KOENIG, ASS;
-
 	}
 
 	public enum Symbol {
-
 		KARO, HERZ, PIK, KREUZ;
-
 	}
 
-	final Zahl zahl;
-	final Symbol symbol;
+	private Zahl zahl;
+	private Symbol symbol;
 	
 	public Card (Zahl zahl, Symbol symbol) {
 		this.zahl = zahl;
 		this.symbol = symbol;
-
 	}
 	
 	public Zahl getZahl() {
 		return zahl;
 	}
 	
+	public void setZahl(Zahl zahl) {
+		this.zahl = zahl;
+	}
+	
 	public Symbol getSymbol() {
 		return symbol;
+	}
+	
+	public void setSymbol(Symbol symbol) {
+		this.symbol = symbol;
 	}
 	
 	

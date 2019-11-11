@@ -16,5 +16,9 @@ public class CardServiceImpl implements CardService {
 		// TODO Auto-generated method stub
 		return null;
 	}
+	
+	public Card getCard() {
+		;
+	}
 
 }
