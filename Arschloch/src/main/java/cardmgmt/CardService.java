@@ -16,9 +16,8 @@ import playermgmt.PlayerService;
  */
 public interface CardService {
 	
-	
 	public List<Card> orderCardsByValue(List<Card> cards);
 	
 	public List<Card> generateDeck(int anzahlKarten);
-	
+
 }
