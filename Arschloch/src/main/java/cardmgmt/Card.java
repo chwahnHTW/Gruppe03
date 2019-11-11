@@ -27,12 +27,13 @@ public class Card {
 
     }
 
-    final Zahl zahl;
-    final Symbol symbol;
+    Zahl zahl;
+    Symbol symbol;
 
     /**
      * Eine Karte besteht aus einer Zahl und einer Farbe.
-     * @param zahl: Die Zahl der Karte
+     *
+     * @param zahl:   Die Zahl der Karte
      * @param symbol: Die Farbe der Karte
      */
     public Card(Zahl zahl, Symbol symbol) {
@@ -43,18 +44,41 @@ public class Card {
 
     /**
      * Gibt eine Zahl zurück
+     *
      * @return: Eine Zahl
      */
     public Zahl getZahl() {
+
         return zahl;
     }
 
     /**
      * Gibt eine Farbe zurück
+     *
      * @return: Eine Farbe
      */
     public Symbol getSymbol() {
         return symbol;
+    }
+
+    /**
+     * setzt die Zahl einer Karte
+     *
+     * @param zahl: Die Zahl
+     * @param card: Die Karte
+     */
+    public void setZahl(Zahl zahl, Card card) {
+        card.zahl = zahl;
+    }
+
+    /**
+     * setzt die Farbe einer Karte
+     *
+     * @param symbol: Die Farbe
+     * @param card:   Die Karte
+     */
+    public void setSymbol(Symbol symbol, Card card) {
+        card.symbol = symbol;
     }
 
 }

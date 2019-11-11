@@ -3,34 +3,37 @@ package playermgmt;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.util.LinkedList;
 import java.util.List;
-
-
 import cardmgmt.Card;
 import frontendmgmt.FrontendService;
 
-public class PlayerServiceImpl implements PlayerService{
+/**
+ * @authors         Kaya Löher 				| Kim Anh Nguyen 		| Christian Wahnsiedler
+ * Email-Adresse: 	s0564784@htw-berlin.de 	| s0563958@htw-berlin.de| s0557193@htw-berlin.de
+ */
+public class PlayerServiceImpl implements PlayerService {
 	
 	FrontendService frontendService;
 
 	public Player createPlayer(){
-		String name = "";
-		int userId;
-		
-        BufferedReader reader =
-                new BufferedReader(new InputStreamReader(System.in));
-        try {
-			System.out.print("Name: ");
-			name = reader.readLine();
-			
-		} catch (IOException e) {
-			e.printStackTrace();
-		}  
-		System.out.println("Name is " + name);
-		Player newPlayer = new Player(name, this.generateId());
-		return newPlayer;
-	
+		return null;
+//		String name = "";
+//		int userId;
+//		List<Card> handCards;
+//		Player.Rolle role;
+//
+//        BufferedReader reader =
+//                new BufferedReader(new InputStreamReader(System.in));
+//        try {
+//			System.out.print("Name: ");
+//			name = reader.readLine();
+//
+//		} catch (IOException e) {
+//			e.printStackTrace();
+//		}
+//		System.out.println("Name is " + name);
+//		Player newPlayer = new Player(name, this.generateId(), handCards, role);
+//		return newPlayer;
 	}
 
 	public List<Card> selectCards(List<Card> boardCards) {
@@ -57,12 +60,12 @@ public class PlayerServiceImpl implements PlayerService{
 		return null;
 	}
 
-	public void removeFromHand(PlayerService praesident, PlayerService arschloch) {
+	public void removeFromHand(Player praesident, Player arschloch) {
 		// TODO Auto-generated method stub
 		
 	}
 
-	public void addToHand(PlayerService praesident, PlayerService arschloch) {
+	public void addToHand(Player praesident, Player arschloch) {
 		// TODO Auto-generated method stub
 		
 	}

@@ -18,12 +18,14 @@ public interface PlayerService {
      *
      * @return ein Spieler
      */
-    public Player createPlayer();
+    Player createPlayer();
 
     /**
-     * @return
+     * Die Id eines Spielers wird generiert.
+     *
+     * @return: Die Id für einen Spieler
      */
-    public int generateId();
+    int generateId();
 
     /**
      * In einer Runde kann jeder Spieler Karten spielen. Hier wählt der Spieler aus,
@@ -31,36 +33,50 @@ public interface PlayerService {
      *
      * @return Liste mit Karten, die der Spieler ausgewaehlt hat
      */
-    public List<Card> selectCards(List<Card> boardCards);
-
-    /*
-     * Method to check if a player still has cards or not
-     */
-    public Boolean hasCards(Player player);
+    List<Card> selectCards(List<Card> boardCards);
 
     /**
-     * @return
+     * Untersucht, ob ein Spieler noch Karten hat
+     *
+     * @param player: Der Spieler
+     * @return: True = Spieler hat Karten, False = Spieler hat keine Karten mehr
      */
-    public String getPlayerNameInput();
+    Boolean hasCards(Player player);
 
     /**
+     *
      * @return
      */
-    public List<Player> getPlayerMove();
+    String getPlayerNameInput();
 
     /**
+     *
      * @return
      */
-    public int getPlayerCountInput();
+    List<Player> getPlayerMove();
 
+    /**
+     *
+     * @return
+     */
+    int getPlayerCountInput();
 
-	
 	/**
 	 * Hier werden doch die von den Handkarten die bestimmten Karten auf das feld gelegt werden, richtig?
 	 */
-	
-	public void removeFromHand(PlayerService player, List<Card> handCards);
-	
-	public void addToHand(PlayerService player, List<Card> handCards);
+
+    /**
+     *
+     * @param player: Der Spieler
+     * @param handCards:
+     */
+	void removeFromHand(Player player, List<Card> handCards);
+
+    /**
+     *
+     * @param player: Der Spieler
+     * @param handCards
+     */
+	void addToHand(Player player, List<Card> handCards);
 
 }
