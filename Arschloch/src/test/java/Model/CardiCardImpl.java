@@ -1,6 +1,7 @@
 package Model;
 
 import Interfaces.iCard;
+import cardmgmt.Card;
 
 public class CardiCardImpl extends Card implements iCard {
 
