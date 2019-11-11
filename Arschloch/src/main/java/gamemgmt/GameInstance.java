@@ -22,9 +22,9 @@ import playermgmt.Player;
  */
 public class GameInstance {
 
-	public List players;
-	public List result;
-	public List boardCards;
+	public List<Player> players;
+	public List<Player> result;
+	public List<Card> boardCards;
 	public Player currentPlayer;
 
 	/**

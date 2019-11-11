@@ -10,19 +10,23 @@ import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
 import org.junit.runners.Parameterized.Parameters;
 
-public class CardiCardImplTest {
+import cardmgmt.CardServiceImpl;
 
-	CardiCardImpl card;
+public class CardServiceImplTest {
+
+	CardServiceImpl card;
 
 	/**
 	 * Test instantiation of PlayeriPlayer ( Player-Class implementing
 	 * iPlayer-Interface) tests, if @param card.number & @param card.symbol are
 	 * being set properly at instantiation
 	 */
+	@SuppressWarnings("restriction")
 	@Test
-	public void testCardiCardInstantiation() {
-		card = new CardiCardImpl(7, "Hearts");
-		Assert.assertEquals(7, card.getNumber());
-		Assert.assertEquals("Hearts", card.getSymbol());
+	public void testCardServiceInstantiation() {
+		card = new CardServiceImpl();
+		Assert.assertEquals(32, card.generateDeck(32));
+//		Assert.assertEquals(7, card.getNumber());
+//		Assert.assertEquals("Hearts", card.getSymbol());
 	}
 }
