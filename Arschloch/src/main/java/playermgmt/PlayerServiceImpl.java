@@ -60,12 +60,12 @@ public class PlayerServiceImpl implements PlayerService {
 		return null;
 	}
 
-	public void removeFromHand(Player praesident, Player arschloch) {
+	public void removeFromHand(Player player, List<Card> handCards) {
 		// TODO Auto-generated method stub
 		
 	}
 
-	public void addToHand(Player praesident, Player arschloch) {
+	public void addToHand(Player player, List<Card> handCards) {
 		// TODO Auto-generated method stub
 		
 	}
