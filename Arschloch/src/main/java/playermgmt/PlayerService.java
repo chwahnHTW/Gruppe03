@@ -44,20 +44,23 @@ public interface PlayerService {
     Boolean hasCards(Player player);
 
     /**
+     * Hier wird der Name des Spielers übergeben, den er eingetippt hat
      *
-     * @return
+     * @return: der Name des Spielers
      */
     String getPlayerNameInput();
 
     /**
+     * Hier werden die Karten gespeichert, die der Spieler in seinem Zug spielen will
      *
-     * @return
+     * @return: Liste von Karten, die gespielt werden
      */
     List<Player> getPlayerMove();
 
     /**
+     * Hier wird gezählt, wieviele Spieler am Spiel beteiligt sind
      *
-     * @return
+     * @return: Anzahl der Spieler
      */
     int getPlayerCountInput();
 
@@ -66,17 +69,19 @@ public interface PlayerService {
 	 */
 
     /**
+     * Hier werden die Karten von der Hand des Spielers entfernt, die er abgegeben hat.
      *
      * @param player: Der Spieler
-     * @param handCards:
+     * @param cards: Die Karten, die abgegeben wurden
      */
-	void removeFromHand(Player player, List<Card> handCards);
+	void removeFromHand(Player player, List<Card> cards);
 
     /**
+     * Hier werden Karten dem Spieler zugeteilt
      *
      * @param player: Der Spieler
-     * @param handCards
+     * @param cards: Die Karten, die er bekommen soll
      */
-	void addToHand(Player player, List<Card> handCards);
+	void addToHand(Player player, List<Card> cards);
 
 }
