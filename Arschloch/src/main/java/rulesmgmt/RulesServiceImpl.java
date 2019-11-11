@@ -1,5 +1,5 @@
 package rulesmgmt;
 
-public class RulesServiceImpl {
+public class RulesServiceImpl implements RulesService {
 
 }

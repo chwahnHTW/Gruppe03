@@ -1,42 +1,39 @@
-/**
- * 
- */
 package frontendmgmt;
 
 import gamemgmt.GameInstance;
 
-/** 
-*
-* @authors 		Kaya Löher 				| Kim Anh Nguyen 		| Christian Wahnsiedler 
-* Email-Adresse: 	s0564784@htw-berlin.de	| s0563958@htw-berlin.de| s0557193@htw-berlin.de
-* 
-*
-*/
+/**
+ * @authors         Kaya Löher 				| Kim Anh Nguyen 		| Christian Wahnsiedler
+ * Email-Adresse: 	s0564784@htw-berlin.de	| s0563958@htw-berlin.de| s0557193@htw-berlin.de
+ *
+ * * Hier wird das Frontend realisiert.
+ */
 public interface FrontendService {
-	
-	/**
-	 * --> IFrontend
-	 * 
-	 * Das Spiel wird gestartet.
-	 * 
-	 * @return eine GameInstance
-	 */
-	public GameInstance startGame(GameInstance game);
 
-	/**
-	 * --> IFrontend
-	 * 
-	 * Das Spiel wird beendet.
-	 */
-	public void endGame(GameInstance game);
-	
-	/**
-	 * --> IFrontend
-	 * 
-	 * GUI wird initialisiert.
-	 * 
-	 */
-	public void init(GameInstance game);
-	
-	public void getUserCountInput();
+    /**
+     * Das Spiel wird gestartet.
+     *
+     * @param game: eine Spielinstanz
+     * @return: das Ergebnis des Spiels als Spielinstanz
+     */
+    GameInstance startGame(GameInstance game);
+
+    /**
+     * Das Spiel wird beendet.
+     *
+     * @param game: Eine Spielinstanz
+     */
+    void endGame(GameInstance game);
+
+    /**
+     * GUI wird initialisiert.
+     *
+     * @param game: Eine Spielinstanz
+     */
+    void init(GameInstance game);
+
+    /**
+     *
+     */
+    void getUserCountInput();
 }
