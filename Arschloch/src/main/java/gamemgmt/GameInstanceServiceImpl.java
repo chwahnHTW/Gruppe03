@@ -5,6 +5,7 @@ import java.util.List;
 
 import cardmgmt.Card;
 import cardmgmt.CardService;
+import historymgmt.History;
 import historymgmt.HistoryService;
 import playermgmt.Player;
 import playermgmt.PlayerService;
@@ -72,22 +73,23 @@ public class GameInstanceServiceImpl implements GameInstanceService {
 		PlayerService nextPlayer = null;
 		try {
 		
-		for ( int i = 0 ; i < gameInstance.players.size();i++) {
-		if(gameInstance.currentPlayer.equals(gameInstance.players.get(i))) {
-			nextPlayer = (PlayerService) gameInstance.players.get(i+1);
+			for ( int i = 0 ; i < gameInstance.players.size();i++) {
+				if(gameInstance.currentPlayer.equals(gameInstance.players.get(i))) {
+					nextPlayer = (PlayerService) gameInstance.players.get(i+1);
+				}
+			}
 		}
-		}
-		}catch(NullPointerException E) {
+		catch(NullPointerException E) {
 			// no next Player in list -> next player is player1
 		}
 		return nextPlayer;
 	}
 
 	public void setResult(GameInstanceService game) {
-	historyService.persist(game);	
+		historyService.persist(game);	
 	}
 
-	public List getResult(GameInstanceService game) {
+	public List<History> getResult(GameInstanceService game) {
 		return historyService.getResult(game);
 	}
 
@@ -110,30 +112,27 @@ public class GameInstanceServiceImpl implements GameInstanceService {
 	public PlayerService getInitialPlayer() {
 		PlayerService initialPlayer = null;
 		
-		for (int i = 0; i < gameInstance.players.size();i++)
-		{
-		PlayerService player = (PlayerService) gameInstance.players.get(i);	
+		for (int i = 0; i < gameInstance.players.size();i++){
+			PlayerService player = (PlayerService) gameInstance.players.get(i);	
 		
-				for (int x = 0; x < player.getHand().size();x++)
-				{
-							if ( ((CardService) player.getHand().get(x)).getSymbol() == "Heart"  && ((CardService) player.getHand().get(x)).getNumber() == 7) 
-									{
-									initialPlayer = (PlayerService) gameInstance.players.get(i);
-									}
-				}
+			for (int x = 0; x < player.getHand().size();x++) {
+					if ( ((CardService) player.getHand().get(x)).getSymbol() == "Heart"  && ((CardService) player.getHand().get(x)).getNumber() == 7) {
+						initialPlayer = (PlayerService) gameInstance.players.get(i);
+					}
+			}
 	
 		}
 		
 		return initialPlayer;
 	}
 
-	public String getPlayerInputName(PlayerService player) {
+	public String getPlayerInputName(PlayerService playerService) {
 		return playerService.getPlayerNameInput();
 	}
 
 
-	public List getPlayerMove(PlayerService player) {
-		return player.getPlayerMove();
+	public List<Player> getPlayerMove(PlayerService playerService) {
+		return playerService.getPlayerMove();
 	}
 
 }
