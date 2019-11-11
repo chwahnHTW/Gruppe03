@@ -99,6 +99,10 @@ public interface PlayerService {
 
 	public int generateId();
 	
+	public void removeFromHand(PlayerService player, List selectedCards);
+	
+	public void addToHand(PlayerService player, List selectedCards);
+	
 	
 	
 }

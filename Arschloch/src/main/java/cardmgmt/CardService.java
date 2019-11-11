@@ -4,48 +4,20 @@ import java.util.List;
 
 import playermgmt.PlayerService;
 
+/**
+ * 
+ *
+ * @authors 		Kaya Löher 				| Kim Anh Nguyen 		| Christian Wahnsiedler 
+ * Email-Adresse: 	s0564784@htw-berlin.de	| s0563958@htw-berlin.de| s0557193@htw-berlin.de
+ * 
+ * Diese Klasse stellt eine Karte dar.
+ * Eine Karte besteht aus einer Zahl und einer Farbe.
+ *
+ */
 public interface CardService {
-
-    // getter und setter in domain klassen
-
-    /**
-     * Gibt die Zahl einer Karte zurück.
-     *
-     * @return: Zahl der Karte
-     */
-    public int getNumber();
-
-
-    /**
-     * Gibt die Farbe einer Karte zurück.
-     *
-     * @return: Farbe der Karte
-     */
-    public String getSymbol();
-
-    /**
-     * @param cards
-     * @return
-     */
-    public List orderCardsByValue(List cards);
-
-// methoden die palyer benutzen in palyer verschieben
-
-    /**
-     * @param player
-     * @param selectedCards
-     */
-    public void removeFromHand(PlayerService player, List selectedCards);
-
-    /**
-     * @param player
-     * @param selectedCards
-     */
-    public void addToHand(PlayerService player, List selectedCards);
-
-    /**
-     * @return
-     */
-    public List generateDeck();
+	
+	public List<Card> orderCardsByValue(List<Card> cards);
+	
+	public List<Card> generateDeck(int anzahlKarten);
 
 }
