@@ -7,19 +7,13 @@ import gamemgmt.GameInstance;
 public class FrontendServiceImpl implements FrontendService{
 
 	@Override
-	public GameInstance startRound() {
+	public GameInstance startGame() {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
 	public void endRound(GameInstance game) {
-		// TODO Auto-generated method stub
-	}
-
-	@Override
-	public GameInstance init() {
-		return null;
 		// TODO Auto-generated method stub
 	}
 
@@ -39,6 +33,11 @@ public class FrontendServiceImpl implements FrontendService{
 	public List getPlayerMoveInput() {
 		// TODO Auto-generated method stub
 		return null;
+	}
+
+	@Override
+	public void init() {
+		// TODO Auto-generated method stub
 	}
 
 

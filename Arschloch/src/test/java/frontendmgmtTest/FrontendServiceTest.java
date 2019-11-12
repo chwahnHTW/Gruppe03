@@ -22,27 +22,39 @@ public class FrontendServiceTest {
 	
 	@Test
 	public void testStartRound() {
-		GameInstance gi = service.startRound();
+		GameInstance gi = service.startGame();
 		Assert.assertTrue(gi!=null);
 	}
 	
 	@Test
 	public void testEndRound() {
-		GameInstanceService giService = new GameInstanceServiceImpl();
-		String gameState = giService.calculateGameState(giService.startGame());
-		Assert.assertTrue(gameState.equals("Finished"));
+		GameInstance gi = service.startGame();
+		GameInstanceService giServ = new GameInstanceServiceImpl();
+		Assert.assertTrue(giServ.calculateGameState(gi) == "Finished");
 	}
 	
 	@Test
-	public void testInit() {}
+	public void testInit() {
+		GameInstance gi = service.startGame();
+		Assert.assertTrue(gi!=null);
+		
+	}
+	
+	
 	
 	@Test
-	public void testGetUserCountInput() {}
+	public void testGetUserCountInput() {
+		Assert.assertTrue(true);
+	}
 	
 	@Test
-	public void testGetUsernameInput() {}
+	public void testGetUsernameInput() {
+		Assert.assertTrue(true);
+	}
 	
 	@Test
-	public void testGetPlayerMoveInput() {}
+	public void testGetPlayerMoveInput() {
+		Assert.assertTrue(true);
+	}
 
 }

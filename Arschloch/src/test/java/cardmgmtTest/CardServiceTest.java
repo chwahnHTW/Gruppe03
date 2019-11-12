@@ -17,12 +17,10 @@ public class CardServiceTest {
 	
 private CardService service;
 	
-
 @Before
 public void setUp() {
 	service = new CardServiceImpl();
 }
-
 
 @Test
 public void testOrderCardsByValue() {
@@ -31,9 +29,7 @@ public void testOrderCardsByValue() {
 	Card card2 = new Card(Zahl.SIEBEN, null);
 	cardsOnHand.add(card1);
 	cardsOnHand.add(card2);
-	
 	service.orderCardsByValue(cardsOnHand);
-	
 	Assert.assertEquals(cardsOnHand.get(0), card2);
 }
 

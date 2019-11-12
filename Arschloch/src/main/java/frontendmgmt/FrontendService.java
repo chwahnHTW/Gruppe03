@@ -12,13 +12,11 @@ import gamemgmt.GameInstance;
  */
 public interface FrontendService {
 
-    /**
-     * Das Spiel wird gestartet.
+	  /**
+     * GUI wird initialisiert.
      *
-     * @param game: eine Spielinstanz
-     * @return: das Ergebnis des Spiels als Spielinstanz
      */
-    GameInstance startRound();
+    public void init();
 
     /**
      * Das Spiel wird beendet.
@@ -28,11 +26,11 @@ public interface FrontendService {
     void endRound(GameInstance game);
 
     /**
-     * GUI wird initialisiert.
+     * GUI wird mit GameInstanz bestückt
      *
      * @param game: Eine Spielinstanz
      */
-    GameInstance init();
+    GameInstance startGame();
 
     /**
      *
@@ -44,4 +42,5 @@ public interface FrontendService {
     
     
     List getPlayerMoveInput();
+
 }
