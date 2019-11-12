@@ -16,12 +16,6 @@ import playermgmt.Player;
  *
  */
 public interface HistoryService {
-	/**
-	 * Speichert das Ergebnis des Spiels in die Spielhistorie
-	 *
-	 * @param game: eine Spielinstanz
-	 */
-	History saveResultToHistory(GameInstance game);
 
 	/**
 	 *
@@ -35,6 +29,6 @@ public interface HistoryService {
 	 * @param game: eine Spielinstanz
 	 * @return: Liste von Spielern mit ihren Ergebnissen.
 	 */
-	List<Player> getResult(GameInstance game);
+	GameInstance getLastPlayedGame();
 
 }

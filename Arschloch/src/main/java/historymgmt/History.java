@@ -14,18 +14,24 @@ import gamemgmt.GameInstance;
  *
  */
 public class History {
-
+	
+	String fileName = "example.csv";
+	
 	List<GameInstance> history;
-
+	
 	/**
 	 * Die Spielhistorie
 	 */
 	public History() {
 	}
 
-//	/**
-//	 * Speichern der Spielergebnisse in History
-//	 */
-//	public void persist() {
-//	}
+	public String getFileName() {
+		return fileName;
+	}
+
+	public List<GameInstance> getHistory() {
+		return history;
+	}
+
+
 }
