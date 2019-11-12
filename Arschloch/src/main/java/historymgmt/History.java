@@ -19,14 +19,20 @@ public class History {
 	 * Die Spielhistorie
 	 * 
 	 * @param fileName = Name der Datei, in der die Gesamtspielhistorie gespeichert wird
-	 * @param history = Chronologische Liste aller vergangenen Spieldurchläufe
 	 */
-	
 	String fileName = "example.csv";
 	
+	
+	/**
+	 * Die Spielhistorie
+	 * 
+	 *	@param history = Chronologische Liste aller vergangenen Spieldurchläufe
+	 */
+	
+
+			
 	List<GameInstance> history;
-
-
+	
 	/**
 	 * @return @param fileName
 	 */
@@ -40,6 +46,4 @@ public class History {
 	public List<GameInstance> getHistory() {
 		return history;
 	}
-
-
 }
