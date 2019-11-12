@@ -3,7 +3,7 @@ package cardmgmt;
 /**
  * @authors         Kaya Löher 				| Kim Anh Nguyen 		| Christian Wahnsiedler
  * Email-Adresse: 	s0564784@htw-berlin.de	| s0563958@htw-berlin.de| s0557193@htw-berlin.de
- *
+ * <p>
  * Diese Klasse stellt eine Karte dar.
  * Eine Karte besteht aus einer Zahl und einer Farbe.
  */
@@ -65,20 +65,18 @@ public class Card {
      * setzt die Zahl einer Karte
      *
      * @param zahl: Die Zahl
-     * @param card: Die Karte
      */
-    public void setZahl(Zahl zahl, Card card) {
-        card.zahl = zahl;
+    public void setZahl(Zahl zahl) {
+        this.zahl = zahl;
     }
 
     /**
      * setzt die Farbe einer Karte
      *
      * @param symbol: Die Farbe
-     * @param card:   Die Karte
      */
-    public void setSymbol(Symbol symbol, Card card) {
-        card.symbol = symbol;
+    public void setSymbol(Symbol symbol) {
+        this.symbol = symbol;
     }
 
 }

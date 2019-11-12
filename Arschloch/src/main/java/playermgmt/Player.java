@@ -7,7 +7,7 @@ import cardmgmt.Card;
 /**
  * @authors         Kaya Löher 				| Kim Anh Nguyen 		| Christian Wahnsiedler
  * Email-Adresse: 	s0564784@htw-berlin.de	| s0563958@htw-berlin.de| s0557193@htw-berlin.de
- *
+ * <p>
  * Stellt einen Spieler dar. Ein Spieler besteht aus einem Namen, einer Id und den Karten, die er während eines Spiels besitzt.
  */
 public class Player {
@@ -53,8 +53,7 @@ public class Player {
     /**
      * setzt die Id eines Spielers
      *
-     * @param id:     Die ID des Spielers
-     * @param player: der Spieler
+     * @param id: Die ID des Spielers
      */
     public void setUserId(int id) {
         this.userId = id;
@@ -72,8 +71,7 @@ public class Player {
     /**
      * Setzt den Namen für einen Spieler
      *
-     * @param name:   Name eines Spielers
-     * @param player: Der Spieler
+     * @param name: Name eines Spielers
      */
     public void setName(String name) {
         this.name = name;
@@ -91,11 +89,10 @@ public class Player {
     /**
      * setzt die Karten, die der Spieler bekommen soll.
      *
-     * @param cards:  Eine Hand von Karten
-     * @param player: der Spieler
+     * @param cards: Eine Hand von Karten
      */
     public void setHand(List<Card> cards) {
-       this.handCards = cards;
+        this.handCards = cards;
     }
 
     /**
@@ -110,8 +107,7 @@ public class Player {
     /**
      * setzt die Rolle eines Spielers
      *
-     * @param role:   Die Rolle
-     * @param player: Der Spieler
+     * @param role: Die Rolle
      */
     public void setRole(Role role) {
         this.role = role;

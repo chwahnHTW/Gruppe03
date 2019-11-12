@@ -1,16 +1,15 @@
 package errormgmt;
 
-import gamemgmt.GameInstanceService;
+import gamemgmt.GameInstance;
 
-public class ErrorServiceImpl implements ErrorService{
+/**
+ * @authors         Kaya Löher 				| Kim Anh Nguyen 		| Christian Wahnsiedler
+ * Email-Adresse: 	s0564784@htw-berlin.de	| s0563958@htw-berlin.de| s0557193@htw-berlin.de
+ */
+public class ErrorServiceImpl implements ErrorService {
 
-	/**
-	 * Methode, um Fehler durch den Nutzer abzufangen und zu bearbeiten. Fehler auf nur 3 versch. Eingaben -> switch case
-	 * @param GameInstanceService, um weiteren Spielverlauf zu ermöglichen
-	 */
-	
-	@Override
-	public void handleError(GameInstanceService gameService) {
-	}
+    @Override
+    public void handleError(GameInstance gameService) {
+    }
 
 }
