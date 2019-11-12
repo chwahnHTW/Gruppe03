@@ -25,7 +25,6 @@ public class GameInstance {
 	public List<Player> result;
 	public List<Card> boardCards;
 	public Player currentPlayer;
-
 	/**
 	 * Enthält die Informationen, die während eines Spiels vorrangig wichtig sind.
 	 * 

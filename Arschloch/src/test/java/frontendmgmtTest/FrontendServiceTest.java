@@ -36,12 +36,11 @@ public class FrontendServiceTest {
 	@Test
 	public void testInit() {
 		GameInstance gi = service.startGame();
-		Assert.assertTrue(gi!=null);
-		
+		Assert.assertTrue(gi!=null);	
 	}
 	
 	
-	
+	// User Input Tests, sobald konkrete Vorgaben für Frontend
 	@Test
 	public void testGetUserCountInput() {
 		Assert.assertTrue(true);
