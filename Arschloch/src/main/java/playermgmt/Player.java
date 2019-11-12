@@ -15,13 +15,13 @@ public class Player {
     /**
      * Ein Enum, welches die Rolle darstellt, welche ein Spieler haben kann.
      */
-    public enum Rolle {
+    public enum Role {
 
         PRAESIDENT1, PRAESIDENT2, MITTELKIND, ARSCHLOCH1, ARSCHLOCH2;
 
     }
 
-    Rolle role;
+    Role role;
     int userId;
     String name;
     List<Card> handCards;
@@ -34,7 +34,7 @@ public class Player {
      * @param handCards: Die Karten, die der Spieler besitzt
      * @param role:      Die Rolle eines Spielers
      */
-    Player(String name, int userid, List<Card> handCards, Rolle role) {
+    public Player(String name, int userid, List<Card> handCards, Role role) {
         this.name = name;
         this.userId = userid;
         this.handCards = handCards;
@@ -56,8 +56,8 @@ public class Player {
      * @param id:     Die ID des Spielers
      * @param player: der Spieler
      */
-    public void setUserId(int id, Player player) {
-        player.userId = id;
+    public void setUserId(int id) {
+        this.userId = id;
     }
 
     /**
@@ -75,8 +75,8 @@ public class Player {
      * @param name:   Name eines Spielers
      * @param player: Der Spieler
      */
-    public void setName(String name, Player player) {
-        player.name = name;
+    public void setName(String name) {
+        this.name = name;
     }
 
     /**
@@ -94,8 +94,8 @@ public class Player {
      * @param cards:  Eine Hand von Karten
      * @param player: der Spieler
      */
-    public void setHand(List<Card> cards, Player player) {
-        player.handCards = cards;
+    public void setHand(List<Card> cards) {
+       this.handCards = cards;
     }
 
     /**
@@ -103,7 +103,7 @@ public class Player {
      *
      * @return: Die Rolle des Spielers
      */
-    public Rolle getRolle() {
+    public Role getRole() {
         return role;
     }
 
@@ -113,7 +113,7 @@ public class Player {
      * @param role:   Die Rolle
      * @param player: Der Spieler
      */
-    public void setRolle(Rolle role, Player player) {
-        player.role = role;
+    public void setRole(Role role) {
+        this.role = role;
     }
 }

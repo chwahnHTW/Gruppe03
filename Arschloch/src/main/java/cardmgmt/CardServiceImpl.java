@@ -8,14 +8,24 @@ import java.util.List;
  */
 public class CardServiceImpl implements CardService {
 
-    public List<Card> orderCardsByValue(List<Card> cards) {
-        // TODO Auto-generated method stub
-        return null;
-    }
+	@Override
+	public List<Card> orderCardsByValue(List<Card> cards) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 
-    public List<Card> generateDeck(int anzahlKarten) {
-        // TODO Auto-generated method stub
-        return null;
-    }
+	@Override
+	public List<Card> generateDeck(int anzahlKarten) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<Card> compareCards(Card card1, Card card2) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+
 
 }

@@ -14,26 +14,11 @@ import cardmgmt.Card;
 public interface PlayerService {
 
     /**
-     * Ein Spieler wird erstellt.
-     *
-     * @return ein Spieler
-     */
-    Player createPlayer();
-
-    /**
      * Die Id eines Spielers wird generiert.
      *
      * @return: Die Id für einen Spieler
      */
     int generateId();
-
-    /**
-     * In einer Runde kann jeder Spieler Karten spielen. Hier wählt der Spieler aus,
-     * welche Karte(n) von seiner Hand er spielen möchte.
-     *
-     * @return Liste mit Karten, die der Spieler ausgewaehlt hat
-     */
-    List<Card> selectCards(List<Card> boardCards);
 
     /**
      * Untersucht, ob ein Spieler noch Karten hat
@@ -42,31 +27,6 @@ public interface PlayerService {
      * @return: True = Spieler hat Karten, False = Spieler hat keine Karten mehr
      */
     Boolean hasCards(Player player);
-
-    /**
-     * Hier wird der Name des Spielers übergeben, den er eingetippt hat
-     *
-     * @return: der Name des Spielers
-     */
-    String getPlayerNameInput();
-
-    /**
-     * Hier werden die Karten gespeichert, die der Spieler in seinem Zug spielen will
-     *
-     * @return: Liste von Karten, die gespielt werden
-     */
-    List<Player> getPlayerMove();
-
-    /**
-     * Hier wird gezählt, wieviele Spieler am Spiel beteiligt sind
-     *
-     * @return: Anzahl der Spieler
-     */
-    int getPlayerCountInput();
-
-	/**
-	 * Hier werden doch die von den Handkarten die bestimmten Karten auf das feld gelegt werden, richtig?
-	 */
 
     /**
      * Hier werden die Karten von der Hand des Spielers entfernt, die er abgegeben hat.

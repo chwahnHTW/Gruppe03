@@ -1,6 +1,7 @@
 package cardmgmt;
 
 import java.util.List;
+import cardmgmt.Card;
 
 /**
  * @authors         Kaya Löher 				| Kim Anh Nguyen 		| Christian Wahnsiedler
@@ -34,5 +35,8 @@ public interface CardService {
      * @return: Eine Liste von Karten, entsprechend ihrer Anzahl, für eine Spielrunde.
      */
     List<Card> generateDeck(int anzahlKarten);
+    
+    
+    public List<Card> compareCards(Card card1, Card card2);
 
 }

@@ -25,6 +25,8 @@ import playermgmt.PlayerService;
  */
 public interface GameInstanceService {
 
+	
+	
 	/**
 	 * --> IGameInstance
 	 * 
@@ -37,11 +39,11 @@ public interface GameInstanceService {
 	/**
 	 * --> IGameInstance
 	 * 
-	 * Gemäß des in determinePlayercount ermittleten Wertes werden Spieler erstellt
+	 * Gemäß des in determinePlayercount ermittleten Wertes werden Spieler vom SpielerService der Implementierung erstellt
 	 * 
-	 * @return Anzahl der Spieler
+	 * @return Liste mit Player-Objekten
 	 */
-	public void setPlayercount(int playerCount);
+	public List<Player> createPlayers(int playerCount);
 
 	/**
 	 * --> IGameInstance
@@ -51,7 +53,7 @@ public interface GameInstanceService {
 	 * 
 	 * @return Liste mit Karten, die der Spieler ausgewaehlt hat
 	 */
-	public List<Card> selectCards(PlayerService player);
+	public List<Card> selectCards(Player player);
 
 	/**
 	 * --> IGameInstance
@@ -62,7 +64,7 @@ public interface GameInstanceService {
 	 *              der Spieler seine Karte(n) aus. Die Karten wurden in der Methode
 	 *              selectCards ausgewaehlt
 	 */
-	public void playCards(PlayerService player, List<Card> selectedCards);
+	public void playCards(Player player, List<Card> selectedCards);
 
 	/**
 	 * --> IGameInstance
@@ -73,42 +75,13 @@ public interface GameInstanceService {
 	public void swapCards(List<Player> players);
 
 	/**
-	 * --> IGameInstance
-	 * 
-	 * Der Spieler, der in einer Runde an der Reihe ist wird hier ermittelt.
-	 * 
-	 * @return der akutelle Spieler einer Runde
-	 */
-	public Player getCurrentPlayer(GameInstance game);
-
-	/**
 	 * IGameInstance
 	 * 
 	 * Der Spieler, der als nächstes an der Reihe ist.
 	 * 
 	 * @return Der nächste Spieler
 	 */
-	public PlayerService getNextPlayer() throws NullPointerException;
-
-	/**
-	 * --> IGameInstance
-	 * 
-	 * Hier wird das Ergebnis der Runde gesetzt. Der Spieler, der als letzter Karten
-	 * abgegeben hat, ist dann an der Reihe.
-	 */
-	public List<History> getResult(GameInstanceService game);
-
-	/**
-	 * --> IGameInstance
-	 * 
-	 * Das Ergebnis der letzten Runde wird hier gespeichert, um die Reihenfolge der
-	 * Spieler für weitere Züge festzulegen.
-	 * 
-	 * @return Das Ergebnis der letzte Runde
-	 */
-	public void setResult(GameInstanceService game);
-
-
+	public Player getNextPlayer() throws NullPointerException;
 	/**
 	 * --> IGameInstance
 	 * 
@@ -117,7 +90,7 @@ public interface GameInstanceService {
 	 * 
 	 * @return Der Status des Spiels. "Running" oder "Finished"
 	 */
-	public String getGameState(GameInstanceService game);
+	public String calculateGameState(GameInstance gameInstance);
 
 	/**
 	 * --> IGameInstance
@@ -127,10 +100,8 @@ public interface GameInstanceService {
 	 * 
 	 * @return der Spieler, der das Spiel beginnen darf
 	 */
-	public PlayerService getInitialPlayer();
-	
-	
-	
+	 Player calculateInitialPlayer(GameInstance gameInstance);
+
 	/**
 	 * --> GameInstanceService
 	 * 
@@ -138,7 +109,7 @@ public interface GameInstanceService {
 	 * 
 	 * @return Eingabe
 	 */
-	public List<Player> getPlayerMove(PlayerService player);
+	public List<Card> getPlayerMove(Player player);
 	
 
 }

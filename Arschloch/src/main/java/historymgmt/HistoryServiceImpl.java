@@ -10,17 +10,14 @@ import java.util.List;
  * Email-Adresse: 	s0564784@htw-berlin.de	| s0563958@htw-berlin.de| s0557193@htw-berlin.de
  */
 public class HistoryServiceImpl implements HistoryService {
-
-    public History saveResultToHistory(GameInstance game){
-        return null;
-    }
-
+	
+	@Override
     public void persist(GameInstance game){
-
     }
-
-    public List<Player> getResult(GameInstance game){
-        return null;
-    }
+    
+	@Override
+	public GameInstance getLastPlayedGame() {
+		return null;
+	}
 
 }
