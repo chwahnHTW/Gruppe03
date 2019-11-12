@@ -24,9 +24,15 @@ public class CardServiceImplTest {
 	@SuppressWarnings("restriction")
 	@Test
 	public void testCardServiceInstantiation() {
+		
 		card = new CardServiceImpl();
 		Assert.assertEquals(32, card.generateDeck(32));
+		
 //		Assert.assertEquals(7, card.getNumber());
 //		Assert.assertEquals("Hearts", card.getSymbol());
+	}
+	
+	public void testCardServiceBehaviour() {
+		card = new CardServiceImpl();
 	}
 }
