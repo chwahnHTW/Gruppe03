@@ -15,6 +15,12 @@ import playermgmt.Player;
  */
 public class GameInstance {
 
+    /**
+     * @param players: Liste der an einem Spiel beteiligten Spieler
+     * @param result:  Siegerreihenfolge
+     * @param cards:   Karte(n), die sich momentan auf dem Spielfeld befindet/n. Diese gilt es zu überspielen
+     * @param current: Spieler, der gerade an der Reihe ist, einen Zug zu machen
+     */
     public List<Player> players;
     public List<Player> result;
     public List<Card> boardCards;
@@ -24,16 +30,9 @@ public class GameInstance {
      * Generiert eine Spielinstanz
      * Enthält die Informationen, die während eines Spiels vorrangig wichtig sind
      *
-     * @param players: Liste der an einem Spiel beteiligten Spieler
-     * @param result:  Siegerreihenfolge
-     * @param cards:   Karte(n), die sich momentan auf dem Spielfeld befindet/n. Diese gilt es zu überspielen
-     * @param current: Spieler, der gerade an der Reihe ist, einen Zug zu machen
      */
-    public GameInstance(List<Player> players, List<Player> result, List<Card> cards, Player current) {
-        this.players = players;
-        this.result = result;
-        this.boardCards = cards;
-        this.currentPlayer = current;
+    public GameInstance() {
+
     }
 
     /**
