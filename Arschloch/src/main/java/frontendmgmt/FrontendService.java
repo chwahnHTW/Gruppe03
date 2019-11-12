@@ -13,34 +13,42 @@ import gamemgmt.GameInstance;
 public interface FrontendService {
 
 	  /**
-     * GUI wird initialisiert.
+     * GUI wird initialisiert. Keine GameInstanz
      *
      */
     public void init();
 
     /**
      * Das Spiel wird beendet.
-     *
      * @param game: Eine Spielinstanz
      */
-    void endRound(GameInstance game);
-
+    
+    public void endRound(GameInstance game);
+    
     /**
+     * Eine GameInstanz wird erstellt und zurückgegeben.
      * GUI wird mit GameInstanz bestückt
      *
-     * @param game: Eine Spielinstanz
      */
-    GameInstance startGame();
+    public GameInstance startGame();
 
     /**
-     *
+     * ein Digalog zum Erfassen von Userinput ( Anzahl der für das kommende Spiel zu erstellenden Spieler )
+     * @return Anzahl der zu erstellenden Spieler
      */
-    int getUserCountInput();
+    public int getUserCountInput();
     
+    /**
+     * ein Digalog zum Erfassen von Userinput ( Name der für das kommende Spiel zu erstellenden Spieler )
+     * @return Name der Spieler
+     */
+    public String getUserNameInput();
     
-    String getUserNameInput();
+    /**
+     * ein Digalog zum Erfassen von Userinput ( gespielte Karten pro Zug ) 
+     * @return List<Card> Liste der vom Spieler gespielten Katen. null = Spielzug pass
+     */
     
-    
-    List getPlayerMoveInput();
+    public List getPlayerMoveInput();
 
 }

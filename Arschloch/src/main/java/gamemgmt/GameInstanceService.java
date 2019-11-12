@@ -34,7 +34,6 @@ public interface GameInstanceService {
 	
 	
 	/**
-	 * --> IGameInstance
 	 * 
 	 * Die Anzahl der Spieler wird vom User eingegeben und erfasst.
 	 * 
@@ -43,7 +42,6 @@ public interface GameInstanceService {
 	public int determinePlayercount();
 	
 	/**
-	 * --> IGameInstance
 	 * 
 	 * Gemäß des in determinePlayercount ermittleten Wertes werden Spieler vom SpielerService der Implementierung erstellt
 	 * 
@@ -52,7 +50,6 @@ public interface GameInstanceService {
 	public List<Player> createPlayers(int playerCount);
 
 	/**
-	 * --> IGameInstance
 	 * 
 	 * In einer Runde kann jeder Spieler Karten spielen. Hier wählt der Spieler aus,
 	 * welche Karte(n) von seiner Hand er spielen möchte.
@@ -62,7 +59,6 @@ public interface GameInstanceService {
 	public List<Card> selectCards(Player player);
 
 	/**
-	 * --> IGameInstance
 	 * 
 	 * @Parameters: selectedCards
 	 * 
@@ -73,13 +69,17 @@ public interface GameInstanceService {
 	public void playCards(Player player, List<Card> selectedCards);
 
 	/**
-	 * --> IGameInstance
-	 * 
 	 * Am Anfang des Spiels werden zwischen Gewinner und Verlierer des letzten
 	 * Spiels Karten getauscht. Dies wird hier relaisiert.
 	 */
 	public void swapCards(List<Player> players);
 
+	
+	/**
+	 *
+	 */
+	public void dealCardsToPlayers(List<Card> gameCards);
+	
 	/**
 	 * IGameInstance
 	 * 

@@ -61,4 +61,11 @@ public class GameInstanceServiceImpl implements GameInstanceService{
 		// TODO Auto-generated method stub
 		return null;
 	}
+
+
+	@Override
+	public void dealCardsToPlayers(List<Card> gameCards) {
+		// TODO Auto-generated method stub
+		
+	}
 }

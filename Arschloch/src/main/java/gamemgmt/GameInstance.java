@@ -21,10 +21,17 @@ import playermgmt.Player;
  */
 public class GameInstance {
 
+	/**
+	 * @param players - Liste der an einem Spiel beteiligten Spieler
+	 * @param result - Siegerreihenfolge
+	 * @param boardCards - Karte(n), die sich momentan auf dem Spielfeld befindet/n. Diese gilt es zu überspielen
+	 * @param currentPlayer - Spieler, der gerade an der Reihe ist, einen Zug zu machen
+	 */
 	public List<Player> players;
 	public List<Player> result;
 	public List<Card> boardCards;
 	public Player currentPlayer;
+	
 	/**
 	 * Enthält die Informationen, die während eines Spiels vorrangig wichtig sind.
 	 * 
@@ -32,13 +39,6 @@ public class GameInstance {
 	public GameInstance() {
 	}
 	
-	/**
-	 * --> IGameInstance
-	 * 
-	 * Gemäß des in determinePlayercount ermittleten Wertes werden Spieler erstellt
-	 * 
-	 * @return Anzahl der Spieler
-	 */
 	public List<Player> getPlayers() {
 		return players;
 	}
@@ -83,6 +83,7 @@ public class GameInstance {
 	 * 
 	 * @return der akutelle Spieler einer Runde
 	 */
+
 	public Player getCurrentPlayer() {
 		return currentPlayer;
 	}

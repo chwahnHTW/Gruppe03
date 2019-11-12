@@ -15,20 +15,28 @@ import gamemgmt.GameInstance;
  */
 public class History {
 	
+	/**
+	 * Die Spielhistorie
+	 * 
+	 * @param fileName = Name der Datei, in der die Gesamtspielhistorie gespeichert wird
+	 * @param history = Chronologische Liste aller vergangenen Spieldurchläufe
+	 */
+	
 	String fileName = "example.csv";
 	
 	List<GameInstance> history;
-	
-	/**
-	 * Die Spielhistorie
-	 */
-	public History() {
-	}
 
+
+	/**
+	 * @return @param fileName
+	 */
 	public String getFileName() {
 		return fileName;
 	}
-
+	
+	/**
+	 * @return @param fileName
+	 */
 	public List<GameInstance> getHistory() {
 		return history;
 	}
