@@ -36,7 +36,16 @@ public interface CardService {
      */
     List<Card> generateDeck(int anzahlKarten);
     
+    /**
+     * Das Kartendeck wird hier gemischt
+     * Ein normales Kartendeck besteht aus den Zahlen 7 bis Ass und den vier Farben (Herz, Karo, Pik und Kreuz).
+     *
+     * Das Kartendeck wird gemischt, bevor es an die Spieler ausgeteilt wird.
+     *
+     * @param anzahlKarten: In einem normalen Spiel 32 Karten.
+     * @return: Eine Liste von Karten, entsprechend ihrer Anzahl, für eine Spielrund, gemischt
+     */
+    List<Card> shuffleDeck(List<Card> cardList);
     
-    public List<Card> compareCards(Card card1, Card card2);
 
 }

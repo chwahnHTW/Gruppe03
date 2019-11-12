@@ -24,13 +24,8 @@ public class History {
 	
 	
 	/**
-	 * Die Spielhistorie
-	 * 
 	 *	@param history = Chronologische Liste aller vergangenen Spieldurchläufe
-	 */
-	
-
-			
+	 */	
 	List<GameInstance> history;
 	
 	/**

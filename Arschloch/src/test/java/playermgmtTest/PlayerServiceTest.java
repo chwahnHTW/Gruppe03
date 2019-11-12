@@ -7,11 +7,13 @@ import org.junit.Before;
 import org.junit.Test;
 
 import cardmgmt.Card;
-import gamemgmt.GameInstanceService;
-import gamemgmt.GameInstanceServiceImpl;
 import playermgmt.Player;
 import playermgmt.PlayerService;
 import playermgmt.PlayerServiceImpl;
+
+
+
+
 
 public class PlayerServiceTest {
 
@@ -37,7 +39,7 @@ public void  testHasCards(Player player){
 }
 
 @Test 
-public void TestRemoveFromHand(Player player, List<Card> cardsToBeRemoved) {
+public void testRemoveFromHand(Player player, List<Card> cardsToBeRemoved) {
 	List cardsOnHand= new LinkedList<Card>();
 	Card card1 = new Card(null, null);
 	player.setHand(cardsOnHand);

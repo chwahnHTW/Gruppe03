@@ -21,11 +21,10 @@ public class CardServiceImpl implements CardService {
 	}
 
 	@Override
-	public List<Card> compareCards(Card card1, Card card2) {
+	public List<Card> shuffleDeck(List<Card> cardList) {
 		// TODO Auto-generated method stub
 		return null;
 	}
-
 
 
 }

@@ -16,11 +16,12 @@ import cardmgmt.CardServiceImpl;
 public class CardServiceTest {
 	
 private CardService service;
-	
+
 @Before
 public void setUp() {
 	service = new CardServiceImpl();
 }
+
 
 @Test
 public void testOrderCardsByValue() {

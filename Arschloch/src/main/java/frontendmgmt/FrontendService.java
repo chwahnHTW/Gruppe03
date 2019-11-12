@@ -33,22 +33,21 @@ public interface FrontendService {
     public GameInstance startGame();
 
     /**
-     * ein Digalog zum Erfassen von Userinput ( Anzahl der für das kommende Spiel zu erstellenden Spieler )
+     * ein Dialog zum Erfassen von Userinput ( Anzahl der für das kommende Spiel zu erstellenden Spieler )
      * @return Anzahl der zu erstellenden Spieler
      */
     public int getUserCountInput();
     
     /**
-     * ein Digalog zum Erfassen von Userinput ( Name der für das kommende Spiel zu erstellenden Spieler )
+     * ein Dialog zum Erfassen von Userinput ( Name der für das kommende Spiel zu erstellenden Spieler )
      * @return Name der Spieler
      */
     public String getUserNameInput();
     
     /**
-     * ein Digalog zum Erfassen von Userinput ( gespielte Karten pro Zug ) 
-     * @return List<Card> Liste der vom Spieler gespielten Katen. null = Spielzug pass
+     * ein Dialog zum Erfassen von Userinput ( gespielte Karten pro Zug ) 
+     * @return List<Card> Liste der vom Spieler gespielten Katen. null = Spielzug Pass
      */
-    
     public List getPlayerMoveInput();
 
 }

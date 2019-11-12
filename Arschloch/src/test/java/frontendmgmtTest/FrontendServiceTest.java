@@ -39,7 +39,6 @@ public class FrontendServiceTest {
 		Assert.assertTrue(gi!=null);	
 	}
 	
-	
 	// User Input Tests, sobald konkrete Vorgaben für Frontend
 	@Test
 	public void testGetUserCountInput() {

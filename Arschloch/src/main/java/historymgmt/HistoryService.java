@@ -18,17 +18,18 @@ import playermgmt.Player;
 public interface HistoryService {
 
 	/**
-	 *
-	 * @param game
+	 * Speichert eine Spielinstanz in die Historie
+	 * @param game - Abzuspeichernde Spielinstanz
 	 */
-	void persist(GameInstance game);
+	public void persist(GameInstance gameInstance);
 
 	/**
-	 * Hier wird in einer Liste gespeichert, in welcher Reihenfolge die Spieler gewonnen haben.
+	 * Hier wird das letzte beendete Spiel aus der Hsitorie abgerufen, um dessen Result zu untersuchen 
+	 * und zu prüfen, ob Karten getauscht werden müssen, oder nicht, sowie welcher Spieler anfängt
 	 *
 	 * @param game: eine Spielinstanz
-	 * @return: Liste von Spielern mit ihren Ergebnissen.
+	 * @return: letzte gespeicehrte GameInstanz mit Result-Wert
 	 */
-	GameInstance getLastPlayedGame();
+	public GameInstance getLastPlayedGame();
 
 }

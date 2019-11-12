@@ -33,37 +33,28 @@ public class GameInstance {
 	public Player currentPlayer;
 	
 	/**
-	 * Enthält die Informationen, die während eines Spiels vorrangig wichtig sind.
+	 * Enthält die Informationen, die während eines Spiels vorrangig wichtig sind
 	 * 
 	 */
 	public GameInstance() {
 	}
 	
+	
+	/**
+	 * Getter und Setter der jeweiligen Felder/Attribute
+	 * 
+	 */
 	public List<Player> getPlayers() {
 		return players;
 	}
-
 	private void setPlayers(List<Player> players) {
 		this.players = players;
 	}
-	
-	/**
-	 * --> IGameInstance
-	 * 
-	 * Hier wird das Ergebnis der Runde gesetzt. Der Spieler, der als letzter Karten
-	 * abgegeben hat, ist dann an der Reihe.
-	 */
+
 	public List<Player> getResult() {
 		return result;
 	}
-	/**
-	 * --> IGameInstance
-	 * 
-	 * Das Ergebnis der letzten Runde wird hier gespeichert, um die Reihenfolge der
-	 * Spieler für weitere Züge festzulegen.
-	 * 
-	 * @return Das Ergebnis der letzte Runde
-	 */
+
 	private void setResult(List<Player> result) {
 		this.result = result;
 	}
@@ -76,13 +67,6 @@ public class GameInstance {
 		this.boardCards = boardCards;
 	}
 	
-	/**
-	 * --> IGameInstance
-	 * 
-	 * Der Spieler, der in einer Runde an der Reihe ist wird hier festgehalten.
-	 * 
-	 * @return der akutelle Spieler einer Runde
-	 */
 
 	public Player getCurrentPlayer() {
 		return currentPlayer;
