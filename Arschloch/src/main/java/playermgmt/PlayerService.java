@@ -56,7 +56,6 @@ public interface PlayerService {
 	/**
 	 * Hier werden doch die von den Handkarten die bestimmten Karten auf das feld gelegt werden, richtig?
 	 */
-	
 	public void removeFromHand(PlayerService player, List<Card> handCards);
 	
 	public void addToHand(PlayerService player, List<Card> handCards);
