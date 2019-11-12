@@ -8,6 +8,14 @@ import playermgmt.Player;
 import playermgmt.PlayerService;
 
 public class GameInstanceServiceImpl implements GameInstanceService{
+	
+
+	@Override
+	public GameInstance startGame() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 
 	public int determinePlayercount() {
 		// TODO Auto-generated method stub
@@ -53,5 +61,4 @@ public class GameInstanceServiceImpl implements GameInstanceService{
 		// TODO Auto-generated method stub
 		return null;
 	}
-
 }

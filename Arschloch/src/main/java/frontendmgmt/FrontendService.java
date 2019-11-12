@@ -1,5 +1,7 @@
 package frontendmgmt;
 
+import java.util.List;
+
 import gamemgmt.GameInstance;
 
 /**
@@ -16,24 +18,30 @@ public interface FrontendService {
      * @param game: eine Spielinstanz
      * @return: das Ergebnis des Spiels als Spielinstanz
      */
-    GameInstance startGame(GameInstance game);
+    GameInstance startRound();
 
     /**
      * Das Spiel wird beendet.
      *
      * @param game: Eine Spielinstanz
      */
-    void endGame(GameInstance game);
+    void endRound(GameInstance game);
 
     /**
      * GUI wird initialisiert.
      *
      * @param game: Eine Spielinstanz
      */
-    void init(GameInstance game);
+    GameInstance init();
 
     /**
      *
      */
-    void getUserCountInput();
+    int getUserCountInput();
+    
+    
+    String getUserNameInput();
+    
+    
+    List getPlayerMoveInput();
 }

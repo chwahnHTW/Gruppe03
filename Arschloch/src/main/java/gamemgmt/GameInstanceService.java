@@ -24,7 +24,13 @@ import playermgmt.PlayerService;
  *
  */
 public interface GameInstanceService {
-
+	
+	/**
+	 * Eine neue Spielinstanz wird erzeugt und zurückgegeben
+	 * 
+	 * @return GameInstanz
+	 */
+	public GameInstance startGame();
 	
 	
 	/**
@@ -110,6 +116,9 @@ public interface GameInstanceService {
 	 * @return Eingabe
 	 */
 	public List<Card> getPlayerMove(Player player);
+
+
+
 	
 
 }
