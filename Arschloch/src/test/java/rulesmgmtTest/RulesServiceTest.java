@@ -3,7 +3,7 @@ package rulesmgmtTest;
 import org.junit.Before;
 import org.junit.Test;
 
-import rulesmgmt.RulesService;
+import rulesmgmt.CardRulesService;
 import rulesmgmt.RulesServiceImpl;
 
 /**
@@ -13,7 +13,7 @@ import rulesmgmt.RulesServiceImpl;
  * In dieser Klasse werden alle Methoden aus dem Rules-Management getestet.
  */
 public class RulesServiceTest {
-    RulesService service;
+    CardRulesService service;
 
     @Before
     public void setUp() {

@@ -1,37 +1,43 @@
 package rulesmgmt;
 
+import java.util.List;
+
+import cardmgmt.Card;
+import gamemgmt.GameInstance;
+import playermgmt.Player;
+
 /**
  * @authors         Kaya Löher 				| Kim Anh Nguyen 		| Christian Wahnsiedler
  * Email-Adresse: 	s0564784@htw-berlin.de	| s0563958@htw-berlin.de| s0557193@htw-berlin.de
+ * 
+ * Class : Rules - Regeln, nach denen Karten verglichen und der jeweils erste Spieler einer neuen Runde ermittelt werden können. 
+ * Konfiguration über Inection versch. Implementierungen der jeweiligen Regel-Services
  */
+
 public class Rules {
 
-    String ruleName;
-
-    /**
-     * Hier werden die Regeln ( Wertigketien der Karten ) festgelegt.
-     *
-     * @param name: name der Regel, bezogen auf das Spielblatt udn dessen Wertigkeiten ( values = "standard","french")
-     */
-    public Rules(String name) {
-        this.ruleName = name;
+    
+	/** @param palyerRS - PlayerRulesService, der die Rollen der Spieler eines Spiels vergleicht, um denjenigen Spieler zu bestimmen, der in einer 
+	 * Runde als erster eine Karte spielen darf.
+	 * Standard-Implementierung : Arschloch oder Spieler mit Karo 7 als erster
+	 * PresidentFirst-Implementierung : President oder Spieler mit Karo 7 als erster
+	 */
+    //@Inject
+    PlayerRulesService playerRS;
+    
+	/** @param palyerRS - PlayerRulesService, der die Rollen der Spieler eines Spiels vergleicht, um denjenigen Spieler zu bestimmen, der in einer 
+	 * Runde als erster eine Karte spielen darf.
+	 * Standard-Implementierung : Arschloch oder Spieler mit Karo 7 als erster
+	 * PresidentFirst-Implementierung : President oder Spieler mit Karo 7 als erster
+	 */
+    //@Inject
+    CardRulesService cardRS;
+    
+    
+    private Player determineInitialPlayer(GameInstance gameInstance) {	
+		return playerRS.determineInitialPlayer(gameInstance);
     }
 
-    /**
-     * Gibt den Namen der Regel zurück
-     *
-     * @return : Name der Regel
-     */
-    public String getRuleName() {
-        return ruleName;
-    }
-
-    /**
-     * Setzt den Namen der Regel
-     *
-     * @param name : Name der Regel
-     */
-    public void setRuleName(String name) {
-        this.ruleName = name;
-    }
-}
+    private List<Card> comapareCards(Card card1, Card card2) {	
+		return cardRS.compareCards(card1, card2);
+}}
