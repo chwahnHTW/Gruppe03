@@ -2,6 +2,9 @@ package cardmgmt;
 
 import java.util.List;
 
+import gamemgmt.GameInstance;
+import playermgmt.Player;
+
 /**
  * @authors         Kaya Löher 				| Kim Anh Nguyen 		| Christian Wahnsiedler
  * Email-Adresse: 	s0564784@htw-berlin.de	| s0563958@htw-berlin.de| s0557193@htw-berlin.de
@@ -46,5 +49,20 @@ public interface CardService {
      */
     List<Card> shuffleDeck(List<Card> cardList);
 
+    
+    /**
+     * Am Anfang des Spiels werden zwischen Gewinner und Verlierer des letzten Spiels Karten getauscht.
+     * Dies wird hier relaisiert, sofern es ein letztes Spiel gibt und die Teilnehmer dieselben sind
+     *
+     * @param players : eine Liste der Spieler
+     */
+    void swapCards(GameInstance gameInstance);
+    
+    /**
+     * Austeilen der Spielkarten an die Spieler
+     *
+     * @param gameCards - generierter Kartensatz
+     */
+    void dealCardsToPlayers(GameInstance gameInstance);
 
 }

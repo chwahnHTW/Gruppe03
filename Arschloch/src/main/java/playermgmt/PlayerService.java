@@ -14,13 +14,6 @@ import cardmgmt.Card;
 public interface PlayerService {
 
     /**
-     * Die Id eines Spielers wird generiert.
-     *
-     * @return: Die Id für einen Spieler
-     */
-    int generateId();
-
-    /**
      * Untersucht, ob ein Spieler noch Karten hat
      *
      * @param player: Der Spieler
@@ -43,5 +36,31 @@ public interface PlayerService {
      * @param cards:  Die Karten, die er bekommen soll
      */
     void addToHand(Player player, List<Card> cards);
+    
+
+    /**
+     * Gemäß des in determinePlayercount ermittleten Wertes werden Spieler vom SpielerService der Implementierung erstellt
+     *
+     * @param playerCount: Anzahl der Spieler
+     * @return Liste mit Player-Objekten
+     */
+    List<Player> createPlayers(int playerCount);
+    
+    /**
+     * In einer Runde kann jeder Spieler Karten spielen.
+     * Hier spielt der Spieler seine Karte(n) aus.
+     * Die Karten wurden in der Methode selectCards ausgewaehlt
+     *
+     * @param player        : ein SPieler
+     * @param selectedCards : die Karten, die der Spieler spielen möchte
+     */
+    void playCards(Player player, List<Card> selectedCards);
+    
+    /**
+     * Der Spieler, der als nächstes an der Reihe ist wird hier festgelegt.
+     *
+     * @return Player - Der nächste Spieler
+     */
+    Player getNextPlayer() throws NullPointerException;
 
 }

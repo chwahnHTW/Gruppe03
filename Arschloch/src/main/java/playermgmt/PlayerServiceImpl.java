@@ -8,12 +8,6 @@ public class PlayerServiceImpl implements PlayerService{
 
 
 	@Override
-	public int generateId() {
-		// TODO Auto-generated method stub
-		return 0;
-	}
-
-	@Override
 	public Boolean hasCards(Player player) {
 		// TODO Auto-generated method stub
 		return null;
@@ -28,6 +22,24 @@ public class PlayerServiceImpl implements PlayerService{
 	public void addToHand(Player player, List<Card> cards) {
 		// TODO Auto-generated method stub
 		
+	}
+
+	@Override
+	public List<Player> createPlayers(int playerCount) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void playCards(Player player, List<Card> selectedCards) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public Player getNextPlayer() throws NullPointerException {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }

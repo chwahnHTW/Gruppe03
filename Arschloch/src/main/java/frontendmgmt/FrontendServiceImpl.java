@@ -12,37 +12,10 @@ import gamemgmt.GameInstance;
 public class FrontendServiceImpl implements FrontendService {
 
     @Override
-    public GameInstance startGame() {
-        // TODO Auto-generated method stub
-        return null;
-    }
-
-    @Override
-    public void endRound(GameInstance game) {
-        // TODO Auto-generated method stub
-    }
-
-    @Override
-    public int getUserCountInput() {
-        // TODO Auto-generated method stub
-        return 0;
-    }
-
-    @Override
-    public String getUserNameInput() {
-        // TODO Auto-generated method stub
-        return null;
-    }
-
-    @Override
-    public List<Card> getPlayerMoveInput() {
-        // TODO Auto-generated method stub
-        return null;
-    }
-
-    @Override
     public void init() {
-        // TODO Auto-generated method stub
+        System.out.println("Initializing.......");
+
+        Frontend gui =  new Frontend();
     }
 
 

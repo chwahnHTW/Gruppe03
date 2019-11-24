@@ -19,40 +19,4 @@ public interface FrontendService {
      */
     void init();
 
-    /**
-     * Das Spiel wird beendet.
-     *
-     * @param game: Eine Spielinstanz
-     */
-    void endRound(GameInstance game);
-
-    /**
-     * Eine Spielinstanz wird erstellt und zurückgegeben.
-     * GUI wird mit Spielinstanz bestückt
-     *
-     * @return : eine Spielinstanz
-     */
-    GameInstance startGame();
-
-    /**
-     * ein Dialog zum Erfassen von Userinput ( Anzahl der für das kommende Spiel zu erstellenden Spieler )
-     *
-     * @return Anzahl der zu erstellenden Spieler
-     */
-    int getUserCountInput();
-
-    /**
-     * ein Dialog zum Erfassen von Userinput ( Name der für das kommende Spiel zu erstellenden Spieler )
-     *
-     * @return Name der Spieler
-     */
-    String getUserNameInput();
-
-    /**
-     * ein Dialog zum Erfassen von Userinput ( gespielte Karten pro Zug )
-     *
-     * @return List<Card> Liste der vom Spieler gespielten Katen. null = Spielzug Pass
-     */
-    List<Card> getPlayerMoveInput();
-
 }
