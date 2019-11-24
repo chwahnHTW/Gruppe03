@@ -2,8 +2,11 @@ package frontendmgmt;
 
 import java.util.List;
 
+import org.picocontainer.annotations.Inject;
+
 import cardmgmt.Card;
 import gamemgmt.GameInstance;
+import gamemgmt.GameInstanceServiceImpl;
 
 /**
  * @authors         Kaya Löher 				| Kim Anh Nguyen 		| Christian Wahnsiedler
@@ -11,11 +14,14 @@ import gamemgmt.GameInstance;
  */
 public class FrontendServiceImpl implements FrontendService {
 
+	//@Inject
+	private GameInstanceServiceImpl GISI = new GameInstanceServiceImpl();
+	
     @Override
     public void init() {
         System.out.println("Initializing.......");
-
         Frontend gui =  new Frontend();
+        gui.createFrame(GISI.startGame());   
     }
 
 

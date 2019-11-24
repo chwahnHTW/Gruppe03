@@ -34,9 +34,8 @@ public class Player {
      * @param handCards: Die Karten, die der Spieler besitzt
      * @param role:      Die Rolle eines Spielers
      */
-    public Player(String name, int userid, List<Card> handCards, Role role) {
+    public Player(String name, List<Card> handCards, Role role) {
         this.name = name;
-        this.userId = userid;
         this.handCards = handCards;
         this.role = role;
     }

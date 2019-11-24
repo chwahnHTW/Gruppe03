@@ -44,7 +44,7 @@ public interface PlayerService {
      * @param playerCount: Anzahl der Spieler
      * @return Liste mit Player-Objekten
      */
-    List<Player> createPlayers(int playerCount);
+     Player createPlayer(String name);
     
     /**
      * In einer Runde kann jeder Spieler Karten spielen.

@@ -11,8 +11,7 @@ public class GameInstanceServiceImpl implements GameInstanceService{
 
 	@Override
 	public GameInstance startGame() {
-		
-		return null;
+		return new GameInstance();
 	}
 
 	@Override

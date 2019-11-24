@@ -7,7 +7,6 @@ import org.picocontainer.injectors.SetterInjection;
 
 import cardmgmt.CardServiceImpl;
 import frontendmgmt.FrontendServiceImpl;
-import frontendmgmt.GUI;
 import gamemgmt.GameInstanceServiceImpl;
 import historymgmt.HistoryServiceImpl;
 import playermgmt.PlayerServiceImpl;
