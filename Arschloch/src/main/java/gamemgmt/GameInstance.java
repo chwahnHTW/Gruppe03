@@ -13,6 +13,7 @@ import playermgmt.Player;
  * Diese Klasse stellt die Instanz eines Spiels dar.
  * Ein Spiel beinhaltet die Spieler, das momentane Rundenergebnis, die Karten, mit denen gerade gespielt wird und den aktuellen Spieler.
  */
+
 public class GameInstance {
 
     /**

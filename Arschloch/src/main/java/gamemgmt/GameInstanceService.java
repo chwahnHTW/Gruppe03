@@ -14,7 +14,7 @@ import playermgmt.Player;
  * Hier läuft das Spiel im Großteil ab.
  */
 
-@Component
+
 public interface GameInstanceService {
 
     /**

@@ -8,7 +8,7 @@ import cardmgmt.Card;
 import gamemgmt.GameInstance;
 import playermgmt.Player;
 
-@Component
+
 public interface PlayerRulesService {
     /**
      * Hier werden Karten in Bezug auf ihren Zahlenwert verglichen. Annotations ermöglichen hier später eine externe Konfiguration der Regeln

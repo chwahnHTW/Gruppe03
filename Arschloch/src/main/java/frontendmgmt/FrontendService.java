@@ -14,7 +14,7 @@ import gamemgmt.GameInstance;
  * * Hier wird das Frontend realisiert.
  */
 
-@Component
+
 public interface FrontendService {
 
     /**

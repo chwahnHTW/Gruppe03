@@ -14,7 +14,7 @@ import cardmgmt.Card;
  * In einem normalen Spiel 32 Karten.
  */
 
-@Component
+
 public interface CardRulesService {
 
     /**
