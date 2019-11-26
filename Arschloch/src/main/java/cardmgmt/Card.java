@@ -41,6 +41,8 @@ public class Card {
         this.symbol = symbol;
 
     }
+    
+    public Card() {}
 
     /**
      * Gibt eine Zahl zurück
