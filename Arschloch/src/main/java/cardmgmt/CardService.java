@@ -19,7 +19,7 @@ import playermgmt.Player;
  * Es gibt dementsprechend 32 Karten.
  */
 
-@Component
+
 public interface CardService {
 
     /**

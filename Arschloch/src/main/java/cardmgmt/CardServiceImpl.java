@@ -23,8 +23,17 @@ public class CardServiceImpl implements CardService {
 
     @Override
     public List<Card> generateDeck(int anzahlKarten) {
-        // TODO Auto-generated method stub
-        return null;
+List<Card> deck = new ArrayList<Card>();
+    	
+    	for (Card.Symbol symbol : Card.Symbol.values()) {
+    		for (Card.Zahl zahl : Card.Zahl.values()) {
+    			Card card = new Card();
+    			card.zahl = zahl;
+    			card.symbol = symbol;
+    			deck.add(card);
+    		}
+    	}
+        return deck;
     }
 
     @Override
