@@ -2,6 +2,8 @@ package frontendmgmt;
 
 import java.util.List;
 
+import org.springframework.stereotype.Component;
+
 import cardmgmt.Card;
 import gamemgmt.GameInstance;
 
@@ -11,6 +13,8 @@ import gamemgmt.GameInstance;
  * <p>
  * * Hier wird das Frontend realisiert.
  */
+
+@Component
 public interface FrontendService {
 
     /**

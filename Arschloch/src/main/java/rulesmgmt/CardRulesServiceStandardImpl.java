@@ -2,8 +2,12 @@ package rulesmgmt;
 
 import java.util.List;
 
+import org.springframework.stereotype.Component;
+
 import cardmgmt.Card;
 
+
+@Component
 public class CardRulesServiceStandardImpl implements CardRulesService {
 
 	/**CardRulesServiceImplementierung zum Vergleich von Karten-Wertigkeiten

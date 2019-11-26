@@ -1,6 +1,7 @@
 package gamemgmt;
 
 import java.util.List;
+import org.springframework.stereotype.Component;
 
 import cardmgmt.Card;
 import playermgmt.Player;
@@ -12,6 +13,8 @@ import playermgmt.Player;
  * Eine Klasse, die die Spielinstanz realisiert
  * Hier läuft das Spiel im Großteil ab.
  */
+
+@Component
 public interface GameInstanceService {
 
     /**

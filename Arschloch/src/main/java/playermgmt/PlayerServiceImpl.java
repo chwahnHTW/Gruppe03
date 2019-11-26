@@ -2,8 +2,11 @@ package playermgmt;
 
 import java.util.List;
 
+import org.springframework.stereotype.Component;
+
 import cardmgmt.Card;
 
+@Component
 public class PlayerServiceImpl implements PlayerService{
 
 

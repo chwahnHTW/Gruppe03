@@ -2,6 +2,9 @@ package rulesmgmt;
 
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
+
 import cardmgmt.Card;
 import gamemgmt.GameInstance;
 import playermgmt.Player;
@@ -13,7 +16,7 @@ import playermgmt.Player;
  * Class : Rules - Regeln, nach denen Karten verglichen und der jeweils erste Spieler einer neuen Runde ermittelt werden können. 
  * Konfiguration über Inection versch. Implementierungen der jeweiligen Regel-Services
  */
-
+@Component
 public class Rules {
 
     
@@ -22,7 +25,7 @@ public class Rules {
 	 * Standard-Implementierung : Arschloch oder Spieler mit Karo 7 als erster
 	 * PresidentFirst-Implementierung : President oder Spieler mit Karo 7 als erster
 	 */
-    //@Inject
+    @Autowired
     PlayerRulesService playerRS;
     
 	/** @param palyerRS - PlayerRulesService, der die Rollen der Spieler eines Spiels vergleicht, um denjenigen Spieler zu bestimmen, der in einer 
@@ -30,7 +33,7 @@ public class Rules {
 	 * Standard-Implementierung : Arschloch oder Spieler mit Karo 7 als erster
 	 * PresidentFirst-Implementierung : President oder Spieler mit Karo 7 als erster
 	 */
-    //@Inject
+    @Autowired
     CardRulesService cardRS;
     
     

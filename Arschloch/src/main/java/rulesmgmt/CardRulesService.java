@@ -2,6 +2,8 @@ package rulesmgmt;
 
 import java.util.List;
 
+import org.springframework.stereotype.Component;
+
 import cardmgmt.Card;
 
 /**
@@ -11,6 +13,8 @@ import cardmgmt.Card;
  * Hier werden Karten verglichen. Über Implementierung verschiedener Comparatoren wird hier später die Konfiguration der Regeln ermöglicht
  * In einem normalen Spiel 32 Karten.
  */
+
+@Component
 public interface CardRulesService {
 
     /**

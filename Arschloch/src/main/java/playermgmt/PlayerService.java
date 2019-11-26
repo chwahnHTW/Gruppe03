@@ -2,6 +2,8 @@ package playermgmt;
 
 import java.util.List;
 
+import org.springframework.stereotype.Component;
+
 import cardmgmt.Card;
 
 /**
@@ -11,6 +13,7 @@ import cardmgmt.Card;
  * Der Spieler muss vor dem Spiel erstellt werden.
  * Der Spieler bekommt eine Hand an Karten zugewiesen.
  */
+@Component
 public interface PlayerService {
 
     /**

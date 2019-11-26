@@ -1,5 +1,7 @@
 package historymgmt;
 
+import org.springframework.stereotype.Component;
+
 import gamemgmt.GameInstance;
 
 /**
@@ -9,6 +11,7 @@ import gamemgmt.GameInstance;
  * Diese Klasse stellt die Spielhistorie dar.
  * In der Historie werden vorherige Spielergebnisse gespeichert.
  */
+@Component
 public interface HistoryService {
 
     /**

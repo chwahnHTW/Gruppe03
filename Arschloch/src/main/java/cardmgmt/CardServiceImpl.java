@@ -2,6 +2,8 @@ package cardmgmt;
 
 import java.util.List;
 
+import org.springframework.stereotype.Component;
+
 import gamemgmt.GameInstance;
 import playermgmt.Player;
 
@@ -9,6 +11,8 @@ import playermgmt.Player;
  * @authors         Kaya Löher 				| Kim Anh Nguyen 		| Christian Wahnsiedler
  * Email-Adresse: 	s0564784@htw-berlin.de	| s0563958@htw-berlin.de| s0557193@htw-berlin.de
  */
+
+@Component
 public class CardServiceImpl implements CardService {
 
     @Override

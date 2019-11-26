@@ -2,10 +2,13 @@ package rulesmgmt;
 
 import java.util.List;
 
+import org.springframework.stereotype.Component;
+
 import cardmgmt.Card;
 import gamemgmt.GameInstance;
 import playermgmt.Player;
 
+@Component
 public class PlayerRulesServicePresidentFirstImpl implements PlayerRulesService {
 
 	/**RuleService zum Bestimmen des ersten Spielers einer Runde. 

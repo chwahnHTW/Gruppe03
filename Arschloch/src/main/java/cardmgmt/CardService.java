@@ -2,6 +2,8 @@ package cardmgmt;
 
 import java.util.List;
 
+import org.springframework.stereotype.Component;
+
 import gamemgmt.GameInstance;
 import playermgmt.Player;
 
@@ -16,6 +18,8 @@ import playermgmt.Player;
  * Ein normales Kartendeck besteht aus den Zahlen 7 bis Ass und den vier Farben (Herz, Karo, Pik und Kreuz).
  * Es gibt dementsprechend 32 Karten.
  */
+
+@Component
 public interface CardService {
 
     /**
