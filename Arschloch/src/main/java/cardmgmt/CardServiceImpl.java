@@ -23,7 +23,7 @@ public class CardServiceImpl implements CardService {
 
     @Override
     public List<Card> generateDeck(int anzahlKarten) {
-List<Card> deck = new ArrayList<Card>();
+    	List<Card> deck = new ArrayList<Card>();
     	
     	for (Card.Symbol symbol : Card.Symbol.values()) {
     		for (Card.Zahl zahl : Card.Zahl.values()) {
