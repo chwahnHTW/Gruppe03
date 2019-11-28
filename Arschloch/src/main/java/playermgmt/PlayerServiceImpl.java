@@ -9,38 +9,48 @@ import cardmgmt.Card;
 @Component
 public class PlayerServiceImpl implements PlayerService{
 
-
-	@Override
 	public Boolean hasCards(Player player) {
-		// TODO Auto-generated method stub
-		return null;
+		if(player.handCards.isEmpty()){
+			return false;
+		}
+		else{
+			return true;
+		}
 	}
 
-	@Override
 	public void removeFromHand(Player player, List<Card> cards) {
-		// TODO Auto-generated method stub
+		player.handCards.remove(cards);
 	}
 
-	@Override
 	public void addToHand(Player player, List<Card> cards) {
-		// TODO Auto-generated method stub
+		player.handCards.addAll(cards);
 	}
-
-
 
 	@Override
 	public void playCards(Player player, List<Card> selectedCards) {
-		// TODO Auto-generated method stub
+		//Der Spieler spielt seine Karten
+		//dabei muss removeFromHand aufgerufen werden
+		//Wo landen die Karten?
 	}
 
 	@Override
 	public Player getNextPlayer() throws NullPointerException {
-		// TODO Auto-generated method stub
+		//Liste der Spieler im Spiel mit Reihenfolge, wie gesessen wird
+
+		//wichtig: bei Ende einer Runde muss der anfangen, der zuletzt gelegt hat
+			//wenn dieser keine Karten mehr hat, dann ist der nächste dran
+
 		return null;
 	}
 
 	@Override
 	public Player createPlayer(String name) {
+		//wenn es schon eine voherige Runde gab, muss die Rolle übergeben werden
+
+		//aus der CardImpl werden durch dealCardsToPlayers() die handCards festgelegt
+
+		//der Name kommt aus dem Frontend
+
 		return new Player(name, null, null);
 	}
 

@@ -39,13 +39,12 @@ public interface PlayerService {
      * @param cards:  Die Karten, die er bekommen soll
      */
     void addToHand(Player player, List<Card> cards);
-    
 
     /**
-     * Gemäß des in determinePlayercount ermittleten Wertes werden Spieler vom SpielerService der Implementierung erstellt
+     * Generiert einen neuen Spieler
      *
-     * @param playerCount: Anzahl der Spieler
-     * @return Liste mit Player-Objekten
+     * @param name: name des Spielers
+     * @return einen neuen Spieler
      */
      Player createPlayer(String name);
     
@@ -54,13 +53,13 @@ public interface PlayerService {
      * Hier spielt der Spieler seine Karte(n) aus.
      * Die Karten wurden in der Methode selectCards ausgewaehlt
      *
-     * @param player        : ein SPieler
+     * @param player        : ein Spieler
      * @param selectedCards : die Karten, die der Spieler spielen möchte
      */
     void playCards(Player player, List<Card> selectedCards);
     
     /**
-     * Der Spieler, der als nächstes an der Reihe ist wird hier festgelegt.
+     * Der Spieler, der als nächstes an der Reihe ist, wird hier festgelegt.
      *
      * @return Player - Der nächste Spieler
      */
