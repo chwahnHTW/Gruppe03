@@ -1,8 +1,8 @@
-package playermgmt;
+package kbe.playermgmt;
 
 import java.util.List;
 
-import cardmgmt.Card;
+import kbe.cardmgmt.Card;
 
 /**
  * @authors         Kaya Löher 				| Kim Anh Nguyen 		| Christian Wahnsiedler
@@ -30,6 +30,7 @@ public class Player {
      * Generiert einen Spieler.
      *
      * @param name:      Der Name des Spielers
+     * @param userid:    Die Id des Spielers
      * @param handCards: Die Karten, die der Spieler besitzt
      * @param role:      Die Rolle eines Spielers
      */
@@ -37,6 +38,24 @@ public class Player {
         this.name = name;
         this.handCards = handCards;
         this.role = role;
+    }
+
+    /**
+     * Gibt die Userid zurück
+     *
+     * @return: die userId ces Spielers
+     */
+    public int getUserId() {
+        return userId;
+    }
+
+    /**
+     * setzt die Id eines Spielers
+     *
+     * @param id: Die ID des Spielers
+     */
+    public void setUserId(int id) {
+        this.userId = id;
     }
 
     /**

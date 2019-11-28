@@ -1,13 +1,7 @@
 
-package gamemgmt;
-
-import java.util.List;
+package kbe.gamemgmt;
 
 import org.springframework.stereotype.Component;
-
-import cardmgmt.Card;
-import playermgmt.Player;
-import playermgmt.PlayerService;
 
 @Component
 public class GameInstanceServiceImpl implements GameInstanceService{

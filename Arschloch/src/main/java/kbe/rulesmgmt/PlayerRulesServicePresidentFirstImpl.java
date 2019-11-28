@@ -1,12 +1,9 @@
-package rulesmgmt;
-
-import java.util.List;
+package kbe.rulesmgmt;
 
 import org.springframework.stereotype.Component;
 
-import cardmgmt.Card;
-import gamemgmt.GameInstance;
-import playermgmt.Player;
+import kbe.gamemgmt.GameInstance;
+import kbe.playermgmt.Player;
 
 @Component
 public class PlayerRulesServicePresidentFirstImpl implements PlayerRulesService {

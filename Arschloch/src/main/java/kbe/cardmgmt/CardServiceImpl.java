@@ -1,12 +1,11 @@
-package cardmgmt;
+package kbe.cardmgmt;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.stereotype.Component;
 
-import gamemgmt.GameInstance;
-import playermgmt.Player;
+import kbe.gamemgmt.GameInstance;
 
 /**
  * @authors         Kaya Löher 				| Kim Anh Nguyen 		| Christian Wahnsiedler

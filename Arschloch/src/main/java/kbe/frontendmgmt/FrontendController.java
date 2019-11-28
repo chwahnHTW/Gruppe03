@@ -1,11 +1,11 @@
-package frontendmgmt;
+package kbe.frontendmgmt;
 
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 
-import gamemgmt.GameInstance;
-import gamemgmt.GameInstanceServiceImpl;
+import kbe.gamemgmt.GameInstance;
+import kbe.gamemgmt.GameInstanceServiceImpl;
 
 
 @Controller

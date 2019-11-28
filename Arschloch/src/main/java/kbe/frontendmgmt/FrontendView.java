@@ -1,4 +1,4 @@
-package frontendmgmt;
+package kbe.frontendmgmt;
 
 import java.awt.Color;
 import java.awt.event.ActionEvent;
@@ -14,10 +14,9 @@ import javax.swing.JTextArea;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import gamemgmt.GameInstance;
-import playermgmt.Player;
-import playermgmt.PlayerService;
-import playermgmt.PlayerServiceImpl;
+import kbe.gamemgmt.GameInstance;
+import kbe.playermgmt.Player;
+import kbe.playermgmt.PlayerServiceImpl;
 
 @Component
 public class FrontendView implements ActionListener{

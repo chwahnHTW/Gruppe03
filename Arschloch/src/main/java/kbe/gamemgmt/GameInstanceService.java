@@ -1,10 +1,4 @@
-package gamemgmt;
-
-import java.util.List;
-import org.springframework.stereotype.Component;
-
-import cardmgmt.Card;
-import playermgmt.Player;
+package kbe.gamemgmt;
 
 /**
  * @authors         Kaya Löher 				| Kim Anh Nguyen 		| Christian Wahnsiedler

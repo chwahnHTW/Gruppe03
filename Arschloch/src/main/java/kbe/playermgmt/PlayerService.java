@@ -1,10 +1,8 @@
-package playermgmt;
+package kbe.playermgmt;
 
 import java.util.List;
 
-import org.springframework.stereotype.Component;
-
-import cardmgmt.Card;
+import kbe.cardmgmt.Card;
 
 /**
  * @authors         Kaya Löher 				| Kim Anh Nguyen 		| Christian Wahnsiedler
@@ -39,12 +37,13 @@ public interface PlayerService {
      * @param cards:  Die Karten, die er bekommen soll
      */
     void addToHand(Player player, List<Card> cards);
+    
 
     /**
-     * Generiert einen neuen Spieler
+     * Gemäß des in determinePlayercount ermittleten Wertes werden Spieler vom SpielerService der Implementierung erstellt
      *
-     * @param name: name des Spielers
-     * @return einen neuen Spieler
+     * @param playerCount: Anzahl der Spieler
+     * @return Liste mit Player-Objekten
      */
      Player createPlayer(String name);
     
@@ -53,13 +52,13 @@ public interface PlayerService {
      * Hier spielt der Spieler seine Karte(n) aus.
      * Die Karten wurden in der Methode selectCards ausgewaehlt
      *
-     * @param player        : ein Spieler
+     * @param player        : ein SPieler
      * @param selectedCards : die Karten, die der Spieler spielen möchte
      */
     void playCards(Player player, List<Card> selectedCards);
     
     /**
-     * Der Spieler, der als nächstes an der Reihe ist, wird hier festgelegt.
+     * Der Spieler, der als nächstes an der Reihe ist wird hier festgelegt.
      *
      * @return Player - Der nächste Spieler
      */

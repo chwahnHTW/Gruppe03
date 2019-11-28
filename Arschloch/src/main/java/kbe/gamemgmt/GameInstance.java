@@ -1,10 +1,10 @@
 
-package gamemgmt;
+package kbe.gamemgmt;
 
 import java.util.List;
 
-import cardmgmt.Card;
-import playermgmt.Player;
+import kbe.cardmgmt.Card;
+import kbe.playermgmt.Player;
 
 /**
  * @authors         Kaya Löher 				| Kim Anh Nguyen 		| Christian Wahnsiedler

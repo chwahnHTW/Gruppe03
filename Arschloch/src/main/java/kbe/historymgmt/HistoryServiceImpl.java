@@ -1,8 +1,8 @@
-package historymgmt;
+package kbe.historymgmt;
 
 import org.springframework.stereotype.Component;
 
-import gamemgmt.GameInstance;
+import kbe.gamemgmt.GameInstance;
 
 /**
  * @authors         Kaya Löher 				| Kim Anh Nguyen 		| Christian Wahnsiedler

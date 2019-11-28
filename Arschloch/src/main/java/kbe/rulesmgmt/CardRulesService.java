@@ -1,10 +1,8 @@
-package rulesmgmt;
+package kbe.rulesmgmt;
 
 import java.util.List;
 
-import org.springframework.stereotype.Component;
-
-import cardmgmt.Card;
+import kbe.cardmgmt.Card;
 
 /**
  * @authors Kaya Löher 				| Kim Anh Nguyen 		| Christian Wahnsiedler

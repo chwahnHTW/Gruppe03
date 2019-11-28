@@ -1,4 +1,4 @@
-package cardmgmt;
+package kbe.cardmgmt;
 
 /**
  * @authors         Kaya Löher 				| Kim Anh Nguyen 		| Christian Wahnsiedler

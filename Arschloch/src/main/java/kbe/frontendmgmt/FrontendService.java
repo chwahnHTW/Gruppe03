@@ -1,11 +1,4 @@
-package frontendmgmt;
-
-import java.util.List;
-
-import org.springframework.stereotype.Component;
-
-import cardmgmt.Card;
-import gamemgmt.GameInstance;
+package kbe.frontendmgmt;
 
 /**
  * @authors         Kaya Löher 				| Kim Anh Nguyen 		| Christian Wahnsiedler
