@@ -4,7 +4,6 @@ import org.junit.Before;
 import org.junit.Test;
 
 import kbe.rulesmgmt.CardRulesService;
-import rulesmgmt.RulesServiceImpl;
 
 /**
  * @authors         Kaya Löher 				| Kim Anh Nguyen 		| Christian Wahnsiedler
@@ -16,9 +15,9 @@ public class RulesServiceTest {
     CardRulesService service;
 
     @Before
-    public void setUp() {
-        service = new RulesServiceImpl();
-    }
+   // public void setUp() {
+      //  service = new RulesServiceImpl();
+   // }
 
     @Test
     public void testCompareStandard() {

@@ -8,9 +8,11 @@ import org.junit.Before;
 import org.junit.Test;
 
 import kbe.cardmgmt.Card;
-import kbe.cardmgmt.Card.Zahl;
 import kbe.cardmgmt.CardService;
 import kbe.cardmgmt.CardServiceImpl;
+import kbe.cardmgmt.Card.Zahl;
+import kbe.cardmgmt.Card.Symbol;
+
 
 /**
  * @authors         Kaya Löher 				| Kim Anh Nguyen 		| Christian Wahnsiedler
@@ -31,8 +33,8 @@ public class CardServiceTest {
     @Test
     public void testOrderCardsByValue() {
         List cardsOnHand = new LinkedList<Card>();
-        Card card1 = new Card(Zahl.ZEHN, Card.Symbol.HERZ);
-        Card card2 = new Card(Zahl.SIEBEN, Card.Symbol.HERZ);
+        Card card1 = new Card(Zahl.ZEHN, Symbol.HERZ);
+        Card card2 = new Card(Zahl.SIEBEN, Symbol.HERZ);
         cardsOnHand.add(card1);
         cardsOnHand.add(card2);
         service.orderCardsByValue(cardsOnHand);

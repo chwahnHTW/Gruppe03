@@ -6,6 +6,7 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
+import kbe.cardmgmt.CardServiceImpl;
 import kbe.gamemgmt.GameInstance;
 import kbe.historymgmt.HistoryService;
 import kbe.historymgmt.HistoryServiceImpl;
@@ -13,7 +14,7 @@ import kbe.historymgmt.HistoryServiceImpl;
 public class HistoryServiceTest {
 
 	HistoryService service;
-	
+
 	@Before
 	public void setUp() {
 		service = new HistoryServiceImpl();
@@ -27,10 +28,10 @@ public class HistoryServiceTest {
 		File file2=new File("example.csv");
 		Assert.assertTrue(file.getTotalSpace() < file2.getTotalSpace());
 	}
-	
+
 	@Test
 	public void testGetLastPlayedGame() {
-	
+
 		GameInstance gi = new GameInstance();
 		service.persist(gi);
 		GameInstance testGi = service.getLastPlayedGame();
