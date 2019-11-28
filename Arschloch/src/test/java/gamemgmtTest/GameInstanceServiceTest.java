@@ -7,11 +7,11 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
-import cardmgmt.Card;
-import gamemgmt.GameInstance;
-import gamemgmt.GameInstanceService;
-import gamemgmt.GameInstanceServiceImpl;
-import playermgmt.Player;
+import kbe.cardmgmt.Card;
+import kbe.gamemgmt.GameInstance;
+import kbe.gamemgmt.GameInstanceService;
+import kbe.gamemgmt.GameInstanceServiceImpl;
+import kbe.playermgmt.Player;
 
 /**
  * @authors         Kaya Löher 				| Kim Anh Nguyen 		| Christian Wahnsiedler

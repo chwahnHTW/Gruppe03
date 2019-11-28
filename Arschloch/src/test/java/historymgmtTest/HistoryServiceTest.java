@@ -6,10 +6,9 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
-import cardmgmt.CardServiceImpl;
-import gamemgmt.GameInstance;
-import historymgmt.HistoryService;
-import historymgmt.HistoryServiceImpl;
+import kbe.gamemgmt.GameInstance;
+import kbe.historymgmt.HistoryService;
+import kbe.historymgmt.HistoryServiceImpl;
 
 public class HistoryServiceTest {
 

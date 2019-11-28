@@ -4,11 +4,11 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
-import frontendmgmt.FrontendService;
+import kbe.frontendmgmt.FrontendService;
 import frontendmgmt.FrontendServiceImpl;
-import gamemgmt.GameInstance;
-import gamemgmt.GameInstanceService;
-import gamemgmt.GameInstanceServiceImpl;
+import kbe.gamemgmt.GameInstance;
+import kbe.gamemgmt.GameInstanceService;
+import kbe.gamemgmt.GameInstanceServiceImpl;
 
 /**
  * @authors         Kaya Löher 				| Kim Anh Nguyen 		| Christian Wahnsiedler

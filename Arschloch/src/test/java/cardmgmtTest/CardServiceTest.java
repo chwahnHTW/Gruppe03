@@ -7,10 +7,10 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
-import cardmgmt.Card;
-import cardmgmt.Card.Zahl;
-import cardmgmt.CardService;
-import cardmgmt.CardServiceImpl;
+import kbe.cardmgmt.Card;
+import kbe.cardmgmt.Card.Zahl;
+import kbe.cardmgmt.CardService;
+import kbe.cardmgmt.CardServiceImpl;
 
 /**
  * @authors         Kaya Löher 				| Kim Anh Nguyen 		| Christian Wahnsiedler

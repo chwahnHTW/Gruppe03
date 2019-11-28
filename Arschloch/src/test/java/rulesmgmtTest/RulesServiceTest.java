@@ -3,7 +3,7 @@ package rulesmgmtTest;
 import org.junit.Before;
 import org.junit.Test;
 
-import rulesmgmt.CardRulesService;
+import kbe.rulesmgmt.CardRulesService;
 import rulesmgmt.RulesServiceImpl;
 
 /**
