@@ -22,7 +22,7 @@ public class CardServiceImpl implements CardService {
     }
 
     @Override
-    public List<Card> generateDeck(int anzahlKarten) {
+    public List<Card> generateDeck(int anzahlKarten) { // default = 32 //optional
     	List<Card> deck = new ArrayList<Card>();
     	
     	for (Card.Symbol symbol : Card.Symbol.values()) {
@@ -39,18 +39,34 @@ public class CardServiceImpl implements CardService {
     @Override
     public List<Card> shuffleDeck(List<Card> cardList) {
         // TODO Auto-generated method stub
+    	/**
+    	 * liste deck rein
+    	 * inhalt mischen
+    	 */
         return null;
     }
 
 	@Override
 	public void swapCards(GameInstance gameInstance) {
 		// TODO Auto-generated method stub
+		/**
+		 * beste und schlechtester Spieller ermitteln
+		 * von denen die schlechteste/beste karte ermitteln (x2)
+		 * karten tauschen
+		 */
 		
 	}
 
 	@Override
 	public void dealCardsToPlayers(GameInstance gameInstance) {
 		// TODO Auto-generated method stub
+		/**
+		 * austeilender spieler übergeben
+		 * der näcshte spieler von dem beginnt
+		 * so lange karten im deck: 
+		 * durch spieler iterieren, in handcards add, hauptdeck löschen
+		 * modulo 
+		 */
 		
 	}
 
