@@ -7,6 +7,7 @@ import java.util.List;
 import org.springframework.stereotype.Component;
 
 import kbe.gamemgmt.GameInstance;
+import kbe.playermgmt.Player;
 
 /**
  * @authors         Kaya Löher 				| Kim Anh Nguyen 		| Christian Wahnsiedler
@@ -59,6 +60,29 @@ public class CardServiceImpl implements CardService {
 		 * von denen die schlechteste/beste karte ermitteln (x2)
 		 * karten tauschen
 		 */
+		
+		int roleListSize = gameInstance.getResult().size();
+		
+		// wenn playerlist mehr als 4 spieler hat
+		if (gameInstance.getPlayers().size() >= 3) {
+			
+			Player arschloch1 = gameInstance.getResult().get(0);
+			Player arschloch2 = gameInstance.getResult().get(1);
+			Player president2 = gameInstance.getResult().get(roleListSize-1);
+			Player president1 = gameInstance.getResult().get(roleListSize-2);
+			
+			List<Card> temp1 = new ArrayList<Card>();
+			for (int i = 0; i < 2; i++) {
+				temp1.add(arschloch1.getHand().get(i));
+				arschloch1.getHand().remove(i);
+				president1.getHand()
+			}
+			
+			gameInstance.getResult().get(roleListSize-1); // ueber die result liste den 1. praesident
+			gameInstance.getResult().get(roleListSize-2); // ueber die result liste den 2. praesident
+			
+		
+		}
 		
 		
 		
