@@ -5,22 +5,24 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 
 import kbe.gamemgmt.GameInstance;
+import kbe.gamemgmt.GameInstanceService;
 import kbe.gamemgmt.GameInstanceServiceImpl;
 
 
 @Controller
 public class FrontendController implements FrontendService {
 	
-@Autowired	
-private GameInstanceServiceImpl GISI;
+//@Autowired	
+private GameInstanceService GISI = new GameInstanceServiceImpl();
 
-@Autowired
-private FrontendView frontendView;
+//@Autowired
+private FrontendView frontendView = new FrontendView();
 
 	@Override
 	public void init() {
         System.out.println("Initializing.......");
-        frontendView.createFrame(GISI.startGame());   
+        frontendView.createFrontendView(GISI.startGame());
+        System.out.println("help");
 	}
 
 	

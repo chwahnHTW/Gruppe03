@@ -3,10 +3,11 @@ package kbe.playermgmt;
 import java.util.List;
 
 import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 
 import kbe.cardmgmt.Card;
 
-@Component
+@Service
 public class PlayerServiceImpl implements PlayerService{
 
 
