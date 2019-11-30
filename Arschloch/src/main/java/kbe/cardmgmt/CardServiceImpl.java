@@ -1,6 +1,7 @@
 package kbe.cardmgmt;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import org.springframework.stereotype.Component;
@@ -37,23 +38,29 @@ public class CardServiceImpl implements CardService {
     }
 
     @Override
-    public List<Card> shuffleDeck(List<Card> cardList) {
-        // TODO Auto-generated method stub
+    public List<Card> shuffleDeck(List<Card> deck) {
     	/**
     	 * liste deck rein
     	 * inhalt mischen
     	 */
-        return null;
+        Collections.shuffle(deck);
+    	
+        return deck;
     }
 
 	@Override
 	public void swapCards(GameInstance gameInstance) {
 		// TODO Auto-generated method stub
 		/**
-		 * beste und schlechtester Spieller ermitteln
+		 * beste und schlechtester Spieler ermitteln
+		 * 
+		 * ab 4 spielern: die schlechtesten und zweitschlechtesten
+		 * 
 		 * von denen die schlechteste/beste karte ermitteln (x2)
 		 * karten tauschen
 		 */
+		
+		
 		
 	}
 
