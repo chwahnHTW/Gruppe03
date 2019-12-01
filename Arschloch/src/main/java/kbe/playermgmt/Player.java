@@ -84,13 +84,22 @@ public class Player {
         return handCards;
     }
 
+//    /**
+//     * setzt die Karten, die der Spieler bekommen soll.
+//     *
+//     * @param cards: Eine Hand von Karten
+//     */
+//    public void setHand(List<Card> cards) {
+//        this.handCards = cards;
+//    }
+
     /**
-     * setzt die Karten, die der Spieler bekommen soll.
-     *
-     * @param cards: Eine Hand von Karten
+     * Fuegt einzelne Karten in die Liste der Handkarten des Spielers.
+     * 
+     * @param card:	eine Karte
      */
-    public void setHand(List<Card> cards) {
-        this.handCards = cards;
+    public void setHand (Card card) {
+    	handCards.add(card);
     }
 
     /**

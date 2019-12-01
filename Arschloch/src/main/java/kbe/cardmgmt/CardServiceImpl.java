@@ -108,32 +108,20 @@ public class CardServiceImpl implements CardService {
 		 * austeilender spieler übergeben
 		 * der nächste spieler von dem beginnt
 		 * so lange karten im deck: 
-		 * durch spieler iterieren, in handcards add, hauptdeck löschen
+		 * durch spieler iterieren, in handcards add, hauptdeck muss eigentlich nicht geloescht werden
 		 * modulo 
 		 */
 		
 		//gemischtes deck erstellen mit 32 Karten
 		List<Card> deck = shuffleDeck(generateDeck(32));
-		
+		//playerList fuer die spieler
 		List <Player> playerList = gameInstance.getPlayers();
-		
 		//anzahl spieler ermittenln
 		int anzahlPlayer = playerList.size();
 		
-		//int numOfCardsPerPlayer = deck.size()/anzahlPlayer;
-		
-//		int i = 0;
-//		for (Card card : deck) {
-//			while(!deck.isEmpty()) {
-//				
-//				playerList.get(i).setHand(handCards);
-//			}
-//		}
-		
-		while(!deck.isEmpty()) {
-			for ( int i = 0; i < deck.size(); i++) {
-				playerList.get(i % anzahlPlayer).setHand(deck.get(i));
-			}
+		for (int i = 0; i < deck.size(); i++) {
+			// i%anzahlPlayer, damit durhc jeden Player iteriert wird
+			playerList.get(i % anzahlPlayer).setHand(deck.get(i));
 		}
 		
 	}
