@@ -103,12 +103,38 @@ public class CardServiceImpl implements CardService {
 	public void dealCardsToPlayers(GameInstance gameInstance) {
 		// TODO Auto-generated method stub
 		/**
+		 * anzahl der spieler herausfinden
+		 * 
 		 * austeilender spieler übergeben
-		 * der näcshte spieler von dem beginnt
+		 * der nächste spieler von dem beginnt
 		 * so lange karten im deck: 
 		 * durch spieler iterieren, in handcards add, hauptdeck löschen
 		 * modulo 
 		 */
+		
+		//gemischtes deck erstellen mit 32 Karten
+		List<Card> deck = shuffleDeck(generateDeck(32));
+		
+		List <Player> playerList = gameInstance.getPlayers();
+		
+		//anzahl spieler ermittenln
+		int anzahlPlayer = playerList.size();
+		
+		//int numOfCardsPerPlayer = deck.size()/anzahlPlayer;
+		
+//		int i = 0;
+//		for (Card card : deck) {
+//			while(!deck.isEmpty()) {
+//				
+//				playerList.get(i).setHand(handCards);
+//			}
+//		}
+		
+		while(!deck.isEmpty()) {
+			for ( int i = 0; i < deck.size(); i++) {
+				playerList.get(i % anzahlPlayer).setHand(deck.get(i));
+			}
+		}
 		
 	}
 
