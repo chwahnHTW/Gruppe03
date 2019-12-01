@@ -72,26 +72,23 @@ public class CardServiceImpl implements CardService {
 			Player president1 = gameInstance.getResult().get(roleListSize-2);
 			
 			List<Card> temp1 = new ArrayList<Card>();
-//			for (int i = 0; i < 2; i++) {
-//				temp1.add(arschloch1.getHand().get(i));
-//				arschloch1.getHand().remove(i);
-//			}
 			
 			/**
-			 * karten von arschloch löschen und zur temp liste
+			 * karten von arschloch loeschen und zur temp liste
 			 */
 			temp1.add(arschloch1.getHand().get(0));
 			temp1.add(arschloch1.getHand().get(1));
 			arschloch1.getHand().remove(0);
 			arschloch1.getHand().remove(0); //weil index wieder nach vorn rutscht
+			president1.setHand(temp1.get(0)); // mit welchem index? vorn oder hinten?
+			president1.setHand(temp1.get(1));
 			
+			List<Card> temp2 = new ArrayList<Card>();
 			
-			
-			
-			
-			gameInstance.getResult().get(roleListSize-1); // ueber die result liste den 1. praesident
-			gameInstance.getResult().get(roleListSize-2); // ueber die result liste den 2. praesident
-			
+//			for (int i = 0; i < 2; i++) {
+//			temp1.add(arschloch1.getHand().get(i));
+//			arschloch1.getHand().remove(i);
+//		}
 		
 		}
 		
@@ -108,7 +105,8 @@ public class CardServiceImpl implements CardService {
 		 * austeilender spieler übergeben
 		 * der nächste spieler von dem beginnt
 		 * so lange karten im deck: 
-		 * durch spieler iterieren, in handcards add, hauptdeck muss eigentlich nicht geloescht werden
+		 * durch spieler iterieren, in handcards add,
+		 * hauptdeck muss eigentlich nicht geloescht werden
 		 * modulo 
 		 */
 		
