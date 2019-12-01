@@ -20,7 +20,14 @@ public class CardServiceImpl implements CardService {
     @Override
     public List<Card> orderCardsByValue(List<Card> cards) {
         // TODO Auto-generated method stub
+    	/**
+    	 * Karten nach Ihrem wert sortieren
+    	 * Wert ist die zahl der karte: sieben am niedrigsten
+    	 */
         return null;
+        
+        cards.
+        
     }
 
     @Override
@@ -73,17 +80,54 @@ public class CardServiceImpl implements CardService {
 			
 			List<Card> temp1 = new ArrayList<Card>();
 			
-			/**
-			 * karten von arschloch loeschen und zur temp liste
-			 */
-			temp1.add(arschloch1.getHand().get(0));
-			temp1.add(arschloch1.getHand().get(1));
+			// die 2 schlechtesten karten von arschloch herausfinden und in temp liste
+			temp1.add(arschloch1.getHand().get(0)); //index 0
+			temp1.add(arschloch1.getHand().get(1)); //index 1
+			
+			//die 2 besten Karten von praesident herasufinden und in temp liste
+			int lastCard = president1.getHand().size()-1;
+			int secondLastCard = president1.getHand().size()-2;
+			
+			temp1.add(president1.getHand().get(lastCard)); //index 2
+			temp1.add(president1.getHand().get(secondLastCard)); // index 3
+			
+			//zu den Handkarten von arschloch und praesident
+			president1.setHand(temp1.get(0));
+			president1.setHand(temp1.get(1));
+			arschloch1.setHand(temp1.get(2));
+			arschloch1.setHand(temp1.get(3));
+			
+			//loeschen der getauschten Karten aus beiden spielern
 			arschloch1.getHand().remove(0);
 			arschloch1.getHand().remove(0); //weil index wieder nach vorn rutscht
-			president1.setHand(temp1.get(0)); // mit welchem index? vorn oder hinten?
-			president1.setHand(temp1.get(1));
+			president1.getHand().remove(secondLastCard);
+			president1.getHand().remove(lastCard);
+			
 			
 			List<Card> temp2 = new ArrayList<Card>();
+			
+			// die 2 schlechtesten karten von arschloch herausfinden und in temp liste
+			temp1.add(arschloch2.getHand().get(0)); //index 0
+			temp1.add(arschloch2.getHand().get(1)); //index 1
+			
+			//die 2 besten Karten von praesident herasufinden und in temp liste
+			int lastCard2 = president2.getHand().size()-1;
+			int secondLastCard2 = president2.getHand().size()-2;
+			
+			temp1.add(president2.getHand().get(lastCard2)); //index 2
+			temp1.add(president2.getHand().get(secondLastCard2)); // index 3
+			
+			//zu den Handkarten von arschloch und praesident
+			president2.setHand(temp2.get(0));
+			president2.setHand(temp2.get(1));
+			arschloch2.setHand(temp2.get(2));
+			arschloch2.setHand(temp2.get(3));
+			
+			//loeschen der getauschten Karten aus beiden spielern
+			arschloch2.getHand().remove(0);
+			arschloch2.getHand().remove(0); //weil index wieder nach vorn rutscht
+			president2.getHand().remove(secondLastCard2);
+			president2.getHand().remove(lastCard2);
 			
 //			for (int i = 0; i < 2; i++) {
 //			temp1.add(arschloch1.getHand().get(i));
