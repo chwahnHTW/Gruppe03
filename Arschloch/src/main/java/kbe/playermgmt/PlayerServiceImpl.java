@@ -4,10 +4,11 @@ import java.util.List;
 
 import kbe.gamemgmt.GameInstance;
 import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 
 import kbe.cardmgmt.Card;
 
-@Component
+@Service
 public class PlayerServiceImpl implements PlayerService {
 
     @Override
