@@ -22,7 +22,6 @@ public class Player {
     }
 
     Role role;
-    int userId;
     String name;
     List<Card> handCards;
 
@@ -39,24 +38,24 @@ public class Player {
         this.handCards = handCards;
         this.role = role;
     }
-
-    /**
-     * Gibt die Userid zurück
-     *
-     * @return: die userId ces Spielers
-     */
-    public int getUserId() {
-        return userId;
-    }
-
-    /**
-     * setzt die Id eines Spielers
-     *
-     * @param id: Die ID des Spielers
-     */
-    public void setUserId(int id) {
-        this.userId = id;
-    }
+//
+//    /**
+//     * Gibt die Userid zurück
+//     *
+//     * @return: die userId ces Spielers
+//     */
+//    public int getUserId() {
+//        return userId;
+//    }
+//
+//    /**
+//     * setzt die Id eines Spielers
+//     *
+//     * @param id: Die ID des Spielers
+//     */
+//    public void setUserId(int id) {
+//        this.userId = id;
+//    }
 
     /**
      * gibt den Namen eines Spielers zurück
@@ -85,13 +84,22 @@ public class Player {
         return handCards;
     }
 
+//    /**
+//     * setzt die Karten, die der Spieler bekommen soll.
+//     *
+//     * @param cards: Eine Hand von Karten
+//     */
+//    public void setHand(List<Card> cards) {
+//        this.handCards = cards;
+//    }
+
     /**
-     * setzt die Karten, die der Spieler bekommen soll.
-     *
-     * @param cards: Eine Hand von Karten
+     * Fuegt einzelne Karten in die Liste der Handkarten des Spielers.
+     * 
+     * @param card:	eine Karte
      */
-    public void setHand(List<Card> cards) {
-        this.handCards = cards;
+    public void setHand (Card card) {
+    	handCards.add(card);
     }
 
     /**
