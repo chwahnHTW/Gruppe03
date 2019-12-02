@@ -53,11 +53,12 @@ public class PlayerServiceImpl implements PlayerService {
         //initial: Karo7 Spieler, es gibt noch keinen currentPlayer ---- LOGIK richtig?
         if (instance.getCurrentPlayer().equals(0)) { // (instance.getResult().size() != 0) {
             //für jeden Spieler in der Liste
+            Card initial = new Card(Card.Zahl.SIEBEN, Card.Symbol.KARO);
             for (int i = 0; i <= instance.getPlayers().size(); i++) {
                 //suche die Karo7 in den HandCards
-                Card initial = new Card(Card.Zahl.SIEBEN, Card.Symbol.KARO);
                 if (instance.getPlayers().get(i).getHand().contains(initial)) {
                     //und eigentlich noch setCurrentPlayer
+                    //instance.setCurrentPlayer(instance.getPlayers().get(i));
                     return instance.getPlayers().get(i);
                 }
             }
@@ -68,10 +69,18 @@ public class PlayerServiceImpl implements PlayerService {
             for (int i = 0; i <= instance.getPlayers().size(); i++) {
                 //suche currentplayer
                 if (instance.getPlayers().get(i).equals(current)) {
+                    int x = i;
+                    x++;
                     //nächsten player als nextPlayer setzen
+
                     //wenn ende liste dann wieder 0
+                    //wenn size = currentplayer dann 1. spieler in liste
+
                     //wenn nächster in liste keine karten dann der darauffolgende
-                    return instance.getPlayers().get(i++);
+                    Player next = instance.getPlayers().get(x);
+                    if(hasCards(next)){
+                        return next;
+                    }
                 }
             }
         }
