@@ -22,6 +22,7 @@ import kbe.gamemgmt.GameInstance;
 import kbe.playermgmt.Player;
 import kbe.playermgmt.PlayerService;
 import kbe.playermgmt.PlayerServiceImpl;
+import kbe.rulesmgmt.PlayerRulesServicePresidentFirstImpl;
 
 @Component
 public class FrontendView extends JFrame {
@@ -60,6 +61,7 @@ public class FrontendView extends JFrame {
 	private JButton btnPlayerCard13;
 	private JButton btnPlayerCard14;
 	private JButton btnPlayerCard15;
+	private PlayerRulesServicePresidentFirstImpl playerRuleService;
 	
 	
 	/**
@@ -250,6 +252,8 @@ public class FrontendView extends JFrame {
 		btnPlayerCard15.setVisible(false);
 		contentPane.add(btnPlayerCard15);
 	
+		//gameInstance.currentPlayer = playerRuleService.determineInitialPlayer(gameInstance);
+		
 		SwingUtilities.updateComponentTreeUI(this);
 	}
 }
