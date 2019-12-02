@@ -3,6 +3,7 @@ package kbe.playermgmt;
 import java.util.List;
 
 import kbe.cardmgmt.Card;
+import kbe.gamemgmt.GameInstance;
 
 /**
  * @authors         Kaya Löher 				| Kim Anh Nguyen 		| Christian Wahnsiedler
@@ -62,6 +63,6 @@ public interface PlayerService {
      *
      * @return Player - Der nächste Spieler
      */
-    Player getNextPlayer() throws NullPointerException;
+    Player getNextPlayer(GameInstance instance) throws NullPointerException;
 
 }

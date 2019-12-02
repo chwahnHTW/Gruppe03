@@ -63,22 +63,22 @@ public class Card {
         return symbol;
     }
 
-    /**
-     * setzt die Zahl einer Karte
-     *
-     * @param zahl: Die Zahl
-     */
-    public void setZahl(Zahl zahl) {
-        this.zahl = zahl;
-    }
-
-    /**
-     * setzt die Farbe einer Karte
-     *
-     * @param symbol: Die Farbe
-     */
-    public void setSymbol(Symbol symbol) {
-        this.symbol = symbol;
-    }
+//    /**
+//     * setzt die Zahl einer Karte
+//     *
+//     * @param zahl: Die Zahl
+//     */
+//    public void setZahl(Zahl zahl) {
+//        this.zahl = zahl;
+//    }
+//
+//    /**
+//     * setzt die Farbe einer Karte
+//     *
+//     * @param symbol: Die Farbe
+//     */
+//    public void setSymbol(Symbol symbol) {
+//        this.symbol = symbol;
+//    }
 
 }
