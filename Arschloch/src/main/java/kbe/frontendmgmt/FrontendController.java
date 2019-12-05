@@ -13,6 +13,11 @@ import kbe.rulesmgmt.PlayerRulesService;
 import kbe.rulesmgmt.PlayerRulesServicePresidentFirstImpl;
 import kbe.rulesmgmt.Rules;
 
+/**
+ * Daten hier speichern
+ * @author kimanhnguyen
+ *
+ */
 
 @Controller
 public class FrontendController implements FrontendService {
