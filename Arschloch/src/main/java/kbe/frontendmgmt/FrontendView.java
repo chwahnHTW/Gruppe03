@@ -175,7 +175,7 @@ public class FrontendView extends JFrame {
 		btnPlayerCard0 = new JButton("Card 0");
 		btnPlayerCard0.setBounds(104, 408, 98, 125);
 		btnPlayerCard0.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {	
+			public void actionPerformed(ActionEvent e) {	// in controller
 			JOptionPane.showInputDialog(null, "Hier können wir dann eine Karte auswählen");
 			};});
 		contentPane.add(btnPlayerCard0);
