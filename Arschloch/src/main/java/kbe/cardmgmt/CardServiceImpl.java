@@ -28,6 +28,8 @@ public class CardServiceImpl implements CardService {
         
         cards.
         
+        // wie karten mit bilder mappen? -> Card klasse mit to string?
+        
     }
 
     @Override
