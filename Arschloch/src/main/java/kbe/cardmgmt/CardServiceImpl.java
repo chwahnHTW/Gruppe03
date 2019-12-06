@@ -16,6 +16,8 @@ import kbe.playermgmt.Player;
 
 @Component
 public class CardServiceImpl implements CardService {
+	
+    // wie karten mit bilder mappen? -> Card klasse mit to string?
 
     @Override
     public List<Card> orderCardsByValue(List<Card> cards) {
@@ -28,7 +30,10 @@ public class CardServiceImpl implements CardService {
         
         cards.
         
-        // wie karten mit bilder mappen? -> Card klasse mit to string?
+        /**
+         * sort mit neuer klasse implements comparator
+         * card zahl value festlegen
+         */
         
     }
 
@@ -45,6 +50,7 @@ public class CardServiceImpl implements CardService {
     		}
     	}
         return deck;
+        
     }
 
     @Override
