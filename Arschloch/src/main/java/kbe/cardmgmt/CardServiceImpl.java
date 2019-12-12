@@ -20,7 +20,7 @@ public class CardServiceImpl implements CardService {
     // wie karten mit bilder mappen? -> Card klasse mit to string?
 
     @Override
-    public List<Card> orderCardsByValue(List<Card> cards) {
+    public List<Card> sortCardsByValue(List<Card> cards) {
         // TODO Auto-generated method stub
     	/**
     	 * Karten nach Ihrem wert sortieren

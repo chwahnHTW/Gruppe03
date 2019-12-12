@@ -26,7 +26,7 @@ public interface CardService {
      * @param cards: Die Karten, die ein Spieler auf der Hand hat am Anfang eines Spiels, bevor  Karten getauscht wurden.
      * @return : Eine geordnete Liste von Karten für die Spielerhand.
      */
-    List<Card> orderCardsByValue(List<Card> cards);
+    List<Card> sortCardsByValue(List<Card> cards);
 
     /**
      * Das Kartendeck wird hier generiert.

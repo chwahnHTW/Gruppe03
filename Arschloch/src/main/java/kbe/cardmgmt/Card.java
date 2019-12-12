@@ -14,7 +14,17 @@ public class Card {
      */
     public enum Zahl {
 
-        SIEBEN, ACHT, NEUN, ZEHN, BUBE, DAMEN, KOENIG, ASS;
+        SIEBEN(7), ACHT(8), NEUN(9), ZEHN(10), BUBE(11), DAMEN(12), KOENIG(13), ASS(14);
+    	
+    	private int kartenWert;
+    	
+    	Zahl (int kartenZahl){
+    		this.kartenWert = kartenZahl;
+    	}
+    	
+    	public int getKartenWert() {
+    		return this.kartenWert;
+    	}
 
     }
 
@@ -61,6 +71,15 @@ public class Card {
      */
     public Symbol getSymbol() {
         return symbol;
+    }
+    
+    /**
+     * Setzt die eine Karte aus Zahl und Symbol zusammen.
+     * 
+     * @return:	Name der Karte
+     */
+    public String toString() {
+    	return symbol + " " + zahl;
     }
 
 //    /**
