@@ -58,36 +58,44 @@ public class PlayerServiceImpl implements PlayerService {
             for (int i = 0; i <= instance.getPlayers().size(); i++) {
                 //suche die Karo7 in den HandCards
                 if (instance.getPlayers().get(i).getHand().contains(initial)) {
-                    //und eigentlich noch setCurrentPlayer
-                    //instance.setCurrentPlayer(instance.getPlayers().get(i));
-                    return instance.getPlayers().get(i);
+                    instance.setCurrentPlayer(instance.getPlayers().get(i));
+                    return instance.getCurrentPlayer();
                 }
             }
         } else {  //dann: im uhrzeigersinn
             //Liste der Spieler im Spiel mit Reihenfolge, wie gesessen wird
             //currentplayer ++
-            Player current = instance.getCurrentPlayer();
+
+            // für die Länge der Spielerliste suche currentplayer
             for (int i = 0; i <= instance.getPlayers().size(); i++) {
-                //suche currentplayer
-                if (instance.getPlayers().get(i).equals(current)) {
+                //wenn current spieler i entspricht
+                if (instance.getPlayers().get(i).equals(instance.getCurrentPlayer())) {
+                    //nächsten player als currentPlayer setzen
                     int x = i;
                     x++;
-                    //nächsten player als nextPlayer setzen
-
+                    //wichtig: bei Ende einer Runde muss der anfangen, der zuletzt gelegt hat
+                    //wenn dieser keine Karten mehr hat, dann ist der nächste dran
                     //wenn ende liste dann wieder 0
-                    //wenn size = currentplayer dann 1. spieler in liste
-
-                    //wenn nächster in liste keine karten dann der darauffolgende
-                    Player next = instance.getPlayers().get(x);
-                    if(hasCards(next)){
-                        return next;
+                    if (instance.getPlayers().size() <= x) {
+                        instance.setCurrentPlayer(instance.getPlayers().get(x));
+                        if (hasCards(instance.getCurrentPlayer())) {
+                            return instance.getCurrentPlayer();
+                        } else {
+                            getNextPlayer(instance);
+                        }
+                        //wenn size = currentplayer dann 1. spieler in liste
+                    } else {
+                        instance.setCurrentPlayer(instance.getPlayers().get(0));
+                        if (hasCards(instance.getCurrentPlayer())) {
+                            return instance.getCurrentPlayer();
+                        } else {
+                            getNextPlayer(instance);
+                        }
                     }
                 }
             }
         }
-        //wichtig: bei Ende einer Runde muss der anfangen, der zuletzt gelegt hat
-        //wenn dieser keine Karten mehr hat, dann ist der nächste dran
-        return null;
+        return instance.getCurrentPlayer();
     }
 
     @Override

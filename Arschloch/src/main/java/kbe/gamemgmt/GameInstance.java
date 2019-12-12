@@ -50,7 +50,7 @@ public class GameInstance {
      *
      * @param players : Eine Liste von Spielern
      */
-    void setPlayers(List<Player> players) {
+    public void setPlayers(List<Player> players) {
         this.players = players;
     }
 
@@ -68,7 +68,7 @@ public class GameInstance {
      *
      * @param result : Liste von Spielern
      */
-    void setResult(List<Player> result) {
+    public void setResult(List<Player> result) {
         this.result = result;
     }
 
@@ -86,7 +86,7 @@ public class GameInstance {
      *
      * @param boardCards : Liste von Karten
      */
-    void setBoardCards(List<Card> boardCards) {
+    public void setBoardCards(List<Card> boardCards) {
         this.boardCards = boardCards;
     }
 
@@ -104,7 +104,7 @@ public class GameInstance {
      *
      * @param currentPlayer : der aktuelle Spieler
      */
-    void setCurrentPlayer(Player currentPlayer) {
+    public void setCurrentPlayer(Player currentPlayer) {
         this.currentPlayer = currentPlayer;
     }
 
