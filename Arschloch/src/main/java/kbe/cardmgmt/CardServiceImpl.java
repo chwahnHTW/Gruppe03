@@ -21,24 +21,13 @@ public class CardServiceImpl implements CardService {
 
     @Override
     public List<Card> sortCardsByValue(List<Card> cards) {
-        // TODO Auto-generated method stub
-    	/**
-    	 * Karten nach Ihrem wert sortieren
-    	 * Wert ist die zahl der karte: sieben am niedrigsten
-    	 */
-        return null;
-        
-        //cards.
-        
-        /**
-         * sort mit neuer klasse implements comparator
-         * card zahl value festlegen
-         */
+        Collections.sort(cards, new CardComparator());
+        return cards;
         
     }
 
     @Override
-    public List<Card> generateDeck(int anzahlKarten) { // default = 32 //optional
+    public List<Card> generateDeck() { // default = 32 //optional
     	List<Card> deck = new ArrayList<Card>();
     	
     	for (Card.Symbol symbol : Card.Symbol.values()) {
@@ -163,7 +152,7 @@ public class CardServiceImpl implements CardService {
 		 */
 		
 		//gemischtes deck erstellen mit 32 Karten
-		List<Card> deck = shuffleDeck(generateDeck(32));
+		List<Card> deck = shuffleDeck(generateDeck());
 		//playerList fuer die spieler
 		List <Player> playerList = gameInstance.getPlayers();
 		//anzahl spieler ermittenln

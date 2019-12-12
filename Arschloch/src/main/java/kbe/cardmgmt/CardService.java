@@ -34,10 +34,9 @@ public interface CardService {
      * <p>
      * Das Kartendeck wird gemischt, bevor es an die Spieler ausgeteilt wird.
      *
-     * @param anzahlKarten: In einem normalen Spiel 32 Karten.
      * @return : Eine Liste von Karten, entsprechend ihrer Anzahl, für eine Spielrunde.
      */
-    List<Card> generateDeck(int anzahlKarten);
+    List<Card> generateDeck();
 
     /**
      * Das Kartendeck wird hier gemischt
