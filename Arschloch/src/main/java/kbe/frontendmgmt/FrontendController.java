@@ -4,6 +4,8 @@ package kbe.frontendmgmt;
 import java.util.LinkedList;
 import java.util.List;
 
+import javax.swing.SwingUtilities;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 
@@ -35,6 +37,8 @@ private GameInstanceService GISI = new GameInstanceServiceImpl();
 
 //@Autowired
 private FrontendView frontendView = new FrontendView();
+
+private PlayerService PLAYSI = new PlayerServiceImpl();
 
 //@Autowired 
 private PlayerRulesService playerRuleService = new PlayerRulesServicePresidentFirstImpl();
@@ -86,8 +90,18 @@ private CardRulesService cardRulesService = new CardRulesServiceStandardImpl();
 		  Card check = (Card) tempCardList.get(validatedCounter);
 		  
 		  // hier findet später die Überprüfung statt, ob der Spielzug richtig ist. Wenn die Liste die von Compare zurückkommt die gleiche ist wie die,
-		  // 
+		  // wenn ja, Karten von Hand des CurrentPlayers abziehen und mit getNextPlayer das Spiel weiterlaufen lassen.
+		  // wenn nicht, Auffoderung, erneut Karten auszuwählen
 		  if (cardRulesService.compareCards(check, check) != null) {
+			  PLAYSI.removeFromHand(gameInstance.currentPlayer, tempCardList);
+			  PLAYSI.getNextPlayer(gameInstance);
+			  gameInstance.boardCards = tempCardList;
+			  if (gameInstance.boardCards.get(0).getZahl().toString() == "Ass") {
+				  gameInstance.boardCards = null;				  
+			  }
+			  
+			  SwingUtilities.updateComponentTreeUI(frontendView);
+			  
 			  
 			  
 		  }
