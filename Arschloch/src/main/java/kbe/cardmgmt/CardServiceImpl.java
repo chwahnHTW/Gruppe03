@@ -165,13 +165,12 @@ public class CardServiceImpl implements CardService {
 		//gemischtes deck erstellen mit 32 Karten
 		List<Card> deck = shuffleDeck(generateDeck(32));
 		//playerList fuer die spieler
-		List <Player> playerList = gameInstance.getPlayers();
 		//anzahl spieler ermittenln
-		int anzahlPlayer = playerList.size();
+		int anzahlPlayer = gameInstance.players.size();
 		
 		for (int i = 0; i < deck.size(); i++) {
 			// i%anzahlPlayer, damit durhc jeden Player iteriert wird
-			playerList.get(i % anzahlPlayer).setHand(deck.get(i));
+			gameInstance.players.get(i % anzahlPlayer).setHand(deck.get(i));
 		}
 		
 	}

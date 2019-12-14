@@ -10,6 +10,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 
 import kbe.cardmgmt.Card;
+import kbe.cardmgmt.CardService;
+import kbe.cardmgmt.CardServiceImpl;
 import kbe.gamemgmt.GameInstance;
 import kbe.gamemgmt.GameInstanceService;
 import kbe.gamemgmt.GameInstanceServiceImpl;
@@ -45,12 +47,16 @@ private PlayerRulesService playerRuleService = new PlayerRulesServicePresidentFi
 //@Autowired
 private CardRulesService cardRulesService = new CardRulesServiceStandardImpl();
 
+private CardService cardService = new CardServiceImpl();
+
+
 	@Override
 	public void init() {
         System.out.println("Initializing.......");
         gameInstance = GISI.startGame();
         frontendView.createFrontendView(gameInstance);
-       gameInstance.currentPlayer = playerRuleService.determineInitialPlayer(gameInstance) ;
+        cardService.dealCardsToPlayers(gameInstance);
+        gameInstance.currentPlayer = playerRuleService.determineInitialPlayer(gameInstance) ;
         
 	}
 
