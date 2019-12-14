@@ -2,11 +2,18 @@ package kbe.frontendmgmt;
 
 import java.awt.Color;
 import java.awt.EventQueue;
+import java.awt.Frame;
+import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.File;
 import java.io.IOException;
 import java.util.LinkedList;
+import java.util.List;
 
+import javax.imageio.ImageIO;
+import javax.swing.Icon;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -91,8 +98,13 @@ public class FrontendView extends JFrame {
 			}
 			System.out.println(gameInstance.getPlayers().size());
 			
-				setupFrontend();
 				
+			try {
+				setupFrontend();
+			} catch (IOException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
 				}
 			
 		});
@@ -112,7 +124,7 @@ public class FrontendView extends JFrame {
 			return spielerName = JOptionPane.showInputDialog(null, "Bitte Spielernamen eingeben");}
 	   
 	   
-	private void setupFrontend() {
+	private void setupFrontend() throws IOException {
 		
 		this.remove(btnStartGame);
 		btnPlaycards = new JButton("PlayCard(s)");
@@ -176,13 +188,23 @@ public class FrontendView extends JFrame {
 		lblCurrentBoardcards.setBounds(833, 225, 125, 13);
 		contentPane.add(lblCurrentBoardcards);
 		
+		 /////////////////////////////////////////
 		btnPlayerCard0 = new JButton("Card 0");
 		btnPlayerCard0.setBounds(104, 408, 98, 125);
+		
+		//String card0File = gameInstance.currentPlayer.getHand().get(0).getSymbol().toString() + "_" + 
+		//gameInstance.currentPlayer.getHand().get(0).getZahl().toString() + ".png" ;
+		
+		String card1File = "/HERZ_10.jpg";
+		btnPlayerCard0.setIcon(new javax.swing.ImageIcon(getClass().getResource(card1File)));
+		
+		
 		btnPlayerCard0.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 			selectedCards[0] = 1;
 			};});
 		contentPane.add(btnPlayerCard0);
+		 /////////////////////////////////////////
 		
 		btnPlayerCard1 = new JButton("Card 1");
 		btnPlayerCard1.setBounds(212, 408, 98, 125);
@@ -315,6 +337,74 @@ public class FrontendView extends JFrame {
 		//gameInstance.currentPlayer = playerRuleService.determineInitialPlayer(gameInstance);
 		
 		SwingUtilities.updateComponentTreeUI(this);
+	}
+	
+
+	private void updateCardButtons(GameInstance gameInstance) {
+		
+		List filePaths = new LinkedList<String>();
+		
+		for ( int i = 0 ; i < gameInstance.currentPlayer.getHand().size() ; i++) {
+		String pathToJPG = "/" +  gameInstance.currentPlayer.getHand().get(i).getSymbol().toString() + "_" + 
+		gameInstance.currentPlayer.getHand().get(i).getZahl().toString() + ".jpg" ;
+		filePaths.add(pathToJPG);
+		}
+		
+		try {
+			btnPlayerCard0.setIcon(new javax.swing.ImageIcon(getClass().getResource(filePaths.get(0).toString())));
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		try {
+			btnPlayerCard1.setIcon(new javax.swing.ImageIcon(getClass().getResource(filePaths.get(1).toString())));
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		try {
+			btnPlayerCard2.setIcon(new javax.swing.ImageIcon(getClass().getResource(filePaths.get(2).toString())));
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
+		try {
+			btnPlayerCard3.setIcon(new javax.swing.ImageIcon(getClass().getResource(filePaths.get(3).toString())));
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		try {
+			btnPlayerCard4.setIcon(new javax.swing.ImageIcon(getClass().getResource(filePaths.get(4).toString())));
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		try {
+			btnPlayerCard5.setIcon(new javax.swing.ImageIcon(getClass().getResource(filePaths.get(5).toString())));
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		try {
+			btnPlayerCard6.setIcon(new javax.swing.ImageIcon(getClass().getResource(filePaths.get(6).toString())));
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		try {
+			btnPlayerCard7.setIcon(new javax.swing.ImageIcon(getClass().getResource(filePaths.get(7).toString())));
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		SwingUtilities.updateComponentTreeUI(this);
+		
 	}
 }
 
