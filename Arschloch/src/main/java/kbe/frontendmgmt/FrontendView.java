@@ -24,6 +24,9 @@ import javax.swing.border.EmptyBorder;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+
+import kbe.cardmgmt.CardService;
+import kbe.cardmgmt.CardServiceImpl;
 import kbe.gamemgmt.GameInstance;
 
 import kbe.playermgmt.Player;
@@ -37,18 +40,24 @@ public class FrontendView extends JFrame {
 	
 	//@Autowired
 	private PlayerService PLAYSI = new PlayerServiceImpl();
+	
+	//@Autowired
+	private CardService cardService = new CardServiceImpl();
+	//@Autowired
+	private PlayerRulesServicePresidentFirstImpl playerRuleService;
+	
+	
 	private GameInstance gameInstance;
 	
 	private JPanel contentPane;
 	private JButton btnPlaycards;
 	private JButton btnPass;
-	private JLabel lblCurrentPlayer;
+	public JLabel lblCurrentPlayer;
 	private JPanel currentBoardCardPanel1;
 	private JPanel currentBoardCardPanel2;
 	private JPanel currentBoardCardPanel3;
 	private JPanel currentBoardCardPanel4;
 	private JLabel lblPlayers;
-	private JLabel lblPlayername;
 	private JPanel playerNamesPanel;
 	private JLabel lblCurrentBoardcards;
 	private JButton btnStartGame;
@@ -68,7 +77,6 @@ public class FrontendView extends JFrame {
 	private JButton btnPlayerCard13;
 	private JButton btnPlayerCard14;
 	private JButton btnPlayerCard15;
-	private PlayerRulesServicePresidentFirstImpl playerRuleService;
 	private int[] selectedCards = new int[15];
 	
 	/**
@@ -97,9 +105,12 @@ public class FrontendView extends JFrame {
 			gameInstance.players.add(player);
 			}
 			System.out.println(gameInstance.getPlayers().size());
-			
-				
+
 			try {
+				gameInstance.currentPlayer = gameInstance.players.get(0);
+				System.out.println(gameInstance.currentPlayer.getName());
+				
+				//cardService.dealCardsToPlayers(gameInstance);
 				setupFrontend();
 			} catch (IOException e1) {
 				// TODO Auto-generated catch block
@@ -119,12 +130,12 @@ public class FrontendView extends JFrame {
 		return Integer.valueOf(spieleranzahl);}
 	   
 	   
-	   private String getUserNameInput() {
+	   String getUserNameInput() {
 			String spielerName;
 			return spielerName = JOptionPane.showInputDialog(null, "Bitte Spielernamen eingeben");}
 	   
 	   
-	private void setupFrontend() throws IOException {
+	    void setupFrontend() throws IOException {
 		
 		this.remove(btnStartGame);
 		btnPlaycards = new JButton("PlayCard(s)");
@@ -143,7 +154,7 @@ public class FrontendView extends JFrame {
 		btnPass.setBounds(859, 335, 99, 21);
 		contentPane.add(btnPass);
 		
-		lblCurrentPlayer = new JLabel("Current Player :");
+		lblCurrentPlayer = new JLabel("Current Player :" + gameInstance.getCurrentPlayer().getName().toString());
 		lblCurrentPlayer.setBounds(104, 276, 155, 34);
 		contentPane.add(lblCurrentPlayer);
 		
@@ -170,9 +181,6 @@ public class FrontendView extends JFrame {
 		lblPlayers.setBounds(107, 67, 73, 29);
 		contentPane.add(lblPlayers);
 		
-		lblPlayername = new JLabel("PlayerName");
-		lblPlayername.setBounds(104, 310, 139, 37);
-		contentPane.add(lblPlayername);
 		
 		playerNamesPanel = new JPanel();
 		playerNamesPanel.setBounds(104, 93, 98, 125);

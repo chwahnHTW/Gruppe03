@@ -16,7 +16,7 @@ public class PlayerRulesServicePresidentFirstImpl implements PlayerRulesService 
 	@Override
 	public Player determineInitialPlayer(GameInstance gameInstance) {
 		// TODO Auto-generated method stub
-		return null;
+		return gameInstance.players.get(0);
 	}
 
 }

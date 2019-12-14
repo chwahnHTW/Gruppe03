@@ -4,6 +4,7 @@ package kbe.frontendmgmt;
 import java.util.LinkedList;
 import java.util.List;
 
+import javax.swing.JLabel;
 import javax.swing.SwingUtilities;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -55,8 +56,6 @@ private CardService cardService = new CardServiceImpl();
         System.out.println("Initializing.......");
         gameInstance = GISI.startGame();
         frontendView.createFrontendView(gameInstance);
-        cardService.dealCardsToPlayers(gameInstance);
-        gameInstance.currentPlayer = playerRuleService.determineInitialPlayer(gameInstance) ;
         
 	}
 
@@ -79,6 +78,8 @@ private CardService cardService = new CardServiceImpl();
    private void endRound(GameInstance game) {
    };
    
+   
+   
    public void validateMove(int[] selectedCards) {
 	  
 	   List tempCardList = new LinkedList<Card>();
@@ -89,7 +90,6 @@ private CardService cardService = new CardServiceImpl();
 			   tempCardList.add(gameInstance.currentPlayer.getHand().get(i));
 		   }
 	   }
-	   
 	   // Spielzug validieren
 	   
 	  for (int validatedCounter = 0 ; validatedCounter < tempCardList.size(); validatedCounter++) {
@@ -102,20 +102,17 @@ private CardService cardService = new CardServiceImpl();
 			  PLAYSI.removeFromHand(gameInstance.currentPlayer, tempCardList);
 			  PLAYSI.getNextPlayer(gameInstance);
 			  gameInstance.boardCards = tempCardList;
+			  frontendView.lblCurrentPlayer = new JLabel("Current Player : " + gameInstance.getCurrentPlayer().getName().toString());
 			  if (gameInstance.boardCards.get(0).getZahl().toString() == "Ass") {
 				  gameInstance.boardCards = null;				  
 			  }
 			  
 			  SwingUtilities.updateComponentTreeUI(frontendView);
-			  
-			  
-			  
 		  }
 	  }
 	  
    }
-   
-   
+ 
 }
 
 

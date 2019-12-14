@@ -153,7 +153,6 @@ public class CardServiceImpl implements CardService {
 		// TODO Auto-generated method stub
 		/**
 		 * anzahl der spieler herausfinden
-		 * 
 		 * austeilender spieler übergeben
 		 * der nächste spieler von dem beginnt
 		 * so lange karten im deck: 
@@ -165,6 +164,7 @@ public class CardServiceImpl implements CardService {
 		//gemischtes deck erstellen mit 32 Karten
 		List<Card> deck = shuffleDeck(generateDeck(32));
 		//playerList fuer die spieler
+		
 		//anzahl spieler ermittenln
 		int anzahlPlayer = gameInstance.players.size();
 		
