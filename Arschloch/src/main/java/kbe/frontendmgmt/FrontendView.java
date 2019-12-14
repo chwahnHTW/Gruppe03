@@ -62,7 +62,7 @@ public class FrontendView extends JFrame {
 	private JButton btnPlayerCard14;
 	private JButton btnPlayerCard15;
 	private PlayerRulesServicePresidentFirstImpl playerRuleService;
-	
+	private int[] selectedCards = new int[15];
 	
 	/**
 	 * Create the frame.
@@ -119,6 +119,10 @@ public class FrontendView extends JFrame {
 		btnPlaycards.setForeground(Color.WHITE);
 		btnPlaycards.setBackground(new Color(0, 0, 153));
 		btnPlaycards.setBounds(721, 335, 99, 21);
+		btnPlaycards.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+			JOptionPane.showInputDialog(null, "Hier können wir dann eine Karte auswählen");
+			};});
 		contentPane.add(btnPlaycards);
 		
 		btnPass = new JButton("Pass");
@@ -175,81 +179,137 @@ public class FrontendView extends JFrame {
 		btnPlayerCard0 = new JButton("Card 0");
 		btnPlayerCard0.setBounds(104, 408, 98, 125);
 		btnPlayerCard0.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {	// in controller
-			JOptionPane.showInputDialog(null, "Hier können wir dann eine Karte auswählen");
+			public void actionPerformed(ActionEvent e) {
+			selectedCards[0] = 1;
 			};});
 		contentPane.add(btnPlayerCard0);
 		
 		btnPlayerCard1 = new JButton("Card 1");
 		btnPlayerCard1.setBounds(212, 408, 98, 125);
+		btnPlayerCard1.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+			selectedCards[1] = 1;
+			};});
 		contentPane.add(btnPlayerCard1);
 		
 		btnPlayerCard2 = new JButton("Card 2");
 		btnPlayerCard2.setBounds(320, 408, 98, 125);
+		btnPlayerCard2.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+			selectedCards[2] = 1;
+			};});
 		contentPane.add(btnPlayerCard2);
 		
 		btnPlayerCard3 = new JButton("Card 3");
 		btnPlayerCard3.setBounds(428, 408, 98, 125);
+		btnPlayerCard3.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+			selectedCards[3] = 1;
+			};});
 		contentPane.add(btnPlayerCard3);
 		
 		btnPlayerCard4 = new JButton("Card 4");
 		btnPlayerCard4.setBounds(536, 408, 98, 125);
+		btnPlayerCard4.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+			selectedCards[4] = 1;
+			};});
 		contentPane.add(btnPlayerCard4);
 		
 		btnPlayerCard5 = new JButton("Card 5");
 		btnPlayerCard5.setBounds(644, 408, 98, 125);
+		btnPlayerCard5.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+			selectedCards[6] = 1;
+			};});
 		contentPane.add(btnPlayerCard5);
 		
 		btnPlayerCard6 = new JButton("Card 6");
 		btnPlayerCard6.setBounds(752, 408, 98, 125);
+		btnPlayerCard6.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+			selectedCards[6] = 1;
+			};});
 		contentPane.add(btnPlayerCard6);
 		
 		btnPlayerCard7 = new JButton("Card 7");
 		btnPlayerCard7.setBounds(860, 408, 98, 125);
+		btnPlayerCard7.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+			selectedCards[7] = 1;
+			};});
 		contentPane.add(btnPlayerCard7);
 		
 		btnPlayerCard8 = new JButton("Card 8");
 		btnPlayerCard8.setBounds(104, 543, 98, 125);
 		btnPlayerCard8.setVisible(false);
+		btnPlayerCard8.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+			selectedCards[9] = 1;
+			};});
 		contentPane.add(btnPlayerCard8);
 		
 		btnPlayerCard9 = new JButton("Card 9");
-		btnPlayerCard9.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-			}
-		});
 		btnPlayerCard9.setBounds(212, 543, 98, 125);
 		btnPlayerCard9.setVisible(false);
+		btnPlayerCard9.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+			selectedCards[9] = 1;
+			};});
 		contentPane.add(btnPlayerCard9);
 		
 		btnPlayerCard10 = new JButton("Card 10");
 		btnPlayerCard10.setBounds(320, 543, 98, 125);
 		btnPlayerCard10.setVisible(false);
+		btnPlayerCard10.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+			selectedCards[10] = 1;
+			};});
 		contentPane.add(btnPlayerCard10);
 		
 		btnPlayerCard11 = new JButton("Card 11");
 		btnPlayerCard11.setBounds(428, 543, 98, 125);
 		btnPlayerCard11.setVisible(false);
+		btnPlayerCard11.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+			selectedCards[11] = 1;
+			};});
 		contentPane.add(btnPlayerCard11);
 		
 		btnPlayerCard12 = new JButton("Card 12");
 		btnPlayerCard12.setBounds(536, 543, 98, 125);
 		btnPlayerCard12.setVisible(false);
+		btnPlayerCard12.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+			selectedCards[12] = 1;
+			};});
 		contentPane.add(btnPlayerCard12);
 		
 		btnPlayerCard13 = new JButton("Card 13");
 		btnPlayerCard13.setBounds(644, 543, 98, 125);
 		btnPlayerCard13.setVisible(false);
+		btnPlayerCard13.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+			selectedCards[13] = 1;
+			};});
 		contentPane.add(btnPlayerCard13);
 		
 		btnPlayerCard14 = new JButton("Card 14");
 		btnPlayerCard14.setBounds(752, 543, 98, 125);
 		btnPlayerCard14.setVisible(false);
+		btnPlayerCard14.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+			selectedCards[14] = 1;
+			};});
 		contentPane.add(btnPlayerCard14);
 		
 		btnPlayerCard15 = new JButton("Card 15");
 		btnPlayerCard15.setBounds(860, 543, 98, 125);
 		btnPlayerCard15.setVisible(false);
+		btnPlayerCard15.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+			selectedCards[15] = 1;
+			};});
 		contentPane.add(btnPlayerCard15);
 	
 		//gameInstance.currentPlayer = playerRuleService.determineInitialPlayer(gameInstance);
@@ -257,3 +317,4 @@ public class FrontendView extends JFrame {
 		SwingUtilities.updateComponentTreeUI(this);
 	}
 }
+
