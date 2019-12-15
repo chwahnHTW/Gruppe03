@@ -41,6 +41,7 @@ private GameInstanceService GISI = new GameInstanceServiceImpl();
 //@Autowired
 private FrontendView frontendView = new FrontendView();
 
+//@Autowired
 private PlayerService PLAYSI = new PlayerServiceImpl();
 
 //@Autowired 
@@ -48,6 +49,7 @@ private PlayerRulesService playerRuleService = new PlayerRulesServicePresidentFi
 //@Autowired
 private CardRulesService cardRulesService = new CardRulesServiceStandardImpl();
 
+//@Autowired
 private CardService cardService = new CardServiceImpl();
 
 
@@ -55,8 +57,7 @@ private CardService cardService = new CardServiceImpl();
 	public void init() {
         System.out.println("Initializing.......");
         gameInstance = GISI.startGame();
-        frontendView.createFrontendView(gameInstance);
-        
+        frontendView.createFrontendView(gameInstance);      
 	}
 
 	
@@ -99,10 +100,16 @@ private CardService cardService = new CardServiceImpl();
 		  // wenn ja, Karten von Hand des CurrentPlayers abziehen und mit getNextPlayer das Spiel weiterlaufen lassen.
 		  // wenn nicht, Auffoderung, erneut Karten auszuwählen
 		  if (cardRulesService.compareCards(check, check) != null) {
-			  PLAYSI.removeFromHand(gameInstance.currentPlayer, tempCardList);
-			  PLAYSI.getNextPlayer(gameInstance);
-			  gameInstance.boardCards = tempCardList;
-			  frontendView.lblCurrentPlayer = new JLabel("Current Player : " + gameInstance.getCurrentPlayer().getName().toString());
+			  
+			PLAYSI.removeFromHand(gameInstance.currentPlayer, tempCardList);
+			
+			gameInstance.boardCards = tempCardList;
+			
+			gameInstance.currentPlayer =  PLAYSI.getNextPlayer(gameInstance);
+ 
+			frontendView.lblCurrentPlayer = new JLabel("Current Player : " + gameInstance.getCurrentPlayer().getName().toString());
+			  
+			  
 			  if (gameInstance.boardCards.get(0).getZahl().toString() == "Ass") {
 				  gameInstance.boardCards = null;				  
 			  }

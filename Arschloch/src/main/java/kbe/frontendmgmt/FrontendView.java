@@ -25,6 +25,9 @@ import javax.swing.border.EmptyBorder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import kbe.cardmgmt.Card;
+import kbe.cardmgmt.Card.Symbol;
+import kbe.cardmgmt.Card.Zahl;
 import kbe.cardmgmt.CardService;
 import kbe.cardmgmt.CardServiceImpl;
 import kbe.gamemgmt.GameInstance;
@@ -32,6 +35,9 @@ import kbe.gamemgmt.GameInstance;
 import kbe.playermgmt.Player;
 import kbe.playermgmt.PlayerService;
 import kbe.playermgmt.PlayerServiceImpl;
+import kbe.rulesmgmt.CardRulesService;
+import kbe.rulesmgmt.CardRulesServiceStandardImpl;
+import kbe.rulesmgmt.PlayerRulesService;
 import kbe.rulesmgmt.PlayerRulesServicePresidentFirstImpl;
 
 @Component
@@ -40,12 +46,14 @@ public class FrontendView extends JFrame {
 	
 	//@Autowired
 	private PlayerService PLAYSI = new PlayerServiceImpl();
-	
 	//@Autowired
 	private CardService cardService = new CardServiceImpl();
 	//@Autowired
-	private PlayerRulesServicePresidentFirstImpl playerRuleService;
+	private PlayerRulesService playerRulesService = new PlayerRulesServicePresidentFirstImpl();
 	
+	private CardRulesService cardRulesService = new CardRulesServiceStandardImpl();
+	//Autowired
+//	private FrontendController frontendController = new FrontendController();
 	
 	private GameInstance gameInstance;
 	
@@ -73,11 +81,7 @@ public class FrontendView extends JFrame {
 	private JButton btnPlayerCard9;
 	private JButton btnPlayerCard10;
 	private JButton btnPlayerCard11;
-	private JButton btnPlayerCard12;
-	private JButton btnPlayerCard13;
-	private JButton btnPlayerCard14;
-	private JButton btnPlayerCard15;
-	private int[] selectedCards = new int[15];
+	private int[] selectedCards = new int[12];
 	
 	/**
 	 * Create the frame.
@@ -105,14 +109,19 @@ public class FrontendView extends JFrame {
 			gameInstance.players.add(player);
 			}
 			cardService.dealCardsToPlayers(gameInstance);
-			System.out.println(gameInstance.getPlayers().size());
 			try {
-				gameInstance.currentPlayer = gameInstance.players.get(0);
+				gameInstance.currentPlayer = playerRulesService.determineInitialPlayer(gameInstance);
 				System.out.println(gameInstance.currentPlayer.getName());
+				Card firstCard = new Card (Zahl.SIEBEN, Symbol.HERZ);
+				LinkedList toBeRemoved = new LinkedList<Card>();
+				toBeRemoved.add(firstCard);
+				PLAYSI.removeFromHand(gameInstance.currentPlayer, toBeRemoved);
+				gameInstance.boardCards = toBeRemoved;
+				gameInstance.currentPlayer = gameInstance.players.get(0);
+				setupFrontend();
 				updateCardButtons(gameInstance);
 				
-				//cardService.dealCardsToPlayers(gameInstance);
-				setupFrontend();
+				
 			} catch (IOException e1) {
 				// TODO Auto-generated catch block
 				e1.printStackTrace();
@@ -120,6 +129,7 @@ public class FrontendView extends JFrame {
 				}
 			
 		});
+		
 		btnStartGame.setForeground(Color.WHITE);
 		btnStartGame.setBackground(new Color(0, 0, 153));
 		btnStartGame.setBounds(489, 262, 180, 63);
@@ -145,7 +155,7 @@ public class FrontendView extends JFrame {
 		btnPlaycards.setBounds(721, 335, 99, 21);
 		btnPlaycards.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-			JOptionPane.showInputDialog(null, "Hier können wir dann eine Karte auswählen");
+				validateMove(selectedCards);
 			};});
 		contentPane.add(btnPlaycards);
 		
@@ -173,9 +183,6 @@ public class FrontendView extends JFrame {
 		
 		currentBoardCardPanel4 = new JPanel();
 		currentBoardCardPanel4.setBounds(859, 93, 99, 125);
-	    JLabel jl=new JLabel();
-	    jl.setIcon(new javax.swing.ImageIcon(getClass().getResource("emptyCard.jpg")));
-	    currentBoardCardPanel4.add(jl);
 		contentPane.add(currentBoardCardPanel4);
 		
 		lblPlayers = new JLabel("Players");
@@ -197,81 +204,8 @@ public class FrontendView extends JFrame {
 		lblCurrentBoardcards.setBounds(833, 225, 125, 13);
 		contentPane.add(lblCurrentBoardcards);
 		
-		
-		
-		btnPlayerCard8 = new JButton("Card 8");
-		btnPlayerCard8.setBounds(104, 543, 98, 125);
-		btnPlayerCard8.setVisible(false);
-		btnPlayerCard8.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-			selectedCards[9] = 1;
-			};});
-		contentPane.add(btnPlayerCard8);
-		
-		btnPlayerCard9 = new JButton("Card 9");
-		btnPlayerCard9.setBounds(212, 543, 98, 125);
-		btnPlayerCard9.setVisible(false);
-		btnPlayerCard9.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-			selectedCards[9] = 1;
-			};});
-		contentPane.add(btnPlayerCard9);
-		
-		btnPlayerCard10 = new JButton("Card 10");
-		btnPlayerCard10.setBounds(320, 543, 98, 125);
-		btnPlayerCard10.setVisible(false);
-		btnPlayerCard10.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-			selectedCards[10] = 1;
-			};});
-		contentPane.add(btnPlayerCard10);
-		
-		btnPlayerCard11 = new JButton("Card 11");
-		btnPlayerCard11.setBounds(428, 543, 98, 125);
-		btnPlayerCard11.setVisible(false);
-		btnPlayerCard11.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-			selectedCards[11] = 1;
-			};});
-		contentPane.add(btnPlayerCard11);
-		
-		btnPlayerCard12 = new JButton("Card 12");
-		btnPlayerCard12.setBounds(536, 543, 98, 125);
-		btnPlayerCard12.setVisible(false);
-		btnPlayerCard12.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-			selectedCards[12] = 1;
-			};});
-		contentPane.add(btnPlayerCard12);
-		
-		btnPlayerCard13 = new JButton("Card 13");
-		btnPlayerCard13.setBounds(644, 543, 98, 125);
-		btnPlayerCard13.setVisible(false);
-		btnPlayerCard13.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-			selectedCards[13] = 1;
-			};});
-		contentPane.add(btnPlayerCard13);
-		
-		btnPlayerCard14 = new JButton("Card 14");
-		btnPlayerCard14.setBounds(752, 543, 98, 125);
-		btnPlayerCard14.setVisible(false);
-		btnPlayerCard14.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-			selectedCards[14] = 1;
-			};});
-		contentPane.add(btnPlayerCard14);
-		
-		btnPlayerCard15 = new JButton("Card 15");
-		btnPlayerCard15.setBounds(860, 543, 98, 125);
-		btnPlayerCard15.setVisible(false);
-		btnPlayerCard15.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-			selectedCards[15] = 1;
-			};});
-		contentPane.add(btnPlayerCard15);
+///////////////////////////////////////////////////////////////////////////////////			
 	
-		//gameInstance.currentPlayer = playerRuleService.determineInitialPlayer(gameInstance);
 		
 		SwingUtilities.updateComponentTreeUI(this);
 	}
@@ -279,18 +213,24 @@ public class FrontendView extends JFrame {
 
 	private void updateCardButtons(GameInstance gameInstance) {
 		
+	    JLabel jl=new JLabel();
+	    String fileToBoardCard4 = "/" + gameInstance.boardCards.get(0).getSymbol().toString() + "_" + gameInstance.boardCards.get(0).getZahl().toString() + ".jpg";
+	    jl.setIcon(new javax.swing.ImageIcon(getClass().getResource(fileToBoardCard4)));
+	    currentBoardCardPanel4.add(jl);
+	    contentPane.add(currentBoardCardPanel4);
+	
+		
 		List filePaths = new LinkedList<String>();
 		
 		for ( int i = 0 ; i < gameInstance.currentPlayer.getHand().size() ; i++) {
 		String pathToJPG = "/" +  gameInstance.currentPlayer.getHand().get(i).getSymbol().toString() + "_" + 
 		gameInstance.currentPlayer.getHand().get(i).getZahl().toString() + ".jpg" ;
-		System.out.println(pathToJPG);
 		filePaths.add(pathToJPG);
 		}
-		System.out.println(filePaths.get(0).toString());
-		
 		try {
+			
 ///////////////////////////////////////////////////////////////////////////////////
+			btnPlayerCard0 = null;
 			btnPlayerCard0 = new JButton("Card 0");
 			btnPlayerCard0.setBounds(104, 408, 98, 125);
 			btnPlayerCard0.addActionListener(new ActionListener() {
@@ -299,9 +239,13 @@ public class FrontendView extends JFrame {
 				};});
 			String card0File = "/" + gameInstance.currentPlayer.getHand().get(0).getSymbol().toString() + "_" + 
 			gameInstance.currentPlayer.getHand().get(0).getZahl().toString() + ".jpg" ;
-			System.out.println(card0File);
+			System.out.println("card 0 file = " +  card0File);
 			btnPlayerCard0.setIcon(new javax.swing.ImageIcon(getClass().getResource(card0File)));
 			contentPane.add(btnPlayerCard0);
+			
+			revalidate();
+			repaint();
+			SwingUtilities.updateComponentTreeUI(this);
 ///////////////////////////////////////////////////////////////////////////////////	
 			btnPlayerCard1 = new JButton("Card 1");
 			btnPlayerCard1.setBounds(212, 408, 98, 125);
@@ -387,14 +331,126 @@ public class FrontendView extends JFrame {
 			btnPlayerCard7.setIcon(new javax.swing.ImageIcon(getClass().getResource(card7File)));
 			contentPane.add(btnPlayerCard7);
 ///////////////////////////////////////////////////////////////////////////////////			
-			
+			btnPlayerCard8 = new JButton("Card 8");
+			btnPlayerCard8.setBounds(320, 543, 98, 125);
+		//	btnPlayerCard10.setVisible(false);
+			btnPlayerCard8.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+				selectedCards[8] = 1;
+				};});
+			String card8File = "/" + gameInstance.currentPlayer.getHand().get(8).getSymbol().toString() + "_" + 
+			gameInstance.currentPlayer.getHand().get(8).getZahl().toString() + ".jpg" ;
+			System.out.println(card8File);
+			btnPlayerCard8.setIcon(new javax.swing.ImageIcon(getClass().getResource(card8File)));
+			contentPane.add(btnPlayerCard8);
+	///////////////////////////////////////////////////////////////////////////////////	
+			btnPlayerCard9 = new JButton("Card 9");
+			btnPlayerCard9.setBounds(428, 543, 98, 125);
+			btnPlayerCard9.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+				selectedCards[9] = 1;
+				};});
+			String card9File = "/" + gameInstance.currentPlayer.getHand().get(9).getSymbol().toString() + "_" + 
+			gameInstance.currentPlayer.getHand().get(9).getZahl().toString() + ".jpg" ;
+			System.out.println(card9File);
+			btnPlayerCard9.setIcon(new javax.swing.ImageIcon(getClass().getResource(card9File)));
+			contentPane.add(btnPlayerCard9);
+	///////////////////////////////////////////////////////////////////////////////////	
+			btnPlayerCard10 = new JButton("Card 10");
+			btnPlayerCard10.setBounds(536, 543, 98, 125);
+			//btnPlayerCard12.setVisible(false);
+			btnPlayerCard10.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+				selectedCards[10] = 1;
+				};});
+			String card10File = "/" + gameInstance.currentPlayer.getHand().get(10).getSymbol().toString() + "_" + 
+			gameInstance.currentPlayer.getHand().get(10).getZahl().toString() + ".jpg" ;
+			System.out.println(card10File);
+			btnPlayerCard10.setIcon(new javax.swing.ImageIcon(getClass().getResource(card10File)));
+			contentPane.add(btnPlayerCard10);
+	///////////////////////////////////////////////////////////////////////////////////			
+			btnPlayerCard11 = new JButton("Card 11");
+			btnPlayerCard11.setBounds(644, 543, 98, 125);
+			//btnPlayerCard13.setVisible(false);
+			btnPlayerCard11.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+				selectedCards[11] = 1;
+				};});
+			contentPane.add(btnPlayerCard11);
+	///////////////////////////////////////////////////////////////////////////////////					
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
+			System.out.println("Error");
 			e.printStackTrace();
 		}
-		
+		this.invalidate();
+		this.validate();
+		this.repaint();
 		SwingUtilities.updateComponentTreeUI(this);
 		
 	}
+	
+	
+	  public void validateMove(int[] selectedCards) {
+		   System.out.println("Validating");
+		   List tempCardList = new LinkedList<Card>();
+		   
+		   // geclickte Kartenfelder( Frontend) auslesen 
+		   for ( int i = 0 ; i < selectedCards.length; i++) {
+			   if (selectedCards[i] == 1 ) {
+				   tempCardList.add(gameInstance.currentPlayer.getHand().get(i));
+			   }
+		   }
+		//reset der Ausgewählten Karten   
+		  selectedCards  = new int[12];
+		// Spielzug validieren
+		// hier findet später die Überprüfung statt, ob der Spielzug richtig ist. Wenn die Liste die von Compare zurückkommt die gleiche ist wie die,
+		// wenn ja, Karten von Hand des CurrentPlayers abziehen und mit getNextPlayer das Spiel weiterlaufen lassen.
+		// wenn nicht, Auffoderung, erneut Karten auszuwählen
+			  
+		   
+		  for (int validatedCounter = 0 ; validatedCounter < tempCardList.size(); validatedCounter++) {
+			  Card check = (Card) tempCardList.get(validatedCounter);
+			 
+			  System.out.println(check.compareTo(gameInstance.boardCards.get(validatedCounter)));
+			 
+			  if (check.compareTo( gameInstance.boardCards.get(validatedCounter))==0) {
+				
+				System.out.println("check successful");
+				PLAYSI.removeFromHand(gameInstance.currentPlayer, tempCardList);
+				gameInstance.boardCards = tempCardList;
+				System.out.println(gameInstance.currentPlayer.name);
+				gameInstance.currentPlayer = gameInstance.players.get(1);
+				System.out.println(gameInstance.currentPlayer.name);
+				
+				lblCurrentPlayer = new JLabel("Current Player : " + gameInstance.getCurrentPlayer().getName().toString());
+				  
+				updateCardButtons(gameInstance) ;
+				this.invalidate();
+				this.validate();
+				this.repaint();
+				SwingUtilities.updateComponentTreeUI(this);
+				
+				  if (gameInstance.boardCards.get(0).getZahl().toString() == "Ass") {
+					  gameInstance.boardCards = null;				  
+				  }
+					this.invalidate();
+					this.validate();
+					this.repaint();
+					SwingUtilities.updateComponentTreeUI(this);
+			  }
+		  }
+		  
+	   }
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 }
 

@@ -7,7 +7,7 @@ package kbe.cardmgmt;
  * Diese Klasse stellt eine Karte dar.
  * Eine Karte besteht aus einer Zahl und einer Farbe.
  */
-public class Card {
+public class Card implements Comparable{
 
     /**
      * Ein Enum, welches die Zahlen darstellt, welche für ein Kartenspiel benötigt werden.
@@ -62,6 +62,24 @@ public class Card {
     public Symbol getSymbol() {
         return symbol;
     }
+
+	@Override
+	public int compareTo(Object otherCard) {
+
+		Card other = (Card) otherCard;
+		
+		if ( this.zahl.compareTo(other.zahl) == 1) {
+			
+			System.out.println("works baby"); return 1;}
+			
+			else if (this.zahl.compareTo(other.zahl) == 0) {System.out.println("invalid move, same number values"); return 0;}
+		
+			else if (this.zahl.compareTo(other.zahl) == 1) {System.out.println("invalid move, lower number value"); return -1;}
+		
+			else if (other.zahl == null) {System.out.println("works baby"); return 1;}
+		
+			else return 0;		
+	}
 
 //    /**
 //     * setzt die Zahl einer Karte
