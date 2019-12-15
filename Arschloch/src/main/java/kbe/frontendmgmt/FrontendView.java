@@ -104,11 +104,12 @@ public class FrontendView extends JFrame {
 			Player player = PLAYSI.createPlayer(getUserNameInput());	
 			gameInstance.players.add(player);
 			}
+			cardService.dealCardsToPlayers(gameInstance);
 			System.out.println(gameInstance.getPlayers().size());
-
 			try {
 				gameInstance.currentPlayer = gameInstance.players.get(0);
 				System.out.println(gameInstance.currentPlayer.getName());
+				updateCardButtons(gameInstance);
 				
 				//cardService.dealCardsToPlayers(gameInstance);
 				setupFrontend();
@@ -196,79 +197,7 @@ public class FrontendView extends JFrame {
 		lblCurrentBoardcards.setBounds(833, 225, 125, 13);
 		contentPane.add(lblCurrentBoardcards);
 		
-		 /////////////////////////////////////////
-		btnPlayerCard0 = new JButton("Card 0");
-		btnPlayerCard0.setBounds(104, 408, 98, 125);
 		
-		//String card0File = gameInstance.currentPlayer.getHand().get(0).getSymbol().toString() + "_" + 
-		//gameInstance.currentPlayer.getHand().get(0).getZahl().toString() + ".png" ;
-		
-		String card1File = "/HERZ_10.jpg";
-		btnPlayerCard0.setIcon(new javax.swing.ImageIcon(getClass().getResource(card1File)));
-		
-		
-		btnPlayerCard0.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-			selectedCards[0] = 1;
-			};});
-		contentPane.add(btnPlayerCard0);
-		 /////////////////////////////////////////
-		
-		btnPlayerCard1 = new JButton("Card 1");
-		btnPlayerCard1.setBounds(212, 408, 98, 125);
-		btnPlayerCard1.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-			selectedCards[1] = 1;
-			};});
-		contentPane.add(btnPlayerCard1);
-		
-		btnPlayerCard2 = new JButton("Card 2");
-		btnPlayerCard2.setBounds(320, 408, 98, 125);
-		btnPlayerCard2.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-			selectedCards[2] = 1;
-			};});
-		contentPane.add(btnPlayerCard2);
-		
-		btnPlayerCard3 = new JButton("Card 3");
-		btnPlayerCard3.setBounds(428, 408, 98, 125);
-		btnPlayerCard3.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-			selectedCards[3] = 1;
-			};});
-		contentPane.add(btnPlayerCard3);
-		
-		btnPlayerCard4 = new JButton("Card 4");
-		btnPlayerCard4.setBounds(536, 408, 98, 125);
-		btnPlayerCard4.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-			selectedCards[4] = 1;
-			};});
-		contentPane.add(btnPlayerCard4);
-		
-		btnPlayerCard5 = new JButton("Card 5");
-		btnPlayerCard5.setBounds(644, 408, 98, 125);
-		btnPlayerCard5.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-			selectedCards[6] = 1;
-			};});
-		contentPane.add(btnPlayerCard5);
-		
-		btnPlayerCard6 = new JButton("Card 6");
-		btnPlayerCard6.setBounds(752, 408, 98, 125);
-		btnPlayerCard6.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-			selectedCards[6] = 1;
-			};});
-		contentPane.add(btnPlayerCard6);
-		
-		btnPlayerCard7 = new JButton("Card 7");
-		btnPlayerCard7.setBounds(860, 408, 98, 125);
-		btnPlayerCard7.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-			selectedCards[7] = 1;
-			};});
-		contentPane.add(btnPlayerCard7);
 		
 		btnPlayerCard8 = new JButton("Card 8");
 		btnPlayerCard8.setBounds(104, 543, 98, 125);
@@ -355,62 +284,115 @@ public class FrontendView extends JFrame {
 		for ( int i = 0 ; i < gameInstance.currentPlayer.getHand().size() ; i++) {
 		String pathToJPG = "/" +  gameInstance.currentPlayer.getHand().get(i).getSymbol().toString() + "_" + 
 		gameInstance.currentPlayer.getHand().get(i).getZahl().toString() + ".jpg" ;
+		System.out.println(pathToJPG);
 		filePaths.add(pathToJPG);
 		}
+		System.out.println(filePaths.get(0).toString());
 		
 		try {
-			btnPlayerCard0.setIcon(new javax.swing.ImageIcon(getClass().getResource(filePaths.get(0).toString())));
+///////////////////////////////////////////////////////////////////////////////////
+			btnPlayerCard0 = new JButton("Card 0");
+			btnPlayerCard0.setBounds(104, 408, 98, 125);
+			btnPlayerCard0.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+				selectedCards[0] = 1;
+				};});
+			String card0File = "/" + gameInstance.currentPlayer.getHand().get(0).getSymbol().toString() + "_" + 
+			gameInstance.currentPlayer.getHand().get(0).getZahl().toString() + ".jpg" ;
+			System.out.println(card0File);
+			btnPlayerCard0.setIcon(new javax.swing.ImageIcon(getClass().getResource(card0File)));
+			contentPane.add(btnPlayerCard0);
+///////////////////////////////////////////////////////////////////////////////////	
+			btnPlayerCard1 = new JButton("Card 1");
+			btnPlayerCard1.setBounds(212, 408, 98, 125);
+			btnPlayerCard1.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+				selectedCards[1] = 1;
+				};});
+			String card1File = "/" + gameInstance.currentPlayer.getHand().get(1).getSymbol().toString() + "_" + 
+			gameInstance.currentPlayer.getHand().get(1).getZahl().toString() + ".jpg" ;
+			System.out.println(card1File);
+			btnPlayerCard1.setIcon(new javax.swing.ImageIcon(getClass().getResource(card1File)));
+			contentPane.add(btnPlayerCard1);
+///////////////////////////////////////////////////////////////////////////////////
+			btnPlayerCard2 = new JButton("Card 2");
+			btnPlayerCard2.setBounds(320, 408, 98, 125);
+			btnPlayerCard2.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+				selectedCards[2] = 1;
+				};});
+			String card2File = "/" + gameInstance.currentPlayer.getHand().get(2).getSymbol().toString() + "_" + 
+			gameInstance.currentPlayer.getHand().get(2).getZahl().toString() + ".jpg" ;
+			System.out.println(card2File);
+			btnPlayerCard2.setIcon(new javax.swing.ImageIcon(getClass().getResource(card2File)));
+			contentPane.add(btnPlayerCard2);
+///////////////////////////////////////////////////////////////////////////////////			
+			btnPlayerCard3 = new JButton("Card 3");
+			btnPlayerCard3.setBounds(428, 408, 98, 125);
+			btnPlayerCard3.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+				selectedCards[3] = 1;
+				};});
+			String card3File = "/" + gameInstance.currentPlayer.getHand().get(3).getSymbol().toString() + "_" + 
+			gameInstance.currentPlayer.getHand().get(3).getZahl().toString() + ".jpg" ;
+			System.out.println(card3File);
+			btnPlayerCard3.setIcon(new javax.swing.ImageIcon(getClass().getResource(card3File)));
+			contentPane.add(btnPlayerCard3);
+///////////////////////////////////////////////////////////////////////////////////			
+			btnPlayerCard4 = new JButton("Card 4");
+			btnPlayerCard4.setBounds(536, 408, 98, 125);
+			btnPlayerCard4.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+				selectedCards[4] = 1;
+				};});
+			String card4File = "/" + gameInstance.currentPlayer.getHand().get(4).getSymbol().toString() + "_" + 
+			gameInstance.currentPlayer.getHand().get(4).getZahl().toString() + ".jpg" ;
+			System.out.println(card4File);
+			btnPlayerCard4.setIcon(new javax.swing.ImageIcon(getClass().getResource(card4File)));
+			contentPane.add(btnPlayerCard4);
+///////////////////////////////////////////////////////////////////////////////////			
+			btnPlayerCard5 = new JButton("Card 5");
+			btnPlayerCard5.setBounds(644, 408, 98, 125);
+			btnPlayerCard5.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+				selectedCards[5] = 1;
+				};});
+			String card5File = "/" + gameInstance.currentPlayer.getHand().get(5).getSymbol().toString() + "_" + 
+			gameInstance.currentPlayer.getHand().get(5).getZahl().toString() + ".jpg" ;
+			System.out.println(card5File);
+			btnPlayerCard5.setIcon(new javax.swing.ImageIcon(getClass().getResource(card5File)));
+			contentPane.add(btnPlayerCard5);
+///////////////////////////////////////////////////////////////////////////////////			
+			btnPlayerCard6 = new JButton("Card 6");
+			btnPlayerCard6.setBounds(752, 408, 98, 125);
+			btnPlayerCard6.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+				selectedCards[6] = 1;
+				};});
+			String card6File = "/" + gameInstance.currentPlayer.getHand().get(6).getSymbol().toString() + "_" + 
+			gameInstance.currentPlayer.getHand().get(6).getZahl().toString() + ".jpg" ;
+			System.out.println(card6File);
+			btnPlayerCard6.setIcon(new javax.swing.ImageIcon(getClass().getResource(card6File)));
+			contentPane.add(btnPlayerCard6);
+///////////////////////////////////////////////////////////////////////////////////			
+			btnPlayerCard7 = new JButton("Card 7");
+			btnPlayerCard7.setBounds(860, 408, 98, 125);
+			btnPlayerCard7.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+				selectedCards[7] = 1;
+				};});
+			String card7File = "/" + gameInstance.currentPlayer.getHand().get(7).getSymbol().toString() + "_" + 
+			gameInstance.currentPlayer.getHand().get(7).getZahl().toString() + ".jpg" ;
+			System.out.println(card7File);
+			btnPlayerCard7.setIcon(new javax.swing.ImageIcon(getClass().getResource(card7File)));
+			contentPane.add(btnPlayerCard7);
+///////////////////////////////////////////////////////////////////////////////////			
+			
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		
-		try {
-			btnPlayerCard1.setIcon(new javax.swing.ImageIcon(getClass().getResource(filePaths.get(1).toString())));
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		
-		try {
-			btnPlayerCard2.setIcon(new javax.swing.ImageIcon(getClass().getResource(filePaths.get(2).toString())));
-		} catch (Exception e) {
-			// TODO: handle exception
-		}
-		try {
-			btnPlayerCard3.setIcon(new javax.swing.ImageIcon(getClass().getResource(filePaths.get(3).toString())));
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		
-		try {
-			btnPlayerCard4.setIcon(new javax.swing.ImageIcon(getClass().getResource(filePaths.get(4).toString())));
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		
-		try {
-			btnPlayerCard5.setIcon(new javax.swing.ImageIcon(getClass().getResource(filePaths.get(5).toString())));
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		
-		try {
-			btnPlayerCard6.setIcon(new javax.swing.ImageIcon(getClass().getResource(filePaths.get(6).toString())));
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		
-		try {
-			btnPlayerCard7.setIcon(new javax.swing.ImageIcon(getClass().getResource(filePaths.get(7).toString())));
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
 		SwingUtilities.updateComponentTreeUI(this);
 		
 	}
