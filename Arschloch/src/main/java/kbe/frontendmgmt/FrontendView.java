@@ -140,31 +140,6 @@ public class FrontendView extends JFrame {
 
                     System.out.println(gameInstance.getCurrentPlayer().getName());
 
-
-
-
-                    gameInstance.setCurrentPlayer(PLAYSI.getNextPlayer(gameInstance));
-
-                    System.out.println(gameInstance.getCurrentPlayer().getName());
-
-                    gameInstance.setCurrentPlayer(PLAYSI.getNextPlayer(gameInstance));
-
-                    System.out.println(gameInstance.getCurrentPlayer().getName());
-
-                    gameInstance.setCurrentPlayer(PLAYSI.getNextPlayer(gameInstance));
-
-                    System.out.println(gameInstance.getCurrentPlayer().getName());
-
-                    gameInstance.setCurrentPlayer(PLAYSI.getNextPlayer(gameInstance));
-
-                    System.out.println(gameInstance.getCurrentPlayer().getName());
-
-                    gameInstance.setCurrentPlayer(PLAYSI.getNextPlayer(gameInstance));
-
-                    System.out.println(gameInstance.getCurrentPlayer().getName());
-
-
-
                     // nachdem alle automatischen Vorbereitungen getroffen sind, kann das Frontend vollstaendig aufgebaut werden
                     setupFrontend();
                     // images in btnPlayerCard0-11 updaten, da anderer Spieler an der Reihe sein sollte ( funktioniert nicht, ohne getNextPlayer()
@@ -191,11 +166,11 @@ public class FrontendView extends JFrame {
      * @throws IllegalArgumentException -
      */
     private int getUserCountInput() throws IllegalArgumentException {
-        String spieleranzahl = JOptionPane.showInputDialog(null, "Bitte Spieleranzahl eingeben");
-        if (spieleranzahl.equals("3") | spieleranzahl.equals("4") | spieleranzahl.equals("5")) {
+        String spieleranzahl = JOptionPane.showInputDialog(null, "Bitte Spieleranzahl eingeben (Spieleranzahl muss 3 sein)");
+        if (spieleranzahl.equals("3")) {
             return Integer.valueOf(spieleranzahl);
         } else {
-            return 0;
+            return getUserCountInput();
         }
     }
 
@@ -224,19 +199,7 @@ public class FrontendView extends JFrame {
                 updateCardButtons(gameInstance);
             }
         });
-/*				contentPane.remove(btnPlayerCard0);
-				btnPlayerCard0 = null;
-				btnPlayerCard0 = new JPanel();
-				btnPlayerCard0.setBounds(104, 408, 98, 125);
-				String card0File = "/PIK_ASS.jpg";
-				JLabel imageCard0 = new JLabel();
-				imageCard0.setBounds(104, 408, 98, 125);
-				imageCard0.setIcon(new javax.swing.ImageIcon(getClass().getResource(card0File)));
-				btnPlayerCard0.add(imageCard0);
-				contentPane.add(btnPlayerCard0);
-				contentPane.repaint();
-				
-				*/
+
         contentPane.add(btnPlaycards);
 
         btnPass = new JButton("Pass");
@@ -453,13 +416,13 @@ public class FrontendView extends JFrame {
         List tempCardList = new LinkedList<Card>();
         Boolean tempCardsEqual = true;
 
-        System.out.println(cardIndexesToBePlayed.size());
+//        System.out.println(cardIndexesToBePlayed.size());
         // geclickte Kartenfelder( Frontend) auslesen
         for (int i = 0; i < cardIndexesToBePlayed.size(); i++) {
             // tempCards werden anhand der eingegeben Zahlen geholt
             int r = (Integer) cardIndexesToBePlayed.get(i);
             tempCardList.add((gameInstance.getCurrentPlayer().getHand().get(r)));
-            System.out.println(gameInstance.getCurrentPlayer().getHand().get(r));
+//            System.out.println(gameInstance.getCurrentPlayer().getHand().get(r));
             // ALT: Wenn Karte im Frontend geclickt wurde, wird Sie in selectedCards erfasst. Durch dessen Iterierung erhalten wir alle selektierten Karten
 
             //tempCards valid? compareTo -> die ausgewählten Karten müssen die gleichen Zahlen haben
@@ -476,7 +439,7 @@ public class FrontendView extends JFrame {
                 }
             }
 
-            System.out.println(tempCardList);
+//            System.out.println(tempCardList);
 
             // Spielzug validieren
             // hier findet später die Überprüfung statt, ob der Spielzug richtig ist. Wenn
@@ -510,9 +473,7 @@ public class FrontendView extends JFrame {
 
                         //resettet Boardcards, falls Ass gespielt wurde
                         // TODO - reset, wenn alle Spieler 1x nacheinander gepasst haben
-                        if (gameInstance.getBoardCards().get(0).getZahl().toString() == "Ass") {
-                            gameInstance.setBoardCards(null);
-                        }
+
                         SwingUtilities.updateComponentTreeUI(this);
                     } else {
                         //falsche Karten ausgewählt
@@ -526,6 +487,7 @@ public class FrontendView extends JFrame {
             }
 
             currentBoardCardPanel4.removeAll();
+
             JLabel jl = new JLabel();
             jl.setBounds(859, 93, 99, 125);
 
@@ -533,6 +495,13 @@ public class FrontendView extends JFrame {
                     + gameInstance.boardCards.get(0).getZahl().toString() + ".jpg";
             jl.setIcon(new javax.swing.ImageIcon(getClass().getResource(fileToBoardCard4)));
             currentBoardCardPanel4.add(jl);
+
+            if (gameInstance.getBoardCards().get(0).getZahl().toString() == "ASS") {
+                gameInstance.setBoardCards(null);
+
+                System.out.println("ENDE ENDE ENDE ENDE ENDE");
+            }
+
         }
     }
 }

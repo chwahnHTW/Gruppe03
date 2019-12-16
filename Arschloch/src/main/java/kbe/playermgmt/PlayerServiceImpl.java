@@ -64,11 +64,15 @@ public class PlayerServiceImpl implements PlayerService {
             // für die Länge der Spielerliste suche currentplayer
             for (int i = 0; i < instance.getPlayers().size(); i++) {
 
-                System.out.println("size "+instance.getPlayers().size());
-                System.out.println("i " + i);
+//                System.out.println("size "+instance.getPlayers().size());
+//                System.out.println("i " + i);
 
                 //wenn current spieler i entspricht
                 Player player = instance.getPlayers().get(i);
+
+//                System.out.println("player i "+instance.getPlayers().get(i).getName());
+//                System.out.println("player current "+instance.getCurrentPlayer().getName());
+
                 if (player == instance.getCurrentPlayer()) {
                     //nächsten player als currentPlayer setzen
 
@@ -85,16 +89,6 @@ public class PlayerServiceImpl implements PlayerService {
                         current = instance.getPlayers().get(i+1);
                         break;
                     }
-
-//                    int x = i;
-//                    x++;
-
-//                    if (instance.getPlayers().size() <= x) {
-//                        current = instance.getPlayers().get(x);
-//
-//                    } else {
-//                        current = instance.getPlayers().get(0);
-//                    }
                 }
             }
         }
