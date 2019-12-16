@@ -1,5 +1,6 @@
 package kbe.playermgmt;
 
+import java.util.LinkedList;
 import java.util.List;
 
 import kbe.cardmgmt.Card;
@@ -21,9 +22,9 @@ public class Player {
 
     }
 
-    Role role;
-    String name;
-    List<Card> handCards;
+    public Role role;
+    public String name;
+    public List<Card> handCards;
 
     /**
      * Generiert einen Spieler.
@@ -34,7 +35,7 @@ public class Player {
      */
     public Player(String name, List<Card> handCards, Role role) {
         this.name = name;
-        this.handCards = handCards;
+        this.handCards = new LinkedList<Card>();
         this.role = role;
     }
 

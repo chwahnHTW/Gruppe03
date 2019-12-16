@@ -1,6 +1,5 @@
 package playermgmtTest;
 
-import java.util.LinkedList;
 import java.util.List;
 
 import org.junit.Assert;
@@ -37,15 +36,23 @@ public class PlayerServiceTest {
 
     @Test
     public void testHasCards(Player player) {
-        player.setHand(null);
         Assert.assertEquals(service.hasCards(player), false);
     }
 
     @Test
-    public void testRemoveFromHand(Player player, List<Card> cardsToBeRemoved) {
-        List cardsOnHand = new LinkedList<Card>();
+    public void testHasCardsTrue(Player player) {
+//        List<Card> cardsList = new List<Card>;
         Card card1 = new Card(Card.Zahl.SIEBEN, Card.Symbol.KARO);
-        player.setHand(cardsOnHand);
+//        cardsList.add(card1);
+        player.setHand(card1);
+        Assert.assertEquals(service.hasCards(player), true);
+    }
+
+    @Test
+    public void testRemoveFromHand(Player player, List<Card> cardsToBeRemoved) {
+//        List cardsOnHand = new List<Card>;
+        Card card1 = new Card(Card.Zahl.SIEBEN, Card.Symbol.KARO);
+//        player.setHand(card1);
         service.removeFromHand(player, cardsToBeRemoved);
         Assert.assertTrue(player.getHand().size() == 0);
     }
