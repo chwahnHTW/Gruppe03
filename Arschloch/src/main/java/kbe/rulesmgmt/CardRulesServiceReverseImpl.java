@@ -7,19 +7,24 @@ import org.springframework.stereotype.Component;
 
 import kbe.cardmgmt.Card;
 import kbe.cardmgmt.CardComparator;
-import org.springframework.stereotype.Service;
 
 
-@Service
-public class CardRulesServiceStandardImpl implements CardRulesService {
+@Component
+public class CardRulesServiceReverseImpl implements CardRulesService{
 
 	/**CardRulesServiceImplementierung zum Vergleich von Karten-Wertigkeiten
-	 * Standard Implementierung : Wertigkeiten aufsteigend - 7-8-9-10-Bube-König-Ass
+	 * Französisches Blatt  Implementierung : Reihenfolge von hinten
 	 */
 	@Override
-	public List<Card> compareCards(List <Card> cards) {
+	public List<Card> compareCards(List<Card> cards) {
 		Collections.sort(cards, new CardComparator());
-		return cards;
+		Collections.reverse(cards);
+		return null;
 	}
+	
+//	public List<Card> compareCardsALT(Card card1, Card card2) {
+//		
+//		return null;
+//	}
 
 }

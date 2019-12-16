@@ -21,10 +21,12 @@ public class RulesServiceTest {
 
     @Test
     public void testCompareStandard() {
+    	
     }
 
     @Test
     public void testCompareFrench() {
+    	
     }
 
 }
