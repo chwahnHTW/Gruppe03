@@ -79,6 +79,7 @@ public class FrontendView extends JFrame {
     private JPanel contentPane;
     private JButton btnPlaycards;
     private JButton btnPass;
+    int passCounter = 0;
     public JLabel lblCurrentPlayer;
     private JPanel currentBoardCardPanel1;
     private JPanel currentBoardCardPanel2;
@@ -219,6 +220,17 @@ public class FrontendView extends JFrame {
         btnPass.setBackground(new Color(255, 0, 0));
         btnPass.setBounds(859, 335, 99, 21);
         contentPane.add(btnPass);
+        btnPass.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+            	System.out.println("PASSEN");
+                passCounter++;
+                
+                if(passCounter == gameInstance.getPlayers().size()) {
+                	gameInstance.boardCards.clear();
+                	System.out.println("COUNTER gleich Anzahl Spieler");
+                }
+            }
+        });
 
         lblCurrentPlayer = new JLabel("Current Player :" + gameInstance.getCurrentPlayer().getName());
         lblCurrentPlayer.setBounds(104, 276, 155, 34);
@@ -259,6 +271,12 @@ public class FrontendView extends JFrame {
         contentPane.add(lblCurrentBoardcards);
 
         SwingUtilities.updateComponentTreeUI(this);
+        
+        /**
+         * Wenn nur noch ein spieler karten hat,
+         * dann 
+         */
+       
     }
 
 
@@ -394,7 +412,6 @@ public class FrontendView extends JFrame {
 
         contentPane.add(btnPlayerCard11);
 
-
         SwingUtilities.updateComponentTreeUI(this);
 
         contentPane.revalidate();
@@ -509,5 +526,6 @@ public class FrontendView extends JFrame {
             jl.setIcon(new javax.swing.ImageIcon(getClass().getResource(fileToBoardCard4)));
             currentBoardCardPanel4.add(jl);
         }
+        passCounter = 0;
     }
 }
