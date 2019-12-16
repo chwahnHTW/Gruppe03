@@ -60,11 +60,8 @@ public class PlayerServiceTest {
         player.setHand(card1);
         player.setHand(card2);
 
-        System.out.println(player.getHand());
-
         service.removeFromHand(player, cardsToBeRemoved);
 
-        System.out.println(player.getHand());
         Assert.assertTrue(player.getHand().size() == 1);
     }
 
