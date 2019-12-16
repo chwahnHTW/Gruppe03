@@ -87,23 +87,40 @@ public class Card implements Comparable {
     }
 
     @Override
-    public int compareTo(Object otherCard) {
+    public int compareTo(Object other) {
+        Card otherCard = (Card) other;
 
-        Card other = (Card) otherCard;
+        try {
+            Integer intThis = this.zahl.getKartenWert();
+            Integer intOthercard = otherCard.zahl.getKartenWert();
 
-        if (this.zahl.compareTo(other.zahl) == 1) {
-            System.out.println("works baby");
+            if (intThis == intOthercard) {
+                System.out.println("This:" + intThis);
+                System.out.println("Other:" + intOthercard);
+                System.out.println("Gleicher wert");
+                return 0;
+            }
+            else if (intThis < intOthercard) {
+                System.out.println("This:" + intThis);
+                System.out.println("Other:" + intOthercard);
+                System.out.println("this kleiner als other");
+                return -1;
+            }
+            else if (intOthercard == null) {
+                System.out.println("intOther NULL");
+                return 1;
+            }
+            else {
+                System.out.println("This:" + intThis);
+                System.out.println("Other:" + intOthercard);
+                System.out.println("this groesser als other");
+                return 1;
+            }
+        } catch (NullPointerException e) {
+            System.out.println("NullPointerException: keine Karte");
             return 1;
-        } else if (this.zahl.compareTo(other.zahl) == 0) {
-            System.out.println("invalid move, same number values");
-            return 0;
-        } else if (this.zahl.compareTo(other.zahl) == 1) {
-            System.out.println("invalid move, lower number value");
-            return -1;
-        } else if (other.zahl == null) {
-            System.out.println("works baby");
-            return 1;
-        } else return 0;
+        }
+
     }
 
 }

@@ -1,7 +1,10 @@
 package kbe.cardmgmt;
 
+import org.springframework.stereotype.Service;
+
 import java.util.Comparator;
 
+@Service
 public class CardComparator implements Comparator<Card>{
 	
 	@Override

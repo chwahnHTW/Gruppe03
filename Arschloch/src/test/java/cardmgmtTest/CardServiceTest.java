@@ -43,22 +43,22 @@ public class CardServiceTest {
 	   
    }
 
-    @Test
-    public void testOrderCardsByValue() {
-        List cardsOnHand = new LinkedList<Card>();
-        Card card1 = new Card(Zahl.ZEHN, Symbol.HERZ);
-        Card card2 = new Card(Zahl.SIEBEN, Symbol.HERZ);
-        cardsOnHand.add(card1);
-        cardsOnHand.add(card2);
-        service.orderCardsByValue(cardsOnHand);
-        Assert.assertEquals(cardsOnHand.get(0), card2);
-    }
+//    @Test
+//    public void testOrderCardsByValue() {
+//        List cardsOnHand = new LinkedList<Card>();
+//        Card card1 = new Card(Zahl.ZEHN, Symbol.HERZ);
+//        Card card2 = new Card(Zahl.SIEBEN, Symbol.HERZ);
+//        cardsOnHand.add(card1);
+//        cardsOnHand.add(card2);
+//        service.orderCardsByValue(cardsOnHand);
+//        Assert.assertEquals(cardsOnHand.get(0), card2);
+//    }
 
-    @Test
-    public void testGenerateDeck() {
-        List<Card> deck = service.generateDeck(52);
-        Assert.assertEquals(deck.size(), 52);
-    }
+//    @Test
+//    public void testGenerateDeck() {
+//        List<Card> deck = service.generateDeck(52);
+//        Assert.assertEquals(deck.size(), 52);
+//    }
 
 
 }
