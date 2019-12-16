@@ -6,7 +6,7 @@ import java.util.List;
 import kbe.cardmgmt.Card;
 
 /**
- * @authors         Kaya Löher 				| Kim Anh Nguyen 		| Christian Wahnsiedler
+ * @authors Kaya Löher 				| Kim Anh Nguyen 		| Christian Wahnsiedler
  * Email-Adresse: 	s0564784@htw-berlin.de	| s0563958@htw-berlin.de| s0557193@htw-berlin.de
  * <p>
  * Stellt einen Spieler dar. Ein Spieler besteht aus einem Namen, einer Id und den Karten, die er während eines Spiels besitzt.
@@ -66,22 +66,13 @@ public class Player {
         return handCards;
     }
 
-//    /**
-//     * setzt die Karten, die der Spieler bekommen soll.
-//     *
-//     * @param cards: Eine Hand von Karten
-//     */
-//    public void setHand(List<Card> cards) {
-//        this.handCards = cards;
-//    }
-
     /**
      * Fuegt einzelne Karten in die Liste der Handkarten des Spielers.
-     * 
-     * @param card:	eine Karte
+     *
+     * @param card: eine Karte
      */
-    public void setHand (Card card) {
-    	handCards.add(card);
+    public void setHand(Card card) {
+        handCards.add(card);
     }
 
     /**

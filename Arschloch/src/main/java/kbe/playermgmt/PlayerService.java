@@ -6,7 +6,7 @@ import kbe.cardmgmt.Card;
 import kbe.gamemgmt.GameInstance;
 
 /**
- * @authors         Kaya Löher 				| Kim Anh Nguyen 		| Christian Wahnsiedler
+ * @authors Kaya Löher 				| Kim Anh Nguyen 		| Christian Wahnsiedler
  * Email-Adresse: 	s0564784@htw-berlin.de 	| s0563958@htw-berlin.de| s0557193@htw-berlin.de
  * <p>
  * Der Spieler muss vor dem Spiel erstellt werden.
@@ -38,29 +38,19 @@ public interface PlayerService {
      * @param cards:  Die Karten, die er bekommen soll
      */
     void addToHand(Player player, List<Card> cards);
-    
 
     /**
-     * Gemäß des in determinePlayercount ermittleten Wertes werden Spieler vom SpielerService der Implementierung erstellt
+     * Ein Spieler wird generiert
      *
-     * @param playerCount: Anzahl der Spieler
+     * @param name: Name des Spieler
      * @return Liste mit Player-Objekten
      */
-     Player createPlayer(String name);
-    
-    /**
-     * In einer Runde kann jeder Spieler Karten spielen.
-     * Hier spielt der Spieler seine Karte(n) aus.
-     * Die Karten wurden in der Methode selectCards ausgewaehlt
-     *
-     * @param player        : ein SPieler
-     * @param selectedCards : die Karten, die der Spieler spielen möchte
-     */
-    void playCards(Player player, List<Card> selectedCards);
-    
+    Player createPlayer(String name);
+
     /**
      * Der Spieler, der als nächstes an der Reihe ist wird hier festgelegt.
      *
+     * @param instance - die Spielinstanz
      * @return Player - Der nächste Spieler
      */
     Player getNextPlayer(GameInstance instance) throws NullPointerException;

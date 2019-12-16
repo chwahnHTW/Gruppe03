@@ -4,19 +4,20 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-import org.springframework.stereotype.Component;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import kbe.gamemgmt.GameInstance;
 import kbe.playermgmt.Player;
+import org.springframework.stereotype.Service;
 
 /**
- * @authors         Kaya Löher 				| Kim Anh Nguyen 		| Christian Wahnsiedler
+ * @authors Kaya Löher 				| Kim Anh Nguyen 		| Christian Wahnsiedler
  * Email-Adresse: 	s0564784@htw-berlin.de	| s0563958@htw-berlin.de| s0557193@htw-berlin.de
  */
 
-@Component
+@Service
 public class CardServiceImpl implements CardService {
-	
+
     // wie karten mit bilder mappen? -> Card klasse mit to string?
 
 	/**
@@ -45,17 +46,16 @@ public class CardServiceImpl implements CardService {
     		}
     	}
         return deck;
-        
     }
 
     @Override
     public List<Card> shuffleDeck(List<Card> deck) {
-    	/**
-    	 * liste deck rein
-    	 * inhalt mischen
-    	 */
+        /**
+         * liste deck rein
+         * inhalt mischen
+         */
         Collections.shuffle(deck);
-    	
+
         return deck;
     }
 
@@ -138,7 +138,6 @@ public class CardServiceImpl implements CardService {
 //			temp1.add(arschloch1.getHand().get(i));
 //			arschloch1.getHand().remove(i);
 //		}
-		
 		} else {
 			Player arschloch = gameInstance.getResult().get(0);
 			Player president = gameInstance.getResult().get(roleListSize-1);
@@ -193,6 +192,7 @@ public class CardServiceImpl implements CardService {
 		}
 		
 	}
+
 
 
 }

@@ -5,6 +5,7 @@ import java.util.List;
 
 import kbe.cardmgmt.Card;
 import kbe.playermgmt.Player;
+import org.springframework.stereotype.Service;
 
 /**
  * @authors         Kaya Löher 				| Kim Anh Nguyen 		| Christian Wahnsiedler
@@ -14,6 +15,7 @@ import kbe.playermgmt.Player;
  * Ein Spiel beinhaltet die Spieler, das momentane Rundenergebnis, die Karten, mit denen gerade gespielt wird und den aktuellen Spieler.
  */
 
+//@Service
 public class GameInstance {
 
     /**
@@ -25,7 +27,7 @@ public class GameInstance {
     public List<Player> players;
     public List<Player> result;
     public List<Card> boardCards;
-    public Player currentPlayer;
+    public Player currentPlayer = null;
 
     /**
      * Generiert eine Spielinstanz
