@@ -25,45 +25,66 @@ import kbe.rulesmgmt.PlayerRulesServicePresidentFirstImpl;
 import kbe.rulesmgmt.Rules;
 
 /**
- * @authors         Kaya Löher 				| Kim Anh Nguyen 		| Christian Wahnsiedler
+ * @authors Kaya Löher 				| Kim Anh Nguyen 		| Christian Wahnsiedler
  * Email-Adresse: 	s0564784@htw-berlin.de 	| s0563958@htw-berlin.de| s0557193@htw-berlin.de
  * <p>
- * Controller zum Frontend. Hier werden Spielmodel gehalten und der programmseitige Kontrollfluss geregelt. 
- * 
+ * Controller zum Frontend. Hier werden Spielmodel gehalten und der programmseitige Kontrollfluss geregelt.
  */
 
 
 @Controller
 public class FrontendController implements FrontendService {
-	
-private GameInstance gameInstance;	
-	
-//@Autowired	
-private GameInstanceService GISI = new GameInstanceServiceImpl();
 
-//@Autowired
-private FrontendView frontendView = new FrontendView();
+//    @Autowired
+//    private GameInstance gameInstance;
+//
+//    public void setGameInstance(GameInstance gameInstance) {
+//        this.gameInstance = gameInstance;
+//    }
 
-//@Autowired
-private PlayerService PLAYSI = new PlayerServiceImpl();
+    private GameInstance gameInstance;
 
-//@Autowired 
-private PlayerRulesService playerRuleService = new PlayerRulesServicePresidentFirstImpl();
-//@Autowired
-private CardRulesService cardRulesService = new CardRulesServiceStandardImpl();
+    @Autowired
+    private GameInstanceService GISI;
 
-//@Autowired
-private CardService cardService = new CardServiceImpl();
+    public void setGISI(GameInstanceService GISI) {
+        this.GISI = GISI;
+    }
+
+    @Autowired
+    private FrontendView frontendView;
+
+    public void setFrontendView(FrontendView frontendView) {
+        this.frontendView = frontendView;
+    }
+
+    @Autowired
+    private PlayerService PLAYSI;
+
+    public void setPLAYSI(PlayerService PLAYSI) {
+        this.PLAYSI = PLAYSI;
+    }
+
+//    private PlayerRulesService playerRuleService = new PlayerRulesServicePresidentFirstImpl();
+
+    @Autowired
+    private CardRulesService cardRulesService = new CardRulesServiceStandardImpl();
+
+    public void setCardRulesService(CardRulesService cardRulesService) {
+        this.cardRulesService = cardRulesService;
+    }
+
+//    private CardService cardService = new CardServiceImpl();
 
 
-	@Override
-	public void init() {
+    @Override
+    public void init() {
         System.out.println("Initializing.......");
         gameInstance = GISI.startGame();
-        frontendView.createFrontendView(gameInstance);      
-	}
+        frontendView.createFrontendView(gameInstance);
+    }
 
-	
+
     /**
      * Eine Spielinstanz wird erstellt und zurückgegeben.
      * GUI wird mit Spielinstanz bestückt
@@ -71,58 +92,60 @@ private CardService cardService = new CardServiceImpl();
      * @return : eine Spielinstanz
      */
     private GameInstance startGame() {
-		return new GameInstance();}
-    
-    
+        return new GameInstance();
+    }
+
+
     /**
      * Das Spiel wird beendet.
      *
      * @param game: Eine Spielinstanz
      */
-   private void endRound(GameInstance game) {
-   };
-   
-   
-   
-   public void validateMove(int[] selectedCards) {
-	  
-	   List tempCardList = new LinkedList<Card>();
-	   
-	   // geclickte Kartenfelder( Frontend) auslesen 
-	   for ( int i = 0 ; i > selectedCards.length; i++) {
-		   if (selectedCards[i] == 1 ) {
-			   tempCardList.add(gameInstance.currentPlayer.getHand().get(i));
-		   }
-	   }
-	   // Spielzug validieren
-	   
-	  for (int validatedCounter = 0 ; validatedCounter < tempCardList.size(); validatedCounter++) {
-		  Card check = (Card) tempCardList.get(validatedCounter);
-		  
-		  // hier findet später die Überprüfung statt, ob der Spielzug richtig ist. Wenn die Liste die von Compare zurückkommt die gleiche ist wie die,
-		  // wenn ja, Karten von Hand des CurrentPlayers abziehen und mit getNextPlayer das Spiel weiterlaufen lassen.
-		  // wenn nicht, Auffoderung, erneut Karten auszuwählen
-		  if (cardRulesService.compareCards(check, check) != null) {
-			  
-			PLAYSI.removeFromHand(gameInstance.currentPlayer, tempCardList);
-			
-			gameInstance.boardCards = tempCardList;
-			
-			gameInstance.currentPlayer =  PLAYSI.getNextPlayer(gameInstance);
- 
-			frontendView.lblCurrentPlayer = new JLabel("Current Player : " + gameInstance.getCurrentPlayer().getName().toString());
-			  
-			  
-			  if (gameInstance.boardCards.get(0).getZahl().toString() == "Ass") {
-				  gameInstance.boardCards = null;				  
-			  }
-			  
-			  SwingUtilities.updateComponentTreeUI(frontendView);
-		  }
-	  }
-	  
-   }
- 
+    private void endRound(GameInstance game) {
+    }
+
+    ;
+
+
+    public void validateMove(int[] selectedCards) {
+
+        List tempCardList = new LinkedList<Card>();
+
+        // geclickte Kartenfelder( Frontend) auslesen
+        for (int i = 0; i > selectedCards.length; i++) {
+            if (selectedCards[i] == 1) {
+                tempCardList.add(gameInstance.currentPlayer.getHand().get(i));
+            }
+        }
+        // Spielzug validieren
+
+        for (int validatedCounter = 0; validatedCounter < tempCardList.size(); validatedCounter++) {
+            Card check = (Card) tempCardList.get(validatedCounter);
+
+            // hier findet später die Überprüfung statt, ob der Spielzug richtig ist. Wenn die Liste die von Compare zurückkommt die gleiche ist wie die,
+            // wenn ja, Karten von Hand des CurrentPlayers abziehen und mit getNextPlayer das Spiel weiterlaufen lassen.
+            // wenn nicht, Auffoderung, erneut Karten auszuwählen
+            if (cardRulesService.compareCards(check, check) != null) {
+
+                PLAYSI.removeFromHand(gameInstance.currentPlayer, tempCardList);
+
+                gameInstance.boardCards = tempCardList;
+
+                gameInstance.currentPlayer = PLAYSI.getNextPlayer(gameInstance);
+
+                frontendView.lblCurrentPlayer = new JLabel("Current Player : " + gameInstance.getCurrentPlayer().getName().toString());
+
+
+                if (gameInstance.boardCards.get(0).getZahl().toString() == "Ass") {
+                    gameInstance.boardCards = null;
+                }
+
+                SwingUtilities.updateComponentTreeUI(frontendView);
+            }
+        }
+
+    }
+
 }
 
 

@@ -39,6 +39,7 @@ import kbe.rulesmgmt.CardRulesService;
 import kbe.rulesmgmt.CardRulesServiceStandardImpl;
 import kbe.rulesmgmt.PlayerRulesService;
 import kbe.rulesmgmt.PlayerRulesServicePresidentFirstImpl;
+import org.springframework.stereotype.Service;
 
 /**
  * @authors         Kaya Löher 				| Kim Anh Nguyen 		| Christian Wahnsiedler
@@ -71,7 +72,7 @@ import kbe.rulesmgmt.PlayerRulesServicePresidentFirstImpl;
 
 
 
-@Component
+@Service
 public class FrontendView extends JFrame {
 
 	// @Autowired

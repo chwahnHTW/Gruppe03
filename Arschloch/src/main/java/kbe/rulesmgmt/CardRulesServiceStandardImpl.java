@@ -5,9 +5,10 @@ import java.util.List;
 import org.springframework.stereotype.Component;
 
 import kbe.cardmgmt.Card;
+import org.springframework.stereotype.Service;
 
 
-@Component
+@Service
 public class CardRulesServiceStandardImpl implements CardRulesService {
 
 	/**CardRulesServiceImplementierung zum Vergleich von Karten-Wertigkeiten
