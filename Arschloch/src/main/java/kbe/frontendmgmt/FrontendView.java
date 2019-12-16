@@ -90,17 +90,17 @@ public class FrontendView extends JFrame {
     private JButton btnStartGame;
     private JPanel btnPlayerCard0;
     private JPanel btnPlayerCard1;
-    private JButton btnPlayerCard2;
-    private JButton btnPlayerCard3;
-    private JButton btnPlayerCard4;
-    private JButton btnPlayerCard5;
-    private JButton btnPlayerCard6;
-    private JButton btnPlayerCard7;
-    private JButton btnPlayerCard8;
-    private JButton btnPlayerCard9;
-    private JButton btnPlayerCard10;
-    private JButton btnPlayerCard11;
-    private int[] selectedCards = new int[12];
+    private JPanel btnPlayerCard2;
+    private JPanel btnPlayerCard3;
+    private JPanel btnPlayerCard4;
+    private JPanel btnPlayerCard5;
+    private JPanel btnPlayerCard6;
+    private JPanel btnPlayerCard7;
+    private JPanel btnPlayerCard8;
+    private JPanel btnPlayerCard9;
+    private JPanel btnPlayerCard10;
+    private JPanel btnPlayerCard11;
+//    private int[] selectedCards = new int[12];
 
     /**
      * Methode, um das Frame des Frontends zu erstellen
@@ -267,200 +267,140 @@ public class FrontendView extends JFrame {
      */
     private void updateCardButtons(GameInstance gameInstance) {
 
-//		JLabel jl = new JLabel();
-////		String fileToBoardCard4 = "/" + gameInstance.boardCards.get(0).getSymbol().toString() + "_"
-////				+ gameInstance.boardCards.get(0).getZahl().toString() + ".jpg";
-//		jl.setIcon(new javax.swing.ImageIcon(getClass().getResource(fileToBoardCard4)));
-//		currentBoardCardPanel4.add(jl);
-//		contentPane.add(currentBoardCardPanel4);
-
-        List filePaths = new LinkedList<String>();
-
-        for (int i = 0; i < gameInstance.getCurrentPlayer().getHand().size(); i++) {
-            String pathToJPG = "/" + gameInstance.getCurrentPlayer().getHand().get(i).getSymbol().toString() + "_"
-                    + gameInstance.getCurrentPlayer().getHand().get(i).getZahl().toString() + ".jpg";
-            filePaths.add(pathToJPG);
-        }
-        try {
+        JLabel jl = new JLabel();
+        String fileToBoardCard4 = "/" + gameInstance.boardCards.get(0).getSymbol().toString() + "_"
+                + gameInstance.boardCards.get(0).getZahl().toString() + ".jpg";
+        jl.setIcon(new javax.swing.ImageIcon(getClass().getResource(fileToBoardCard4)));
+        currentBoardCardPanel4.add(jl);
+        contentPane.add(currentBoardCardPanel4);
+///////////////////////////////////////////////////////////////////////////////////
+        // Card 0
+        btnPlayerCard0 = null;
+        btnPlayerCard0 = new JPanel();
+        btnPlayerCard0.setBounds(104, 408, 98, 125);
+        String card0File ="/" + gameInstance.currentPlayer.getHand().get(0).getSymbol().toString() + "_"
+                + gameInstance.currentPlayer.getHand().get(0).getZahl().toString() + ".jpg";
+        JLabel imageCard0 = new JLabel();
+        imageCard0.setBounds(104, 408, 98, 125);
+        imageCard0.setIcon(new javax.swing.ImageIcon(getClass().getResource(card0File)));
+        btnPlayerCard0.add(imageCard0);
+        contentPane.add(btnPlayerCard0);
+///////////////////////////////////////////////////////////////////////////////////
+        btnPlayerCard1 = new JPanel();
+        btnPlayerCard1.setBounds(212, 408, 98, 125);
+        String card1File ="/" + gameInstance.currentPlayer.getHand().get(1).getSymbol().toString() + "_"
+                + gameInstance.currentPlayer.getHand().get(1).getZahl().toString() + ".jpg";
+        JLabel imageCard1 = new JLabel();
+        imageCard1.setBounds(212, 408, 98, 125);
+        imageCard1.setIcon(new javax.swing.ImageIcon(getClass().getResource(card1File)));
+        btnPlayerCard1.add(imageCard1);
+        contentPane.add(btnPlayerCard1);
 
 ///////////////////////////////////////////////////////////////////////////////////
-            // Card 0
-            //btnPlayerCard0.invalidate();
-            btnPlayerCard0 = null;
-            btnPlayerCard0 = new JPanel();
-            btnPlayerCard0.setBounds(104, 408, 98, 125);
-            String card0File = "/" + gameInstance.getCurrentPlayer().getHand().get(0).getSymbol().toString() + "_"
-                    + gameInstance.getCurrentPlayer().getHand().get(0).getZahl().toString() + ".jpg";
-            JLabel imageCard0 = new JLabel();
-            imageCard0.setBounds(104, 408, 98, 125);
-            imageCard0.setIcon(new javax.swing.ImageIcon(getClass().getResource(card0File)));
-            btnPlayerCard0.add(imageCard0);
-            btnPlayerCard0.revalidate();
-            contentPane.add(btnPlayerCard0);
-			
-		/*	currentBoardCardPanel4.removeAll();
-			JLabel jl = new JLabel();
-			jl.setBounds(859, 93, 99, 125);
-			String fileToBoardCard4 = "/PIK_ACHT.jpg";
-			jl.setIcon(new javax.swing.ImageIcon(getClass().getResource(fileToBoardCard4)));
-			currentBoardCardPanel4.add(jl);*/
-
-///////////////////////////////////////////////////////////////////////////////////	
-
-
-            //contentPane.remove(btnPlayerCard1);
-            btnPlayerCard1 = null;
-            btnPlayerCard1 = new JPanel();
-            btnPlayerCard1.setBounds(212, 408, 98, 125);
-            String card1File = "/" + gameInstance.getCurrentPlayer().getHand().get(1).getSymbol().toString() + "_"
-                    + gameInstance.getCurrentPlayer().getHand().get(1).getZahl().toString() + ".jpg";
-            JLabel imageCard1 = new JLabel();
-            imageCard1.setBounds(212, 408, 98, 125);
-            imageCard1.setIcon(new javax.swing.ImageIcon(getClass().getResource(card1File)));
-            btnPlayerCard1.add(imageCard1);
-            contentPane.add(btnPlayerCard1);
-            contentPane.revalidate();
-            super.repaint();
-            contentPane.revalidate();
+        btnPlayerCard2 = new JPanel();
+        btnPlayerCard2.setBounds(320, 408, 98, 125);
+        String card2File ="/" + gameInstance.currentPlayer.getHand().get(2).getSymbol().toString() + "_"
+                + gameInstance.currentPlayer.getHand().get(2).getZahl().toString() + ".jpg";
+        JLabel imageCard2 = new JLabel();
+        imageCard2.setBounds(320, 408, 98, 125);
+        imageCard2.setIcon(new javax.swing.ImageIcon(getClass().getResource(card2File)));
+        btnPlayerCard2.add(imageCard2);
+        contentPane.add(btnPlayerCard2);
 ///////////////////////////////////////////////////////////////////////////////////
-            btnPlayerCard2 = new JButton("Card 2");
-            btnPlayerCard2.setBounds(320, 408, 98, 125);
-            btnPlayerCard2.addActionListener(new ActionListener() {
-                public void actionPerformed(ActionEvent e) {
-                    selectedCards[2] = 1;
-                }
-
-                ;
-            });
-            String card2File = "/" + gameInstance.getCurrentPlayer().getHand().get(2).getSymbol().toString() + "_"
-                    + gameInstance.getCurrentPlayer().getHand().get(2).getZahl().toString() + ".jpg";
-            System.out.println(card2File);
-            btnPlayerCard2.setIcon(new javax.swing.ImageIcon(getClass().getResource(card2File)));
-            contentPane.add(btnPlayerCard2);
-///////////////////////////////////////////////////////////////////////////////////			
-            btnPlayerCard3 = new JButton("Card 3");
-            btnPlayerCard3.setBounds(428, 408, 98, 125);
-            btnPlayerCard3.addActionListener(new ActionListener() {
-                public void actionPerformed(ActionEvent e) {
-                    selectedCards[3] = 1;
-                }
-
-                ;
-            });
-            String card3File = "/" + gameInstance.getCurrentPlayer().getHand().get(3).getSymbol().toString() + "_"
-                    + gameInstance.getCurrentPlayer().getHand().get(3).getZahl().toString() + ".jpg";
-            System.out.println(card3File);
-            btnPlayerCard3.setIcon(new javax.swing.ImageIcon(getClass().getResource(card3File)));
-            contentPane.add(btnPlayerCard3);
-///////////////////////////////////////////////////////////////////////////////////			
-            btnPlayerCard4 = new JButton("Card 4");
-            btnPlayerCard4.setBounds(536, 408, 98, 125);
-            btnPlayerCard4.addActionListener(new ActionListener() {
-                public void actionPerformed(ActionEvent e) {
-                    selectedCards[4] = 1;
-                }
-            });
-            String card4File = "/" + gameInstance.getCurrentPlayer().getHand().get(4).getSymbol().toString() + "_"
-                    + gameInstance.getCurrentPlayer().getHand().get(4).getZahl().toString() + ".jpg";
-            System.out.println(card4File);
-            btnPlayerCard4.setIcon(new javax.swing.ImageIcon(getClass().getResource(card4File)));
-            contentPane.add(btnPlayerCard4);
-///////////////////////////////////////////////////////////////////////////////////			
-            btnPlayerCard5 = new JButton("Card 5");
-            btnPlayerCard5.setBounds(644, 408, 98, 125);
-            btnPlayerCard5.addActionListener(new ActionListener() {
-                public void actionPerformed(ActionEvent e) {
-                    selectedCards[5] = 1;
-                }
-            });
-            String card5File = "/" + gameInstance.getCurrentPlayer().getHand().get(5).getSymbol().toString() + "_"
-                    + gameInstance.getCurrentPlayer().getHand().get(5).getZahl().toString() + ".jpg";
-            System.out.println(card5File);
-            btnPlayerCard5.setIcon(new javax.swing.ImageIcon(getClass().getResource(card5File)));
-            contentPane.add(btnPlayerCard5);
-///////////////////////////////////////////////////////////////////////////////////			
-            btnPlayerCard6 = new JButton("Card 6");
-            btnPlayerCard6.setBounds(752, 408, 98, 125);
-            btnPlayerCard6.addActionListener(new ActionListener() {
-                public void actionPerformed(ActionEvent e) {
-                    selectedCards[6] = 1;
-                }
-            });
-            String card6File = "/" + gameInstance.getCurrentPlayer().getHand().get(6).getSymbol().toString() + "_"
-                    + gameInstance.getCurrentPlayer().getHand().get(6).getZahl().toString() + ".jpg";
-            System.out.println(card6File);
-            btnPlayerCard6.setIcon(new javax.swing.ImageIcon(getClass().getResource(card6File)));
-            contentPane.add(btnPlayerCard6);
-///////////////////////////////////////////////////////////////////////////////////			
-            btnPlayerCard7 = new JButton("Card 7");
-            btnPlayerCard7.setBounds(860, 408, 98, 125);
-            btnPlayerCard7.addActionListener(new ActionListener() {
-                public void actionPerformed(ActionEvent e) {
-                    selectedCards[7] = 1;
-                }
-            });
-            String card7File = "/" + gameInstance.getCurrentPlayer().getHand().get(7).getSymbol().toString() + "_"
-                    + gameInstance.getCurrentPlayer().getHand().get(7).getZahl().toString() + ".jpg";
-            System.out.println(card7File);
-            btnPlayerCard7.setIcon(new javax.swing.ImageIcon(getClass().getResource(card7File)));
-            contentPane.add(btnPlayerCard7);
-///////////////////////////////////////////////////////////////////////////////////			
-            btnPlayerCard8 = new JButton("Card 8");
-            btnPlayerCard8.setBounds(320, 543, 98, 125);
-            // btnPlayerCard10.setVisible(false);
-            btnPlayerCard8.addActionListener(new ActionListener() {
-                public void actionPerformed(ActionEvent e) {
-                    selectedCards[8] = 1;
-                }
-            });
-            String card8File = "/" + gameInstance.getCurrentPlayer().getHand().get(8).getSymbol().toString() + "_"
-                    + gameInstance.getCurrentPlayer().getHand().get(8).getZahl().toString() + ".jpg";
-            System.out.println(card8File);
-            btnPlayerCard8.setIcon(new javax.swing.ImageIcon(getClass().getResource(card8File)));
-            contentPane.add(btnPlayerCard8);
+        btnPlayerCard3 = new JPanel();
+        btnPlayerCard3.setBounds(428, 408, 98, 125);
+        String card3File = "/" + gameInstance.currentPlayer.getHand().get(3).getSymbol().toString() + "_"
+                + gameInstance.currentPlayer.getHand().get(3).getZahl().toString() + ".jpg";
+        JLabel imageCard3 = new JLabel();
+        imageCard3.setBounds(428, 408, 98, 125);
+        imageCard3.setIcon(new javax.swing.ImageIcon(getClass().getResource(card3File)));
+        btnPlayerCard3.add(imageCard3);
+        contentPane.add(btnPlayerCard3);
 ///////////////////////////////////////////////////////////////////////////////////
-            btnPlayerCard9 = new JButton("Card 9");
-            btnPlayerCard9.setBounds(428, 543, 98, 125);
-            btnPlayerCard9.addActionListener(new ActionListener() {
-                public void actionPerformed(ActionEvent e) {
-                    selectedCards[9] = 1;
-                }
-            });
-            String card9File = "/" + gameInstance.getCurrentPlayer().getHand().get(9).getSymbol().toString() + "_"
-                    + gameInstance.getCurrentPlayer().getHand().get(9).getZahl().toString() + ".jpg";
-            System.out.println(card9File);
-            btnPlayerCard9.setIcon(new javax.swing.ImageIcon(getClass().getResource(card9File)));
-            contentPane.add(btnPlayerCard9);
+        btnPlayerCard4 = new JPanel();
+        btnPlayerCard4.setBounds(536, 408, 98, 125);
+        String card4File = "/" + gameInstance.currentPlayer.getHand().get(4).getSymbol().toString() + "_"
+                + gameInstance.currentPlayer.getHand().get(4).getZahl().toString() + ".jpg";
+        JLabel imageCard4 = new JLabel();
+        imageCard4.setBounds(536, 408, 98, 125);
+        imageCard4.setIcon(new javax.swing.ImageIcon(getClass().getResource(card4File)));
+        btnPlayerCard4.add(imageCard4);
+        contentPane.add(btnPlayerCard4);
 ///////////////////////////////////////////////////////////////////////////////////
-            btnPlayerCard10 = new JButton("Card 10");
-            btnPlayerCard10.setBounds(536, 543, 98, 125);
-            btnPlayerCard10.addActionListener(new ActionListener() {
-                public void actionPerformed(ActionEvent e) {
-                    selectedCards[10] = 1;
-                }
-            });
-            String card10File = "/" + gameInstance.getCurrentPlayer().getHand().get(10).getSymbol().toString() + "_"
-                    + gameInstance.getCurrentPlayer().getHand().get(10).getZahl().toString() + ".jpg";
-            System.out.println(card10File);
-            btnPlayerCard10.setIcon(new javax.swing.ImageIcon(getClass().getResource(card10File)));
-            contentPane.add(btnPlayerCard10);
-            ///////////////////////////////////////////////////////////////////////////////////
-            btnPlayerCard11 = new JButton("Card 11");
-            btnPlayerCard11.setBounds(644, 543, 98, 125);
-            btnPlayerCard11.addActionListener(new ActionListener() {
-                public void actionPerformed(ActionEvent e) {
-                    selectedCards[11] = 1;
-                }
-            });
-            contentPane.add(btnPlayerCard11);
-            ///////////////////////////////////////////////////////////////////////////////////
-        } catch (Exception e) {
-            System.out.println("Error");
-            e.printStackTrace();
-        }
+        btnPlayerCard5 = new JPanel();
+        btnPlayerCard5.setBounds(644, 408, 98, 125);
+        String card5File = "/" + gameInstance.currentPlayer.getHand().get(5).getSymbol().toString() + "_"
+                + gameInstance.currentPlayer.getHand().get(5).getZahl().toString() + ".jpg";
+        JLabel imageCard5 = new JLabel();
+        imageCard5.setBounds(644, 408, 98, 125);
+        imageCard5.setIcon(new javax.swing.ImageIcon(getClass().getResource(card5File)));
+        btnPlayerCard5.add(imageCard5);
+        contentPane.add(btnPlayerCard5);
+///////////////////////////////////////////////////////////////////////////////////
+        btnPlayerCard6 = new JPanel();
+        btnPlayerCard6.setBounds(752, 408, 98, 125);
+        String card6File = "/" + gameInstance.currentPlayer.getHand().get(6).getSymbol().toString() + "_"
+                + gameInstance.currentPlayer.getHand().get(6).getZahl().toString() + ".jpg";
+        JLabel imageCard6 = new JLabel();
+        imageCard6.setBounds(752, 408, 98, 125);
+        imageCard6.setIcon(new javax.swing.ImageIcon(getClass().getResource(card6File)));
+        btnPlayerCard6.add(imageCard6);
+        contentPane.add(btnPlayerCard6);
+///////////////////////////////////////////////////////////////////////////////////
+        btnPlayerCard7 = new JPanel();
+        btnPlayerCard7.setBounds(860, 408, 98, 125);
+        String card7File = "/" + gameInstance.currentPlayer.getHand().get(7).getSymbol().toString() + "_"
+                + gameInstance.currentPlayer.getHand().get(7).getZahl().toString() + ".jpg";
+        JLabel imageCard7 = new JLabel();
+        imageCard7.setBounds(860, 408, 98, 125);
+        imageCard7.setIcon(new javax.swing.ImageIcon(getClass().getResource(card7File)));
+        btnPlayerCard7.add(imageCard7);
+        contentPane.add(btnPlayerCard7);
+///////////////////////////////////////////////////////////////////////////////////
+        btnPlayerCard8 = new JPanel();
+        btnPlayerCard8.setBounds(320, 543, 98, 125);
+        String card8File = "/" + gameInstance.currentPlayer.getHand().get(8).getSymbol().toString() + "_"
+                + gameInstance.currentPlayer.getHand().get(8).getZahl().toString() + ".jpg";
+        JLabel imageCard8 = new JLabel();
+        imageCard8.setBounds(320, 543, 98, 125);
+        imageCard8.setIcon(new javax.swing.ImageIcon(getClass().getResource(card8File)));
+        btnPlayerCard8.add(imageCard8);
+        contentPane.add(btnPlayerCard8);
+///////////////////////////////////////////////////////////////////////////////////
+        btnPlayerCard9 = new JPanel();
+        btnPlayerCard9.setBounds(428, 543, 98, 125);
+        String card9File = "/" + gameInstance.currentPlayer.getHand().get(9).getSymbol().toString() + "_"
+                + gameInstance.currentPlayer.getHand().get(9).getZahl().toString() + ".jpg";
+        JLabel imageCard9 = new JLabel();
+        imageCard9.setBounds(428, 543, 98, 125);
+        imageCard9.setIcon(new javax.swing.ImageIcon(getClass().getResource(card9File)));
+        btnPlayerCard9.add(imageCard8);
+        contentPane.add(btnPlayerCard9);
+///////////////////////////////////////////////////////////////////////////////////
+        btnPlayerCard10 = new JPanel();
+        btnPlayerCard10.setBounds(536, 543, 98, 125);
+        String card10File = "/" + gameInstance.currentPlayer.getHand().get(10).getSymbol().toString() + "_"
+                + gameInstance.currentPlayer.getHand().get(10).getZahl().toString() + ".jpg";
+        JLabel imageCard10 = new JLabel();
+        imageCard10.setBounds(536, 543, 98, 125);
+        imageCard10.setIcon(new javax.swing.ImageIcon(getClass().getResource(card10File)));
+        btnPlayerCard10.add(imageCard10);
+        contentPane.add(btnPlayerCard10);
+//////////////////////////////////////////////////
+
+        ///////////////////////////////////////////////////////////////////////////////////
+        btnPlayerCard11 = new JPanel();
+        btnPlayerCard11.setBounds(644, 543, 98, 125);
+
+        contentPane.add(btnPlayerCard11);
+
+
+        SwingUtilities.updateComponentTreeUI(this);
+
+        contentPane.revalidate();
+        ///////////////////////////////////////////////////////////////////////////////////
 
     }
-
 
 //------------------------------------------------------------------------------------------------------------------------------------------
 
@@ -493,21 +433,13 @@ public class FrontendView extends JFrame {
 
         String[] cardsIndexesArray = cardIndexes.split(",");
 
-//        System.out.println(cardsIndexesArray.length);
-
         List cardIndexesToBePlayed = new LinkedList<Integer>();
 
         //für die Länge des Userinputs Indizes der Karten speichern
         for (int i = 0; i < cardsIndexesArray.length; i++) {
-
             int f = Integer.parseInt(cardsIndexesArray[i]);
-
-//            System.out.println(f);
-
             cardIndexesToBePlayed.add(f);
         }
-
-//        System.out.println(cardIndexesToBePlayed.size());
 
         // Liste, in der die aus dem Array ausgelesenen, selektierten Karten erfasst und gehalten werden
         List tempCardList = new LinkedList<Card>();
