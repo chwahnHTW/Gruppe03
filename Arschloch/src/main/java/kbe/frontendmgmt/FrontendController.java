@@ -25,10 +25,13 @@ import kbe.rulesmgmt.PlayerRulesServicePresidentFirstImpl;
 import kbe.rulesmgmt.Rules;
 
 /**
- * Daten hier speichern
- * @author kimanhnguyen
- *
+ * @authors         Kaya Löher 				| Kim Anh Nguyen 		| Christian Wahnsiedler
+ * Email-Adresse: 	s0564784@htw-berlin.de 	| s0563958@htw-berlin.de| s0557193@htw-berlin.de
+ * <p>
+ * Controller zum Frontend. Hier werden Spielmodel gehalten und der programmseitige Kontrollfluss geregelt. 
+ * 
  */
+
 
 @Controller
 public class FrontendController implements FrontendService {
