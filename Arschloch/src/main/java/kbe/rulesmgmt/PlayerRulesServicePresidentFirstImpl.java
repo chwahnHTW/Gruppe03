@@ -5,8 +5,9 @@ import org.springframework.stereotype.Component;
 import kbe.cardmgmt.Card;
 import kbe.gamemgmt.GameInstance;
 import kbe.playermgmt.Player;
+import org.springframework.stereotype.Service;
 
-@Component
+@Service
 public class PlayerRulesServicePresidentFirstImpl implements PlayerRulesService {
 
 	/**RuleService zum Bestimmen des ersten Spielers einer Runde. 
