@@ -10,10 +10,10 @@ import kbe.cardmgmt.CardComparator;
 
 
 @Component
-public class CardRulesServiceFrenchImpl implements CardRulesService{
+public class CardRulesServiceReverseImpl implements CardRulesService{
 
 	/**CardRulesServiceImplementierung zum Vergleich von Karten-Wertigkeiten
-	 * Französisches Blatt  Implementierung : Reihenfolge ? klären
+	 * Französisches Blatt  Implementierung : Reihenfolge von hinten
 	 */
 	@Override
 	public List<Card> compareCards(List<Card> cards) {
@@ -22,9 +22,9 @@ public class CardRulesServiceFrenchImpl implements CardRulesService{
 		return null;
 	}
 	
-	public List<Card> compareCardsALT(Card card1, Card card2) {
-		
-		return null;
-	}
+//	public List<Card> compareCardsALT(Card card1, Card card2) {
+//		
+//		return null;
+//	}
 
 }
