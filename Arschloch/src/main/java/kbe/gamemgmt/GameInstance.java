@@ -27,7 +27,7 @@ public class GameInstance {
     public List<Player> players;
     public List<Player> result;
     public List<Card> boardCards;
-    public Player currentPlayer;
+    public Player currentPlayer = null;
 
     /**
      * Generiert eine Spielinstanz

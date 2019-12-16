@@ -164,11 +164,11 @@ public class CardServiceImpl implements CardService {
         //playerList fuer die spieler
 
         //anzahl spieler ermittenln
-        int anzahlPlayer = gameInstance.players.size();
+        int anzahlPlayer = gameInstance.getPlayers().size();
 
         for (int i = 0; i < deck.size(); i++) {
             // i%anzahlPlayer, damit durhc jeden Player iteriert wird
-            gameInstance.players.get(i % anzahlPlayer).setHand(deck.get(i));
+            gameInstance.getPlayers().get(i % anzahlPlayer).setHand(deck.get(i));
         }
 
     }
