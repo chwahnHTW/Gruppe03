@@ -23,7 +23,7 @@ public class PlayerServiceImpl implements PlayerService {
     @Override
     public void removeFromHand(Player player, List<Card> cards) {
         for (Card card : cards) {
-            System.out.println(card);
+//            System.out.println(card);
             if (player.getHand().contains(card)) {
                 player.getHand().remove(card);
             } else {
