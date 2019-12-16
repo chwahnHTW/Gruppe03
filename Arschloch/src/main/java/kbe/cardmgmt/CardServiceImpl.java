@@ -19,6 +19,12 @@ public class CardServiceImpl implements CardService {
 	
     // wie karten mit bilder mappen? -> Card klasse mit to string?
 
+	/**
+	 * Sortiert eine Liste mit Karten nach ihren Zahlen.
+	 * 
+	 * @param
+	 * @return
+	 */
     @Override
     public List<Card> sortCardsByValue(List<Card> cards) {
         Collections.sort(cards, new CardComparator());
@@ -67,26 +73,28 @@ public class CardServiceImpl implements CardService {
 		
 		int roleListSize = gameInstance.getResult().size();
 		
-		// wenn playerlist mehr als 4 spieler hat
+		// wenn playerlist mehr als 3 spieler hat
 		if (gameInstance.getPlayers().size() >= 3) {
 			
 			Player arschloch1 = gameInstance.getResult().get(0);
 			Player arschloch2 = gameInstance.getResult().get(1);
-			Player president2 = gameInstance.getResult().get(roleListSize-1);
-			Player president1 = gameInstance.getResult().get(roleListSize-2);
+			Player president2 = gameInstance.getResult().get(roleListSize-2);
+			Player president1 = gameInstance.getResult().get(roleListSize-1);
 			
+			//******************** FUER ARSCHLOCH 1 UND PRAESIDENT 1 ********************
+		
+			//um hier die Karten, die getauscht werden sollen, temporaer abzulegen
 			List<Card> temp1 = new ArrayList<Card>();
 			
-			// die 2 schlechtesten karten von arschloch herausfinden und in temp liste
+			// die 2 schlechtesten (niedrigste Zahl) karten von arschloch herausfinden und in temp liste
 			temp1.add(arschloch1.getHand().get(0)); //index 0
 			temp1.add(arschloch1.getHand().get(1)); //index 1
 			
 			//die 2 besten Karten von praesident herasufinden und in temp liste
 			int lastCard = president1.getHand().size()-1;
 			int secondLastCard = president1.getHand().size()-2;
-			
-			temp1.add(president1.getHand().get(lastCard)); //index 2
-			temp1.add(president1.getHand().get(secondLastCard)); // index 3
+			temp1.add(president1.getHand().get(lastCard));
+			temp1.add(president1.getHand().get(secondLastCard));
 			
 			//zu den Handkarten von arschloch und praesident
 			president1.setHand(temp1.get(0));
@@ -100,6 +108,7 @@ public class CardServiceImpl implements CardService {
 			president1.getHand().remove(secondLastCard);
 			president1.getHand().remove(lastCard);
 			
+			//******************** FUER ARSCHLOCH 2 UND PRAESIDENT 2 ********************
 			
 			List<Card> temp2 = new ArrayList<Card>();
 			
@@ -110,7 +119,6 @@ public class CardServiceImpl implements CardService {
 			//die 2 besten Karten von praesident herasufinden und in temp liste
 			int lastCard2 = president2.getHand().size()-1;
 			int secondLastCard2 = president2.getHand().size()-2;
-			
 			temp1.add(president2.getHand().get(lastCard2)); //index 2
 			temp1.add(president2.getHand().get(secondLastCard2)); // index 3
 			
@@ -131,6 +139,32 @@ public class CardServiceImpl implements CardService {
 //			arschloch1.getHand().remove(i);
 //		}
 		
+		} else {
+			Player arschloch = gameInstance.getResult().get(0);
+			Player president = gameInstance.getResult().get(roleListSize-1);
+			List<Card> temp = new ArrayList<Card>();
+			
+			// die 2 schlechtesten (niedrigste Zahl) karten von arschloch herausfinden und in temp liste
+			temp.add(arschloch.getHand().get(0)); //index 0
+			temp.add(arschloch.getHand().get(1)); //index 1
+			
+			//die 2 besten Karten von praesident herasufinden und in temp liste
+			int lastCard = president.getHand().size()-1;
+			int secondLastCard = president.getHand().size()-2;
+			temp.add(president.getHand().get(lastCard));
+			temp.add(president.getHand().get(secondLastCard));
+			
+			//zu den Handkarten von arschloch und praesident
+			president.setHand(temp.get(0));
+			president.setHand(temp.get(1));
+			arschloch.setHand(temp.get(2));
+			arschloch.setHand(temp.get(3));
+			
+			//loeschen der getauschten Karten aus beiden spielern
+			arschloch.getHand().remove(0);
+			arschloch.getHand().remove(0); //weil index wieder nach vorn rutscht
+			president.getHand().remove(secondLastCard);
+			president.getHand().remove(lastCard);
 		}
 	}
 
