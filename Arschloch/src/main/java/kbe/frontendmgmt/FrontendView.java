@@ -140,6 +140,31 @@ public class FrontendView extends JFrame {
 
                     System.out.println(gameInstance.getCurrentPlayer().getName());
 
+
+
+
+                    gameInstance.setCurrentPlayer(PLAYSI.getNextPlayer(gameInstance));
+
+                    System.out.println(gameInstance.getCurrentPlayer().getName());
+
+                    gameInstance.setCurrentPlayer(PLAYSI.getNextPlayer(gameInstance));
+
+                    System.out.println(gameInstance.getCurrentPlayer().getName());
+
+                    gameInstance.setCurrentPlayer(PLAYSI.getNextPlayer(gameInstance));
+
+                    System.out.println(gameInstance.getCurrentPlayer().getName());
+
+                    gameInstance.setCurrentPlayer(PLAYSI.getNextPlayer(gameInstance));
+
+                    System.out.println(gameInstance.getCurrentPlayer().getName());
+
+                    gameInstance.setCurrentPlayer(PLAYSI.getNextPlayer(gameInstance));
+
+                    System.out.println(gameInstance.getCurrentPlayer().getName());
+
+
+
                     // nachdem alle automatischen Vorbereitungen getroffen sind, kann das Frontend vollstaendig aufgebaut werden
                     setupFrontend();
                     // images in btnPlayerCard0-11 updaten, da anderer Spieler an der Reihe sein sollte ( funktioniert nicht, ohne getNextPlayer()
