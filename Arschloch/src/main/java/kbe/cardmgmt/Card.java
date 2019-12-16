@@ -89,33 +89,26 @@ public class Card implements Comparable{
 		
 		if ( this.zahl.compareTo(other.zahl) == 1) {
 			
-			System.out.println("works baby"); return 1;}
+			System.out.println("works baby");
+			return 1;
+		}
 			
-			else if (this.zahl.compareTo(other.zahl) == 0) {System.out.println("invalid move, same number values"); return 0;}
+		else if (this.zahl.compareTo(other.zahl) == 0) {
+			System.out.println("invalid move, same number values");
+			return 0;
+		}
 		
-			else if (this.zahl.compareTo(other.zahl) == 1) {System.out.println("invalid move, lower number value"); return -1;}
-		
-			else if (other.zahl == null) {System.out.println("works baby"); return 1;}
-		
-			else return 0;		
+		else if (this.zahl.compareTo(other.zahl) == 1) {
+			System.out.println("invalid move, lower number value");
+			return -1;
+		}
+	
+		else if (other.zahl == null) {
+			System.out.println("works baby");
+			return 1;
+		}
+	
+		else return 0;		
 	}
-
-//    /**
-//     * setzt die Zahl einer Karte
-//     *
-//     * @param zahl: Die Zahl
-//     */
-//    public void setZahl(Zahl zahl) {
-//        this.zahl = zahl;
-//    }
-//
-//    /**
-//     * setzt die Farbe einer Karte
-//     *
-//     * @param symbol: Die Farbe
-//     */
-//    public void setSymbol(Symbol symbol) {
-//        this.symbol = symbol;
-//    }
 
 }

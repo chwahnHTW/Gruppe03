@@ -1,5 +1,6 @@
 package cardmgmtTest;
 
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -10,6 +11,7 @@ import org.junit.Test;
 import kbe.cardmgmt.Card;
 import kbe.cardmgmt.CardService;
 import kbe.cardmgmt.CardServiceImpl;
+import kbe.playermgmt.Player;
 import kbe.cardmgmt.Card.Zahl;
 import kbe.cardmgmt.Card.Symbol;
 
@@ -28,7 +30,18 @@ public class CardServiceTest {
     public void setUp() {
         service = new CardServiceImpl();
     }
-
+    
+   @Test
+   public void testSwapCards() {
+	   List players = new ArrayList<Player>();
+	   //Player player1 = new Player();
+	   List deck = service.generateDeck();
+	   
+	   for(int i = 0; i<=4; i++) {
+		   
+	   }
+	   
+   }
 
     @Test
     public void testOrderCardsByValue() {

@@ -181,9 +181,8 @@ public class CardServiceImpl implements CardService {
 		 * modulo 
 		 */
 		
-		//gemischtes deck erstellen mit 32 Karten
+		//gemischtes deck erstellen
 		List<Card> deck = shuffleDeck(generateDeck());
-		//playerList fuer die spieler
 		
 		//anzahl spieler ermittenln
 		int anzahlPlayer = gameInstance.players.size();
