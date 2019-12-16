@@ -1,5 +1,6 @@
 package playermgmtTest;
 
+import java.util.LinkedList;
 import java.util.List;
 
 import org.junit.Assert;
@@ -35,32 +36,48 @@ public class PlayerServiceTest {
     }
 
     @Test
-    public void testHasCards(Player player) {
+    public void testHasCards() {
+        Player player = new Player("Kaya", null, null);
         Assert.assertEquals(service.hasCards(player), false);
     }
 
     @Test
-    public void testHasCardsTrue(Player player) {
-//        List<Card> cardsList = new List<Card>;
+    public void testHasCardsTrue() {
+        Player player = new Player("Kaya", null, null);
         Card card1 = new Card(Card.Zahl.SIEBEN, Card.Symbol.KARO);
-//        cardsList.add(card1);
         player.setHand(card1);
         Assert.assertEquals(service.hasCards(player), true);
     }
 
     @Test
-    public void testRemoveFromHand(Player player, List<Card> cardsToBeRemoved) {
-//        List cardsOnHand = new List<Card>;
+    public void testRemoveFromHand() {
+        Player player = new Player("Kaya", null, null);
         Card card1 = new Card(Card.Zahl.SIEBEN, Card.Symbol.KARO);
-//        player.setHand(card1);
+        Card card2 = new Card(Card.Zahl.ACHT, Card.Symbol.KARO);
+        List cardsToBeRemoved = new LinkedList<Card>();
+        cardsToBeRemoved.add(card1);
+
+        player.setHand(card1);
+        player.setHand(card2);
+
+        System.out.println(player.getHand());
+
         service.removeFromHand(player, cardsToBeRemoved);
-        Assert.assertTrue(player.getHand().size() == 0);
+
+        System.out.println(player.getHand());
+        Assert.assertTrue(player.getHand().size() == 1);
     }
 
     @Test
-    public void testAddToHand(Player player, List<Card> cards) {
-        Card card1 = new Card(Card.Zahl.SIEBEN, Card.Symbol.KARO);
-        cards.add(card1);
+    public void testAddToHand() {
+        Player player = new Player("Kaya", null, null);
+
+        Card card2 = new Card(Card.Zahl.ACHT, Card.Symbol.KARO);
+        List cards = new LinkedList<Card>();
+        cards.add(card2);
+
+        service.addToHand(player, cards);
+
         Assert.assertTrue(player.getHand().size() == cards.size() + player.getHand().size() - cards.size());
     }
 

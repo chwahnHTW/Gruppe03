@@ -11,18 +11,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 
 import kbe.cardmgmt.Card;
-import kbe.cardmgmt.CardService;
-import kbe.cardmgmt.CardServiceImpl;
 import kbe.gamemgmt.GameInstance;
 import kbe.gamemgmt.GameInstanceService;
-import kbe.gamemgmt.GameInstanceServiceImpl;
 import kbe.playermgmt.PlayerService;
-import kbe.playermgmt.PlayerServiceImpl;
 import kbe.rulesmgmt.CardRulesService;
 import kbe.rulesmgmt.CardRulesServiceStandardImpl;
-import kbe.rulesmgmt.PlayerRulesService;
-import kbe.rulesmgmt.PlayerRulesServicePresidentFirstImpl;
-import kbe.rulesmgmt.Rules;
 
 /**
  * @authors Kaya Löher 				| Kim Anh Nguyen 		| Christian Wahnsiedler
@@ -34,13 +27,6 @@ import kbe.rulesmgmt.Rules;
 
 @Controller
 public class FrontendController implements FrontendService {
-
-//    @Autowired
-//    private GameInstance gameInstance;
-//
-//    public void setGameInstance(GameInstance gameInstance) {
-//        this.gameInstance = gameInstance;
-//    }
 
     private GameInstance gameInstance;
 
@@ -67,14 +53,14 @@ public class FrontendController implements FrontendService {
 
 //    private PlayerRulesService playerRuleService = new PlayerRulesServicePresidentFirstImpl();
 
-    @Autowired
+//    @Autowired
     private CardRulesService cardRulesService = new CardRulesServiceStandardImpl();
 
-    public void setCardRulesService(CardRulesService cardRulesService) {
-        this.cardRulesService = cardRulesService;
-    }
+//    public void setCardRulesService(CardRulesService cardRulesService) {
+//        this.cardRulesService = cardRulesService;
+//    }
 
-//    private CardService cardService = new CardServiceImpl();
+    //    private CardService cardService = new CardServiceImpl();
 
 
     @Override
@@ -104,9 +90,6 @@ public class FrontendController implements FrontendService {
     private void endRound(GameInstance game) {
     }
 
-    ;
-
-
     public void validateMove(int[] selectedCards) {
 
         List tempCardList = new LinkedList<Card>();
@@ -114,7 +97,7 @@ public class FrontendController implements FrontendService {
         // geclickte Kartenfelder( Frontend) auslesen
         for (int i = 0; i > selectedCards.length; i++) {
             if (selectedCards[i] == 1) {
-                tempCardList.add(gameInstance.currentPlayer.getHand().get(i));
+                tempCardList.add(gameInstance.getCurrentPlayer().getHand().get(i));
             }
         }
         // Spielzug validieren
@@ -125,19 +108,18 @@ public class FrontendController implements FrontendService {
             // hier findet später die Überprüfung statt, ob der Spielzug richtig ist. Wenn die Liste die von Compare zurückkommt die gleiche ist wie die,
             // wenn ja, Karten von Hand des CurrentPlayers abziehen und mit getNextPlayer das Spiel weiterlaufen lassen.
             // wenn nicht, Auffoderung, erneut Karten auszuwählen
-            if (cardRulesService.compareCards(check, check) != null) {
+            if (check.compareTo(check) == 1) {
 
-                PLAYSI.removeFromHand(gameInstance.currentPlayer, tempCardList);
+                PLAYSI.removeFromHand(gameInstance.getCurrentPlayer(), tempCardList);
 
-                gameInstance.boardCards = tempCardList;
+                gameInstance.setBoardCards(tempCardList);
 
-                gameInstance.currentPlayer = PLAYSI.getNextPlayer(gameInstance);
+                gameInstance.setCurrentPlayer(PLAYSI.getNextPlayer(gameInstance));
 
-                frontendView.lblCurrentPlayer = new JLabel("Current Player : " + gameInstance.getCurrentPlayer().getName().toString());
+                frontendView.lblCurrentPlayer = new JLabel("Current Player : " + gameInstance.getCurrentPlayer().getName());
 
-
-                if (gameInstance.boardCards.get(0).getZahl().toString() == "Ass") {
-                    gameInstance.boardCards = null;
+                if (gameInstance.getBoardCards().get(0).getZahl().toString() == "Ass") {
+                    gameInstance.setBoardCards(null);
                 }
 
                 SwingUtilities.updateComponentTreeUI(frontendView);

@@ -1,10 +1,12 @@
 package kbe.rulesmgmt;
 
+import java.util.Collections;
 import java.util.List;
 
 import org.springframework.stereotype.Component;
 
 import kbe.cardmgmt.Card;
+import kbe.cardmgmt.CardComparator;
 import org.springframework.stereotype.Service;
 
 
@@ -15,8 +17,9 @@ public class CardRulesServiceStandardImpl implements CardRulesService {
 	 * Standard Implementierung : Wertigkeiten aufsteigend - 7-8-9-10-Bube-König-Ass
 	 */
 	@Override
-	public List<Card> compareCards(Card card1, Card card2) {
-		return null;
+	public List<Card> compareCards(List <Card> cards) {
+		Collections.sort(cards, new CardComparator());
+		return cards;
 	}
 
 }
