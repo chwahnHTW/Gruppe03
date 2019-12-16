@@ -267,12 +267,12 @@ public class FrontendView extends JFrame {
      */
     private void updateCardButtons(GameInstance gameInstance) {
 
-        JLabel jl = new JLabel();
-        String fileToBoardCard4 = "/" + gameInstance.boardCards.get(0).getSymbol().toString() + "_"
-                + gameInstance.boardCards.get(0).getZahl().toString() + ".jpg";
-        jl.setIcon(new javax.swing.ImageIcon(getClass().getResource(fileToBoardCard4)));
-        currentBoardCardPanel4.add(jl);
-        contentPane.add(currentBoardCardPanel4);
+//        JLabel jl = new JLabel();
+//        String fileToBoardCard4 = "/" + gameInstance.boardCards.get(0).getSymbol().toString() + "_"
+//                + gameInstance.boardCards.get(0).getZahl().toString() + ".jpg";
+//        jl.setIcon(new javax.swing.ImageIcon(getClass().getResource(fileToBoardCard4)));
+//        currentBoardCardPanel4.add(jl);
+//        contentPane.add(currentBoardCardPanel4);
 ///////////////////////////////////////////////////////////////////////////////////
         // Card 0
         btnPlayerCard0 = null;
@@ -411,23 +411,6 @@ public class FrontendView extends JFrame {
      */
     public void validateMove() {
 
-//        currentBoardCardPanel4.removeAll();
-//        JLabel jl = new JLabel();
-//        jl.setBounds(859, 93, 99, 125);
-//        String fileToBoardCard4 = "/PIK_ACHT.jpg";
-//        jl.setIcon(new javax.swing.ImageIcon(getClass().getResource(fileToBoardCard4)));
-//        currentBoardCardPanel4.add(jl);
-//
-//        btnPlayerCard1.removeAll();
-//        String card1File = "/HERZ_ASS.jpg";
-//        JLabel imageCard1 = new JLabel();
-//        imageCard1.setBounds(212, 408, 98, 125);
-//        imageCard1.setIcon(new javax.swing.ImageIcon(getClass().getResource(card1File)));
-//        btnPlayerCard1.add(imageCard1);
-//        contentPane.add(btnPlayerCard1);
-//        contentPane.revalidate();
-
-
         // eingabe öffnen für auswählen der karten
         String cardIndexes = JOptionPane.showInputDialog(null, "Bitte Karten angeben (Positionen: 0-11, mit Komma getrennt)");
 
@@ -449,8 +432,9 @@ public class FrontendView extends JFrame {
         // geclickte Kartenfelder( Frontend) auslesen
         for (int i = 0; i < cardIndexesToBePlayed.size(); i++) {
             // tempCards werden anhand der eingegeben Zahlen geholt
-            tempCardList.add((gameInstance.getCurrentPlayer().getHand().get(i)));
-            System.out.println(gameInstance.getCurrentPlayer().getHand().get(i));
+            int r = (Integer) cardIndexesToBePlayed.get(i);
+            tempCardList.add((gameInstance.getCurrentPlayer().getHand().get(r)));
+            System.out.println(gameInstance.getCurrentPlayer().getHand().get(r));
             // ALT: Wenn Karte im Frontend geclickt wurde, wird Sie in selectedCards erfasst. Durch dessen Iterierung erhalten wir alle selektierten Karten
 
             //tempCards valid? compareTo -> die ausgewählten Karten müssen die gleichen Zahlen haben
@@ -515,6 +499,15 @@ public class FrontendView extends JFrame {
                 //falsche Karten ausgewählt
                 validateMove();
             }
+
+            currentBoardCardPanel4.removeAll();
+            JLabel jl = new JLabel();
+            jl.setBounds(859, 93, 99, 125);
+
+            String fileToBoardCard4 = "/" + gameInstance.boardCards.get(0).getSymbol().toString() + "_"
+                    + gameInstance.boardCards.get(0).getZahl().toString() + ".jpg";
+            jl.setIcon(new javax.swing.ImageIcon(getClass().getResource(fileToBoardCard4)));
+            currentBoardCardPanel4.add(jl);
         }
     }
 }
