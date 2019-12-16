@@ -136,8 +136,10 @@ public class FrontendView extends JFrame {
                     gameInstance.players.add(player);
                 }
                 cardService.dealCardsToPlayers(gameInstance);
+                
                 try {
                     gameInstance.setCurrentPlayer(PLAYSI.getNextPlayer(gameInstance));
+                    System.out.println(gameInstance.currentPlayer.name.toString());
                     // nachdem alle automatischen Vorbereitungen getroffen sind, kann das Frontend vollstaendig aufgebaut werden
                     setupFrontend();
                     // images in btnPlayerCard0-11 updaten, da anderer Spieler an der Reihe sein sollte ( funktioniert nicht, ohne getNextPlayer()
@@ -272,7 +274,8 @@ public class FrontendView extends JFrame {
      */
     private void updateCardButtons(GameInstance gameInstance) {
 ///////////////////////////////////////////////////////////////////////////////////
-
+    	
+    	try {
         btnPlayerCard0 = null;
         btnPlayerCard0 = new JPanel();
         btnPlayerCard0.setBounds(104, 408, 98, 125);
@@ -283,8 +286,11 @@ public class FrontendView extends JFrame {
         imageCard0.setIcon(new javax.swing.ImageIcon(getClass().getResource(card0File)));
         btnPlayerCard0.add(imageCard0);
         contentPane.add(btnPlayerCard0);
+    	} catch (NullPointerException e) {System.out.println("no card at slot 0");}
 ///////////////////////////////////////////////////////////////////////////////////
 
+       
+    	try {
         btnPlayerCard1 = null;
         btnPlayerCard1 = new JPanel();
         btnPlayerCard1.setBounds(212, 408, 98, 125);
@@ -294,10 +300,10 @@ public class FrontendView extends JFrame {
         imageCard1.setBounds(212, 408, 98, 125);
         imageCard1.setIcon(new javax.swing.ImageIcon(getClass().getResource(card1File)));
         btnPlayerCard1.add(imageCard1);
-        contentPane.add(btnPlayerCard1);
+        contentPane.add(btnPlayerCard1);} catch (NullPointerException e) {System.out.println("no card at slot 1");}
 
 ///////////////////////////////////////////////////////////////////////////////////
-
+    	try {
         btnPlayerCard2 = null;
         btnPlayerCard2 = new JPanel();
         btnPlayerCard2.setBounds(320, 408, 98, 125);
@@ -307,9 +313,9 @@ public class FrontendView extends JFrame {
         imageCard2.setBounds(320, 408, 98, 125);
         imageCard2.setIcon(new javax.swing.ImageIcon(getClass().getResource(card2File)));
         btnPlayerCard2.add(imageCard2);
-        contentPane.add(btnPlayerCard2);
+        contentPane.add(btnPlayerCard2);} catch (NullPointerException e) {System.out.println("no card at slot 2");}
 ///////////////////////////////////////////////////////////////////////////////////
-
+    	try {
         btnPlayerCard3 = null;
         btnPlayerCard3 = new JPanel();
         btnPlayerCard3.setBounds(428, 408, 98, 125);
@@ -319,9 +325,10 @@ public class FrontendView extends JFrame {
         imageCard3.setBounds(428, 408, 98, 125);
         imageCard3.setIcon(new javax.swing.ImageIcon(getClass().getResource(card3File)));
         btnPlayerCard3.add(imageCard3);
-        contentPane.add(btnPlayerCard3);
+        contentPane.add(btnPlayerCard3);} catch (NullPointerException e) {System.out.println("no card at slot 3");}
 ///////////////////////////////////////////////////////////////////////////////////
 
+    	try {
         btnPlayerCard4 = null;
         btnPlayerCard4 = new JPanel();
         btnPlayerCard4.setBounds(536, 408, 98, 125);
@@ -331,9 +338,9 @@ public class FrontendView extends JFrame {
         imageCard4.setBounds(536, 408, 98, 125);
         imageCard4.setIcon(new javax.swing.ImageIcon(getClass().getResource(card4File)));
         btnPlayerCard4.add(imageCard4);
-        contentPane.add(btnPlayerCard4);
+        contentPane.add(btnPlayerCard4);} catch (NullPointerException e) {System.out.println("no card at slot 4");}
 ///////////////////////////////////////////////////////////////////////////////////
-
+    	try {
         btnPlayerCard5 = null;
         btnPlayerCard5 = new JPanel();
         btnPlayerCard5.setBounds(644, 408, 98, 125);
@@ -343,9 +350,9 @@ public class FrontendView extends JFrame {
         imageCard5.setBounds(644, 408, 98, 125);
         imageCard5.setIcon(new javax.swing.ImageIcon(getClass().getResource(card5File)));
         btnPlayerCard5.add(imageCard5);
-        contentPane.add(btnPlayerCard5);
+        contentPane.add(btnPlayerCard5);} catch (NullPointerException e) {System.out.println("no card at slot 6");}
 ///////////////////////////////////////////////////////////////////////////////////
-
+    	try {
         btnPlayerCard6 = null;
         btnPlayerCard6 = new JPanel();
         btnPlayerCard6.setBounds(752, 408, 98, 125);
@@ -355,9 +362,9 @@ public class FrontendView extends JFrame {
         imageCard6.setBounds(752, 408, 98, 125);
         imageCard6.setIcon(new javax.swing.ImageIcon(getClass().getResource(card6File)));
         btnPlayerCard6.add(imageCard6);
-        contentPane.add(btnPlayerCard6);
+        contentPane.add(btnPlayerCard6);} catch (NullPointerException e) {System.out.println("no card at slot 7");}
 ///////////////////////////////////////////////////////////////////////////////////
-
+    	try {
         btnPlayerCard7 = null;
         btnPlayerCard7 = new JPanel();
         btnPlayerCard7.setBounds(860, 408, 98, 125);
@@ -367,9 +374,9 @@ public class FrontendView extends JFrame {
         imageCard7.setBounds(860, 408, 98, 125);
         imageCard7.setIcon(new javax.swing.ImageIcon(getClass().getResource(card7File)));
         btnPlayerCard7.add(imageCard7);
-        contentPane.add(btnPlayerCard7);
+        contentPane.add(btnPlayerCard7);} catch (NullPointerException e) {System.out.println("no card at slot 8");}
 ///////////////////////////////////////////////////////////////////////////////////
-
+    	try {
         btnPlayerCard8 = null;
         btnPlayerCard8 = new JPanel();
         btnPlayerCard8.setBounds(320, 543, 98, 125);
@@ -379,9 +386,9 @@ public class FrontendView extends JFrame {
         imageCard8.setBounds(320, 543, 98, 125);
         imageCard8.setIcon(new javax.swing.ImageIcon(getClass().getResource(card8File)));
         btnPlayerCard8.add(imageCard8);
-        contentPane.add(btnPlayerCard8);
+        contentPane.add(btnPlayerCard8);} catch (NullPointerException e) {System.out.println("no card at slot 9");}
 ///////////////////////////////////////////////////////////////////////////////////
-
+    	try {
         btnPlayerCard9 = null;
         btnPlayerCard9 = new JPanel();
         btnPlayerCard9.setBounds(428, 543, 98, 125);
@@ -390,10 +397,10 @@ public class FrontendView extends JFrame {
         JLabel imageCard9 = new JLabel();
         imageCard9.setBounds(428, 543, 98, 125);
         imageCard9.setIcon(new javax.swing.ImageIcon(getClass().getResource(card9File)));
-        btnPlayerCard9.add(imageCard8);
-        contentPane.add(btnPlayerCard9);
+        btnPlayerCard9.add(imageCard9);
+        contentPane.add(btnPlayerCard9);} catch (NullPointerException e) {System.out.println("no card at slot 10");}
 ///////////////////////////////////////////////////////////////////////////////////
-
+    	try {
         btnPlayerCard10 = null;
         btnPlayerCard10 = new JPanel();
         btnPlayerCard10.setBounds(536, 543, 98, 125);
@@ -403,17 +410,20 @@ public class FrontendView extends JFrame {
         imageCard10.setBounds(536, 543, 98, 125);
         imageCard10.setIcon(new javax.swing.ImageIcon(getClass().getResource(card10File)));
         btnPlayerCard10.add(imageCard10);
-        contentPane.add(btnPlayerCard10);
+        contentPane.add(btnPlayerCard10);} catch (NullPointerException e) {System.out.println("no card at slot 11");}
 
 ///////////////////////////////////////////////////////////////////////////////////
+    	try {
         btnPlayerCard11 = null;
         btnPlayerCard11 = new JPanel();
         btnPlayerCard11.setBounds(644, 543, 98, 125);
-        contentPane.add(btnPlayerCard11);
+        contentPane.add(btnPlayerCard11);} catch (NullPointerException e) {System.out.println("no card at slot 1");}
 
-        SwingUtilities.updateComponentTreeUI(this);
+       // SwingUtilities.updateComponentTreeUI(this);
 
         contentPane.revalidate();
+        
+    	
 //        contentPane.repaint();
 ///////////////////////////////////////////////////////////////////////////////////
 
