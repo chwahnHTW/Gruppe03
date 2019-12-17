@@ -18,7 +18,7 @@ public class Player {
      */
     public enum Role {
 
-        PRAESIDENT1, PRAESIDENT2, MITTELKIND, ARSCHLOCH1, ARSCHLOCH2;
+        ARSCHLOCH, MITTELKIND, PRAESIDENT;
 
     }
 

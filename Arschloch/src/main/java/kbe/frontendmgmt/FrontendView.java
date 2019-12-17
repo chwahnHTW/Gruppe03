@@ -20,6 +20,8 @@ import kbe.cardmgmt.CardService;
 import kbe.cardmgmt.CardServiceImpl;
 import kbe.gamemgmt.GameInstance;
 
+import kbe.gamemgmt.GameInstanceService;
+import kbe.gamemgmt.GameInstanceServiceImpl;
 import kbe.playermgmt.Player;
 import kbe.playermgmt.PlayerService;
 import kbe.playermgmt.PlayerServiceImpl;
@@ -74,6 +76,8 @@ public class FrontendView extends JFrame {
 //	private FrontendController frontendController = new FrontendController();
 
     private GameInstance gameInstance;
+
+    private GameInstanceService GISI = new GameInstanceServiceImpl();
 
     private JPanel contentPane;
     private JButton btnPlaycards;
@@ -144,7 +148,6 @@ public class FrontendView extends JFrame {
                     gameInstance.setCurrentPlayer(PLAYSI.getNextPlayer(gameInstance));
                     System.out.println(gameInstance.currentPlayer.name.toString());
 
-//                    updateCurrentPlayerLabel();
                     // nachdem alle automatischen Vorbereitungen getroffen sind, kann das Frontend
                     // vollstaendig aufgebaut werden
                     setupFrontend();
@@ -152,6 +155,7 @@ public class FrontendView extends JFrame {
                     // sollte ( funktioniert nicht, ohne getNextPlayer()
                     // keine genaue Fehlerquelle bestimmbar
                     updateCardButtons(gameInstance);
+                    updateCurrentPlayerLabel();
 
                 } catch (IOException e1) {
                     // TODO Auto-generated catch block
@@ -203,6 +207,20 @@ public class FrontendView extends JFrame {
         btnPlaycards.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 validateMove();
+
+                String gameState = GISI.calculateGameState(gameInstance);
+                if (gameState.equals("Running")) {
+                    //Spiel geht weiter
+                } else {
+                    //Weiter spielen?
+                    Boolean continueGame = getContinueGame();
+                    if(continueGame){
+                    }
+                    else {
+                        System.exit(0);
+                    }
+                }
+
                 updateCardButtons(gameInstance);
                 updateCurrentBoardCardPanels(gameInstance);
             }
@@ -221,7 +239,7 @@ public class FrontendView extends JFrame {
                 passCounter++;
                 gameInstance.currentPlayer = PLAYSI.getNextPlayer(gameInstance);
 
-//                updateCurrentPlayerLabel();
+                updateCurrentPlayerLabel();
                 updateCardButtons(gameInstance);
                 if (passCounter == gameInstance.getPlayers().size()) {
                     gameInstance.boardCards = null;
@@ -885,9 +903,9 @@ public class FrontendView extends JFrame {
                     PLAYSI.removeFromHand(gameInstance.getCurrentPlayer(), tempCardList);
                     gameInstance.setCurrentPlayer(PLAYSI.getNextPlayer(gameInstance));
 
-//                     updateCurrentPlayerLabel();
                     updateCurrentBoardCardPanels(gameInstance);
                     updateCardButtons(gameInstance);
+                    updateCurrentPlayerLabel();
                 } else {
                     try {
                         Card y = (Card) ((LinkedList) tempCardList).getFirst();
@@ -904,9 +922,9 @@ public class FrontendView extends JFrame {
                             // nächsten Spieler setzen
                             gameInstance.setCurrentPlayer(PLAYSI.getNextPlayer(gameInstance));
 
-//                            updateCurrentPlayerLabel();
                             updateCurrentBoardCardPanels(gameInstance);
                             updateCardButtons(gameInstance);
+                            updateCurrentPlayerLabel();
                         } else {
                             // falsche Karten ausgewählt
                             validateMove();
@@ -917,9 +935,9 @@ public class FrontendView extends JFrame {
                         PLAYSI.removeFromHand(gameInstance.getCurrentPlayer(), tempCardList);
                         gameInstance.setCurrentPlayer(PLAYSI.getNextPlayer(gameInstance));
 
-//                        updateCurrentPlayerLabel();
                         updateCurrentBoardCardPanels(gameInstance);
                         updateCardButtons(gameInstance);
+                        updateCurrentPlayerLabel();
                     }
 
                 }
@@ -948,42 +966,33 @@ public class FrontendView extends JFrame {
         }
 
         passCounter = 0;
-
     }
 
     private void updateCurrentPlayerLabel() {
 
         try {
-            System.out.println("update player label 1");
-            lblCurrentPlayer.setVisible(false);
+            lblCurrentPlayer.removeAll();
+            contentPane.remove(lblCurrentPlayer);
+            lblCurrentPlayer = null;
             lblCurrentPlayer = new JLabel("Current Player: " + gameInstance.getCurrentPlayer().getName());
             lblCurrentPlayer.setBounds(104, 276, 155, 34);
-            lblCurrentPlayer.repaint();
             contentPane.add(lblCurrentPlayer);
-            contentPane.validate();
         } catch (NullPointerException e) {
             System.out.println("update player label 2");
-	/*		lblCurrentPlayer = null;
-			lblCurrentPlayer = new JLabel();
-			lblCurrentPlayer.setBounds(104, 276, 155, 34);
-			lblCurrentPlayer.validate();
-			lblCurrentPlayer.repaint();
-			contentPane.add(lblCurrentPlayer);  */
-
         } catch (IndexOutOfBoundsException e) {
-			/*
-			System.out.println("update player label 3");
-		lblCurrentPlayer = null;
-		lblCurrentPlayer = new JLabel("no current player");
-		lblCurrentPlayer.setBounds(104, 276, 155, 34);
-		lblCurrentPlayer.validate();
-		contentPane.add(lblCurrentPlayer); ;  */
+            System.out.println("update player label 3");
         }
+        lblCurrentPlayer.repaint();
+
+    }
 
 
-        contentPane.revalidate();
-        repaint();
-        revalidate();
-        validate();
+    Boolean getContinueGame() throws IllegalArgumentException{
+        String continueGame = JOptionPane.showInputDialog(null, "Weiterspielen (J/N)?");
+        if (continueGame.equalsIgnoreCase("j")) {
+            return true;
+        } else {
+            return false;
+        }
     }
 }

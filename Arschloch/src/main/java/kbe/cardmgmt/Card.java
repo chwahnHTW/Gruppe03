@@ -14,7 +14,7 @@ public class Card implements Comparable {
      */
     public enum Zahl {
 
-        SIEBEN(7), ACHT(8), NEUN(9), ZEHN(10), BUBE(11), DAME(12), KOENIG(13), ASS(14);
+        SIEBEN(7), ACHT(8), NEUN(9), ZEHN(10), BUBE(11), DAMEN(12), KOENIG(13), ASS(14);
     	
     	private int kartenWert;
     	
