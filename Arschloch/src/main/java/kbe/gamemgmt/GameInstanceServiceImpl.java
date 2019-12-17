@@ -22,7 +22,6 @@ public class GameInstanceServiceImpl implements GameInstanceService {
         String gameState = null;
         int counter = 1;
         for (Player player : gameInstance.getPlayers())
-
             try {
                 if (player.getHand() == null) {
                     counter++;
@@ -30,7 +29,6 @@ public class GameInstanceServiceImpl implements GameInstanceService {
             } catch (NullPointerException | IndexOutOfBoundsException e) {
                 e.printStackTrace();
             }
-
         if (counter == gameInstance.getPlayers().size() - 1) {
             gameState = "Finished";
         } else {
