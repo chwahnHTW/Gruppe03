@@ -15,6 +15,8 @@ import kbe.gamemgmt.GameInstance;
 import kbe.gamemgmt.GameInstanceService;
 import kbe.playermgmt.PlayerService;
 import kbe.rulesmgmt.CardRulesService;
+import kbe.cardmgmt.CardService;
+
 import kbe.rulesmgmt.CardRulesServiceStandardImpl;
 
 /**
@@ -53,15 +55,19 @@ public class FrontendController implements FrontendService {
 
 //    private PlayerRulesService playerRuleService = new PlayerRulesServicePresidentFirstImpl();
 
-//    @Autowired
-    private CardRulesService cardRulesService = new CardRulesServiceStandardImpl();
+    @Autowired
+    private CardRulesService cardRulesService;
 
-//    public void setCardRulesService(CardRulesService cardRulesService) {
-//        this.cardRulesService = cardRulesService;
-//    }
+    public void setCardRulesService(CardRulesService cardRulesService) {
+        this.cardRulesService = cardRulesService;
+    }
 
-    //    private CardService cardService = new CardServiceImpl();
+    @Autowired
+    private CardService cardService;
 
+    public void setCardService(CardService cardService) {
+        this.cardService = cardService;
+    }
 
     @Override
     public void init() {
