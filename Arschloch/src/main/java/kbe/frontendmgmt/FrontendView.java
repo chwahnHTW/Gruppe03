@@ -134,6 +134,7 @@ public class FrontendView extends JFrame {
                 gameInstance.players = new LinkedList<>();
                 int playerCount = getUserCountInput();
 //                System.out.println(playerCount);
+
                 for (int i = 0; i < playerCount; i++) {
                     Player player = PLAYSI.createPlayer(getUserNameInput());
                     gameInstance.players.add(player);
@@ -816,101 +817,138 @@ public class FrontendView extends JFrame {
             int r = (Integer) cardIndexesToBePlayed.get(i);
             tempCardList.add((gameInstance.getCurrentPlayer().getHand().get(r)));
 //            System.out.println(gameInstance.getCurrentPlayer().getHand().get(r));
-            // ALT: Wenn Karte im Frontend geclickt wurde, wird Sie in selectedCards
-            // erfasst. Durch dessen Iterierung erhalten wir alle selektierten Karten
 
-            // tempCards valid? compareTo -> die ausgewählten Karten müssen die gleichen
-            // Zahlen haben
-            if (tempCardList.size() >= 2) {
-                // gerade hinzugefügte Card
-                Card x = (Card) tempCardList.get(i);
-                Card y = (Card) ((LinkedList) tempCardList).getFirst();
+			// ALT: Wenn Karte im Frontend geclickt wurde, wird Sie in selectedCards
+			// erfasst. Durch dessen Iterierung erhalten wir alle selektierten Karten
 
-                int c = x.compareTo(y);
-                if (c == 0) {
-                    tempCardsEqual = true;
-                } else {
-                    tempCardsEqual = false;
-                }
-            }
-        }
-        System.out.println(tempCardList);
+			// tempCards valid? compareTo -> die ausgewählten Karten müssen die gleichen
+			// Zahlen haben
+			if (tempCardList.size() >= 2) {
+				// gerade hinzugefügte Card
+				Card x = (Card) tempCardList.get(i);
+				Card y = (Card) ((LinkedList) tempCardList).getFirst();
 
-        // Spielzug validieren
-        // hier findet später die Überprüfung statt, ob der Spielzug richtig ist. Wenn
-        // die Liste die von Compare zurückkommt die gleiche ist wie die,die wir in
-        // tempList als selektierte Karten haben
-        // wenn ja, Karten von Hand des CurrentPlayers abziehen und mit getNextPlayer
-        // das Spiel weiterlaufen lassen.
-        // wenn nicht, Auffoderung, erneut Karten auszuwählen
+				int c = x.compareTo(y);
+				if (c == 0) {
+					tempCardsEqual = true;
+				} else {
+					tempCardsEqual = false;
+				}
+			}
+		}
+		System.out.println(tempCardList);
 
-        // tempCards valid? compareTo -> die ausgwählten Karten müssen höher sein als
-        // die BoardCards
-        if (tempCardsEqual) {
+		// Spielzug validieren
+		// hier findet später die Überprüfung statt, ob der Spielzug richtig ist. Wenn
+		// die Liste die von Compare zurückkommt die gleiche ist wie die,die wir in
+		// tempList als selektierte Karten haben
+		// wenn ja, Karten von Hand des CurrentPlayers abziehen und mit getNextPlayer
+		// das Spiel weiterlaufen lassen.
+		// wenn nicht, Auffoderung, erneut Karten auszuwählen
 
-            if (gameInstance.getBoardCards() == null) {
-                gameInstance.setBoardCards(tempCardList);
-                PLAYSI.removeFromHand(gameInstance.getCurrentPlayer(), tempCardList);
-                gameInstance.setCurrentPlayer(PLAYSI.getNextPlayer(gameInstance));
+		// tempCards valid? compareTo -> die ausgwählten Karten müssen höher sein als
+		// die BoardCards
+		if (tempCardsEqual) {
 
-            } else {
-                try {
-                    Card y = (Card) ((LinkedList) tempCardList).getFirst();
+			if (gameInstance.getBoardCards() == null) {
+				gameInstance.setBoardCards(tempCardList);
+				PLAYSI.removeFromHand(gameInstance.getCurrentPlayer(), tempCardList);
+				gameInstance.setCurrentPlayer(PLAYSI.getNextPlayer(gameInstance));
+				updateCurrentPlayerLabel();
+			} else {
+				try {
+					Card y = (Card) ((LinkedList) tempCardList).getFirst();
 
-                    Card b = gameInstance.getBoardCards().get(0);
+					Card b = gameInstance.getBoardCards().get(0);
 
-                    int c = y.compareTo(b);
+					int c = y.compareTo(b);
 
-                    if (c == 1) {
-                        // tempCards werden als Boardcards gesetzt
-                        gameInstance.setBoardCards(tempCardList);
-                        // tempCards werden von der Hand des Spielers entfernt
-                        PLAYSI.removeFromHand(gameInstance.getCurrentPlayer(), tempCardList);
-                        // nächsten Spieler setzen
-                        gameInstance.setCurrentPlayer(PLAYSI.getNextPlayer(gameInstance));
+					if (c == 1) {
+						// tempCards werden als Boardcards gesetzt
+						gameInstance.setBoardCards(tempCardList);
+						// tempCards werden von der Hand des Spielers entfernt
+						PLAYSI.removeFromHand(gameInstance.getCurrentPlayer(), tempCardList);
+						// nächsten Spieler setzen
+						gameInstance.setCurrentPlayer(PLAYSI.getNextPlayer(gameInstance));
+						updateCurrentPlayerLabel();
+					} else {
+						// falsche Karten ausgewählt
+						validateMove();
+					}
+				} catch (IndexOutOfBoundsException e) {
+					System.out.print("no board cards to validate against, move passed");
+					gameInstance.setBoardCards(tempCardList);
+					PLAYSI.removeFromHand(gameInstance.getCurrentPlayer(), tempCardList);
+					gameInstance.setCurrentPlayer(PLAYSI.getNextPlayer(gameInstance));
+					updateCurrentPlayerLabel();
+					updateCurrentBoardCardPanels(gameInstance);
+					updateCardButtons(gameInstance);
+				}
 
-                    } else {
-                        // falsche Karten ausgewählt
-                        validateMove();
-                    }
-                } catch (IndexOutOfBoundsException e) {
-                    System.out.print("no board cards to validate against, move passed");
-                    gameInstance.setBoardCards(tempCardList);
-                    PLAYSI.removeFromHand(gameInstance.getCurrentPlayer(), tempCardList);
-                    gameInstance.setCurrentPlayer(PLAYSI.getNextPlayer(gameInstance));
-                    updateCurrentBoardCardPanels(gameInstance);
-                    updatePlayerCardPanels();
-                }
+			}
+		} else {
+			// falsche Karten ausgewählt
+			validateMove();
+		}
+		System.out.println(cardIndexesToBePlayed.size());
 
-            }
-        } else {
-            // falsche Karten ausgewählt
-            validateMove();
-        }
-        System.out.println(cardIndexesToBePlayed.size());
+		try {
+			if (gameInstance.getBoardCards().get(0).getZahl().toString() == "ASS") {
 
-        try {
-            if (gameInstance.getBoardCards().get(0).getZahl().toString() == "ASS") {
+				gameInstance.boardCards = null;
+				updateCurrentBoardCardPanels(gameInstance);
 
-                gameInstance.boardCards = null;
-                updateCurrentBoardCardPanels(gameInstance);
+				System.out.println("ENDE ENDE ENDE ENDE ENDE");
+			}
+		} catch (NullPointerException e) {
+			gameInstance.boardCards = null;
+			updateCurrentBoardCardPanels(gameInstance);
+		} catch (IndexOutOfBoundsException IOOB) {
+			gameInstance.boardCards = null;
+			updateCurrentBoardCardPanels(gameInstance);
+		}
 
-                System.out.println("ENDE ENDE ENDE ENDE ENDE");
-            }
-        } catch (NullPointerException e) {
-            gameInstance.boardCards = null;
-            updateCurrentBoardCardPanels(gameInstance);
-        } catch (IndexOutOfBoundsException IOOB) {
-            gameInstance.boardCards = null;
-            updateCurrentBoardCardPanels(gameInstance);
-        }
+		passCounter = 0;
 
-        passCounter = 0;
+	}
+private void updateCurrentPlayerLabel() {
 
-    }
+	try {
+		System.out.println("update player label 1");
+		lblCurrentPlayer.setVisible(false);
+		lblCurrentPlayer.removeAll();
+		lblCurrentPlayer = new JLabel("Current Player: " + gameInstance.getCurrentPlayer().getName());
+		lblCurrentPlayer.setBounds(104, 276, 155, 34);
+		lblCurrentPlayer.repaint();
+		contentPane.add(lblCurrentPlayer); 
+		contentPane.validate();
+	} 
 
-    private void updatePlayerCardPanels() {
-        // TODO Auto-generated method stub
 
-    }
+		catch (NullPointerException e ) {
+			System.out.println("update player label 2");
+	/*		lblCurrentPlayer = null;
+			lblCurrentPlayer = new JLabel();
+			lblCurrentPlayer.setBounds(104, 276, 155, 34);
+			lblCurrentPlayer.validate();
+			lblCurrentPlayer.repaint();
+			contentPane.add(lblCurrentPlayer);  */
+			
+		}
+
+		catch (IndexOutOfBoundsException e ) {		
+			/*
+			System.out.println("update player label 3");
+		lblCurrentPlayer = null;
+		lblCurrentPlayer = new JLabel("no current player");
+		lblCurrentPlayer.setBounds(104, 276, 155, 34);
+		lblCurrentPlayer.validate();
+		contentPane.add(lblCurrentPlayer); ;  */ }
+
+	
+		contentPane.revalidate();
+		repaint();
+		revalidate();
+		validate();
+}
 }
