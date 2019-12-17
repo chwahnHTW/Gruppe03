@@ -26,7 +26,7 @@ public class GameInstance {
      */
     public List<Player> players;
     public List<Player> result;
-    public List<Card> boardCards;
+    public List<Card> boardCards = null;
     public Player currentPlayer = null;
 
     /**

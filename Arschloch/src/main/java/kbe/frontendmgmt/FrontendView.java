@@ -145,6 +145,7 @@ public class FrontendView extends JFrame {
                     // images in btnPlayerCard0-11 updaten, da anderer Spieler an der Reihe sein sollte ( funktioniert nicht, ohne getNextPlayer()
                     // keine genaue Fehlerquelle bestimmbar
                     updateCardButtons(gameInstance);
+                    
                 } catch (IOException e1) {
                     // TODO Auto-generated catch block
                     e1.printStackTrace();
@@ -196,6 +197,7 @@ public class FrontendView extends JFrame {
             public void actionPerformed(ActionEvent e) {
                 validateMove();
                 updateCardButtons(gameInstance);
+                updateCurrentBoardCardPanels(gameInstance);
             }
         });
 
@@ -210,10 +212,13 @@ public class FrontendView extends JFrame {
             public void actionPerformed(ActionEvent e) {
             	System.out.println("PASSEN");
                 passCounter++;
-                
+                gameInstance.currentPlayer = PLAYSI.getNextPlayer(gameInstance);
+                updateCardButtons(gameInstance);
                 if(passCounter == gameInstance.getPlayers().size()) {
-                	gameInstance.boardCards.clear();
-                	System.out.println("COUNTER gleich Anzahl Spieler");
+                	gameInstance.boardCards = null;
+                	System.out.println("Pass-Counter = Spieleranzahl - boardCards resettet");
+                	updateCardButtons(gameInstance);
+                	updateCurrentBoardCardPanels(gameInstance);
                 }
             }
         });
@@ -268,14 +273,97 @@ public class FrontendView extends JFrame {
       
     }
 
+///////////////////////////////////////////////////////////////////////////////////
+    private void updateCurrentBoardCardPanels(GameInstance gameInstance) {
+    	if (gameInstance.getBoardCards() != null)
+    	{	
+    	try {      
+            currentBoardCardPanel4.removeAll();
+            JLabel jl4 = new JLabel();
+            jl4.setBounds(859, 93, 99, 125);
 
-    /**
-     * Create the frame.
-     */
+            String fileToBoardCard4 = "/" + gameInstance.boardCards.get(0).getSymbol().toString() + "_"
+                    + gameInstance.boardCards.get(0).getZahl().toString() + ".jpg";
+            jl4.setIcon(new javax.swing.ImageIcon(getClass().getResource(fileToBoardCard4)));
+            currentBoardCardPanel4.add(jl4);} catch(IndexOutOfBoundsException e) {System.out.println("no boardcards");}
+                                              catch (NullPointerException e) {System.out.println("no boardcards");}
+    
+///////////////////////////////////////////////////////////////////////////////////    	
+    	
+            if (gameInstance.boardCards.size() == 2) {
+            	try {
+                currentBoardCardPanel3.removeAll();
+                JLabel jl3 = new JLabel();
+                jl3.setBounds(859, 93, 99, 125);
+
+                String fileToBoardCard3 = "/" + gameInstance.boardCards.get(1).getSymbol().toString() + "_"
+                        + gameInstance.boardCards.get(1).getZahl().toString() + ".jpg";
+                jl3.setIcon(new javax.swing.ImageIcon(getClass().getResource(fileToBoardCard3)));
+                currentBoardCardPanel3.add(jl3);}catch(IndexOutOfBoundsException e) {System.out.println("less than 2 boardcards");}
+///////////////////////////////////////////////////////////////////////////////////                								 catch (NullPointerException e) {System.out.println("no boardcards");}}
+            	
+
+                if (gameInstance.boardCards.size() == 3) {
+                	try {
+                    currentBoardCardPanel2.removeAll();
+                    JLabel jl2 = new JLabel();
+                    jl2.setBounds(859, 93, 99, 125);
+
+                    String fileToBoardCard2 = "/" + gameInstance.boardCards.get(2).getSymbol().toString() + "_"
+                            + gameInstance.boardCards.get(2).getZahl().toString() + ".jpg";
+                    jl2.setIcon(new javax.swing.ImageIcon(getClass().getResource(fileToBoardCard2)));
+                    currentBoardCardPanel2.add(jl2);}catch(IndexOutOfBoundsException e) {System.out.println("less than 3");}
+                    								 catch (NullPointerException e) {System.out.println("no boardcards");}}
+                	
+///////////////////////////////////////////////////////////////////////////////////                	
+                	
+                    if (gameInstance.boardCards.size() == 4) {
+                    	try {
+                        currentBoardCardPanel1.removeAll();
+                        JLabel jl1 = new JLabel();
+                        jl1.setBounds(859, 93, 99, 125);
+
+                        String fileToBoardCard1 = "/" + gameInstance.boardCards.get(3).getSymbol().toString() + "_"
+                                + gameInstance.boardCards.get(3).getZahl().toString() + ".jpg";
+                        jl1.setIcon(new javax.swing.ImageIcon(getClass().getResource(fileToBoardCard1)));
+                        currentBoardCardPanel1.add(jl1);}catch(IndexOutOfBoundsException e) {System.out.println("less than");}
+                        								 catch (NullPointerException e) {System.out.println("no boardcards");}}
+///////////////////////////////////////////////////////////////////////////////////                    
+            } else { System.out.println("updating boardcard from current board cardmethod");
+            
+   /*         currentBoardCardPanel4.removeAll();
+            JLabel jl4 = new JLabel();
+            jl4.setBounds(859, 93, 99, 125); 
+            currentBoardCardPanel4.add(jl4);
+            
+            currentBoardCardPanel3.removeAll();
+            JLabel jl3 = new JLabel();
+            jl3.setBounds(859, 93, 99, 125);
+            currentBoardCardPanel3.add(jl3);
+            
+            currentBoardCardPanel2.removeAll();
+            JLabel jl2 = new JLabel();
+            jl2.setBounds(859, 93, 99, 125);
+            currentBoardCardPanel2.add(jl2);
+            
+            currentBoardCardPanel1.removeAll();
+            JLabel jl1 = new JLabel();
+            jl1.setBounds(859, 93, 99, 125);
+            currentBoardCardPanel1.add(jl1);  */
+
+            }
+            contentPane.revalidate();
+    }}
+    
+    
+    
+    
     private void updateCardButtons(GameInstance gameInstance) {
 ///////////////////////////////////////////////////////////////////////////////////
     	
+
     	try {
+    		 
         btnPlayerCard0 = null;
         btnPlayerCard0 = new JPanel();
         btnPlayerCard0.setBounds(104, 408, 98, 125);
@@ -285,8 +373,8 @@ public class FrontendView extends JFrame {
         imageCard0.setBounds(104, 408, 98, 125);
         imageCard0.setIcon(new javax.swing.ImageIcon(getClass().getResource(card0File)));
         btnPlayerCard0.add(imageCard0);
-        contentPane.add(btnPlayerCard0);
-    	} catch (NullPointerException e) {System.out.println("no card at slot 0");}
+        contentPane.add(btnPlayerCard0);}catch (NullPointerException e) {System.out.println("no card at slot 0");}
+		  								 catch(IndexOutOfBoundsException e) {System.out.println("no more cards for this player");};
 ///////////////////////////////////////////////////////////////////////////////////
 
        
@@ -301,7 +389,7 @@ public class FrontendView extends JFrame {
         imageCard1.setIcon(new javax.swing.ImageIcon(getClass().getResource(card1File)));
         btnPlayerCard1.add(imageCard1);
         contentPane.add(btnPlayerCard1);} catch (NullPointerException e) {System.out.println("no card at slot 1");}
-
+    									  catch(IndexOutOfBoundsException e) {System.out.println("less than 2 cards left for this player");};
 ///////////////////////////////////////////////////////////////////////////////////
     	try {
         btnPlayerCard2 = null;
@@ -314,6 +402,7 @@ public class FrontendView extends JFrame {
         imageCard2.setIcon(new javax.swing.ImageIcon(getClass().getResource(card2File)));
         btnPlayerCard2.add(imageCard2);
         contentPane.add(btnPlayerCard2);} catch (NullPointerException e) {System.out.println("no card at slot 2");}
+    									  catch(IndexOutOfBoundsException e) {System.out.println("less than 3 cards left for this player");};
 ///////////////////////////////////////////////////////////////////////////////////
     	try {
         btnPlayerCard3 = null;
@@ -326,6 +415,7 @@ public class FrontendView extends JFrame {
         imageCard3.setIcon(new javax.swing.ImageIcon(getClass().getResource(card3File)));
         btnPlayerCard3.add(imageCard3);
         contentPane.add(btnPlayerCard3);} catch (NullPointerException e) {System.out.println("no card at slot 3");}
+    	                                  catch(IndexOutOfBoundsException e) {System.out.println("less than 4 cards left for this player");};
 ///////////////////////////////////////////////////////////////////////////////////
 
     	try {
@@ -338,7 +428,7 @@ public class FrontendView extends JFrame {
         imageCard4.setBounds(536, 408, 98, 125);
         imageCard4.setIcon(new javax.swing.ImageIcon(getClass().getResource(card4File)));
         btnPlayerCard4.add(imageCard4);
-        contentPane.add(btnPlayerCard4);} catch (NullPointerException e) {System.out.println("no card at slot 4");}
+        contentPane.add(btnPlayerCard4);} catch (NullPointerException e) {System.out.println("less than 5 cards left for this player");}
 ///////////////////////////////////////////////////////////////////////////////////
     	try {
         btnPlayerCard5 = null;
@@ -351,6 +441,7 @@ public class FrontendView extends JFrame {
         imageCard5.setIcon(new javax.swing.ImageIcon(getClass().getResource(card5File)));
         btnPlayerCard5.add(imageCard5);
         contentPane.add(btnPlayerCard5);} catch (NullPointerException e) {System.out.println("no card at slot 6");}
+    									  catch(IndexOutOfBoundsException e) {System.out.println("less than 6 cards left for this player");};
 ///////////////////////////////////////////////////////////////////////////////////
     	try {
         btnPlayerCard6 = null;
@@ -363,6 +454,7 @@ public class FrontendView extends JFrame {
         imageCard6.setIcon(new javax.swing.ImageIcon(getClass().getResource(card6File)));
         btnPlayerCard6.add(imageCard6);
         contentPane.add(btnPlayerCard6);} catch (NullPointerException e) {System.out.println("no card at slot 7");}
+    									  catch(IndexOutOfBoundsException e) {System.out.println("less than 7 cards left for this player");};
 ///////////////////////////////////////////////////////////////////////////////////
     	try {
         btnPlayerCard7 = null;
@@ -374,7 +466,7 @@ public class FrontendView extends JFrame {
         imageCard7.setBounds(860, 408, 98, 125);
         imageCard7.setIcon(new javax.swing.ImageIcon(getClass().getResource(card7File)));
         btnPlayerCard7.add(imageCard7);
-        contentPane.add(btnPlayerCard7);} catch (NullPointerException e) {System.out.println("no card at slot 8");}
+        contentPane.add(btnPlayerCard7);} catch (NullPointerException e) {System.out.println("less than 8 cards left for this player");}
 ///////////////////////////////////////////////////////////////////////////////////
     	try {
         btnPlayerCard8 = null;
@@ -387,6 +479,7 @@ public class FrontendView extends JFrame {
         imageCard8.setIcon(new javax.swing.ImageIcon(getClass().getResource(card8File)));
         btnPlayerCard8.add(imageCard8);
         contentPane.add(btnPlayerCard8);} catch (NullPointerException e) {System.out.println("no card at slot 9");}
+    									  catch(IndexOutOfBoundsException e) {System.out.println("less than 9 cards left for this player");};
 ///////////////////////////////////////////////////////////////////////////////////
     	try {
         btnPlayerCard9 = null;
@@ -399,6 +492,8 @@ public class FrontendView extends JFrame {
         imageCard9.setIcon(new javax.swing.ImageIcon(getClass().getResource(card9File)));
         btnPlayerCard9.add(imageCard9);
         contentPane.add(btnPlayerCard9);} catch (NullPointerException e) {System.out.println("no card at slot 10");}
+		  								  catch(IndexOutOfBoundsException e) {System.out.println("less than 10 cards left for this player");};
+
 ///////////////////////////////////////////////////////////////////////////////////
     	try {
         btnPlayerCard10 = null;
@@ -411,6 +506,7 @@ public class FrontendView extends JFrame {
         imageCard10.setIcon(new javax.swing.ImageIcon(getClass().getResource(card10File)));
         btnPlayerCard10.add(imageCard10);
         contentPane.add(btnPlayerCard10);} catch (NullPointerException e) {System.out.println("no card at slot 11");}
+		                                   catch(IndexOutOfBoundsException e) {System.out.println("less than 11 cards left for this player");};
 
 ///////////////////////////////////////////////////////////////////////////////////
     	try {
@@ -494,8 +590,11 @@ public class FrontendView extends JFrame {
                 gameInstance.setBoardCards(tempCardList);
                 PLAYSI.removeFromHand(gameInstance.getCurrentPlayer(), tempCardList);
                 gameInstance.setCurrentPlayer(PLAYSI.getNextPlayer(gameInstance));
+                
             } else {
+            	try {
                 Card y = (Card) ((LinkedList) tempCardList).getFirst();
+
                 Card b = gameInstance.getBoardCards().get(0);
 
                 int c = y.compareTo(b);
@@ -507,71 +606,38 @@ public class FrontendView extends JFrame {
                     PLAYSI.removeFromHand(gameInstance.getCurrentPlayer(), tempCardList);
                     //nächsten Spieler setzen
                     gameInstance.setCurrentPlayer(PLAYSI.getNextPlayer(gameInstance));
-                    //resettet Boardcards, falls Ass gespielt wurde
-                    // TODO - reset, wenn alle Spieler 1x nacheinander gepasst haben
+                    
                 } else {
                     //falsche Karten ausgewählt
                     validateMove();
+                }}catch(IndexOutOfBoundsException e) {
+                System.out.print("no board cards to validate against, move passed");
+                gameInstance.setBoardCards(tempCardList);
+                PLAYSI.removeFromHand(gameInstance.getCurrentPlayer(), tempCardList);
+                gameInstance.setCurrentPlayer(PLAYSI.getNextPlayer(gameInstance));
+                
                 }
+                
+                
             }
         } else {
             //falsche Karten ausgewählt
             validateMove();
         }
-
         System.out.println(cardIndexesToBePlayed.size());
 
-        currentBoardCardPanel4.removeAll();
-        JLabel jl4 = new JLabel();
-        jl4.setBounds(859, 93, 99, 125);
-
-        String fileToBoardCard4 = "/" + gameInstance.boardCards.get(0).getSymbol().toString() + "_"
-                + gameInstance.boardCards.get(0).getZahl().toString() + ".jpg";
-        jl4.setIcon(new javax.swing.ImageIcon(getClass().getResource(fileToBoardCard4)));
-        currentBoardCardPanel4.add(jl4);
-
-        if (cardIndexesToBePlayed.size() == 2) {
-            currentBoardCardPanel3.removeAll();
-            JLabel jl3 = new JLabel();
-            jl3.setBounds(859, 93, 99, 125);
-
-            String fileToBoardCard3 = "/" + gameInstance.boardCards.get(1).getSymbol().toString() + "_"
-                    + gameInstance.boardCards.get(1).getZahl().toString() + ".jpg";
-            jl3.setIcon(new javax.swing.ImageIcon(getClass().getResource(fileToBoardCard3)));
-            currentBoardCardPanel3.add(jl3);
-
-
-            if (cardIndexesToBePlayed.size() == 3) {
-                currentBoardCardPanel2.removeAll();
-                JLabel jl2 = new JLabel();
-                jl2.setBounds(859, 93, 99, 125);
-
-                String fileToBoardCard2 = "/" + gameInstance.boardCards.get(2).getSymbol().toString() + "_"
-                        + gameInstance.boardCards.get(2).getZahl().toString() + ".jpg";
-                jl2.setIcon(new javax.swing.ImageIcon(getClass().getResource(fileToBoardCard2)));
-                currentBoardCardPanel2.add(jl2);
-
-                if (cardIndexesToBePlayed.size() == 4) {
-                    currentBoardCardPanel1.removeAll();
-                    JLabel jl1 = new JLabel();
-                    jl1.setBounds(859, 93, 99, 125);
-
-                    String fileToBoardCard1 = "/" + gameInstance.boardCards.get(3).getSymbol().toString() + "_"
-                            + gameInstance.boardCards.get(3).getZahl().toString() + ".jpg";
-                    jl1.setIcon(new javax.swing.ImageIcon(getClass().getResource(fileToBoardCard1)));
-                    currentBoardCardPanel1.add(jl1);
-                }
-            }
-        }
-
-
+        try {
         if (gameInstance.getBoardCards().get(0).getZahl().toString() == "ASS") {
-            gameInstance.setBoardCards(null);
-
+        	
+            gameInstance.boardCards = null;
+            updateCurrentBoardCardPanels(gameInstance);
+            
             System.out.println("ENDE ENDE ENDE ENDE ENDE");
         }
-
+        }catch(NullPointerException e) {System.out.println("keine Boardcard");}
+        catch(IndexOutOfBoundsException IOOB) {System.out.println("keine Boardcard");}
+        
         passCounter = 0;
-
+        
     }
 }
