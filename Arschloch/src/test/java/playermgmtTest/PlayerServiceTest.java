@@ -57,18 +57,10 @@ public class PlayerServiceTest {
         List cardsToBeRemoved = new LinkedList<Card>();
         cardsToBeRemoved.add(card1);
 
-
         player.setHand(card1);
         player.setHand(card2);
 
-
-//        System.out.println(player.getHand());
-//        System.out.println(player.getHand().size());
-
         service.removeFromHand(player, cardsToBeRemoved);
-
-//        System.out.println(player.getHand());
-//        System.out.println(player.getHand().size());
 
         Assert.assertTrue(player.getHand().size() == 1);
     }
