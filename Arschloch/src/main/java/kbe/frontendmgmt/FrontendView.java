@@ -143,7 +143,8 @@ public class FrontendView extends JFrame {
 				try {
 					gameInstance.setCurrentPlayer(PLAYSI.getNextPlayer(gameInstance));
 					System.out.println(gameInstance.currentPlayer.name.toString());
-					updateCurrentPlayerLabel();
+				
+					//updateCurrentPlayerLabel();
 					// nachdem alle automatischen Vorbereitungen getroffen sind, kann das Frontend
 					// vollstaendig aufgebaut werden
 					setupFrontend();
@@ -219,7 +220,8 @@ public class FrontendView extends JFrame {
 				System.out.println("PASSEN");
 				passCounter++;
 				gameInstance.currentPlayer = PLAYSI.getNextPlayer(gameInstance);
-				updateCurrentPlayerLabel();
+				
+				//updateCurrentPlayerLabel();
 				updateCardButtons(gameInstance);
 				if (passCounter == gameInstance.getPlayers().size()) {
 					gameInstance.boardCards = null;
@@ -919,7 +921,10 @@ public class FrontendView extends JFrame {
 				gameInstance.setBoardCards(tempCardList);
 				PLAYSI.removeFromHand(gameInstance.getCurrentPlayer(), tempCardList);
 				gameInstance.setCurrentPlayer(PLAYSI.getNextPlayer(gameInstance));
-				updateCurrentPlayerLabel();
+			
+				// updateCurrentPlayerLabel();
+				updateCurrentBoardCardPanels(gameInstance);
+				updateCardButtons(gameInstance);
 			} else {
 				try {
 					Card y = (Card) ((LinkedList) tempCardList).getFirst();
@@ -935,7 +940,10 @@ public class FrontendView extends JFrame {
 						PLAYSI.removeFromHand(gameInstance.getCurrentPlayer(), tempCardList);
 						// nächsten Spieler setzen
 						gameInstance.setCurrentPlayer(PLAYSI.getNextPlayer(gameInstance));
-						updateCurrentPlayerLabel();
+					
+						//updateCurrentPlayerLabel();
+						updateCurrentBoardCardPanels(gameInstance);
+						updateCardButtons(gameInstance);
 					} else {
 						// falsche Karten ausgewählt
 						validateMove();
@@ -945,7 +953,8 @@ public class FrontendView extends JFrame {
 					gameInstance.setBoardCards(tempCardList);
 					PLAYSI.removeFromHand(gameInstance.getCurrentPlayer(), tempCardList);
 					gameInstance.setCurrentPlayer(PLAYSI.getNextPlayer(gameInstance));
-					updateCurrentPlayerLabel();
+				
+					//updateCurrentPlayerLabel();
 					updateCurrentBoardCardPanels(gameInstance);
 					updateCardButtons(gameInstance);
 				}
