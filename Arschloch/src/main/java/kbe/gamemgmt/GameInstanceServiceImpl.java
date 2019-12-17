@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 import kbe.playermgmt.Player;
 
 @Service
+
 public class GameInstanceServiceImpl implements GameInstanceService {
 
     @Override
@@ -35,10 +36,7 @@ public class GameInstanceServiceImpl implements GameInstanceService {
         } else {
             gameState = "Running";
         }
-
-
         return gameState;
     }
-
 
 }
