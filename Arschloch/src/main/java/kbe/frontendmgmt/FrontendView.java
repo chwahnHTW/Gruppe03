@@ -214,7 +214,33 @@ public class FrontendView extends JFrame {
                 } else {
                     //Weiter spielen?
                     Boolean continueGame = getContinueGame();
+
+                    //letzten Spieler in resultliste speichern
+                    for(Player player : gameInstance.getPlayers()){
+                       if(  PLAYSI.hasCards(player)) {
+                           gameInstance.setResult(player);
+                       }
+                    }
                     if(continueGame){
+                        //rollen herausfinden
+                        setPlayerRoles();
+//                        System.out.println(gameInstance.getResult().get(0).getRole().toString());
+                        gameInstance.getResult().get(0).handCards = new LinkedList<Card>();
+                        gameInstance.getResult().get(1).handCards = new LinkedList<Card>();
+                        gameInstance.getResult().get(2).handCards = new LinkedList<Card>();
+
+                        gameInstance.players = gameInstance.result;
+
+                        cardService.dealCardsToPlayers(gameInstance);
+
+                        cardService.swapCards(gameInstance);
+
+                        setInitialPlayerForNextRound();
+
+                        gameInstance.boardCards = null;
+                        updateCurrentBoardCardPanels(gameInstance);
+                        updateCardButtons(gameInstance);
+                        updateCurrentPlayerLabel();
                     }
                     else {
                         System.exit(0);
@@ -336,7 +362,7 @@ public class FrontendView extends JFrame {
                             + gameInstance.boardCards.get(1).getZahl().toString() + ".jpg";
                     jl3.setIcon(new javax.swing.ImageIcon(getClass().getResource(fileToBoardCard3)));
                     currentBoardCardPanel3.add(jl3);
-                } catch (IndexOutOfBoundsException e) {
+                } catch (IndexOutOfBoundsException | NullPointerException e) {
                     currentBoardCardPanel3.removeAll();
                     JLabel jl3 = new JLabel();
                     jl3.setBounds(859, 93, 99, 125);
@@ -854,6 +880,8 @@ public class FrontendView extends JFrame {
                 cardIndexesToBePlayed.add(f);
             }
 
+
+
             // Liste, in der die aus dem Array ausgelesenen, selektierten Karten erfasst und
             // gehalten werden
             List tempCardList = new LinkedList<Card>();
@@ -896,49 +924,67 @@ public class FrontendView extends JFrame {
 
             // tempCards valid? compareTo -> die ausgwählten Karten müssen höher sein als
             // die BoardCards
+
+
             if (tempCardsEqual) {
 
                 if (gameInstance.getBoardCards() == null) {
                     gameInstance.setBoardCards(tempCardList);
                     PLAYSI.removeFromHand(gameInstance.getCurrentPlayer(), tempCardList);
+
+                    // TO DO - setPlayerRoles
+                    addCurrentPlayerToResult();
+
                     gameInstance.setCurrentPlayer(PLAYSI.getNextPlayer(gameInstance));
 
                     updateCurrentBoardCardPanels(gameInstance);
                     updateCardButtons(gameInstance);
                     updateCurrentPlayerLabel();
                 } else {
-                    try {
-                        Card y = (Card) ((LinkedList) tempCardList).getFirst();
 
-                        Card b = gameInstance.getBoardCards().get(0);
+                    if(tempCardList.size() != gameInstance.getBoardCards().size()) {
+                        tempCardList = null;
+                        validateMove();
+                    }
 
-                        int c = y.compareTo(b);
+                        try {
+                            Card y = (Card) ((LinkedList) tempCardList).getFirst();
 
-                        if (c == 1) {
-                            // tempCards werden als Boardcards gesetzt
+                            Card b = gameInstance.getBoardCards().get(0);
+
+                            int c = y.compareTo(b);
+
+                            if (c == 1) {
+                                // tempCards werden als Boardcards gesetzt
+                                gameInstance.setBoardCards(tempCardList);
+                                // tempCards werden von der Hand des Spielers entfernt
+                                PLAYSI.removeFromHand(gameInstance.getCurrentPlayer(), tempCardList);
+
+                                addCurrentPlayerToResult();
+
+                                // nächsten Spieler setzen
+                                gameInstance.setCurrentPlayer(PLAYSI.getNextPlayer(gameInstance));
+
+                                updateCurrentBoardCardPanels(gameInstance);
+                                updateCardButtons(gameInstance);
+                                updateCurrentPlayerLabel();
+                            } else {
+                                // falsche Karten ausgewählt
+                                validateMove();
+                            }
+                        } catch (IndexOutOfBoundsException e) {
+                            System.out.print("no board cards to validate against, move passed");
                             gameInstance.setBoardCards(tempCardList);
-                            // tempCards werden von der Hand des Spielers entfernt
                             PLAYSI.removeFromHand(gameInstance.getCurrentPlayer(), tempCardList);
-                            // nächsten Spieler setzen
+
+                            addCurrentPlayerToResult();
+
                             gameInstance.setCurrentPlayer(PLAYSI.getNextPlayer(gameInstance));
 
                             updateCurrentBoardCardPanels(gameInstance);
                             updateCardButtons(gameInstance);
                             updateCurrentPlayerLabel();
-                        } else {
-                            // falsche Karten ausgewählt
-                            validateMove();
                         }
-                    } catch (IndexOutOfBoundsException e) {
-                        System.out.print("no board cards to validate against, move passed");
-                        gameInstance.setBoardCards(tempCardList);
-                        PLAYSI.removeFromHand(gameInstance.getCurrentPlayer(), tempCardList);
-                        gameInstance.setCurrentPlayer(PLAYSI.getNextPlayer(gameInstance));
-
-                        updateCurrentBoardCardPanels(gameInstance);
-                        updateCardButtons(gameInstance);
-                        updateCurrentPlayerLabel();
-                    }
 
                 }
             } else {
@@ -986,7 +1032,6 @@ public class FrontendView extends JFrame {
 
     }
 
-
     Boolean getContinueGame() throws IllegalArgumentException{
         String continueGame = JOptionPane.showInputDialog(null, "Weiterspielen (J/N)?");
         if (continueGame.equalsIgnoreCase("j")) {
@@ -995,43 +1040,56 @@ public class FrontendView extends JFrame {
             return false;
         }
     }
-    
+
     /**
-	 * Fragt den User ab, wer die nächte Runde anfangen soll zu legen,
-	 * und setzt entweder Arschloch oder Praesident als current player.
-	 * 
-	 * @throws IllegalArgumentException
-	 */
-	void setInitialPlayerForNextRound() throws IllegalArgumentException{
-		String initialPlayerForNextRound = JOptionPane.showInputDialog(null, "Wer soll anfangen (Arschloch/Präsident)?");
-		if(initialPlayerForNextRound.equalsIgnoreCase("arschloch")) {
-			for(int i = 0; i <= gameInstance.getPlayers().size(); i++ ) {
-				if(gameInstance.getPlayers().get(i).getRole().equals(Player.Role.ARSCHLOCH)){
-					gameInstance.setCurrentPlayer(gameInstance.getPlayers().get(i)); //current player setzen mit arschloch
-				}
-			} 
-		}
-		else if(initialPlayerForNextRound.equalsIgnoreCase("präsident")) {
-			for(int i = 0; i <= gameInstance.getPlayers().size(); i++ ) {
-				if(gameInstance.getPlayers().get(i).getRole().equals(Player.Role.PRAESIDENT)){
-					gameInstance.setCurrentPlayer(gameInstance.getPlayers().get(i)); //current player setzen mit praesident
-				}
-			}
-		}
-	}
-	
-	void addCurrentPlayerToResult() {
-		
-	}
-	
-	private void setPlayerRole() {
-		Player president = gameInstance.getResult().get(0);
-		president.setRole(Player.Role.PRAESIDENT);
-		
-		Player arschloch = gameInstance.getResult().get(2);
-		arschloch.setRole(Player.Role.ARSCHLOCH);
-		
+     * Fragt den User ab, wer die nächte Runde anfangen soll zu legen,
+     * und setzt entweder Arschloch oder Praesident als current player.
+     *
+     * @throws IllegalArgumentException
+     */
+    void setInitialPlayerForNextRound() throws IllegalArgumentException{
+        String initialPlayerForNextRound = JOptionPane.showInputDialog(null, "Wer soll anfangen (Arschloch (a)/Praesident (p))?");
+        if(initialPlayerForNextRound.equalsIgnoreCase("a")) {
+            for(int i = 0; i < gameInstance.getPlayers().size(); i++ ) {
+                try {
+                    if (gameInstance.getPlayers().get(i).getRole().equals(Player.Role.ARSCHLOCH)) {
+                        gameInstance.setCurrentPlayer(gameInstance.getPlayers().get(i)); //current player setzen mit arschloch
+                    }
+                }
+                catch (Exception e){
+
+                }
+            }
+        }
+        else if(initialPlayerForNextRound.equalsIgnoreCase("p")) {
+            for(int i = 0; i < gameInstance.getPlayers().size(); i++ ) {
+               try {
+                   if (gameInstance.getPlayers().get(i).getRole().equals(Player.Role.PRAESIDENT)) {
+                       gameInstance.setCurrentPlayer(gameInstance.getPlayers().get(i)); //current player setzen mit praesident
+                   }
+               } catch (Exception e){
+
+               }
+            }
+        }
     }
-	
-	
+
+    private void addCurrentPlayerToResult() {
+        if(gameInstance.getCurrentPlayer().getHand().isEmpty()){
+            if (!gameInstance.getResult().contains(gameInstance.getCurrentPlayer())) {
+                gameInstance.setResult(gameInstance.getCurrentPlayer());
+
+                System.out.println("RESULT LISTE " + gameInstance.getResult().size());
+
+            }
+        }
+    }
+
+    private void setPlayerRoles() {
+        gameInstance.getResult().get(0).setRole(Player.Role.PRAESIDENT);
+
+        gameInstance.getResult().get(1).setRole(Player.Role.MITTELKIND);
+
+        gameInstance.getResult().get(2).setRole(Player.Role.ARSCHLOCH);
+    }
 }
