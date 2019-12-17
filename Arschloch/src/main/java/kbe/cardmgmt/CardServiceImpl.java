@@ -63,14 +63,12 @@ public class CardServiceImpl implements CardService {
 	public void swapCards(GameInstance gameInstance) {
 
 		Player president = gameInstance.getResult().get(0);//praesident, da er zuerst in die liste
-		Player arschloch = gameInstance.getResult().get(3);//arschloch, da er als letztes in die liste hinzugefuegt wird
+		Player arschloch = gameInstance.getResult().get(2);//arschloch, da er als letztes in die liste hinzugefuegt wird
 		sortCardsByValue(president.getHand()); //sortieren der Karten nach Zahlenwert
 		sortCardsByValue(arschloch.getHand()); //sortieren der Karten nach Zahlenwert
 
 		//um hier die Karten, die getauscht werden sollen, temporaer abzulegen
 		List<Card> temp1 = new ArrayList<Card>();
-
-
 
 		// die 2 besten (hoechste Zahl) karten von arschloch herausfinden und in temp liste
 		int handArschloch = arschloch.getHand().size();

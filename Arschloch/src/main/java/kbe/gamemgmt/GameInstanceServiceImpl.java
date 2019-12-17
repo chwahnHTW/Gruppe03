@@ -28,7 +28,7 @@ public class GameInstanceServiceImpl implements GameInstanceService {
                 e.printStackTrace();
             }
         }
-        if (counter == 2) { //gameInstance.getPlayers().size()
+        if (counter == gameInstance.getPlayers().size()) {
             gameState = "Finished";
         } else {
             gameState = "Running";
