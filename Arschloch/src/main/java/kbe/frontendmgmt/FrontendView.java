@@ -143,6 +143,7 @@ public class FrontendView extends JFrame {
 				try {
 					gameInstance.setCurrentPlayer(PLAYSI.getNextPlayer(gameInstance));
 					System.out.println(gameInstance.currentPlayer.name.toString());
+					updateCurrentPlayerLabel();
 					// nachdem alle automatischen Vorbereitungen getroffen sind, kann das Frontend
 					// vollstaendig aufgebaut werden
 					setupFrontend();
@@ -218,6 +219,7 @@ public class FrontendView extends JFrame {
 				System.out.println("PASSEN");
 				passCounter++;
 				gameInstance.currentPlayer = PLAYSI.getNextPlayer(gameInstance);
+				updateCurrentPlayerLabel();
 				updateCardButtons(gameInstance);
 				if (passCounter == gameInstance.getPlayers().size()) {
 					gameInstance.boardCards = null;
@@ -228,7 +230,7 @@ public class FrontendView extends JFrame {
 			}
 		});
 
-		lblCurrentPlayer = new JLabel("Current Player :" + gameInstance.getCurrentPlayer().getName());
+		lblCurrentPlayer = new JLabel("Current Player: " + gameInstance.getCurrentPlayer().getName());
 		lblCurrentPlayer.setBounds(104, 276, 155, 34);
 		contentPane.add(lblCurrentPlayer);
 
@@ -303,7 +305,7 @@ public class FrontendView extends JFrame {
 			}
 
 ///////////////////////////////////////////////////////////////////////////////////    	
-
+			
 			if (gameInstance.boardCards.size() == 2) {
 				try {
 					currentBoardCardPanel3.removeAll();
@@ -374,7 +376,7 @@ public class FrontendView extends JFrame {
 				}
 ///////////////////////////////////////////////////////////////////////////////////                    
 			} else {
-				updatePlayerCardPanels();
+				updateCardButtons(gameInstance);
 			}
 			contentPane.revalidate();
 		} else {
@@ -403,7 +405,7 @@ public class FrontendView extends JFrame {
 			jl4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/emptyCard.jpg")));
 			currentBoardCardPanel4.add(jl4);
 			
-			updatePlayerCardPanels();
+			updateCardButtons(gameInstance);
 			contentPane.revalidate();
 		
 			
@@ -917,7 +919,7 @@ public class FrontendView extends JFrame {
 				gameInstance.setBoardCards(tempCardList);
 				PLAYSI.removeFromHand(gameInstance.getCurrentPlayer(), tempCardList);
 				gameInstance.setCurrentPlayer(PLAYSI.getNextPlayer(gameInstance));
-
+				updateCurrentPlayerLabel();
 			} else {
 				try {
 					Card y = (Card) ((LinkedList) tempCardList).getFirst();
@@ -933,7 +935,7 @@ public class FrontendView extends JFrame {
 						PLAYSI.removeFromHand(gameInstance.getCurrentPlayer(), tempCardList);
 						// nächsten Spieler setzen
 						gameInstance.setCurrentPlayer(PLAYSI.getNextPlayer(gameInstance));
-
+						updateCurrentPlayerLabel();
 					} else {
 						// falsche Karten ausgewählt
 						validateMove();
@@ -943,8 +945,9 @@ public class FrontendView extends JFrame {
 					gameInstance.setBoardCards(tempCardList);
 					PLAYSI.removeFromHand(gameInstance.getCurrentPlayer(), tempCardList);
 					gameInstance.setCurrentPlayer(PLAYSI.getNextPlayer(gameInstance));
+					updateCurrentPlayerLabel();
 					updateCurrentBoardCardPanels(gameInstance);
-					updatePlayerCardPanels();
+					updateCardButtons(gameInstance);
 				}
 
 			}
@@ -973,9 +976,44 @@ public class FrontendView extends JFrame {
 		passCounter = 0;
 
 	}
+private void updateCurrentPlayerLabel() {
 
-private void updatePlayerCardPanels() {
-	// TODO Auto-generated method stub
+	try {
+		System.out.println("update player label 1");
+		lblCurrentPlayer.setVisible(false);
+		lblCurrentPlayer.removeAll();
+		lblCurrentPlayer = new JLabel("Current Player: " + gameInstance.getCurrentPlayer().getName());
+		lblCurrentPlayer.setBounds(104, 276, 155, 34);
+		lblCurrentPlayer.repaint();
+		contentPane.add(lblCurrentPlayer); 
+		contentPane.validate();
+	} 
+
+
+		catch (NullPointerException e ) {
+			System.out.println("update player label 2");
+	/*		lblCurrentPlayer = null;
+			lblCurrentPlayer = new JLabel();
+			lblCurrentPlayer.setBounds(104, 276, 155, 34);
+			lblCurrentPlayer.validate();
+			lblCurrentPlayer.repaint();
+			contentPane.add(lblCurrentPlayer);  */
+			
+		}
+
+		catch (IndexOutOfBoundsException e ) {		
+			/*
+			System.out.println("update player label 3");
+		lblCurrentPlayer = null;
+		lblCurrentPlayer = new JLabel("no current player");
+		lblCurrentPlayer.setBounds(104, 276, 155, 34);
+		lblCurrentPlayer.validate();
+		contentPane.add(lblCurrentPlayer); ;  */ }
+
 	
+		contentPane.revalidate();
+		repaint();
+		revalidate();
+		validate();
 }
 }
