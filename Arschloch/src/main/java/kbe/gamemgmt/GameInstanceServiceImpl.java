@@ -19,7 +19,7 @@ public class GameInstanceServiceImpl implements GameInstanceService {
         // TODO Auto-generated method stub
 
         String gameState = null;
-        int counter = 0;
+        int counter = 1;
         for (Player player : gameInstance.getPlayers())
 
             try {
