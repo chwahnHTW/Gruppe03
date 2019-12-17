@@ -1,6 +1,7 @@
 
 package kbe.gamemgmt;
 
+import java.util.LinkedList;
 import java.util.List;
 
 import kbe.cardmgmt.Card;
@@ -25,7 +26,7 @@ public class GameInstance {
      * @param current: Spieler, der gerade an der Reihe ist, einen Zug zu machen
      */
     public List<Player> players;
-    public List<Player> result;
+    public List result = new LinkedList<Player>();
     public List<Card> boardCards = null;
     public Player currentPlayer = null;
 
@@ -70,8 +71,8 @@ public class GameInstance {
      *
      * @param result : Liste von Spielern
      */
-    public void setResult(List<Player> result) {
-        this.result = result;
+    public void setResult(Player result) {
+        this.result.add(result);
     }
 
     /**
