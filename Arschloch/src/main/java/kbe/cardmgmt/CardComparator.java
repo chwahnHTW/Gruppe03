@@ -3,7 +3,13 @@ package kbe.cardmgmt;
 import org.springframework.stereotype.Service;
 
 import java.util.Comparator;
-
+/**
+ * @authors 		Kaya Löher 				| Kim Anh Nguyen 		| Christian Wahnsiedler
+ * Email-Adresse: 	s0564784@htw-berlin.de	| s0563958@htw-berlin.de| s0557193@htw-berlin.de
+ * <p>
+ * Diese Klasse stellt einen Comparator zum Vergleich von Karten dar.
+ * Zwei Card-Objekte werden anhand ihres Kartenwertes verglichen.
+ */
 @Service
 public class CardComparator implements Comparator<Card>{
 	
@@ -13,19 +19,11 @@ public class CardComparator implements Comparator<Card>{
 			return 1;
 		}
 		if (o1.getZahl().getKartenWert() == o2.getZahl().getKartenWert()) {
-			return 0; // beide sind gleich
+			return 0;
 		}
 		else if(o1.getZahl().getKartenWert() < o2.getZahl().getKartenWert()) {
-			return -1; //o1 ist kleiner
+			return -1;
 		}
-		return 1; // o1 ist groesser
+		return 1;
 	}
-	
-//	private int compare2(Card o1, Card o2) {
-//		return o1.getZahl().compareTo(o2.getZahl());
-//	}
 }
-
-//else if(o1 == null || o2 == null || o1 == null && o2 == null) {
-//	return -1; //
-//}

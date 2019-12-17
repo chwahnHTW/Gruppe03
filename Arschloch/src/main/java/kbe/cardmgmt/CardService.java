@@ -5,7 +5,7 @@ import java.util.List;
 import kbe.gamemgmt.GameInstance;
 
 /**
- * @authors Kaya Löher 				| Kim Anh Nguyen 		| Christian Wahnsiedler
+ * @authors 		Kaya Löher 				| Kim Anh Nguyen 		| Christian Wahnsiedler
  * Email-Adresse: 	s0564784@htw-berlin.de	| s0563958@htw-berlin.de| s0557193@htw-berlin.de
  * <p>
  * Diese Klasse stellt den CardService dar.
@@ -59,7 +59,7 @@ public interface CardService {
     void swapCards(GameInstance gameInstance);
 
     /**
-     * Austeilen der Spielkarten an die Spieler
+     * Austeilen der Spielkarten an die Spieler.
      *
      * @param gameInstance - eine Spielinstanz
      */

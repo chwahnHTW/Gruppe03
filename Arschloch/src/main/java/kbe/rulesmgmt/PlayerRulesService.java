@@ -3,17 +3,24 @@ package kbe.rulesmgmt;
 import kbe.gamemgmt.GameInstance;
 import kbe.playermgmt.Player;
 
-
+/**
+ * @authors 		Kaya Löher 				| Kim Anh Nguyen 		| Christian Wahnsiedler
+ * Email-Adresse: 	s0564784@htw-berlin.de	| s0563958@htw-berlin.de| s0557193@htw-berlin.de
+ *
+ * Hier wird der Spieler festgelegt, der in der nächsten Runde anfängt zu legen.
+ * Wenn ein Spiel vom neuen beginnt, fängt der Spieler an, der die Karte HERZ Sieben hat.
+ * 
+ * Anfangen kann Arschloch oder Präsident.
+ */
 public interface PlayerRulesService {
-    /**
-     * Hier werden Karten in Bezug auf ihren Zahlenwert verglichen. Annotations ermöglichen hier später eine externe Konfiguration der Regeln
-     * über Setzen der Rangfolge der Wertigkeiten.
-     * Standard-Blatt
-     *
-     * @param card1 - erste zu vergleichende Karte
-     * @param card2 - zweite zu vergleichende Karte
-     * @return Liste in Reihenfolge der Kartenwertigekeiten, soriteirt nach Standard-Blatt
-     */
+	
+	/**
+	 * Hier wird der Spieler bestimmt, der in der nächsten Runde anfangen soll.
+	 * Das kann entweder der Verlierer oder Gewinner sein.
+	 * 
+	 * @param	gameInstance - die GameInstance, die eine Liste von Spielern hält
+	 * @return	Ein Player der in der nächsten Runde anfangen soll
+	 */
     Player determineInitialPlayer(GameInstance gameInstance);
 
 }

@@ -995,4 +995,43 @@ public class FrontendView extends JFrame {
             return false;
         }
     }
+    
+    /**
+	 * Fragt den User ab, wer die nächte Runde anfangen soll zu legen,
+	 * und setzt entweder Arschloch oder Praesident als current player.
+	 * 
+	 * @throws IllegalArgumentException
+	 */
+	void setInitialPlayerForNextRound() throws IllegalArgumentException{
+		String initialPlayerForNextRound = JOptionPane.showInputDialog(null, "Wer soll anfangen (Arschloch/Präsident)?");
+		if(initialPlayerForNextRound.equalsIgnoreCase("arschloch")) {
+			for(int i = 0; i <= gameInstance.getPlayers().size(); i++ ) {
+				if(gameInstance.getPlayers().get(i).getRole().equals(Player.Role.ARSCHLOCH)){
+					gameInstance.setCurrentPlayer(gameInstance.getPlayers().get(i)); //current player setzen mit arschloch
+				}
+			} 
+		}
+		else if(initialPlayerForNextRound.equalsIgnoreCase("präsident")) {
+			for(int i = 0; i <= gameInstance.getPlayers().size(); i++ ) {
+				if(gameInstance.getPlayers().get(i).getRole().equals(Player.Role.PRAESIDENT)){
+					gameInstance.setCurrentPlayer(gameInstance.getPlayers().get(i)); //current player setzen mit praesident
+				}
+			}
+		}
+	}
+	
+	void addCurrentPlayerToResult() {
+		
+	}
+	
+	private void setPlayerRole() {
+		Player president = gameInstance.getResult().get(0);
+		president.setRole(Player.Role.PRAESIDENT);
+		
+		Player arschloch = gameInstance.getResult().get(2);
+		arschloch.setRole(Player.Role.ARSCHLOCH);
+		
+    }
+	
+	
 }

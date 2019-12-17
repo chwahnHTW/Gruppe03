@@ -5,14 +5,12 @@ import java.util.List;
 import kbe.cardmgmt.Card;
 
 /**
- * @authors Kaya Löher 				| Kim Anh Nguyen 		| Christian Wahnsiedler
+ * @authors 		Kaya Löher 				| Kim Anh Nguyen 		| Christian Wahnsiedler
  * Email-Adresse: 	s0564784@htw-berlin.de	| s0563958@htw-berlin.de| s0557193@htw-berlin.de
  *
- * Hier werden Karten verglichen. Über Implementierung verschiedener Comparatoren wird hier später die Konfiguration der Regeln ermöglicht
- * In einem normalen Spiel 32 Karten.
+ * Hier werden Karten verglichen. Über Implementierung verschiedener Comparatoren wird hier später die Konfiguration der Regeln ermöglicht.
+ * Karten können aufsteigende oder absteigende Wertigkeiten haben.
  */
-
-
 public interface CardRulesService {
 
     /**

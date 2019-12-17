@@ -1,7 +1,7 @@
 package kbe.cardmgmt;
 
 /**
- * @authors Kaya Löher 				| Kim Anh Nguyen 		| Christian Wahnsiedler
+ * @authors 		Kaya Löher 				| Kim Anh Nguyen 		| Christian Wahnsiedler
  * Email-Adresse: 	s0564784@htw-berlin.de	| s0563958@htw-berlin.de| s0557193@htw-berlin.de
  * <p>
  * Diese Klasse stellt eine Karte dar.
@@ -11,6 +11,7 @@ public class Card implements Comparable {
 
     /**
      * Ein Enum, welches die Zahlen darstellt, welche für ein Kartenspiel benötigt werden.
+     * Die Zahl bestimmt den Kartenwert.
      */
     public enum Zahl {
 

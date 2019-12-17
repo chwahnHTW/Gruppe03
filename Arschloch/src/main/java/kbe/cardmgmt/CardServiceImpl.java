@@ -11,21 +11,13 @@ import kbe.playermgmt.Player;
 import org.springframework.stereotype.Service;
 
 /**
- * @authors Kaya Löher 				| Kim Anh Nguyen 		| Christian Wahnsiedler
+ * @authors 		Kaya Löher 				| Kim Anh Nguyen 		| Christian Wahnsiedler
  * Email-Adresse: 	s0564784@htw-berlin.de	| s0563958@htw-berlin.de| s0557193@htw-berlin.de
  */
 
 @Service
 public class CardServiceImpl implements CardService {
 
-	// wie karten mit bilder mappen? -> Card klasse mit to string?
-
-	/**
-	 * Sortiert eine Liste mit Karten nach ihren Zahlen.
-	 *
-	 * @param
-	 * @return
-	 */
 	@Override
 	public List<Card> sortCardsByValue(List<Card> cards) {
 		Collections.sort(cards, new CardComparator());
@@ -34,7 +26,7 @@ public class CardServiceImpl implements CardService {
 	}
 
 	@Override
-	public List<Card> generateDeck() { // default = 32 //optional
+	public List<Card> generateDeck() {
 		List<Card> deck = new ArrayList<Card>();
 
 		for (Card.Symbol symbol : Card.Symbol.values()) {
@@ -50,12 +42,7 @@ public class CardServiceImpl implements CardService {
 
 	@Override
 	public List<Card> shuffleDeck(List<Card> deck) {
-		/**
-		 * liste deck rein
-		 * inhalt mischen
-		 */
 		Collections.shuffle(deck);
-
 		return deck;
 	}
 
@@ -63,14 +50,12 @@ public class CardServiceImpl implements CardService {
 	public void swapCards(GameInstance gameInstance) {
 
 		Player president = gameInstance.getResult().get(0);//praesident, da er zuerst in die liste
-		Player arschloch = gameInstance.getResult().get(3);//arschloch, da er als letztes in die liste hinzugefuegt wird
+		Player arschloch = gameInstance.getResult().get(2);//arschloch, da er als letztes in die liste hinzugefuegt wird
 		sortCardsByValue(president.getHand()); //sortieren der Karten nach Zahlenwert
 		sortCardsByValue(arschloch.getHand()); //sortieren der Karten nach Zahlenwert
 
 		//um hier die Karten, die getauscht werden sollen, temporaer abzulegen
 		List<Card> temp1 = new ArrayList<Card>();
-
-
 
 		// die 2 besten (hoechste Zahl) karten von arschloch herausfinden und in temp liste
 		int handArschloch = arschloch.getHand().size();
@@ -104,7 +89,7 @@ public class CardServiceImpl implements CardService {
 		int anzahlPlayer = gameInstance.players.size();
 
 		for (int i = 0; i < deck.size(); i++) {
-			// i%anzahlPlayer, damit durhc jeden Player iteriert wird
+			// i%anzahlPlayer, damit durch jeden Player iteriert wird
 			gameInstance.players.get(i % anzahlPlayer).setHand(deck.get(i));
 		}
 
