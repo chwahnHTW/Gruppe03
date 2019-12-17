@@ -51,16 +51,12 @@ public class FrontendController implements FrontendService {
         this.PLAYSI = PLAYSI;
     }
 
-//    private PlayerRulesService playerRuleService = new PlayerRulesServicePresidentFirstImpl();
+
 
 //    @Autowired
     private CardRulesService cardRulesService = new CardRulesServiceStandardImpl();
 
-//    public void setCardRulesService(CardRulesService cardRulesService) {
-//        this.cardRulesService = cardRulesService;
-//    }
 
-    //    private CardService cardService = new CardServiceImpl();
 
 
     @Override

@@ -10,11 +10,22 @@ import kbe.playermgmt.Player;
 
 public class GameInstanceServiceImpl implements GameInstanceService {
 
+	/*
+	 * Methode, um Spielinstanz zu erzeugen
+	 * */
     @Override
     public GameInstance startGame() {
         return new GameInstance();
     }
 
+    /*
+     * 
+     * Methode, um den Spielstatus zu erfassen. 
+     * return String - Spielstatus - running, wenn spiel noch lauft
+     * finished, wenn Spiel vorbei
+     * 
+     * */
+    
     @Override
     public String calculateGameState(GameInstance gameInstance) {
         String gameState = null;

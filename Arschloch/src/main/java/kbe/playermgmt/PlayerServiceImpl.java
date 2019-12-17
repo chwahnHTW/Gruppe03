@@ -11,6 +11,12 @@ import kbe.cardmgmt.Card;
 @Service
 public class PlayerServiceImpl implements PlayerService {
 
+	/*
+	 * Prueft, ob Spieler Karten hat
+	 * return boolean, true wenn ja, false wenn nicht
+	 * 
+	 * */
+	
     @Override
     public Boolean hasCards(Player player) {
         if (player.getHand().isEmpty()) {
@@ -20,6 +26,13 @@ public class PlayerServiceImpl implements PlayerService {
         }
     }
 
+    /*Zieht Karten von der Hand eines Spielers ab
+     * @param Player - Spieler, von dem abgezogen werden soll
+     * @cards - Liste der Karten, die abgezogen werden sollen
+     * 
+     * */
+    
+    
     @Override
     public void removeFromHand(Player player, List<Card> cards) {
         for (Card card : cards) {
@@ -32,6 +45,8 @@ public class PlayerServiceImpl implements PlayerService {
         }
     }
 
+    
+    // Fuegt @cards der Hand von @Player hinzu
     @Override
     public void addToHand(Player player, List<Card> cards) {
         if (!player.getHand().containsAll(cards)) {
@@ -64,19 +79,15 @@ public class PlayerServiceImpl implements PlayerService {
             // für die Länge der Spielerliste suche currentplayer
             for (int i = 0; i < instance.getPlayers().size(); i++) {
 
-//                System.out.println("size "+instance.getPlayers().size());
-//                System.out.println("i " + i);
+
 
                 //wenn current spieler i entspricht
                 Player player = instance.getPlayers().get(i);
 
-//                System.out.println("player i "+instance.getPlayers().get(i).getName());
-//                System.out.println("player current "+instance.getCurrentPlayer().getName());
 
                 if (player == instance.getCurrentPlayer()) {
                     //nächsten player als currentPlayer setzen
 
-//                    System.out.println(i + 1);
 
                     //wichtig: bei Ende einer Runde muss der anfangen, der zuletzt gelegt hat
                     //wenn dieser keine Karten mehr hat, dann ist der nächste dran
@@ -92,12 +103,11 @@ public class PlayerServiceImpl implements PlayerService {
                 }
             }
         }
-//        if (!hasCards(current)) {
-//            getNextPlayer(instance);
-//        }
         return current;
     }
 
+    
+    // Erstellt Player
     @Override
     public Player createPlayer(String name) {
         return new Player(name, null, null);

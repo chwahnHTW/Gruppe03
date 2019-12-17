@@ -7,6 +7,11 @@ import java.util.Comparator;
 @Service
 public class CardComparator implements Comparator<Card>{
 	
+	/*Klasse, um den Vergleich von Spielkarten durchzufuehren 
+	 * return int - Vergleich groeßßer, kleiner oder gleich
+	 * 
+	 * */
+	
 	@Override
 	public int compare(Card o1, Card o2) {
 		if(o2 == null) {
@@ -20,12 +25,5 @@ public class CardComparator implements Comparator<Card>{
 		}
 		return 1; // o1 ist groesser
 	}
-	
-//	private int compare2(Card o1, Card o2) {
-//		return o1.getZahl().compareTo(o2.getZahl());
-//	}
-}
 
-//else if(o1 == null || o2 == null || o1 == null && o2 == null) {
-//	return -1; //
-//}
+}
