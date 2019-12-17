@@ -870,6 +870,12 @@ public class FrontendView extends JFrame {
 		// für die Länge des Userinputs Indizes der Karten speichern
 		for (int i = 0; i < cardsIndexesArray.length; i++) {
 			int f = Integer.parseInt(cardsIndexesArray[i]);
+
+			if(f<0|f>11){
+				validateMove();
+				break;
+			}
+
 			cardIndexesToBePlayed.add(f);
 		}
 
