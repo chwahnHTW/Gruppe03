@@ -232,10 +232,9 @@ public class CardServiceTest {
     @Test
     public void testSwapCards() {
     	GameInstance gi = new GameInstance();
-    	
-    	Player arschloch = new Player("eins", null, Player.Role.ARSCHLOCH);
-    	Player mittelkind = new Player("zwei", null, Player.Role.MITTELKIND);
     	Player president = new Player("drei", null, Player.Role.PRAESIDENT);
+    	Player mittelkind = new Player("zwei", null, Player.Role.MITTELKIND);
+    	Player arschloch = new Player("eins", null, Player.Role.ARSCHLOCH);
     	List<Player> resultPlayer = new ArrayList<Player>();
     	resultPlayer.add(arschloch);
     	resultPlayer.add(mittelkind);
@@ -243,17 +242,22 @@ public class CardServiceTest {
     	gi.setResult(president);
     	gi.setResult(mittelkind);
     	gi.setResult(arschloch);
-//    	gi.setPlayers(resultPlayer);
+    	gi.setPlayers(resultPlayer);
+    	service.dealCardsToPlayers(gi);
+    	
+    	System.out.println("result am index 0: " + gi.getResult().get(0).getRole());
+    	System.out.println("result am index 1: " + gi.getResult().get(1).getRole());
+    	System.out.println("result am index 2: " + gi.getResult().get(2).getRole());
+    	System.out.println(gi.getPlayers().get(0).getHand().size());
+//    	System.out.println(gi.players.size());
     	
     	/**
     	 * handkarten nochmal von jeden temporär in liste
     	 * um spaeter vergleichen zu können
     	 */
-    	System.out.println("result am index 0: " + gi.getResult().get(0).getRole());
-    	System.out.println("result am index 1: " + gi.getResult().get(1).getRole());
-    	System.out.println("result am index 2: " + gi.getResult().get(2).getRole());
-//    	System.out.println(gi.players.size());
-    	
+    	System.out.println(arschloch.handCards.size());
+    	System.out.println(mittelkind.handCards.size());
+    	System.out.println(president.handCards.size());
     	
     }
     
