@@ -269,7 +269,7 @@ public class CardServiceTest {
 //    	System.out.println(arschloch.handCards.get(arschloch.handCards.size()-2));
 //    	System.out.println(arschloch.handCards.get(arschloch.handCards.size()-1));
     	
-    	service.swapCards(gi);
+//    	service.swapCards(gi);
     	
     	System.out.println("");
     	System.out.println("Ass vorher: " + handCardsArschlochVorher);
@@ -277,9 +277,9 @@ public class CardServiceTest {
     	System.out.println("Ass nach swap: " + service.sortCardsByValue(gi.getPlayers().get(2).handCards) + gi.getPlayers().get(2).handCards.size());
     	System.out.println("Ass nach swap: " + service.sortCardsByValue(arschloch.handCards));
     	System.out.println("");
-    	System.out.println("President vorher: " + handCardsPresidentVorher);
-    	System.out.println("President vorher sortiert: " + service.sortCardsByValue(handCardsPresidentVorher) + handCardsArschlochVorher.size());
-    	System.out.println("President nach swap: " + service.sortCardsByValue(gi.getPlayers().get(0).handCards) + gi.getPlayers().get(0).handCards.size());
+//    	System.out.println("President vorher: " + handCardsPresidentVorher);
+//    	System.out.println("President vorher sortiert: " + service.sortCardsByValue(handCardsPresidentVorher) + handCardsArschlochVorher.size());
+//    	System.out.println("President nach swap: " + service.sortCardsByValue(gi.getPlayers().get(0).handCards) + gi.getPlayers().get(0).handCards.size());
     	
     	/**
     	 * Prüfen, ob die letzen Karten von Arschloch jetzt die letzten von Präsident sind
