@@ -259,6 +259,8 @@ public class CardServiceTest {
     	System.out.println(mittelkind.handCards.size());
     	System.out.println(president.handCards.size());
     	
+    	List<Card> handCardsAss = arschloch.handCards;
+    	
     }
     
 //   @Test
