@@ -5,6 +5,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import kbe.frontendmgmt.FrontendService;
+import kbe.frontendmgmt.FrontendView;
 import kbe.frontendmgmt.FrontendController;
 import kbe.gamemgmt.GameInstance;
 import kbe.gamemgmt.GameInstanceService;
@@ -47,6 +48,7 @@ public class FrontendServiceTest {
     // User Input Tests, sobald konkrete Vorgaben für Frontend
     @Test
     public void testGetUserCountInput() {
+    	String anzahl
         Assert.assertTrue(true);
     }
 

@@ -4,7 +4,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import kbe.rulesmgmt.CardRulesService;
-import kbe.rulesmgmt.CardRulesServiceReverseImpl;
+import kbe.rulesmgmt.CardRulesServiceStandardImpl;
 
 /**
  * @authors         Kaya Löher 				| Kim Anh Nguyen 		| Christian Wahnsiedler
@@ -17,11 +17,11 @@ public class RulesServiceTest {
 
     @Before
     public void setUp() {
-        service = new CardRulesServiceReverseImpl();
+        service = new CardRulesServiceStandardImpl();
     }
 
     @Test
-    public void testCompareStandard() {
+    public void testCompareCards() {
     	
     }
 
