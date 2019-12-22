@@ -1,5 +1,6 @@
 package playermgmtTest;
 
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -8,6 +9,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import kbe.cardmgmt.Card;
+import kbe.gamemgmt.GameInstance;
 import kbe.playermgmt.Player;
 import kbe.playermgmt.PlayerService;
 import kbe.playermgmt.PlayerServiceImpl;
@@ -28,13 +30,13 @@ public class PlayerServiceTest {
         service = new PlayerServiceImpl();
     }
 
-    @Test
-    public void testGenerateId() {
-        int x = (int) ((Math.random() * ((1000000 - 1) + 1)) + 1);
-        System.out.println(x);
-        Assert.assertEquals(x > 0, true);
-    }
-
+//    @Test
+//    public void testGenerateId() {
+//        int x = (int) ((Math.random() * ((1000000 - 1) + 1)) + 1);
+//        System.out.println(x);
+//        Assert.assertEquals(x > 0, true);
+//    }
+    
     @Test
     public void testHasCards() {
         Player player = new Player("Kaya", null, null);
@@ -48,34 +50,50 @@ public class PlayerServiceTest {
         player.setHand(card1);
         Assert.assertEquals(service.hasCards(player), true);
     }
-
+    
     @Test
     public void testRemoveFromHand() {
-        Player player = new Player("Kaya", null, null);
-        Card card1 = new Card(Card.Zahl.SIEBEN, Card.Symbol.KARO);
-        Card card2 = new Card(Card.Zahl.ACHT, Card.Symbol.KARO);
-        List cardsToBeRemoved = new LinkedList<Card>();
-        cardsToBeRemoved.add(card1);
-
-        player.setHand(card1);
-        player.setHand(card2);
-
-        service.removeFromHand(player, cardsToBeRemoved);
-
-        Assert.assertTrue(player.getHand().size() == 1);
+    	Card card1 = new Card(Card.Zahl.SIEBEN, Card.Symbol.KARO);
+    	Card card2 = new Card(Card.Zahl.ACHT, Card.Symbol.HERZ);
+    	List<Card> handCards = new ArrayList<Card>();
+    	handCards.add(card1);
+    	handCards.add(card2);
+    	System.out.println(handCards);
+    	Player player = new Player("TestPlayer", handCards, null);
+    	
+    	service.removeFromHand(player, handCards);
+    	System.out.println(player.getHand());
+    	Assert.assertTrue(player.getHand().isEmpty());
     }
 
     @Test
     public void testAddToHand() {
-        Player player = new Player("Kaya", null, null);
+    	Card card1 = new Card(Card.Zahl.SIEBEN, Card.Symbol.KARO);
+    	Card card2 = new Card(Card.Zahl.ACHT, Card.Symbol.HERZ);
+    	List<Card> handCards = new ArrayList<Card>();
+    	handCards.add(card1);
+    	handCards.add(card2);
+        Player player = new Player("Kaya", handCards, null);
 
-        Card card2 = new Card(Card.Zahl.ACHT, Card.Symbol.KARO);
-        List cards = new LinkedList<Card>();
-        cards.add(card2);
+        Card card3 = new Card(Card.Zahl.NEUN, Card.Symbol.PIK);
+        Card card4 = new Card(Card.Zahl.ZEHN, Card.Symbol.KREUZ);
+        List<Card> cardsToAdd = new ArrayList<Card>();
+        cardsToAdd.add(card3);
+        cardsToAdd.add(card4);
+//        System.out.println(cardsToAdd);
+//        System.out.println(handCards);
+        
+        service.addToHand(player, cardsToAdd);
+//        System.out.println(player.getHand());
+//        Assert.assertTrue(player.getHand().size() == cards.size() + player.getHand().size() - cards.size());
 
-        service.addToHand(player, cards);
-
-        Assert.assertTrue(player.getHand().size() == cards.size() + player.getHand().size() - cards.size());
+        Assert.assertEquals(cardsToAdd.get(0), player.handCards.get(0));
+        Assert.assertEquals(cardsToAdd.get(1), player.handCards.get(1));
+    }
+    
+    @Test
+    public void testGetNextPlayer() {
+    	
     }
 
 
