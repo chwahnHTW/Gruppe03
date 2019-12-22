@@ -38,7 +38,7 @@ public class PlayerServiceTest {
 //    }
     
     @Test
-    public void testHasCards() {
+    public void testHasCardsFalse() {
         Player player = new Player("Kaya", null, null);
         Assert.assertEquals(service.hasCards(player), false);
     }
@@ -105,20 +105,23 @@ public class PlayerServiceTest {
     	handCardsZwei.add(card2);
     	handCardsDrei.add(card3);
     	
-    	Player player1 = new Player("Player Eins", handCardsEins, null);
+    	Player player1 = new Player("Player Eins", null, null);
+    	player1.setHandCards(handCardsEins);
     	Player player2 = new Player("Player Zwei", handCardsZwei, null);
+    	player2.setHandCards(handCardsZwei);
     	Player player3 = new Player("Player Drei", handCardsDrei, null);
+    	player3.setHandCards(handCardsDrei);
     	List<Player> players = new ArrayList<Player>();
     	players.add(player1);
     	players.add(player2);
     	players.add(player3);
     	gi.setPlayers(players);
     	
-    	System.out.println(players.get(0).handCards);
+    	System.out.println("Player Hand: " + gi.getPlayers().get(0).getName() + players.get(0).getHand());
     	
     	service.getNextPlayer(gi);
     	
-    	System.out.println(gi.getCurrentPlayer().getName());
+    	System.out.println("Current Player: " + gi.getCurrentPlayer().getName());
     }
 
 

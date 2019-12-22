@@ -1,32 +1,33 @@
-//package gamemgmtTest;
-//
-//import java.util.LinkedList;
-//import java.util.List;
-//
-//import org.junit.Assert;
-//import org.junit.Before;
-//import org.junit.Test;
-//
-//import kbe.cardmgmt.Card;
-//import kbe.gamemgmt.GameInstance;
-//import kbe.gamemgmt.GameInstanceService;
-//import kbe.gamemgmt.GameInstanceServiceImpl;
-//import kbe.playermgmt.Player;
-//
-///**
-// * @authors         Kaya Löher 				| Kim Anh Nguyen 		| Christian Wahnsiedler
-// * Email-Adresse: 	s0564784@htw-berlin.de	| s0563958@htw-berlin.de| s0557193@htw-berlin.de
-// * <p>
-// * In dieser Klasse werden alle Methoden aus dem GameInstance-Management getestet.
-// */
-//public class GameInstanceServiceTest {
-//
-//    private GameInstanceService service;
-//
-//    @Before
-//    public void setUp() {
-//        service = new GameInstanceServiceImpl();
-//    }
+package gamemgmtTest;
+
+import java.util.ArrayList;
+import java.util.LinkedList;
+import java.util.List;
+
+import org.junit.Assert;
+import org.junit.Before;
+import org.junit.Test;
+
+import kbe.cardmgmt.Card;
+import kbe.gamemgmt.GameInstance;
+import kbe.gamemgmt.GameInstanceService;
+import kbe.gamemgmt.GameInstanceServiceImpl;
+import kbe.playermgmt.Player;
+
+/**
+ * @authors         Kaya Löher 				| Kim Anh Nguyen 		| Christian Wahnsiedler
+ * Email-Adresse: 	s0564784@htw-berlin.de	| s0563958@htw-berlin.de| s0557193@htw-berlin.de
+ * <p>
+ * In dieser Klasse werden alle Methoden aus dem GameInstance-Management getestet.
+ */
+public class GameInstanceServiceTest {
+
+    private GameInstanceService service;
+
+    @Before
+    public void setUp() {
+        service = new GameInstanceServiceImpl();
+    }
 //
 ////    @Test
 ////    public void testDeterminePlayercount() {
@@ -84,16 +85,37 @@
 //        Assert.assertTrue(currentPlayer != nextPlayer);
 //    }
 //
-//    @Test
-//    public void testCalculateGameState() {
-//        GameInstance gi = new GameInstance();
-//        List<Card> testList = new LinkedList<Card>();
-//        Player player = new Player("Tom", 0, testList, null);
-//        Player player2 = new Player("Grit", 1, testList, null);
-//        gi.players.add(player);
-//        gi.players.add(player2);
-//        Assert.assertEquals(service.calculateGameState(gi) == "Running", true);
-//    }
+    @Test
+    public void testCalculateGameStateFinished() {
+        GameInstance gi = new GameInstance();
+        List<Card> testList = new LinkedList<Card>();
+        Player player1 = new Player("Tom", testList, null);
+        Player player2 = new Player("Grit", testList, null);
+        List<Player> players = new ArrayList<Player> ();
+        players.add(player1);
+        players.add(player2);
+        gi.setPlayers(players);
+        System.out.println(gi.getPlayers().get(0).getHand().isEmpty());
+        Assert.assertEquals(service.calculateGameState(gi) == "Finished", true);
+    }
+    
+    @Test
+    public void testCalculateGameStateRunning() {
+        GameInstance gi = new GameInstance();
+        List<Card> handsPlayer1 = new LinkedList<Card>();
+        List<Card> handsPlayer2 = new LinkedList<Card>();
+        Card card = new Card(Card.Zahl.DAMEN, Card.Symbol.HERZ);
+        handsPlayer2.add(card);
+        Player player1 = new Player("Tom", handsPlayer1, null);
+        Player player2 = new Player("Grit", handsPlayer2, null);
+        player2.setHandCards(handsPlayer2);
+        List<Player> players = new ArrayList<Player> ();
+        players.add(player1);
+        players.add(player2);
+        gi.setPlayers(players);
+        System.out.println(gi.getPlayers().get(1).getHand());
+        Assert.assertEquals(service.calculateGameState(gi) == "Running", true);
+    }
 //
 //    @Test
 //    public void testCalculateInitialPlayer() {
@@ -111,4 +133,4 @@
 //        Assert.assertEquals(cards, null);
 //    }
 //
-//}
+}

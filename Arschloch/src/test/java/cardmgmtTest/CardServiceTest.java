@@ -34,7 +34,7 @@ public class CardServiceTest {
     
     @Test
     public void testSortCardsByValue() {
-    	
+    	System.out.println("*********** TEST SORTCARDSBYVALUE ***********");
     	Card card1 = new Card(Card.Zahl.SIEBEN ,Card.Symbol.KARO);
     	Card card2 = new Card(Card.Zahl.ACHT, Card.Symbol.HERZ);
     	Card card3 = new Card(Card.Zahl.SIEBEN, Card.Symbol.PIK);
@@ -72,6 +72,7 @@ public class CardServiceTest {
 //    
     @Test
     public void testGenerateDeck() {
+    	System.out.println("*********** TEST GENERATEDECK ***********");
     	List<Card> deck = service.generateDeck();
     	System.out.println(deck);
     	System.out.println(deck.size());
@@ -148,6 +149,7 @@ public class CardServiceTest {
     
     @Test
     public void testShuffleDeck() {
+    	System.out.println("*********** TEST SHUFFELDECK ***********");
     	Card card1 = new Card(Card.Zahl.SIEBEN ,Card.Symbol.KARO);
     	Card card2 = new Card(Card.Zahl.SIEBEN, Card.Symbol.HERZ);
     	Card card3 = new Card(Card.Zahl.NEUN, Card.Symbol.PIK);
@@ -179,21 +181,20 @@ public class CardServiceTest {
     
     @Test
     public void testDealCardsToPlayers() {
+    	System.out.println("*********** TEST DEALCARDSTOPLAYERS ***********");
     	GameInstance gi = new GameInstance();
     	List <Card> deck = service.shuffleDeck(service.generateDeck());
-    	System.out.println(deck);
+//    	System.out.println(deck);
     	
-    	Player player1 = new Player("eins", null, Player.Role.ARSCHLOCH);
-    	Player player2 = new Player("zwei", null, Player.Role.MITTELKIND);
-    	Player player3 = new Player("drei", null, Player.Role.PRAESIDENT);
+    	Player player1 = new Player("eins", null, null);
+    	Player player2 = new Player("zwei", null, null);
+    	Player player3 = new Player("drei", null, null);
     	List<Player> playerList = new ArrayList<Player>();
     	playerList.add(player1);
     	playerList.add(player2);
     	playerList.add(player3);
     	
     	gi.setPlayers(playerList);
-    	System.out.println(playerList);
-    	System.out.println(gi.players.size());
     	service.dealCardsToPlayers(gi);
     	
     	Assert.assertEquals(player1.getHand(),player1.handCards);
@@ -230,6 +231,7 @@ public class CardServiceTest {
     
     @Test
     public void testSwapCards() {
+    	System.out.println("*********** TEST SAWPCARDS ***********");
     	GameInstance gi = new GameInstance();
     	Player president = new Player("president", null, Player.Role.PRAESIDENT);
     	Player mittelkind = new Player("mittelkind", null, Player.Role.MITTELKIND);
@@ -244,6 +246,9 @@ public class CardServiceTest {
     	gi.setResult(arschloch);
     	
     	service.dealCardsToPlayers(gi);
+    	
+    	System.out.println("HAHHFBHF:"+president.getHand());
+    	System.out.println(president.handCards);
     	
 //    	System.out.println("result am index 0: " + gi.getResult().get(0).getRole());
 //    	System.out.println("result am index 1: " + gi.getResult().get(1).getRole());

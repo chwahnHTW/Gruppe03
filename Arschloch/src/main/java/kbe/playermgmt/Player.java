@@ -35,8 +35,8 @@ public class Player {
      */
     public Player(String name, List<Card> handCards, Role role) {
         this.name = name;
-        this.handCards = handCards;
-//        this.handCards = new LinkedList<Card>();
+//        this.handCards = handCards;
+        this.handCards = new LinkedList<Card>();
         this.role = role;
     }
 
@@ -57,6 +57,7 @@ public class Player {
     public void setName(String name) {
         this.name = name;
     }
+    
 
     /**
      * Gibt das Array der Karten, die der Spieler hat, zurück.
@@ -65,6 +66,14 @@ public class Player {
      */
     public List<Card> getHand() {
         return handCards;
+    }
+    
+    /**
+     * ACHTUNG NEUER SETTER!!!
+     * @param handCards
+     */
+    public void setHandCards(List<Card> handCards) {
+    	this.handCards = handCards;
     }
 
     /**
