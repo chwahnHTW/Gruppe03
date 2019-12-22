@@ -93,7 +93,32 @@ public class PlayerServiceTest {
     
     @Test
     public void testGetNextPlayer() {
+    	System.out.println("**************** TEST GET NEXT PLAYER ****************");
+    	GameInstance gi = new GameInstance();
+    	Card card1 = new Card(Card.Zahl.SIEBEN, Card.Symbol.HERZ);
+    	Card card2 = new Card(Card.Zahl.ACHT, Card.Symbol.PIK);
+    	Card card3 = new Card(Card.Zahl.SIEBEN, Card.Symbol.KARO);
+    	List<Card> handCardsEins = new ArrayList<Card>();
+    	List<Card> handCardsZwei = new ArrayList<Card>();
+    	List<Card> handCardsDrei = new ArrayList<Card>();
+    	handCardsEins.add(card1);
+    	handCardsZwei.add(card2);
+    	handCardsDrei.add(card3);
     	
+    	Player player1 = new Player("Player Eins", handCardsEins, null);
+    	Player player2 = new Player("Player Zwei", handCardsZwei, null);
+    	Player player3 = new Player("Player Drei", handCardsDrei, null);
+    	List<Player> players = new ArrayList<Player>();
+    	players.add(player1);
+    	players.add(player2);
+    	players.add(player3);
+    	gi.setPlayers(players);
+    	
+    	System.out.println(players.get(0).handCards);
+    	
+    	service.getNextPlayer(gi);
+    	
+    	System.out.println(gi.getCurrentPlayer().getName());
     }
 
 

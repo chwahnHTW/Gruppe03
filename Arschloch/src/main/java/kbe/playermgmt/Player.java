@@ -35,7 +35,8 @@ public class Player {
      */
     public Player(String name, List<Card> handCards, Role role) {
         this.name = name;
-        this.handCards = new LinkedList<Card>();
+        this.handCards = handCards;
+//        this.handCards = new LinkedList<Card>();
         this.role = role;
     }
 
