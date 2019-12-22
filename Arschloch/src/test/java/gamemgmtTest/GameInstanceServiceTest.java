@@ -88,9 +88,13 @@ public class GameInstanceServiceTest {
     @Test
     public void testCalculateGameStateFinished() {
         GameInstance gi = new GameInstance();
-        List<Card> testList = new LinkedList<Card>();
-        Player player1 = new Player("Tom", testList, null);
-        Player player2 = new Player("Grit", testList, null);
+        List<Card> handsPlayer1 = new LinkedList<Card>();
+        List<Card> handsPlayer2 = new LinkedList<Card>();
+        Card card1 = new Card(Card.Zahl.DAMEN, Card.Symbol.HERZ);
+        handsPlayer1.add(card1);
+        Player player1 = new Player("Tom", handsPlayer1, null);
+        player1.setHandCards(handsPlayer1);
+        Player player2 = new Player("Grit", handsPlayer2, null);
         List<Player> players = new ArrayList<Player> ();
         players.add(player1);
         players.add(player2);
@@ -102,13 +106,13 @@ public class GameInstanceServiceTest {
     @Test
     public void testCalculateGameStateRunning() {
         GameInstance gi = new GameInstance();
-        List<Card> handsPlayer1 = new LinkedList<Card>();
-        List<Card> handsPlayer2 = new LinkedList<Card>();
+        List<Card> handsPlayer = new LinkedList<Card>();
         Card card = new Card(Card.Zahl.DAMEN, Card.Symbol.HERZ);
-        handsPlayer2.add(card);
-        Player player1 = new Player("Tom", handsPlayer1, null);
-        Player player2 = new Player("Grit", handsPlayer2, null);
-        player2.setHandCards(handsPlayer2);
+        handsPlayer.add(card);
+        Player player1 = new Player("Tom", handsPlayer, null);
+        Player player2 = new Player("Grit", handsPlayer, null);
+        player1.setHandCards(handsPlayer);
+        player2.setHandCards(handsPlayer);
         List<Player> players = new ArrayList<Player> ();
         players.add(player1);
         players.add(player2);

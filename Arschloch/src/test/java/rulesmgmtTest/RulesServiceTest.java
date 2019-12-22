@@ -4,6 +4,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import kbe.rulesmgmt.CardRulesService;
+import kbe.rulesmgmt.CardRulesServiceReverseImpl;
 
 /**
  * @authors         Kaya Löher 				| Kim Anh Nguyen 		| Christian Wahnsiedler
@@ -12,12 +13,12 @@ import kbe.rulesmgmt.CardRulesService;
  * In dieser Klasse werden alle Methoden aus dem Rules-Management getestet.
  */
 public class RulesServiceTest {
-    CardRulesService service;
+    private CardRulesService service;
 
     @Before
-   // public void setUp() {
-      //  service = new RulesServiceImpl();
-   // }
+    public void setUp() {
+        service = new CardRulesServiceReverseImpl();
+    }
 
     @Test
     public void testCompareStandard() {
