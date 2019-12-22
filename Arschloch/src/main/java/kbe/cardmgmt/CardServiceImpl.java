@@ -66,8 +66,8 @@ public class CardServiceImpl implements CardService {
 		Player arschloch = gameInstance.getResult().get(2);//arschloch, da er als letztes in die liste hinzugefuegt wird
 		sortCardsByValue(president.handCards); //sortieren der Karten nach Zahlenwert
 		sortCardsByValue(arschloch.handCards); //sortieren der Karten nach Zahlenwert
-//		System.out.println("President: " + president.handCards);
-//		System.out.println("Ass: " + arschloch.handCards);
+		System.out.println("President: " + president.handCards);
+		System.out.println("Ass: " + arschloch.handCards);
 
 		//um hier die Karten, die getauscht werden sollen, temporaer abzulegen
 		List<Card> temp1 = new ArrayList<Card>();
@@ -76,12 +76,12 @@ public class CardServiceImpl implements CardService {
 		int handArschloch = arschloch.handCards.size();
 		temp1.add(arschloch.handCards.get(handArschloch-2)); //index 0
 		temp1.add(arschloch.handCards.get(handArschloch-1)); //index 1
-
-//		System.out.println(temp1);
+//		System.out.println("temp1 nach add arschloch:" + temp1);
+		
 		//die 2 schlechtesten Karten von praesident herasufinden und in temp liste
 		temp1.add(president.handCards.get(0));
 		temp1.add(president.handCards.get(1));
-//		System.out.println(temp1);
+//		System.out.println("temp1 nach add president: " + temp1);
 
 		//zu den Handkarten von arschloch und praesident
 		president.setHand(temp1.get(0));
@@ -92,16 +92,16 @@ public class CardServiceImpl implements CardService {
 //		System.out.println("Ass nach add: " + arschloch.handCards + arschloch.handCards.size());
 
 		//loeschen der getauschten Karten aus beiden spielern
-		sortCardsByValue(arschloch.handCards);
 //		System.out.println("ass nach add und sort: " + arschloch.handCards);
-		arschloch.handCards.remove(arschloch.handCards.size()-1);
+		arschloch.handCards.remove(arschloch.handCards.size()-3);
 //		System.out.println("ass nach remove1: " + arschloch.handCards + arschloch.handCards.size());
-		arschloch.handCards.remove(arschloch.handCards.size()-1); //weil index wieder nach vorn rutscht
-//		System.out.println("ass nach remove2: " + arschloch.handCards + arschloch.handCards.size());
-		president.handCards.remove(1);
+		arschloch.handCards.remove(arschloch.handCards.size()-3); //weil index wieder nach vorn rutscht
+		System.out.println("ass nach remove2: " + arschloch.handCards + arschloch.handCards.size());
+		
+		president.handCards.remove(0);
 //		System.out.println("president nach remove1: " + president.handCards + president.handCards.size());
 		president.handCards.remove(0);
-//		System.out.println("president nach remove2: " + president.handCards + president.handCards.size());
+		System.out.println("president nach remove2: " + president.handCards + president.handCards.size());
 		
 	}
 
@@ -110,7 +110,7 @@ public class CardServiceImpl implements CardService {
 
 		//gemischtes deck erstellen
 		List<Card> deck = shuffleDeck(generateDeck());
-		System.out.println(deck);
+		System.out.println("Neues Deck: " + deck);
 
 		//anzahl spieler ermittenln
 		int anzahlPlayer = gameInstance.players.size();
