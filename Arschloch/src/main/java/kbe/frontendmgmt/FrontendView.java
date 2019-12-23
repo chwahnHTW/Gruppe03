@@ -144,7 +144,7 @@ public class FrontendView extends JFrame {
 
 				try {
 					gameInstance.setCurrentPlayer(PLAYSI.getNextPlayer(gameInstance));
-					System.out.println(gameInstance.currentPlayer.name.toString());
+					System.out.println(gameInstance.getCurrentPlayer().getName());
 
 					// nachdem alle automatischen Vorbereitungen getroffen sind, kann das Frontend
 					// vollstaendig aufgebaut werden
@@ -180,7 +180,7 @@ public class FrontendView extends JFrame {
 	private int getUserCountInput() throws IllegalArgumentException {
 		String spieleranzahl = JOptionPane.showInputDialog(null,
 				"Bitte Spieleranzahl eingeben (Spieleranzahl muss 3 sein)");
-		if (spieleranzahl.equals("3")) {
+		if (spieleranzahl.equals("3") | spieleranzahl.equals("4")| spieleranzahl.equals("5")) {
 			return Integer.valueOf(spieleranzahl);
 		} else {
 			return getUserCountInput();
@@ -194,7 +194,11 @@ public class FrontendView extends JFrame {
 	 */
 	String getUserNameInput() {
 		String spielerName = JOptionPane.showInputDialog(null, "Bitte Spielernamen eingeben");
-		return spielerName;
+		if(spielerName.isEmpty()){
+			return getUserNameInput();
+		} else {
+			return spielerName;
+		}
 	}
 
 	/**
@@ -237,7 +241,7 @@ public class FrontendView extends JFrame {
 						gameInstance.getResult().get(2).handCards = new LinkedList<Card>();
 
 						// Spieler in neue Spielrunde uebernehmen
-						gameInstance.players = gameInstance.result;
+						gameInstance.setPlayers(gameInstance.getResult());
 						// Karten austeilen
 						cardService.dealCardsToPlayers(gameInstance);
 						// Karten entsprechend der Rollen austauschen
@@ -245,7 +249,7 @@ public class FrontendView extends JFrame {
 						// Setzen des ersten Spielers der nächsten Runde
 						setInitialPlayerForNextRound();
 						// Update der boardCards auf null, da frisches Spiel
-						gameInstance.boardCards = null;
+						gameInstance.setBoardCards(null);
 						// Frontend Update
 						updateCurrentBoardCardPanels(gameInstance);
 						updateCardButtons(gameInstance);
@@ -276,13 +280,13 @@ public class FrontendView extends JFrame {
 				System.out.println("PASSEN");
 				passCounter++;
 				// setzen des naechsten Spielers
-				gameInstance.currentPlayer = PLAYSI.getNextPlayer(gameInstance);
+				gameInstance.setCurrentPlayer(PLAYSI.getNextPlayer(gameInstance));
 				// Frontend Update
 				updateCurrentPlayerLabel();
 				updateCardButtons(gameInstance);
 				// reset der Current BoardCard, da jeder Spieler 1x gepasst hat
-				if (passCounter == gameInstance.getPlayers().size()) {
-					gameInstance.boardCards = null;
+				if (passCounter == gameInstance.getPlayers().size()-1) {
+					gameInstance.setBoardCards(null);
 					System.out.println("Pass-Counter = Spieleranzahl - boardCards resettet");
 					// Frontend Update
 					updateCardButtons(gameInstance);
