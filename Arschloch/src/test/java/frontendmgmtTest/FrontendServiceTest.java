@@ -48,7 +48,8 @@ public class FrontendServiceTest {
     // User Input Tests, sobald konkrete Vorgaben für Frontend
     @Test
     public void testGetUserCountInput() {
-    	String anzahl
+    	String anzahl = "3";
+    	
         Assert.assertTrue(true);
     }
 

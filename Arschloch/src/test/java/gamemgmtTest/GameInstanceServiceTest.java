@@ -92,9 +92,9 @@ public class GameInstanceServiceTest {
         List<Card> handsPlayer2 = new LinkedList<Card>();
         Card card1 = new Card(Card.Zahl.DAMEN, Card.Symbol.HERZ);
         handsPlayer1.add(card1);
-        Player player1 = new Player("Tom", handsPlayer1, null);
+        Player player1 = new Player("Player1", handsPlayer1, null);
         player1.setHandCards(handsPlayer1);
-        Player player2 = new Player("Grit", handsPlayer2, null);
+        Player player2 = new Player("Player2", handsPlayer2, null);
         List<Player> players = new ArrayList<Player> ();
         players.add(player1);
         players.add(player2);
@@ -109,8 +109,8 @@ public class GameInstanceServiceTest {
         List<Card> handsPlayer = new LinkedList<Card>();
         Card card = new Card(Card.Zahl.DAMEN, Card.Symbol.HERZ);
         handsPlayer.add(card);
-        Player player1 = new Player("Tom", handsPlayer, null);
-        Player player2 = new Player("Grit", handsPlayer, null);
+        Player player1 = new Player("Player1", handsPlayer, null);
+        Player player2 = new Player("Player2", handsPlayer, null);
         player1.setHandCards(handsPlayer);
         player2.setHandCards(handsPlayer);
         List<Player> players = new ArrayList<Player> ();
