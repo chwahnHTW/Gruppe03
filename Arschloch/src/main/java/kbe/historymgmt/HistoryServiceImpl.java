@@ -7,6 +7,7 @@ import kbe.gamemgmt.GameInstance;
 import org.springframework.stereotype.Service;
 
 import java.io.FileWriter;
+import java.io.BufferedWriter;
 import java.io.IOException;
 import java.util.LinkedList;
 import java.util.stream.Collectors;
@@ -49,16 +50,37 @@ public class HistoryServiceImpl implements HistoryService {
                 playerRole.add(player.getRole().toString());
             }
 
+            BufferedWriter bw = new BufferedWriter(writer);
 
-            String collect = playerNames.stream().collect(Collectors.joining(","));
-            System.out.println(collect);
+            bw.write("Name,Rolle");
+            bw.newLine();
 
-            writer.write(collect);
+            for(int i=0;i<playerNames.size();i++)
+            {
+                bw.write(playerNames.get(i)+","+playerRole.get(i));
+                bw.newLine();
+            }
+//            bw.write("\nApplication,Total");
+//            bw.newLine();
+//            for(int i=0;i<list2.size();i++)
+//            {
+//                bw.write(list2.get(i++)+","+list2.get(i));
+//                bw.newLine();
+//            }
+            bw.close();
             writer.close();
+
+//            String collect = playerNames.stream().collect(Collectors.joining(","));
+//            System.out.println(collect);
+//
+//            writer.write(collect);
+//            writer.close();
 
         } catch (IOException e) {
 
         }
+
+
 
     }
 }
