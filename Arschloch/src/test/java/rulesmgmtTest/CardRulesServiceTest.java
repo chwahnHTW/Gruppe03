@@ -14,7 +14,7 @@ import kbe.rulesmgmt.CardRulesServiceStandardImpl;
  *
  * In dieser Klasse werden alle Methoden aus dem Rules-Management getestet.
  */
-public class RulesServiceTest {
+public class CardRulesServiceTest {
     private CardRulesService service;
 
     @Before
@@ -79,10 +79,5 @@ public class RulesServiceTest {
     	Card card2 = null;
     	Assert.assertEquals(service.compareCardsReverse(card1, card2), 1);
     }
-
-//    @Test
-//    public void testCompareFrench() {
-//    	
-//    }
 
 }

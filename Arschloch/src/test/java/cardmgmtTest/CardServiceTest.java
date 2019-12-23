@@ -183,8 +183,6 @@ public class CardServiceTest {
     public void testDealCardsToPlayers() {
     	System.out.println("*********** TEST DEALCARDSTOPLAYERS ***********");
     	GameInstance gi = new GameInstance();
-    	List <Card> deck = service.shuffleDeck(service.generateDeck());
-//    	System.out.println(deck);
     	
     	Player player1 = new Player("eins", null, null);
     	Player player2 = new Player("zwei", null, null);
@@ -227,8 +225,6 @@ public class CardServiceTest {
 
     }
     
-    //////////////////////////////////////////
-    
     @Test
     public void testSwapCards() {
     	System.out.println("*********** TEST SAWPCARDS ***********");
@@ -249,48 +245,20 @@ public class CardServiceTest {
     	
     	System.out.println("HAHHFBHF:"+president.getHand());
     	System.out.println(president.handCards);
-    	
-//    	System.out.println("result am index 0: " + gi.getResult().get(0).getRole());
-//    	System.out.println("result am index 1: " + gi.getResult().get(1).getRole());
-//    	System.out.println("result am index 2: " + gi.getResult().get(2).getRole());
-//    	System.out.println(gi.getPlayers().get(0).getHand().size());
-//    	System.out.println(gi.players.size());
+
     	
     	/**
     	 * handkarten nochmal von jeden temporär in liste
     	 * um spaeter vergleichen zu können
     	 */
-//    	System.out.println(arschloch.handCards.size());
-//    	System.out.println(mittelkind.handCards.size());
-//    	System.out.println(president.handCards.size());
-    	
-//    	List<Card> handCardsArschlochVorher = arschloch.handCards;
     	List<Card> handCardsArschlochVorher = new ArrayList<Card>();
     	handCardsArschlochVorher.add(service.sortCardsByValue(arschloch.handCards).get(arschloch.handCards.size()-2));
     	handCardsArschlochVorher.add(service.sortCardsByValue(arschloch.handCards).get(arschloch.handCards.size()-1));
-//    	System.out.println("Vorher, v: " + service.sortCardsByValue(handCardsArschlochVorher));
-//    	List<Card> handCardsMittel = mittelkind.handCards; //nicht relevant
-//    	List<Card> handCardsPresidentVorher = president.handCards;
     	List<Card> handCardsPresidentVorher = new ArrayList<Card>();
     	handCardsPresidentVorher.add(service.sortCardsByValue(president.handCards).get(0));
     	handCardsPresidentVorher.add(service.sortCardsByValue(president.handCards).get(1));
     	
-//    	System.out.println(arschloch.handCards);
-//    	service.sortCardsByValue(arschloch.handCards);
-//    	System.out.println(arschloch.handCards);
-//    	System.out.println(arschloch.handCards.get(arschloch.handCards.size()-2));
-//    	System.out.println(arschloch.handCards.get(arschloch.handCards.size()-1));
-    	
     	service.swapCards(gi);
-    	
-//    	System.out.println("");
-//    	System.out.println("Vorher, n: " + service.sortCardsByValue(handCardsArschlochVorher));
-//    	System.out.println("Ass nach swap (sortiert): " + service.sortCardsByValue(gi.getResult().get(2).handCards));
-//    	System.out.println("Ass nach swap: " + service.sortCardsByValue(arschloch.handCards));
-//    	System.out.println("");
-//    	System.out.println("President vorher (sortiert): " + service.sortCardsByValue(handCardsPresidentVorher));
-//    	System.out.println("President vorher sortiert: " + service.sortCardsByValue(handCardsPresidentVorher) + handCardsArschlochVorher.size());
-//    	System.out.println("President nach swap (sortiert): " + service.sortCardsByValue(gi.getResult().get(0).handCards));
     	
     	/**
     	 * Prüfen, ob die letzen Karten von Arschloch jetzt die letzten von Präsident sind
@@ -304,21 +272,6 @@ public class CardServiceTest {
     	System.out.println(arschloch.handCards.get(arschloch.handCards.size()-2));
     	Assert.assertEquals(handCardsPresidentVorher.get(0), arschloch.handCards.get(arschloch.handCards.size()-2));
     	Assert.assertEquals(handCardsPresidentVorher.get(1), arschloch.handCards.get(arschloch.handCards.size()-1));
-//    	System.out.println(handCardsArschlochVorher);
-//    	System.out.println(handCardsArschlochVorher.get(handCardsArschlochVorher.size()-2));
-//    	System.out.println(president.handCards);
-//    	System.out.println(president.handCards.get(president.handCards.size()-1));
     }
-    
-//   @Test
-//    public void testSwapCards() {
-//    	List players = new ArrayList<Player>();
-//	   //Player player1 = new Player();
-//	   List deck = service.generateDeck();
-//	   
-//	   for(int i = 0; i<=4; i++) {
-//		   
-//	   }
-//   }
 
 }

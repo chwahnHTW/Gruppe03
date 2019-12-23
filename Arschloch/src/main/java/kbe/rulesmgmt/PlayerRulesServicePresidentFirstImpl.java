@@ -16,7 +16,7 @@ public class PlayerRulesServicePresidentFirstImpl implements PlayerRulesService 
 	 *
 	 */
 	@Override
-	public Player determineInitialPlayer(GameInstance gameInstance) {
+	public Player determinePresidentFirst(GameInstance gameInstance) {
 		
 		Player initialPlayer = null;
 		for ( Player p : gameInstance.players ) {
@@ -32,5 +32,23 @@ public class PlayerRulesServicePresidentFirstImpl implements PlayerRulesService 
 			
 		return initialPlayer;
 	}
+	
+//	@Override
+//	public Player determineInitialPlayer(GameInstance gameInstance) {
+//		
+//		Player initialPlayer = null;
+//		for ( Player p : gameInstance.players ) {
+//			
+//			for (Card c : p.handCards){
+//				if ( c.getSymbol().toString() == "HERZ" && c.getZahl().toString() == "SIEBEN")
+//					
+//				{
+//					initialPlayer = p;
+//				}
+//			}
+//		}
+//			
+//		return initialPlayer;
+//	}
 
 }
