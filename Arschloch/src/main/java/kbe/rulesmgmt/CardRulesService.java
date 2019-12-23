@@ -28,7 +28,7 @@ public interface CardRulesService {
      */
 //    List<Card> compareCards(List<Card> cards);
 
-	int compareCards(Card c1, Card c2);
+	int compareCardsStandard(Card c1, Card c2);
 
 	int compareCardsReverse(Card c1, Card c2);
 

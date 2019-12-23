@@ -17,7 +17,7 @@ public class CardRulesServiceStandardImpl implements CardRulesService {
 	 * Standard Implementierung : Wertigkeiten aufsteigend - 7-8-9-10-Bube-König-Ass
 	 */
 	@Override
-	public int compareCards(Card c1, Card c2) {
+	public int compareCardsStandard(Card c1, Card c2) {
 //		Collections.sort(cards, new CardComparator());
 //		return cards;
 		

@@ -14,7 +14,7 @@ import kbe.rulesmgmt.CardRulesServiceStandardImpl;
  *
  * In dieser Klasse werden alle Methoden aus dem Rules-Management getestet.
  */
-public class CardRulesServiceTest {
+public class CardRulesServiceStandardTest {
     private CardRulesService service;
 
     @Before
@@ -27,7 +27,7 @@ public class CardRulesServiceTest {
     	Card card1 = new Card(Card.Zahl.DAMEN, Card.Symbol.HERZ);
     	Card card2 = new Card(Card.Zahl.SIEBEN, Card.Symbol.HERZ);
 //    	service.compareCards(card1, card2);
-    	Assert.assertEquals(service.compareCards(card1, card2), 1);
+    	Assert.assertEquals(service.compareCardsStandard(card1, card2), 1);
     	
     }
     
@@ -35,21 +35,21 @@ public class CardRulesServiceTest {
     public void testCompareCardsStandardGleich() {
     	Card card1 = new Card(Card.Zahl.DAMEN, Card.Symbol.HERZ);
     	Card card2 = new Card(Card.Zahl.DAMEN, Card.Symbol.PIK);
-    	Assert.assertEquals(service.compareCards(card1, card2), 0);
+    	Assert.assertEquals(service.compareCardsStandard(card1, card2), 0);
     }
     
     @Test
     public void testCompareCardsStandardKleiner() {
     	Card card1 = new Card(Card.Zahl.SIEBEN, Card.Symbol.HERZ);
     	Card card2 = new Card(Card.Zahl.DAMEN, Card.Symbol.PIK);
-    	Assert.assertEquals(service.compareCards(card1, card2), -1);
+    	Assert.assertEquals(service.compareCardsStandard(card1, card2), -1);
     }
     
     @Test
     public void testCompareCardsStandardNull() {
     	Card card1 = new Card(Card.Zahl.SIEBEN, Card.Symbol.HERZ);
     	Card card2 = null;
-    	Assert.assertEquals(service.compareCards(card1, card2), 1);
+    	Assert.assertEquals(service.compareCardsStandard(card1, card2), 1);
     }
     
     @Test
