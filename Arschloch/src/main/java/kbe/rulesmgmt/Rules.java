@@ -40,7 +40,7 @@ public class Rules {
 
 
     private Player determineInitialPlayer(GameInstance gameInstance) {
-        return playerRS.determineInitialPlayer(gameInstance);
+        return playerRS.determinePresidentFirst(gameInstance);
     }
 
 //    private List<Card> comapareCards(Card card1, Card card2) {

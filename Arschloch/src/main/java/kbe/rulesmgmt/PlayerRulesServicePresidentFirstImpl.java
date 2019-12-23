@@ -18,19 +18,20 @@ public class PlayerRulesServicePresidentFirstImpl implements PlayerRulesService 
 	@Override
 	public Player determinePresidentFirst(GameInstance gameInstance) {
 		
-		Player initialPlayer = null;
+		Player firstPlayer = null;
 		for ( Player p : gameInstance.players ) {
-			
-			for (Card c : p.handCards){
-				if ( c.getSymbol().toString() == "HERZ" && c.getZahl().toString() == "SIEBEN")
-					
-				{
-					initialPlayer = p;
-				}
+			if(p.getRole().toString() == "PRAESIDENT") {
+				firstPlayer = p;
 			}
 		}
 			
-		return initialPlayer;
+		return firstPlayer;
+	}
+
+	@Override
+	public Player determineArschlochFirst(GameInstance gameInstance) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 	
 //	@Override

@@ -17,5 +17,7 @@ public interface PlayerRulesService {
 //    Player determineInitialPlayer(GameInstance gameInstance);
 
 	Player determinePresidentFirst(GameInstance gameInstance);
+	
+	Player determineArschlochFirst(GameInstance gameInstance);
 
 }
