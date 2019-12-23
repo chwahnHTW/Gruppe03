@@ -69,7 +69,7 @@ public class PlayerServiceImpl implements PlayerService {
         }
 
         if (hasCards(current)) {
-            return current;
+        	return current;
         } else {
             instance.setCurrentPlayer(current);
             return getNextPlayer(instance);
