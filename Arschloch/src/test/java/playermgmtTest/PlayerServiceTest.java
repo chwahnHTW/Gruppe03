@@ -116,9 +116,9 @@ public class PlayerServiceTest {
     	players.add(player3);
     	gi.setPlayers(players);
     	
-    	gi.setCurrentPlayer(player2);
-    	service.getNextPlayer(gi);
-    	System.out.println(gi.getCurrentPlayer().getName());
+    	gi.setCurrentPlayer(player1);
+//    	gi.setCurrentPlayer(service.getNextPlayer(gi));
+    	Assert.assertEquals(service.getNextPlayer(gi), player3);
     }
     
     @Test
