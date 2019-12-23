@@ -17,9 +17,33 @@ public class CardRulesServiceStandardImpl implements CardRulesService {
 	 * Standard Implementierung : Wertigkeiten aufsteigend - 7-8-9-10-Bube-König-Ass
 	 */
 	@Override
-	public List<Card> compareCards(List <Card> cards) {
-		Collections.sort(cards, new CardComparator());
-		return cards;
+	public int compareCards(Card c1, Card c2) {
+//		Collections.sort(cards, new CardComparator());
+//		return cards;
+		
+		if(c2 == null) {
+			return 1;
+		}
+		if (c1.getZahl().getKartenWert() == c2.getZahl().getKartenWert()) {
+			return 0; // beide sind gleich
+		}
+		else if(c1.getZahl().getKartenWert() < c2.getZahl().getKartenWert()) {
+			return -1; //c1 ist kleiner
+		}
+		return 1; // c1 ist groesser
 	}
 
+	@Override
+	public int compareCardsReverse(Card c1, Card c2) {
+		if(c2 == null) {
+			return 1;
+		}
+		if (c1.getZahl().getKartenWert() == c2.getZahl().getKartenWert()) {
+			return 0; // beide sind gleich
+		}
+		else if(c2.getZahl().getKartenWert() < c1.getZahl().getKartenWert()) {
+			return -1; //c2 ist kleiner
+		}
+		return 1; // c2 ist groesser
+	}
 }

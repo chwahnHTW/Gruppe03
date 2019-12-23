@@ -26,6 +26,10 @@ public interface CardRulesService {
      * Standard-Implementierung : 7-8-9-10-Bube-Dame-König-Ass
      * FranzösischesBlatt-Implementierung
      */
-    List<Card> compareCards(List<Card> cards);
+//    List<Card> compareCards(List<Card> cards);
+
+	int compareCards(Card c1, Card c2);
+
+	int compareCardsReverse(Card c1, Card c2);
 
 }
