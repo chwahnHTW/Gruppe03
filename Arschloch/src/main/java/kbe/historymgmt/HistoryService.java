@@ -2,8 +2,10 @@ package kbe.historymgmt;
 
 import kbe.gamemgmt.GameInstance;
 
+import java.io.IOException;
+
 /**
- * @authors         Kaya Löher 				| Kim Anh Nguyen 		| Christian Wahnsiedler
+ * @authors Kaya Löher 				| Kim Anh Nguyen 		| Christian Wahnsiedler
  * Email-Adresse: 	s0564784@htw-berlin.de 	| s0563958@htw-berlin.de| s0557193@htw-berlin.de
  * <p>
  * Diese Klasse stellt die Spielhistorie dar.
@@ -26,5 +28,13 @@ public interface HistoryService {
      * @return : eine Spielinstanz
      */
     GameInstance getLastPlayedGame();
+
+
+    /**
+     * Speichert die Spielhistorie in einer CSV Datei ab
+     *
+     * @param instance
+     */
+    void saveToCSV(GameInstance instance);
 
 }

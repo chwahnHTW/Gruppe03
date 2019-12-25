@@ -58,9 +58,9 @@ public class History {
     /**
      * Setzt die Spielhistorie
      *
-     * @param history : die Spielhistorie
+     * @param instance : die Spielinstanz
      */
-    public void setHistory(List<GameInstance> history) {
-        this.history = history;
+    public void setHistory(GameInstance instance) {
+        history.add(instance);
     }
 }

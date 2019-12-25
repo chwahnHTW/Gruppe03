@@ -285,9 +285,17 @@ public class FrontendView extends JFrame {
 				updateCurrentPlayerLabel();
 				updateCardButtons(gameInstance);
 				// reset der Current BoardCard, da jeder Spieler 1x gepasst hat
-				if (passCounter == gameInstance.getPlayers().size()-1) {
+
+				int playersWithCardsCounter = 0;
+				for (Player player : gameInstance.getPlayers()){
+					if(PLAYSI.hasCards(player)){
+						playersWithCardsCounter++;
+					}
+				}
+
+				if (passCounter == playersWithCardsCounter-1) {
 					gameInstance.setBoardCards(null);
-					System.out.println("Pass-Counter = Spieleranzahl - boardCards resettet");
+					System.out.println("Pass-Counter = Anzahl Spieler mit Karten - boardCards resettet");
 					// Frontend Update
 					updateCardButtons(gameInstance);
 					updateCurrentBoardCardPanels(gameInstance);
@@ -1058,15 +1066,15 @@ public class FrontendView extends JFrame {
 			if (gameInstance.getBoardCards().get(0).getZahl().toString() == "ASS") {
 
 				// Setzen der boardCards auf null, Update Frontend
-				gameInstance.boardCards = null;
+				gameInstance.setBoardCards(null);
 				updateCurrentBoardCardPanels(gameInstance);
 
 			}
 		} catch (NullPointerException e) {
-			gameInstance.boardCards = null;
+			gameInstance.setBoardCards(null);
 			updateCurrentBoardCardPanels(gameInstance);
 		} catch (IndexOutOfBoundsException IOOB) {
-			gameInstance.boardCards = null;
+			gameInstance.setBoardCards(null);
 			updateCurrentBoardCardPanels(gameInstance);
 		}
 		// Reset des PAssspielzug-Counters nach jedem validen Spielzug
