@@ -2,6 +2,8 @@ package kbe.rulesmgmt;
 
 import java.util.List;
 
+import javax.annotation.Resource;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -16,7 +18,7 @@ import kbe.playermgmt.Player;
  * Class : Rules - Regeln, nach denen Karten verglichen und der jeweils erste Spieler einer neuen Runde ermittelt werden können.
  * Konfiguration über Inection versch. Implementierungen der jeweiligen Regel-Services
  */
-@Component
+//@Component
 public class Rules {
 
 

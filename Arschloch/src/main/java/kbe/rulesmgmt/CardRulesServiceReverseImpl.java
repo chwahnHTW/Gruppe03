@@ -4,12 +4,13 @@ import java.util.Collections;
 import java.util.List;
 
 import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 
 import kbe.cardmgmt.Card;
 import kbe.cardmgmt.CardComparator;
 
 
-@Component
+@Service
 public class CardRulesServiceReverseImpl implements CardRulesService{
 
 	/**CardRulesServiceImplementierung zum Vergleich von Karten-Wertigkeiten
