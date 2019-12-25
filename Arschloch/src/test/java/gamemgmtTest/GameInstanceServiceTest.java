@@ -93,7 +93,7 @@ public class GameInstanceServiceTest {
         Card card1 = new Card(Card.Zahl.DAMEN, Card.Symbol.HERZ);
         handsPlayer1.add(card1);
         Player player1 = new Player("Player1", handsPlayer1, null);
-//        player1.setHandCards(handsPlayer1);
+        player1.setHandCards(handsPlayer1);
         Player player2 = new Player("Player2", handsPlayer2, null);
         List<Player> players = new ArrayList<Player> ();
         players.add(player1);
@@ -111,8 +111,8 @@ public class GameInstanceServiceTest {
         handsPlayer.add(card);
         Player player1 = new Player("Player1", handsPlayer, null);
         Player player2 = new Player("Player2", handsPlayer, null);
-//        player1.setHandCards(handsPlayer);
-//        player2.setHandCards(handsPlayer);
+        player1.setHandCards(handsPlayer);
+        player2.setHandCards(handsPlayer);
         List<Player> players = new ArrayList<Player> ();
         players.add(player1);
         players.add(player2);

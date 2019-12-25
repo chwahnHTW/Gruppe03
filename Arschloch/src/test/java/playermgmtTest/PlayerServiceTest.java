@@ -105,11 +105,11 @@ public class PlayerServiceTest {
     	handCardsDrei.add(card3);
     	
     	Player player1 = new Player("Player Eins", null, null);
-//    	player1.setHandCards(handCardsEins);
+    	player1.setHandCards(handCardsEins);
     	Player player2 = new Player("Player Zwei", null, null);
-//    	player2.setHandCards(handCardsZwei);
+    	player2.setHandCards(handCardsZwei);
     	Player player3 = new Player("Player Drei", null, null);
-//    	player3.setHandCards(handCardsDrei);
+    	player3.setHandCards(handCardsDrei);
     	List<Player> players = new ArrayList<Player>();
     	players.add(player1);
     	players.add(player2);
@@ -137,11 +137,11 @@ public class PlayerServiceTest {
     	handCardsDrei.add(card3);
     	
     	Player player1 = new Player("Player Eins", null, null);
-//    	player1.setHandCards(handCardsEins);
+    	player1.setHandCards(handCardsEins);
     	Player player2 = new Player("Player Zwei", null, null);
-//    	player2.setHandCards(handCardsZwei);
+    	player2.setHandCards(handCardsZwei);
     	Player player3 = new Player("Player Drei", null, null);
-//    	player3.setHandCards(handCardsDrei);
+    	player3.setHandCards(handCardsDrei);
     	List<Player> players = new ArrayList<Player>();
     	players.add(player1);
     	players.add(player2);
@@ -168,11 +168,11 @@ public class PlayerServiceTest {
     	handCardsDrei.add(card3);
     	
     	Player player1 = new Player("Player Eins", null, null);
-//    	player1.setHandCards(handCardsEins);
+    	player1.setHandCards(handCardsEins);
     	Player player2 = new Player("Player Zwei", null, null);
-//    	player2.setHandCards(handCardsZwei);
+    	player2.setHandCards(handCardsZwei);
     	Player player3 = new Player("Player Drei", null, null);
-//    	player3.setHandCards(handCardsDrei);
+    	player3.setHandCards(handCardsDrei);
     	List<Player> players = new ArrayList<Player>();
     	players.add(player1);
     	players.add(player2);
