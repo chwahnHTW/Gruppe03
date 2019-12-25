@@ -62,46 +62,92 @@ public class CardServiceImpl implements CardService {
 	@Override
 	public void swapCards(GameInstance gameInstance) {
 
-		Player president = gameInstance.getResult().get(0);//praesident, da er zuerst in die liste
-		Player arschloch = gameInstance.getResult().get(2);//arschloch, da er als letztes in die liste hinzugefuegt wird
-		sortCardsByValue(president.handCards); //sortieren der Karten nach Zahlenwert
-		sortCardsByValue(arschloch.handCards); //sortieren der Karten nach Zahlenwert
-		System.out.println("President: " + president.handCards);
-		System.out.println("Ass: " + arschloch.handCards);
+		Player president1 = gameInstance.getResult().get(0);//erster praesident, da er zuerst in die liste
+		Player president2 = gameInstance.getResult().get(1); //zweiter praesident, da er als zweites in die Liste
+		int resultSize = gameInstance.getResult().size();
+		Player arschloch1 = gameInstance.getResult().get(resultSize-1);//arschloch, da er als letztes in die liste hinzugefuegt wird
+		Player arschloch2 = gameInstance.getResult().get(resultSize-2);//arschloch, da er als vorletztes in die liste hinzugefuegt wird
+		sortCardsByValue(president1.handCards); //sortieren der Karten nach Zahlenwert
+		sortCardsByValue(president2.handCards); //sortieren der Karten nach Zahlenwert
+		sortCardsByValue(arschloch1.handCards); //sortieren der Karten nach Zahlenwert
+		sortCardsByValue(arschloch2.handCards); //sortieren der Karten nach Zahlenwert
+//		System.out.println("President1 vor swap: " + president1.handCards);
+//		System.out.println("Arschloch1 vor swap: " + arschloch1.handCards);
 
 		//um hier die Karten, die getauscht werden sollen, temporaer abzulegen
 		List<Card> temp1 = new ArrayList<Card>();
 
 		// die 2 besten (hoechste Zahl) karten von arschloch herausfinden und in temp liste
-		int handArschloch = arschloch.handCards.size();
-		temp1.add(arschloch.handCards.get(handArschloch-2)); //index 0
-		temp1.add(arschloch.handCards.get(handArschloch-1)); //index 1
-//		System.out.println("temp1 nach add arschloch:" + temp1);
+		int handArschloch1 = arschloch1.handCards.size();
+		temp1.add(arschloch1.handCards.get(handArschloch1-2)); //index 0
+		temp1.add(arschloch1.handCards.get(handArschloch1-1)); //index 1
+//			System.out.println("temp1 nach add arschloch:" + temp1);
 		
 		//die 2 schlechtesten Karten von praesident herasufinden und in temp liste
-		temp1.add(president.handCards.get(0));
-		temp1.add(president.handCards.get(1));
-//		System.out.println("temp1 nach add president: " + temp1);
+		temp1.add(president1.handCards.get(0));
+		temp1.add(president1.handCards.get(1));
+//			System.out.println("temp1 nach add president: " + temp1);
 
 		//zu den Handkarten von arschloch und praesident
-		president.setHand(temp1.get(0));
-		president.setHand(temp1.get(1));
-//		System.out.println("president nach add: " + president.handCards + president.handCards.size());
-		arschloch.setHand(temp1.get(2));
-		arschloch.setHand(temp1.get(3));
-//		System.out.println("Ass nach add: " + arschloch.handCards + arschloch.handCards.size());
+		president1.setHand(temp1.get(0));
+		president1.setHand(temp1.get(1));
+//			System.out.println("president nach add: " + president.handCards + president.handCards.size());
+		arschloch1.setHand(temp1.get(2));
+		arschloch1.setHand(temp1.get(3));
+//			System.out.println("Ass nach add: " + arschloch.handCards + arschloch.handCards.size());
 
 		//loeschen der getauschten Karten aus beiden spielern
-//		System.out.println("ass nach add und sort: " + arschloch.handCards);
-		arschloch.handCards.remove(arschloch.handCards.size()-3);
-//		System.out.println("ass nach remove1: " + arschloch.handCards + arschloch.handCards.size());
-		arschloch.handCards.remove(arschloch.handCards.size()-3); //weil index wieder nach vorn rutscht
-		System.out.println("ass nach remove2: " + arschloch.handCards + arschloch.handCards.size());
+//			System.out.println("ass nach add und sort: " + arschloch.handCards);
+		arschloch1.handCards.remove(arschloch1.handCards.size()-3);
+//			System.out.println("ass nach remove1: " + arschloch.handCards + arschloch.handCards.size());
+		arschloch1.handCards.remove(arschloch1.handCards.size()-3); //weil index wieder nach vorn rutscht
+//		System.out.println("Arschloch1 nach remove2: " + arschloch1.handCards + arschloch1.handCards.size());
 		
-		president.handCards.remove(0);
-//		System.out.println("president nach remove1: " + president.handCards + president.handCards.size());
-		president.handCards.remove(0);
-		System.out.println("president nach remove2: " + president.handCards + president.handCards.size());
+		president1.handCards.remove(0);
+//			System.out.println("president nach remove1: " + president.handCards + president.handCards.size());
+		president1.handCards.remove(0);
+//		System.out.println("President1 nach remove2: " + president1.handCards + president1.handCards.size());
+		
+		if(gameInstance.getResult().size()>3) {
+			//um hier die Karten, die getauscht werden sollen, temporaer abzulegen
+			List<Card> temp2 = new ArrayList<Card>();
+
+			// die 2 besten (hoechste Zahl) karten von arschloch herausfinden und in temp liste
+			int handArschloch2 = arschloch2.handCards.size();
+			temp2.add(arschloch2.handCards.get(handArschloch2-2)); //index 0
+			temp2.add(arschloch2.handCards.get(handArschloch2-1)); //index 1
+//					System.out.println("temp1 nach add arschloch:" + temp1);
+			
+			//die 2 schlechtesten Karten von praesident herasufinden und in temp liste
+			temp2.add(president2.handCards.get(0));
+			temp2.add(president2.handCards.get(1));
+//					System.out.println("temp1 nach add president: " + temp1);
+
+			//zu den Handkarten von arschloch und praesident
+			president2.setHand(temp2.get(0));
+			president2.setHand(temp2.get(1));
+//					System.out.println("president nach add: " + president.handCards + president.handCards.size());
+			arschloch2.setHand(temp2.get(2));
+			arschloch2.setHand(temp2.get(3));
+//					System.out.println("Ass nach add: " + arschloch.handCards + arschloch.handCards.size());
+
+			//loeschen der getauschten Karten aus beiden spielern
+//					System.out.println("ass nach add und sort: " + arschloch.handCards);
+			arschloch2.handCards.remove(arschloch2.handCards.size()-3);
+//					System.out.println("ass nach remove1: " + arschloch.handCards + arschloch.handCards.size());
+			arschloch2.handCards.remove(arschloch2.handCards.size()-3); //weil index wieder nach vorn rutscht
+//			System.out.println("Arschloch2 nach remove2: " + arschloch2.handCards + arschloch2.handCards.size());
+			
+			president2.handCards.remove(0);
+//					System.out.println("president nach remove1: " + president.handCards + president.handCards.size());
+			president2.handCards.remove(0);
+//			System.out.println("Praesident2 nach remove2: " + president2.handCards + president2.handCards.size());
+		}
+		
+		
+		////////////////////////////////////////////////////////////////////
+		
+		
 		
 	}
 
