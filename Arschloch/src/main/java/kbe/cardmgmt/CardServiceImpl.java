@@ -60,7 +60,11 @@ public class CardServiceImpl implements CardService {
 	}
 
 	@Override
+<<<<<<< HEAD
 	public void swapCards(GameInstance gameInstance) {
+=======
+public void swapCards(GameInstance gameInstance) {
+>>>>>>> 6d851e443e4cb18da5668c75371dfa6f5be836b9
 		
 		System.out.println("SwapCards for President1 and Arschloch1");
 		Player president1 = gameInstance.getResult().get(0);//erster praesident, da er zuerst in die liste
