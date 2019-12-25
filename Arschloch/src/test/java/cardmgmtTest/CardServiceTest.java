@@ -1,7 +1,6 @@
 package cardmgmtTest;
 
 import java.util.ArrayList;
-import java.util.LinkedList;
 import java.util.List;
 
 import org.junit.Assert;
@@ -13,8 +12,6 @@ import kbe.cardmgmt.CardService;
 import kbe.cardmgmt.CardServiceImpl;
 import kbe.gamemgmt.GameInstance;
 import kbe.playermgmt.Player;
-import kbe.cardmgmt.Card.Zahl;
-import kbe.cardmgmt.Card.Symbol;
 
 
 /**
