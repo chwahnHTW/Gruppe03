@@ -61,7 +61,8 @@ public class CardServiceImpl implements CardService {
 
 	@Override
 	public void swapCards(GameInstance gameInstance) {
-
+		
+		System.out.println("SwapCards for President1 and Arschloch1");
 		Player president1 = gameInstance.getResult().get(0);//erster praesident, da er zuerst in die liste
 		Player president2 = gameInstance.getResult().get(1); //zweiter praesident, da er als zweites in die Liste
 		int resultSize = gameInstance.getResult().size();
@@ -98,6 +99,7 @@ public class CardServiceImpl implements CardService {
 		president1.handCards.remove(0);
 		
 		if(gameInstance.getResult().size()>3) {
+			System.out.println("SwapCards for President2 and Arschloch2");
 			//um hier die Karten, die getauscht werden sollen, temporaer abzulegen
 			List<Card> temp2 = new ArrayList<Card>();
 
