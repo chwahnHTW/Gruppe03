@@ -44,9 +44,9 @@ public class HistoryServiceTest {
 	@Test
 	public void testSaveToCSV(){
 
-		Player player1 = new Player("Kaya", null, Player.Role.PRAESIDENT );
+		Player player1 = new Player("Kaya", null, Player.Role.PRAESIDENT1);
 		Player player2 = new Player("Kim", null, Player.Role.MITTELKIND);
-		Player player3 = new Player("Chris", null, Player.Role.ARSCHLOCH);
+		Player player3 = new Player("Chris", null, Player.Role.ARSCHLOCH1);
 
 		GameInstance instance = new GameInstance();
 

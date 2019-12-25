@@ -1129,9 +1129,9 @@ public class FrontendView extends JFrame {
 		if (initialPlayerForNextRound.equalsIgnoreCase("a")) {
 			for (int i = 0; i < gameInstance.getPlayers().size(); i++) {
 				try {
-					if (gameInstance.getPlayers().get(i).getRole().equals(Player.Role.ARSCHLOCH)) {
-						gameInstance.setCurrentPlayer(gameInstance.getPlayers().get(i)); // current player setzen mit
-																							// arschloch
+					if (gameInstance.getPlayers().get(i).getRole().equals(Player.Role.ARSCHLOCH1)) {
+						gameInstance.setCurrentPlayer(gameInstance.getPlayers().get(i)); // current player setzen mit arschloch
+						System.out.println("ARSCHLOCH1 faengt an");
 					}
 				} catch (Exception e) {
 
@@ -1140,14 +1140,16 @@ public class FrontendView extends JFrame {
 		} else if (initialPlayerForNextRound.equalsIgnoreCase("p")) {
 			for (int i = 0; i < gameInstance.getPlayers().size(); i++) {
 				try {
-					if (gameInstance.getPlayers().get(i).getRole().equals(Player.Role.PRAESIDENT)) {
-						gameInstance.setCurrentPlayer(gameInstance.getPlayers().get(i)); // current player setzen mit
-																							// praesident
+					if (gameInstance.getPlayers().get(i).getRole().equals(Player.Role.PRAESIDENT1)) {
+						gameInstance.setCurrentPlayer(gameInstance.getPlayers().get(i)); // current player setzen mit praesident
+						System.out.println("PRAESIDENT1 faengt an");
 					}
 				} catch (Exception e) {
 
 				}
 			}
+		} else {
+			setInitialPlayerForNextRound();
 		}
 	}
 
@@ -1176,10 +1178,13 @@ public class FrontendView extends JFrame {
 	 * 
 	 */
 	private void setPlayerRoles() {
-		gameInstance.getResult().get(0).setRole(Player.Role.PRAESIDENT);
+		int resultSize = gameInstance.getResult().size();
+		gameInstance.getResult().get(0).setRole(Player.Role.PRAESIDENT1);
+		gameInstance.getResult().get(resultSize-1).setRole(Player.Role.ARSCHLOCH1);
 
-		gameInstance.getResult().get(1).setRole(Player.Role.MITTELKIND);
-
-		gameInstance.getResult().get(2).setRole(Player.Role.ARSCHLOCH);
+		if(resultSize>3) {
+			gameInstance.getResult().get(1).setRole(Player.Role.PRAESIDENT2);
+			gameInstance.getResult().get(resultSize-2).setRole(Player.Role.ARSCHLOCH2);
+		}
 	}
 }
