@@ -65,6 +65,14 @@ public class Player {
     public List<Card> getHand() {
         return handCards;
     }
+    
+    /**
+     * ACHTUNG NEUER SETTER!!!
+     * @param handCards
+     */
+    public void setHandCards(List<Card> handCards) {
+    	this.handCards = handCards;
+    }
 
     /**
      * Fuegt einzelne Karten in die Liste der Handkarten des Spielers.
