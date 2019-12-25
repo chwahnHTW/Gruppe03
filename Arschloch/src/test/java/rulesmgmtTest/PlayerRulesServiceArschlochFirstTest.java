@@ -23,9 +23,9 @@ public class PlayerRulesServiceArschlochFirstTest {
 	@Test
 	public void testDetermineArschlochFirst() {
 		GameInstance gi = new GameInstance();
-		Player player1 = new Player("Player1", null, Player.Role.PRAESIDENT);
+		Player player1 = new Player("Player1", null, Player.Role.PRAESIDENT1);
 		Player player2 = new Player("Player2", null, Player.Role.MITTELKIND);
-		Player player3 = new Player("Player3", null, Player.Role.ARSCHLOCH);
+		Player player3 = new Player("Player3", null, Player.Role.ARSCHLOCH1);
 		List<Player> players = new ArrayList<Player>();
 		players.add(player1);
 		players.add(player2);
