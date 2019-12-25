@@ -62,34 +62,68 @@ public class CardServiceImpl implements CardService {
 	@Override
 	public void swapCards(GameInstance gameInstance) {
 
-		Player president = gameInstance.getResult().get(0);//praesident, da er zuerst in die liste
-		Player arschloch = gameInstance.getResult().get(2);//arschloch, da er als letztes in die liste hinzugefuegt wird
-		sortCardsByValue(president.getHand()); //sortieren der Karten nach Zahlenwert
-		sortCardsByValue(arschloch.getHand()); //sortieren der Karten nach Zahlenwert
+		Player president1 = gameInstance.getResult().get(0);//erster praesident, da er zuerst in die liste
+		Player president2 = gameInstance.getResult().get(1); //zweiter praesident, da er als zweites in die Liste
+		int resultSize = gameInstance.getResult().size();
+		Player arschloch1 = gameInstance.getResult().get(resultSize-1);//arschloch, da er als letztes in die liste hinzugefuegt wird
+		Player arschloch2 = gameInstance.getResult().get(resultSize-2);//arschloch, da er als vorletztes in die liste hinzugefuegt wird
+		sortCardsByValue(president1.handCards); //sortieren der Karten nach Zahlenwert
+		sortCardsByValue(president2.handCards); //sortieren der Karten nach Zahlenwert
+		sortCardsByValue(arschloch1.handCards); //sortieren der Karten nach Zahlenwert
+		sortCardsByValue(arschloch2.handCards); //sortieren der Karten nach Zahlenwert
 
 		//um hier die Karten, die getauscht werden sollen, temporaer abzulegen
 		List<Card> temp1 = new ArrayList<Card>();
 
 		// die 2 besten (hoechste Zahl) karten von arschloch herausfinden und in temp liste
-		int handArschloch = arschloch.getHand().size();
-		temp1.add(arschloch.getHand().get(handArschloch-2)); //index 0
-		temp1.add(arschloch.getHand().get(handArschloch-1)); //index 1
-
+		int handArschloch1 = arschloch1.handCards.size();
+		temp1.add(arschloch1.handCards.get(handArschloch1-2)); //index 0
+		temp1.add(arschloch1.handCards.get(handArschloch1-1)); //index 1
+		
 		//die 2 schlechtesten Karten von praesident herasufinden und in temp liste
-		temp1.add(president.getHand().get(0));
-		temp1.add(president.getHand().get(1));
+		temp1.add(president1.handCards.get(0));
+		temp1.add(president1.handCards.get(1));
 
 		//zu den Handkarten von arschloch und praesident
-		president.setHand(temp1.get(0));
-		president.setHand(temp1.get(1));
-		arschloch.setHand(temp1.get(2));
-		arschloch.setHand(temp1.get(3));
+		president1.setHand(temp1.get(0));
+		president1.setHand(temp1.get(1));
+		arschloch1.setHand(temp1.get(2));
+		arschloch1.setHand(temp1.get(3));
 
 		//loeschen der getauschten Karten aus beiden spielern
-		arschloch.getHand().remove(handArschloch-2);
-		arschloch.getHand().remove(handArschloch-1); //weil index wieder nach vorn rutscht
-		president.getHand().remove(0);
-		president.getHand().remove(1);
+		arschloch1.handCards.remove(arschloch1.handCards.size()-3);
+		arschloch1.handCards.remove(arschloch1.handCards.size()-3); //weil index wieder nach vorn rutscht
+		
+		president1.handCards.remove(0);
+		president1.handCards.remove(0);
+		
+		if(gameInstance.getResult().size()>3) {
+			//um hier die Karten, die getauscht werden sollen, temporaer abzulegen
+			List<Card> temp2 = new ArrayList<Card>();
+
+			// die 2 besten (hoechste Zahl) karten von arschloch herausfinden und in temp liste
+			int handArschloch2 = arschloch2.handCards.size();
+			temp2.add(arschloch2.handCards.get(handArschloch2-2)); //index 0
+			temp2.add(arschloch2.handCards.get(handArschloch2-1)); //index 1
+			
+			//die 2 schlechtesten Karten von praesident herasufinden und in temp liste
+			temp2.add(president2.handCards.get(0));
+			temp2.add(president2.handCards.get(1));
+
+			//zu den Handkarten von arschloch und praesident
+			president2.setHand(temp2.get(0));
+			president2.setHand(temp2.get(1));
+			arschloch2.setHand(temp2.get(2));
+			arschloch2.setHand(temp2.get(3));
+
+			//loeschen der getauschten Karten aus beiden spielern
+			arschloch2.handCards.remove(arschloch2.handCards.size()-3);
+			arschloch2.handCards.remove(arschloch2.handCards.size()-3); //weil index wieder nach vorn rutscht
+			
+			president2.handCards.remove(0);
+			president2.handCards.remove(0);
+		}
+		
 	}
 
 	@Override
