@@ -177,14 +177,29 @@ public class FrontendView extends JFrame {
 	 *                                  Erfassen des naechsten Spielers nicht
 	 *                                  perfekt funktioniert
 	 */
+//	private int getUserCountInput() throws IllegalArgumentException {
+//		String spieleranzahl = JOptionPane.showInputDialog(null,
+//				"Bitte Spieleranzahl eingeben (Spieleranzahl muss 3 sein)");
+//		if (spieleranzahl.equals("3") | spieleranzahl.equals("4")| spieleranzahl.equals("5")) {
+//			return Integer.valueOf(spieleranzahl);
+//		} else {
+//			return getUserCountInput();
+//		}
+//	}
 	private int getUserCountInput() throws IllegalArgumentException {
-		String spieleranzahl = JOptionPane.showInputDialog(null,
-				"Bitte Spieleranzahl eingeben (Spieleranzahl muss 3 sein)");
-		if (spieleranzahl.equals("3") | spieleranzahl.equals("4")| spieleranzahl.equals("5")) {
-			return Integer.valueOf(spieleranzahl);
-		} else {
+		String userinput = JOptionPane.showInputDialog(null,
+				"Bitte Spieleranzahl eingeben (Spieleranzahl muss 3 bis 5 sein)");
+		try{
+			if (userinput.equals("3") | userinput.equals("4")| userinput.equals("5")) {
+				int spieleranzahl = Integer.parseInt(userinput);
+				return Integer.valueOf(spieleranzahl);
+			} else {
+				return getUserCountInput();
+			}
+		} catch (NumberFormatException e){
 			return getUserCountInput();
 		}
+			
 	}
 
 	/**
