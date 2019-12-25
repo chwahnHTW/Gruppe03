@@ -16,9 +16,9 @@ public class Player {
     /**
      * Ein Enum, welches die Rolle darstellt, welche ein Spieler haben kann.
      */
-    public enum Role {
+	public enum Role {
 
-        ARSCHLOCH, MITTELKIND, PRAESIDENT;
+        PRAESIDENT1, PRAESIDENT2, MITTELKIND, ARSCHLOCH2, ARSCHLOCH1;
 
     }
 
