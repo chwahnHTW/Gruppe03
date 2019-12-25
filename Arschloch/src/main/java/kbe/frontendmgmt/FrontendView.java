@@ -1130,24 +1130,26 @@ public class FrontendView extends JFrame {
 			for (int i = 0; i < gameInstance.getPlayers().size(); i++) {
 				try {
 					if (gameInstance.getPlayers().get(i).getRole().equals(Player.Role.ARSCHLOCH1)) {
-						gameInstance.setCurrentPlayer(gameInstance.getPlayers().get(i)); // current player setzen mit
-																							// arschloch
+						gameInstance.setCurrentPlayer(gameInstance.getPlayers().get(i)); // current player setzen mit arschloch
+						System.out.println("Arschloch1 faengt an");
 					}
 				} catch (Exception e) {
-
+					setInitialPlayerForNextRound();
 				}
 			}
 		} else if (initialPlayerForNextRound.equalsIgnoreCase("p")) {
 			for (int i = 0; i < gameInstance.getPlayers().size(); i++) {
 				try {
 					if (gameInstance.getPlayers().get(i).getRole().equals(Player.Role.PRAESIDENT1)) {
-						gameInstance.setCurrentPlayer(gameInstance.getPlayers().get(i)); // current player setzen mit
-																							// praesident
+						gameInstance.setCurrentPlayer(gameInstance.getPlayers().get(i)); // current player setzen mit praesident
+						System.out.println("Praesident1 faengt an");
 					}
 				} catch (Exception e) {
-
+					
 				}
 			}
+		} else {
+			setInitialPlayerForNextRound();
 		}
 	}
 
