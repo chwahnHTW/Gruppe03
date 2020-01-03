@@ -1,12 +1,14 @@
 package kbe.rulesmgmt;
 
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
 import kbe.gamemgmt.GameInstance;
 import kbe.playermgmt.Player;
 
-@Service
+@Component
+@Qualifier("PlayerRulesServiceArschlochFirstImpl")
 public class PlayerRulesServiceArschlochFirstImpl implements PlayerRulesService{
 
 	/**RuleService zum Bestimmen des ersten Spielers einer Runde.

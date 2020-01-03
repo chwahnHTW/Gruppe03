@@ -3,6 +3,7 @@ package kbe.rulesmgmt;
 import java.util.Collections;
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
 
 import kbe.cardmgmt.Card;
@@ -10,7 +11,8 @@ import kbe.cardmgmt.CardComparator;
 import org.springframework.stereotype.Service;
 
 
-@Service
+@Component
+@Qualifier("CardRulesServiceStandardImpl")
 public class CardRulesServiceStandardImpl implements CardRulesService {
 
 	/**CardRulesServiceImplementierung zum Vergleich von Karten-Wertigkeiten
