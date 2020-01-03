@@ -11,8 +11,8 @@ import kbe.cardmgmt.CardComparator;
 import org.springframework.stereotype.Service;
 
 
-@Component
-@Qualifier("CardRulesServiceStandardImpl")
+@Service
+//@Qualifier("CardRulesServiceStandardImpl")
 public class CardRulesServiceStandardImpl implements CardRulesService {
 
 	/**CardRulesServiceImplementierung zum Vergleich von Karten-Wertigkeiten

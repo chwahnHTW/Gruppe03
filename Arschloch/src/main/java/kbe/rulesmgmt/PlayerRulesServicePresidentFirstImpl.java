@@ -8,8 +8,8 @@ import kbe.gamemgmt.GameInstance;
 import kbe.playermgmt.Player;
 import org.springframework.stereotype.Service;
 
-@Component
-@Qualifier("PlayerRulesServicePresidentFirstImpl")
+@Service
+//@Qualifier("PlayerRulesServicePresidentFirstImpl")
 public class PlayerRulesServicePresidentFirstImpl implements PlayerRulesService {
 
 	/**RuleService zum Bestimmen des ersten Spielers einer Runde. 

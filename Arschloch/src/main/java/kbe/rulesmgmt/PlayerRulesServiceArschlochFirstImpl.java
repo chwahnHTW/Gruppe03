@@ -7,8 +7,8 @@ import org.springframework.stereotype.Service;
 import kbe.gamemgmt.GameInstance;
 import kbe.playermgmt.Player;
 
-@Component
-@Qualifier("PlayerRulesServiceArschlochFirstImpl")
+@Service
+//@Qualifier("PlayerRulesServiceArschlochFirstImpl")
 public class PlayerRulesServiceArschlochFirstImpl implements PlayerRulesService{
 
 	/**RuleService zum Bestimmen des ersten Spielers einer Runde.

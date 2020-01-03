@@ -11,8 +11,8 @@ import kbe.cardmgmt.Card;
 import kbe.cardmgmt.CardComparator;
 
 
-@Component
-@Qualifier("CardRulesServiceReverseImpl")
+@Service
+//@Qualifier("CardRulesServiceReverseImpl")
 public class CardRulesServiceReverseImpl implements CardRulesService{
 
 	/**CardRulesServiceImplementierung zum Vergleich von Karten-Wertigkeiten
