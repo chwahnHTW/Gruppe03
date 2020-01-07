@@ -183,4 +183,27 @@ public class PlayerServiceTest {
     	gi.setCurrentPlayer(service.getNextPlayer(gi));
     	Assert.assertEquals(gi.getCurrentPlayer(), player2);
     }
+    
+    @Test
+    public void testSetNewPlayer2() {
+    	System.out.println("**************** TEST SETNEWTPLAYER2 ****************");
+    	GameInstance gi = new GameInstance();
+    	
+    	Card card = new Card(Card.Zahl.SIEBEN, Card.Symbol.HERZ);
+    	List<Card> handCards = new ArrayList<Card>();
+    	handCards.add(card);
+    	
+    	Player player1 = new Player("Player Eins", null, null);
+    	player1.setHandCards(handCards);
+    	Player player2 = new Player("Player Zwei", null, null);
+    	player1.setHandCards(handCards);
+    	List<Player> players = new ArrayList<Player>();
+    	players.add(player1);
+    	players.add(player2);
+    	gi.setPlayers(players);
+    	
+    	gi.setCurrentPlayer(player1);
+    	gi.setCurrentPlayer(service.getNextPlayer(gi));
+    	Assert.assertEquals(gi.getCurrentPlayer(), player1);
+    }
 }
