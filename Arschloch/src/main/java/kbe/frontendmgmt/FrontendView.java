@@ -971,7 +971,11 @@ public class FrontendView extends JFrame {
 	 * 
 	 */
 	public void validateMove() {
-
+		// Liste, in der die aus dem Array ausgelesenen, selektierten Karten erfasst und
+		// gehalten werden
+		List tempCardList = new LinkedList<Card>();
+		Boolean tempCardsEqual = true;
+		
 		for(int i = 0; i < gameInstance.getPlayers().size(); i++) {
 			if(gameInstance.getPlayers().get(i).name != "Bot") {
 				String cardIndexes = JOptionPane.showInputDialog(null,
@@ -983,8 +987,8 @@ public class FrontendView extends JFrame {
 				List cardIndexesToBePlayed = new LinkedList<Integer>();
 				
 				// für die Länge des Userinputs Indizes der Karten speichern
-				for (int i = 0; i < cardsIndexesArray.length; i++) {
-					int f = Integer.parseInt(cardsIndexesArray[i]);
+				for (int j = 0; j < cardsIndexesArray.length; j++) {
+					int f = Integer.parseInt(cardsIndexesArray[j]);
 
 					if (f < 0 | f > 11) {
 						validateMove();
@@ -992,8 +996,47 @@ public class FrontendView extends JFrame {
 					}
 					cardIndexesToBePlayed.add(f);
 				}
-			} else {
 				
+//				// Liste, in der die aus dem Array ausgelesenen, selektierten Karten erfasst und
+//				// gehalten werden
+//				List tempCardList = new LinkedList<Card>();
+//				Boolean tempCardsEqual = true;
+
+				// geclickte Kartenfelder( Frontend) auslesen
+				for (int k = 0; k < cardIndexesToBePlayed.size(); k++) {
+					// tempCards werden anhand der eingegeben Zahlen geholt
+					int r = (Integer) cardIndexesToBePlayed.get(k);
+					tempCardList.add((gameInstance.getCurrentPlayer().getHand().get(r)));
+					// Wenn Karte im Frontend geclickt wurde, wird Sie in selectedCards
+					// erfasst. Durch dessen Iterierung erhalten wir alle selektierten Karten
+
+					// tempCards valid? compareTo -> die ausgewählten Karten müssen die gleichen
+					// Zahlen haben
+					if (tempCardList.size() >= 2) {
+						// gerade hinzugefügte Card
+						Card x = (Card) tempCardList.get(k);
+						Card y = (Card) ((LinkedList) tempCardList).getFirst();
+
+						int c = x.compareTo(y);
+						if (c == 0) {
+							tempCardsEqual = true;
+						} else {
+							tempCardsEqual = false;
+						}
+					}
+				}
+			} else { //bot spieler wählt seine karten
+				//drcuh die karten des spielers gehen
+				for (int h = 0; h < gameInstance.getCurrentPlayer().getHand().size();h++) {
+					//wenn eine karte (oder mehrere) größer sind als boradkarten
+					if(gameInstance.getCurrentPlayer().getHand().get(h).compareTo(gameInstance.boardCards)==1){
+						//die karten, die größer sind, werden temporär gespeichert
+						tempCardList.add(e)
+						//die richtige karte muss gespielt werden
+						//wenn 2 karten auf der board leigen?
+						// dann 2 die gleich groß sind
+					}
+				}
 			}
 		}
 		
@@ -1017,35 +1060,35 @@ public class FrontendView extends JFrame {
 //				}
 //				cardIndexesToBePlayed.add(f);
 //			}
-
-			// Liste, in der die aus dem Array ausgelesenen, selektierten Karten erfasst und
-			// gehalten werden
-			List tempCardList = new LinkedList<Card>();
-			Boolean tempCardsEqual = true;
-
-			// geclickte Kartenfelder( Frontend) auslesen
-			for (int i = 0; i < cardIndexesToBePlayed.size(); i++) {
-				// tempCards werden anhand der eingegeben Zahlen geholt
-				int r = (Integer) cardIndexesToBePlayed.get(i);
-				tempCardList.add((gameInstance.getCurrentPlayer().getHand().get(r)));
-				// Wenn Karte im Frontend geclickt wurde, wird Sie in selectedCards
-				// erfasst. Durch dessen Iterierung erhalten wir alle selektierten Karten
-
-				// tempCards valid? compareTo -> die ausgewählten Karten müssen die gleichen
-				// Zahlen haben
-				if (tempCardList.size() >= 2) {
-					// gerade hinzugefügte Card
-					Card x = (Card) tempCardList.get(i);
-					Card y = (Card) ((LinkedList) tempCardList).getFirst();
-
-					int c = x.compareTo(y);
-					if (c == 0) {
-						tempCardsEqual = true;
-					} else {
-						tempCardsEqual = false;
-					}
-				}
-			}
+//
+//			// Liste, in der die aus dem Array ausgelesenen, selektierten Karten erfasst und
+//			// gehalten werden
+//			List tempCardList = new LinkedList<Card>();
+//			Boolean tempCardsEqual = true;
+//
+//			// geclickte Kartenfelder( Frontend) auslesen
+//			for (int i = 0; i < cardIndexesToBePlayed.size(); i++) {
+//				// tempCards werden anhand der eingegeben Zahlen geholt
+//				int r = (Integer) cardIndexesToBePlayed.get(i);
+//				tempCardList.add((gameInstance.getCurrentPlayer().getHand().get(r)));
+//				// Wenn Karte im Frontend geclickt wurde, wird Sie in selectedCards
+//				// erfasst. Durch dessen Iterierung erhalten wir alle selektierten Karten
+//
+//				// tempCards valid? compareTo -> die ausgewählten Karten müssen die gleichen
+//				// Zahlen haben
+//				if (tempCardList.size() >= 2) {
+//					// gerade hinzugefügte Card
+//					Card x = (Card) tempCardList.get(i);
+//					Card y = (Card) ((LinkedList) tempCardList).getFirst();
+//
+//					int c = x.compareTo(y);
+//					if (c == 0) {
+//						tempCardsEqual = true;
+//					} else {
+//						tempCardsEqual = false;
+//					}
+//				}
+//			}
 
 			// Spielzug validieren
 			// hier findet später die Überprüfung statt, ob der Spielzug richtig ist. Wenn
