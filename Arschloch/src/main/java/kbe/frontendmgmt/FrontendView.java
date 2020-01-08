@@ -971,10 +971,7 @@ public class FrontendView extends JFrame {
 	 * 
 	 */
 	public void validateMove() {
-		// Liste, in der die aus dem Array ausgelesenen, selektierten Karten erfasst und
-		// gehalten werden
-		List tempCardList = new LinkedList<Card>();
-		Boolean tempCardsEqual = true;
+
 		
 		for(int i = 0; i < gameInstance.getPlayers().size(); i++) {
 			if(gameInstance.getPlayers().get(i).name != "Bot") {
@@ -997,10 +994,10 @@ public class FrontendView extends JFrame {
 					cardIndexesToBePlayed.add(f);
 				}
 				
-//				// Liste, in der die aus dem Array ausgelesenen, selektierten Karten erfasst und
-//				// gehalten werden
-//				List tempCardList = new LinkedList<Card>();
-//				Boolean tempCardsEqual = true;
+				// Liste, in der die aus dem Array ausgelesenen, selektierten Karten erfasst und
+				// gehalten werden
+				List tempCardList = new LinkedList<Card>();
+				Boolean tempCardsEqual = true;
 
 				// geclickte Kartenfelder( Frontend) auslesen
 				for (int k = 0; k < cardIndexesToBePlayed.size(); k++) {
