@@ -134,11 +134,26 @@ public class FrontendView extends JFrame {
 		btnStartGame.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				gameInstance.players = new LinkedList<>();
+				boolean ifBotPlayer = getIfBotPlayer();
 				int playerCount = getUserCountInput();
 //                System.out.println(playerCount);
+				
 				for (int i = 0; i < playerCount; i++) {
-					Player player = PLAYSI.createPlayer(getUserNameInput());
-					gameInstance.players.add(player);
+					if(ifBotPlayer) {
+						System.out.println("ifBotPlayer is true");
+						if(i == 0) {
+							System.out.println("i == 0");
+							Player playerHuman = PLAYSI.createPlayer(getUserNameInput());
+							gameInstance.players.add(playerHuman);
+							System.out.println("human added");
+						}
+						Player playerBot = PLAYSI.createPlayer("Bot");
+						gameInstance.players.add(playerBot);
+						System.out.println("bots added");
+					} else {
+						Player player = PLAYSI.createPlayer(getUserNameInput());
+						gameInstance.players.add(player);
+					}
 				}
 				cardService.dealCardsToPlayers(gameInstance);
 
@@ -186,6 +201,23 @@ public class FrontendView extends JFrame {
 //			return getUserCountInput();
 //		}
 //	}
+	
+	private boolean getIfBotPlayer() throws IllegalArgumentException {
+		String botPlayer = JOptionPane.showInputDialog(null, "Mit Bots spielen (J/N)?");
+		try {
+			if (botPlayer.equalsIgnoreCase("j")) {
+				return true;
+			} else if (botPlayer.equalsIgnoreCase("n")) {
+				return false;
+			} else {
+				return getIfBotPlayer();
+			}
+		} catch (Exception e) {
+			return getIfBotPlayer();
+		}
+		
+	}
+	
 	private int getUserCountInput() throws IllegalArgumentException {
 		String userinput = JOptionPane.showInputDialog(null,
 				"Bitte Spieleranzahl eingeben (Spieleranzahl muss 3 bis 5 sein)");
@@ -940,26 +972,51 @@ public class FrontendView extends JFrame {
 	 */
 	public void validateMove() {
 
+		for(int i = 0; i < gameInstance.getPlayers().size(); i++) {
+			if(gameInstance.getPlayers().get(i).name != "Bot") {
+				String cardIndexes = JOptionPane.showInputDialog(null,
+						"Bitte Karten angeben (Positionen: 0-11, mit Komma getrennt)");
+
+				// Eingabe in Array speichern, ueber Komma getrennt
+				String[] cardsIndexesArray = cardIndexes.split(",");
+				// Liste der zu spielenden Indizes
+				List cardIndexesToBePlayed = new LinkedList<Integer>();
+				
+				// für die Länge des Userinputs Indizes der Karten speichern
+				for (int i = 0; i < cardsIndexesArray.length; i++) {
+					int f = Integer.parseInt(cardsIndexesArray[i]);
+
+					if (f < 0 | f > 11) {
+						validateMove();
+						break;
+					}
+					cardIndexesToBePlayed.add(f);
+				}
+			} else {
+				
+			}
+		}
+		
 		// Eingabe öffnen für Auswählen der Karten
 		try {
-			String cardIndexes = JOptionPane.showInputDialog(null,
-					"Bitte Karten angeben (Positionen: 0-11, mit Komma getrennt)");
-
-			// Eingabe in Array speichern, ueber Komma getrennt
-			String[] cardsIndexesArray = cardIndexes.split(",");
-			// Liste der zu spielenden Indizes
-			List cardIndexesToBePlayed = new LinkedList<Integer>();
-
-			// für die Länge des Userinputs Indizes der Karten speichern
-			for (int i = 0; i < cardsIndexesArray.length; i++) {
-				int f = Integer.parseInt(cardsIndexesArray[i]);
-
-				if (f < 0 | f > 11) {
-					validateMove();
-					break;
-				}
-				cardIndexesToBePlayed.add(f);
-			}
+//			String cardIndexes = JOptionPane.showInputDialog(null,
+//					"Bitte Karten angeben (Positionen: 0-11, mit Komma getrennt)");
+//
+//			// Eingabe in Array speichern, ueber Komma getrennt
+//			String[] cardsIndexesArray = cardIndexes.split(",");
+//			// Liste der zu spielenden Indizes
+//			List cardIndexesToBePlayed = new LinkedList<Integer>();
+//
+//			// für die Länge des Userinputs Indizes der Karten speichern
+//			for (int i = 0; i < cardsIndexesArray.length; i++) {
+//				int f = Integer.parseInt(cardsIndexesArray[i]);
+//
+//				if (f < 0 | f > 11) {
+//					validateMove();
+//					break;
+//				}
+//				cardIndexesToBePlayed.add(f);
+//			}
 
 			// Liste, in der die aus dem Array ausgelesenen, selektierten Karten erfasst und
 			// gehalten werden
@@ -1094,6 +1151,10 @@ public class FrontendView extends JFrame {
 		}
 		// Reset des PAssspielzug-Counters nach jedem validen Spielzug
 		passCounter = 0;
+	}
+	
+	public void validateBotMove() {
+		
 	}
 
 	/*
