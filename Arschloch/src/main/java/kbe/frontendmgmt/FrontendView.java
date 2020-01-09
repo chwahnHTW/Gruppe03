@@ -974,7 +974,30 @@ public class FrontendView extends JFrame {
 
 		
 		for(int i = 0; i < gameInstance.getPlayers().size(); i++) {
-			if(gameInstance.getPlayers().get(i).name != "Bot") {
+			// Liste, in der die aus dem Array ausgelesenen, selektierten Karten erfasst und
+			// gehalten werden
+			List tempCardList = new LinkedList<Card>();
+			
+			if(gameInstance.getPlayers().get(i).name == "Bot") {//bot spieler wählt seine karten
+				//drcuh die karten des spielers gehen
+				
+				// checken ob eine oder 2 karten auf board
+				if(gameInstance.getBoardCards().size() >= 2) {
+					System.out.println("bot zug wenn boardcards hat 2 karten");
+				}
+				else {
+					for (int h = 0; h < gameInstance.getCurrentPlayer().getHand().size();h++) {
+						//wenn eine karte (oder mehrere) größer sind als boradkarten
+						if(gameInstance.getCurrentPlayer().getHand().get(h).compareTo(gameInstance.boardCards)==1){
+							//die karten, die größer sind, werden temporär gespeichert
+							tempCardList.add(h);
+							//die richtige karte muss gespielt werden
+							//wenn 2 karten auf der board leigen?
+							// dann 2 die gleich groß sind
+						}
+					}
+				}
+			} else { 
 				String cardIndexes = JOptionPane.showInputDialog(null,
 						"Bitte Karten angeben (Positionen: 0-11, mit Komma getrennt)");
 
@@ -994,11 +1017,6 @@ public class FrontendView extends JFrame {
 					cardIndexesToBePlayed.add(f);
 				}
 				
-				// Liste, in der die aus dem Array ausgelesenen, selektierten Karten erfasst und
-				// gehalten werden
-				List tempCardList = new LinkedList<Card>();
-				Boolean tempCardsEqual = true;
-
 				// geclickte Kartenfelder( Frontend) auslesen
 				for (int k = 0; k < cardIndexesToBePlayed.size(); k++) {
 					// tempCards werden anhand der eingegeben Zahlen geholt
@@ -1009,36 +1027,108 @@ public class FrontendView extends JFrame {
 
 					// tempCards valid? compareTo -> die ausgewählten Karten müssen die gleichen
 					// Zahlen haben
+					boolean tempCardsEqual = true;
 					if (tempCardList.size() >= 2) {
-						// gerade hinzugefügte Card
-						Card x = (Card) tempCardList.get(k);
-						Card y = (Card) ((LinkedList) tempCardList).getFirst();
-
-						int c = x.compareTo(y);
-						if (c == 0) {
-							tempCardsEqual = true;
+						tempCardsEqual = checkSelectedCardsIfEqual(tempCardList, k);
+					}
+					
+					if (tempCardsEqual) {
+						// BoardCards = null -> alle gespielten KArten sind valide, solange sie
+						// denselben Zahlenwert haben
+						if (gameInstance.getBoardCards() == null) {
+							gameInstance.setBoardCards(tempCardList);
+							// Entfernen der Karten des validen Spielzuges aus Hand des Players
+							PLAYSI.removeFromHand(gameInstance.getCurrentPlayer(), tempCardList);
+							// Prueft, ob aktueller Spieler noch Karten hat, oder nicht
+							// wenn nein, wird er in result ( "Siegerliste, Rangfolge der Spieler" )
+							// aufgenommen, um spaeter die Rollen fuer ein potentielles
+							// weiteres Spiel zu ermitteln
+							addCurrentPlayerToResult();
+							// setzt naechsten Spieler nach validem Spielzug
+							gameInstance.setCurrentPlayer(PLAYSI.getNextPlayer(gameInstance));
+							// Update Frontend
+							updateCurrentBoardCardPanels(gameInstance);
+							updateCardButtons(gameInstance);
+							updateCurrentPlayerLabel();
 						} else {
-							tempCardsEqual = false;
+							// ungueltiger Spielzug : erneute Eingabe
+							if (tempCardList.size() != gameInstance.getBoardCards().size()) {
+								tempCardList = null;
+								validateMove();
+							}
+							// Vergleich der selektierten Indizes mit den BoardCards
+							try {
+								Card y = (Card) ((LinkedList) tempCardList).getFirst();
+
+								Card b = gameInstance.getBoardCards().get(0);
+
+								int c = y.compareTo(b);
+								// valider Spielzug
+								if (c == 1) {
+									// tempCards werden als Boardcards gesetzt
+									gameInstance.setBoardCards(tempCardList);
+									// tempCards werden von der Hand des Spielers entfernt
+									PLAYSI.removeFromHand(gameInstance.getCurrentPlayer(), tempCardList);
+									// Pruefung, obn Spieler keine Karten mehr hat
+									addCurrentPlayerToResult();
+
+									// nächsten Spieler setzen
+									gameInstance.setCurrentPlayer(PLAYSI.getNextPlayer(gameInstance));
+									// Update Frontend
+									updateCurrentBoardCardPanels(gameInstance);
+									updateCardButtons(gameInstance);
+									updateCurrentPlayerLabel();
+								} else {
+									// falsche Karten ausgewählt
+									validateMove();
+								}
+							}
+							// Exception Handling
+							catch (IndexOutOfBoundsException e) {
+								System.out.print("no board cards to validate against, move passed");
+								gameInstance.setBoardCards(tempCardList);
+								PLAYSI.removeFromHand(gameInstance.getCurrentPlayer(), tempCardList);
+
+								addCurrentPlayerToResult();
+
+								gameInstance.setCurrentPlayer(PLAYSI.getNextPlayer(gameInstance));
+
+								updateCurrentBoardCardPanels(gameInstance);
+								updateCardButtons(gameInstance);
+								updateCurrentPlayerLabel();
+							}
+
 						}
+					} else {
+						// falsche Karten ausgewählt
+						validateMove();
 					}
-				}
-			} else { //bot spieler wählt seine karten
-				//drcuh die karten des spielers gehen
-				for (int h = 0; h < gameInstance.getCurrentPlayer().getHand().size();h++) {
-					//wenn eine karte (oder mehrere) größer sind als boradkarten
-					if(gameInstance.getCurrentPlayer().getHand().get(h).compareTo(gameInstance.boardCards)==1){
-						//die karten, die größer sind, werden temporär gespeichert
-						tempCardList.add(e)
-						//die richtige karte muss gespielt werden
-						//wenn 2 karten auf der board leigen?
-						// dann 2 die gleich groß sind
-					}
-				}
+					System.out.println(cardIndexesToBePlayed.size());
 			}
+					
 		}
+	try {
+		if (gameInstance.getBoardCards().get(0).getZahl().toString() == "ASS") {
+
+			// Setzen der boardCards auf null, Update Frontend
+			gameInstance.setBoardCards(null);
+			updateCurrentBoardCardPanels(gameInstance);
+
+		}
+	} catch (NullPointerException e) {
+		gameInstance.setBoardCards(null);
+		updateCurrentBoardCardPanels(gameInstance);
+	} catch (IndexOutOfBoundsException IOOB) {
+		gameInstance.setBoardCards(null);
+		updateCurrentBoardCardPanels(gameInstance);
+	}
+	// Reset des PAssspielzug-Counters nach jedem validen Spielzug
+	passCounter = 0;
+		}
+}
 		
 		// Eingabe öffnen für Auswählen der Karten
-		try {
+//		try {
 //			String cardIndexes = JOptionPane.showInputDialog(null,
 //					"Bitte Karten angeben (Positionen: 0-11, mit Komma getrennt)");
 //
@@ -1098,103 +1188,121 @@ public class FrontendView extends JFrame {
 			// tempCards valid? compareTo -> die ausgwählten Karten müssen höher sein als
 			// die BoardCards
 
-			if (tempCardsEqual) {
-				// BoardCards = null -> alle gespielten KArten sind valide, solange sie
-				// denselben Zahlenwert haben
-				if (gameInstance.getBoardCards() == null) {
-					gameInstance.setBoardCards(tempCardList);
-					// Entfernen der Karten des validen Spielzuges aus Hand des Players
-					PLAYSI.removeFromHand(gameInstance.getCurrentPlayer(), tempCardList);
-					// Prueft, ob aktueller Spieler noch Karten hat, oder nicht
-					// wenn nein, wird er in result ( "Siegerliste, Rangfolge der Spieler" )
-					// aufgenommen, um spaeter die Rollen fuer ein potentielles
-					// weiteres Spiel zu ermitteln
-					addCurrentPlayerToResult();
-					// setzt naechsten Spieler nach validem Spielzug
-					gameInstance.setCurrentPlayer(PLAYSI.getNextPlayer(gameInstance));
-					// Update Frontend
-					updateCurrentBoardCardPanels(gameInstance);
-					updateCardButtons(gameInstance);
-					updateCurrentPlayerLabel();
-				} else {
-					// ungueltiger Spielzug : erneute Eingabe
-					if (tempCardList.size() != gameInstance.getBoardCards().size()) {
-						tempCardList = null;
-						validateMove();
-					}
-					// Vergleich der selektierten Indizes mit den BoardCards
-					try {
-						Card y = (Card) ((LinkedList) tempCardList).getFirst();
-
-						Card b = gameInstance.getBoardCards().get(0);
-
-						int c = y.compareTo(b);
-						// valider Spielzug
-						if (c == 1) {
-							// tempCards werden als Boardcards gesetzt
-							gameInstance.setBoardCards(tempCardList);
-							// tempCards werden von der Hand des Spielers entfernt
-							PLAYSI.removeFromHand(gameInstance.getCurrentPlayer(), tempCardList);
-							// Pruefung, obn Spieler keine Karten mehr hat
-							addCurrentPlayerToResult();
-
-							// nächsten Spieler setzen
-							gameInstance.setCurrentPlayer(PLAYSI.getNextPlayer(gameInstance));
-							// Update Frontend
-							updateCurrentBoardCardPanels(gameInstance);
-							updateCardButtons(gameInstance);
-							updateCurrentPlayerLabel();
-						} else {
-							// falsche Karten ausgewählt
-							validateMove();
-						}
-					}
-					// Exception Handling
-					catch (IndexOutOfBoundsException e) {
-						System.out.print("no board cards to validate against, move passed");
-						gameInstance.setBoardCards(tempCardList);
-						PLAYSI.removeFromHand(gameInstance.getCurrentPlayer(), tempCardList);
-
-						addCurrentPlayerToResult();
-
-						gameInstance.setCurrentPlayer(PLAYSI.getNextPlayer(gameInstance));
-
-						updateCurrentBoardCardPanels(gameInstance);
-						updateCardButtons(gameInstance);
-						updateCurrentPlayerLabel();
-					}
-
-				}
-			} else {
-				// falsche Karten ausgewählt
-				validateMove();
-			}
-			System.out.println(cardIndexesToBePlayed.size());
-		} catch (Exception e) {
-
-		}
+//			if (tempCardsEqual) {
+//				// BoardCards = null -> alle gespielten KArten sind valide, solange sie
+//				// denselben Zahlenwert haben
+//				if (gameInstance.getBoardCards() == null) {
+//					gameInstance.setBoardCards(tempCardList);
+//					// Entfernen der Karten des validen Spielzuges aus Hand des Players
+//					PLAYSI.removeFromHand(gameInstance.getCurrentPlayer(), tempCardList);
+//					// Prueft, ob aktueller Spieler noch Karten hat, oder nicht
+//					// wenn nein, wird er in result ( "Siegerliste, Rangfolge der Spieler" )
+//					// aufgenommen, um spaeter die Rollen fuer ein potentielles
+//					// weiteres Spiel zu ermitteln
+//					addCurrentPlayerToResult();
+//					// setzt naechsten Spieler nach validem Spielzug
+//					gameInstance.setCurrentPlayer(PLAYSI.getNextPlayer(gameInstance));
+//					// Update Frontend
+//					updateCurrentBoardCardPanels(gameInstance);
+//					updateCardButtons(gameInstance);
+//					updateCurrentPlayerLabel();
+//				} else {
+//					// ungueltiger Spielzug : erneute Eingabe
+//					if (tempCardList.size() != gameInstance.getBoardCards().size()) {
+//						tempCardList = null;
+//						validateMove();
+//					}
+//					// Vergleich der selektierten Indizes mit den BoardCards
+//					try {
+//						Card y = (Card) ((LinkedList) tempCardList).getFirst();
+//
+//						Card b = gameInstance.getBoardCards().get(0);
+//
+//						int c = y.compareTo(b);
+//						// valider Spielzug
+//						if (c == 1) {
+//							// tempCards werden als Boardcards gesetzt
+//							gameInstance.setBoardCards(tempCardList);
+//							// tempCards werden von der Hand des Spielers entfernt
+//							PLAYSI.removeFromHand(gameInstance.getCurrentPlayer(), tempCardList);
+//							// Pruefung, obn Spieler keine Karten mehr hat
+//							addCurrentPlayerToResult();
+//
+//							// nächsten Spieler setzen
+//							gameInstance.setCurrentPlayer(PLAYSI.getNextPlayer(gameInstance));
+//							// Update Frontend
+//							updateCurrentBoardCardPanels(gameInstance);
+//							updateCardButtons(gameInstance);
+//							updateCurrentPlayerLabel();
+//						} else {
+//							// falsche Karten ausgewählt
+//							validateMove();
+//						}
+//					}
+//					// Exception Handling
+//					catch (IndexOutOfBoundsException e) {
+//						System.out.print("no board cards to validate against, move passed");
+//						gameInstance.setBoardCards(tempCardList);
+//						PLAYSI.removeFromHand(gameInstance.getCurrentPlayer(), tempCardList);
+//
+//						addCurrentPlayerToResult();
+//
+//						gameInstance.setCurrentPlayer(PLAYSI.getNextPlayer(gameInstance));
+//
+//						updateCurrentBoardCardPanels(gameInstance);
+//						updateCardButtons(gameInstance);
+//						updateCurrentPlayerLabel();
+//					}
+//
+//				}
+//			} else {
+//				// falsche Karten ausgewählt
+//				validateMove();
+//			}
+//			System.out.println(cardIndexesToBePlayed.size());
+//		} catch (Exception e) {
+//
+//		}
 		// Wenn BoardCards = Ass, wird das Feld abgeraumt,
-		try {
-			if (gameInstance.getBoardCards().get(0).getZahl().toString() == "ASS") {
-
-				// Setzen der boardCards auf null, Update Frontend
-				gameInstance.setBoardCards(null);
-				updateCurrentBoardCardPanels(gameInstance);
-
-			}
-		} catch (NullPointerException e) {
-			gameInstance.setBoardCards(null);
-			updateCurrentBoardCardPanels(gameInstance);
-		} catch (IndexOutOfBoundsException IOOB) {
-			gameInstance.setBoardCards(null);
-			updateCurrentBoardCardPanels(gameInstance);
-		}
-		// Reset des PAssspielzug-Counters nach jedem validen Spielzug
-		passCounter = 0;
-	}
+//		try {
+//			if (gameInstance.getBoardCards().get(0).getZahl().toString() == "ASS") {
+//
+//				// Setzen der boardCards auf null, Update Frontend
+//				gameInstance.setBoardCards(null);
+//				updateCurrentBoardCardPanels(gameInstance);
+//
+//			}
+//		} catch (NullPointerException e) {
+//			gameInstance.setBoardCards(null);
+//			updateCurrentBoardCardPanels(gameInstance);
+//		} catch (IndexOutOfBoundsException IOOB) {
+//			gameInstance.setBoardCards(null);
+//			updateCurrentBoardCardPanels(gameInstance);
+//		}
+//		// Reset des PAssspielzug-Counters nach jedem validen Spielzug
+//		passCounter = 0;
+//	}
 	
 	public void validateBotMove() {
 		
+	}
+	
+	public boolean checkSelectedCardsIfEqual(List<Card> tempCardList, int k) {
+		// tempCards valid? compareTo -> die ausgewählten Karten müssen die gleichen
+		// Zahlen haben
+		boolean tempCardsEqual = true;
+		
+		// gerade hinzugefügte Card
+		Card x = (Card) tempCardList.get(k);
+		Card y = (Card) ((LinkedList) tempCardList).getFirst();
+
+		int c = x.compareTo(y);
+		if (c == 0) {
+			tempCardsEqual = true;
+		} else {
+			tempCardsEqual = false;
+		}
+		return tempCardsEqual;
 	}
 
 	/*
