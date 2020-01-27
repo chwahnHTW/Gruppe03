@@ -2,7 +2,7 @@ package kbe.playermgmt;
 
 import java.util.LinkedList;
 import java.util.List;
-
+import javax.persistence.*;
 import kbe.cardmgmt.Card;
 
 /**
@@ -11,20 +11,32 @@ import kbe.cardmgmt.Card;
  * <p>
  * Stellt einen Spieler dar. Ein Spieler besteht aus einem Namen, einer Id und den Karten, die er während eines Spiels besitzt.
  */
+@Entity
+@Table(name = "Player")
 public class Player {
+
+    @Id
+    @GeneratedValue
+    Integer playerId;
+
+    @Column(name = "role")
+    public Role role;
+
+    @Column(name = "name")
+    public String name;
+
+    @Column(name = "handCards")
+    @OneToMany
+    public List<Card> handCards;
 
     /**
      * Ein Enum, welches die Rolle darstellt, welche ein Spieler haben kann.
      */
-	public enum Role {
+    public enum Role {
 
         PRAESIDENT1, PRAESIDENT2, MITTELKIND, ARSCHLOCH2, ARSCHLOCH1;
 
     }
-
-    public Role role;
-    public String name;
-    public List<Card> handCards;
 
     /**
      * Generiert einen Spieler.
@@ -32,6 +44,7 @@ public class Player {
      * @param name:      Der Name des Spielers
      * @param handCards: Die Karten, die der Spieler besitzt
      * @param role:      Die Rolle eines Spielers
+     *            String name, List<Card> handCards, Role role
      */
     public Player(String name, List<Card> handCards, Role role) {
         this.name = name;

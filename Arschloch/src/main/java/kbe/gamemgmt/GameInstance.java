@@ -8,6 +8,8 @@ import kbe.cardmgmt.Card;
 import kbe.playermgmt.Player;
 import org.springframework.stereotype.Service;
 
+import javax.persistence.*;
+
 /**
  * @authors         Kaya Löher 				| Kim Anh Nguyen 		| Christian Wahnsiedler
  * Email-Adresse: 	s0564784@htw-berlin.de	| s0563958@htw-berlin.de| s0557193@htw-berlin.de
@@ -15,8 +17,8 @@ import org.springframework.stereotype.Service;
  * Diese Klasse stellt die Instanz eines Spiels dar.
  * Ein Spiel beinhaltet die Spieler, das momentane Rundenergebnis, die Karten, mit denen gerade gespielt wird und den aktuellen Spieler.
  */
-
-//@Service
+@Entity
+@Table(name = "GameInstance")
 public class GameInstance {
 
     /**
@@ -25,9 +27,24 @@ public class GameInstance {
      * @param cards:   Karte(n), die sich momentan auf dem Spielfeld befindet/n. Diese gilt es zu überspielen
      * @param current: Spieler, der gerade an der Reihe ist, einen Zug zu machen
      */
+
+    @Id
+    @GeneratedValue
+    Integer gameId;
+
+    @Column(name = "players")
+    @OneToMany
     public List<Player> players;
+
+    @Transient
     public List result = new LinkedList<Player>();
+
+    @Column(name = "cards")
+    @OneToMany
     public List<Card> boardCards = null;
+
+    @Column(name = "current")
+    @OneToOne
     public Player currentPlayer = null;
 
     /**

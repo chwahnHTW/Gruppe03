@@ -1,10 +1,19 @@
 package kbe.historymgmt;
 
+import kbe.JpaRepository.CardRepository;
+import kbe.JpaRepository.GameInstanceRepository;
+import kbe.JpaRepository.PlayerRepository;
+import kbe.cardmgmt.Card;
+import kbe.cardmgmt.CardService;
+import kbe.gamemgmt.GameInstanceService;
 import kbe.playermgmt.Player;
+import kbe.playermgmt.PlayerService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import kbe.gamemgmt.GameInstance;
 import org.springframework.stereotype.Service;
+
 
 import java.io.FileWriter;
 import java.io.BufferedWriter;
@@ -22,6 +31,25 @@ public class HistoryServiceImpl implements HistoryService {
 
     History history = null;
 
+
+    @Autowired
+    PlayerRepository playerRepository;
+
+    @Autowired
+    PlayerService playerService;
+
+    @Autowired
+    CardRepository cardRepository;
+
+    @Autowired
+    CardService cardService;
+
+    @Autowired
+    GameInstanceRepository gameInstanceRepository;
+
+    @Autowired
+    GameInstanceService gameInstanceService;
+
     @Override
     public void persist(GameInstance instance) {
 
@@ -30,8 +58,18 @@ public class HistoryServiceImpl implements HistoryService {
     }
 
     @Override
+    @Autowired
     public GameInstance getLastPlayedGame() {
-        return null;
+
+//        List<Player> players = playerRepository.findAll();
+//        List<Card> cards = cardRepository.findAll();
+
+
+        Integer lastGame = 1;
+        GameInstance gameInstance =  gameInstanceRepository.findOne(lastGame);
+
+
+        return gameInstance;
     }
 
 
@@ -55,31 +93,16 @@ public class HistoryServiceImpl implements HistoryService {
             bw.write("Name,Rolle");
             bw.newLine();
 
-            for(int i=0;i<playerNames.size();i++)
-            {
-                bw.write(playerNames.get(i)+","+playerRole.get(i));
+            for (int i = 0; i < playerNames.size(); i++) {
+                bw.write(playerNames.get(i) + "," + playerRole.get(i));
                 bw.newLine();
             }
-//            bw.write("\nApplication,Total");
-//            bw.newLine();
-//            for(int i=0;i<list2.size();i++)
-//            {
-//                bw.write(list2.get(i++)+","+list2.get(i));
-//                bw.newLine();
-//            }
             bw.close();
             writer.close();
-
-//            String collect = playerNames.stream().collect(Collectors.joining(","));
-//            System.out.println(collect);
-//
-//            writer.write(collect);
-//            writer.close();
 
         } catch (IOException e) {
 
         }
-
 
 
     }

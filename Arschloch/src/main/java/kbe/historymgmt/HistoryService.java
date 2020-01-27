@@ -1,6 +1,9 @@
 package kbe.historymgmt;
 
+import kbe.JpaRepository.PlayerRepository;
 import kbe.gamemgmt.GameInstance;
+import kbe.playermgmt.PlayerService;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import java.io.IOException;
 
@@ -11,8 +14,8 @@ import java.io.IOException;
  * Diese Klasse stellt die Spielhistorie dar.
  * In der Historie werden vorherige Spielergebnisse gespeichert.
  */
-
 public interface HistoryService {
+
 
     /**
      * Speichert eine Spielinstanz in die Historie
