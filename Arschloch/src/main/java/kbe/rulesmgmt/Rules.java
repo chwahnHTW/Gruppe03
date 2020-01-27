@@ -3,6 +3,7 @@ package kbe.rulesmgmt;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
 
 import kbe.cardmgmt.Card;
@@ -27,6 +28,7 @@ public class Rules {
      * PresidentFirst-Implementierung : President oder Spieler mit Karo 7 als erster
      */
     @Autowired
+    @Qualifier("playerRulesServicePresidentFirstImpl")
     PlayerRulesService playerRS;
 
     /**
@@ -36,6 +38,7 @@ public class Rules {
      * PresidentFirst-Implementierung : President oder Spieler mit Karo 7 als erster
      */
     @Autowired
+    @Qualifier("cardRulesServiceStandardImpl")
     CardRulesService cardRS;
 
 
