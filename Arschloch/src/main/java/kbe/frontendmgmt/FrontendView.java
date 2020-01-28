@@ -1136,8 +1136,8 @@ public class FrontendView extends JFrame {
 	
 	public void validateBotMove() {
 		
-		List tempCardList = new LinkedList<Card>();
-		List botHandCards = new LinkedList<Card>();
+		List<Card> tempCardList = new LinkedList<Card>();
+		List<Card> botHandCards = new LinkedList<Card>();
 		botHandCards = cardService.sortCardsByValue(gameInstance.getCurrentPlayer().getHand());
 		boolean twoCardsEqual = true;
 		
@@ -1158,66 +1158,24 @@ public class FrontendView extends JFrame {
 			} else {
 				tempCardList.add(x);
 			}
-			gameInstance.setBoardCards(tempCardList);
-			PLAYSI.removeFromHand(gameInstance.getCurrentPlayer(), tempCardList);
-			addCurrentPlayerToResult();
-			gameInstance.setCurrentPlayer(PLAYSI.getNextPlayer(gameInstance));
-			updateCurrentBoardCardPanels(gameInstance);
-			updateCardButtons(gameInstance);
-			updateCurrentPlayerLabel();
-		}
-		
-		
-		if(twoCardsEqual) {
-			
-			if(gameInstance.getBoardCards() == null) {
-				
-			} else { // wenn bereits board karten liegen
-				try {
-					Card a = (Card) ((LinkedList) tempCardList).getFirst();
-					Card b = gameInstance.getBoardCards().get(0);
-
-					int z = y.compareTo(b);
-					// valider Spielzug
-					if (z == 1) {
-						// tempCards werden als Boardcards gesetzt
-						gameInstance.setBoardCards(tempCardList);
-						// tempCards werden von der Hand des Spielers entfernt
-						PLAYSI.removeFromHand(gameInstance.getCurrentPlayer(), tempCardList);
-						// Pruefung, obn Spieler keine Karten mehr hat
-						addCurrentPlayerToResult();
-
-						// nächsten Spieler setzen
-						gameInstance.setCurrentPlayer(PLAYSI.getNextPlayer(gameInstance));
-						// Update Frontend
-						updateCurrentBoardCardPanels(gameInstance);
-						updateCardButtons(gameInstance);
-						updateCurrentPlayerLabel();
-					} else {
-						// falsche Karten ausgewählt
-						validateMove();
+		} else {
+			Card b = gameInstance.getBoardCards().get(0);
+			for(Card card : botHandCards) {//durch alle karten des bot
+				if(card.getZahl().equals(b.getZahl())) { //die karten, die mit board stimmen
+					for(int i = 0; i < gameInstance.getBoardCards().size(); i++) { //aber nur so lange wie board groß ist
+						tempCardList.add(card);
 					}
-				} catch (Exception e){
-					
 				}
 			}
 			
 		}
-		
-		for(Card card : gameInstance.getCurrentPlayer().getHand()) {
-			if(gameInstance.getBoardCards().isEmpty()) {
-				
-			}	
-		}
-		
-		
-		//durch die Hand des Bot Spielers/current spieler gehen
-		for(int i = 0; i < gameInstance.getCurrentPlayer().getHand().size(); i++) {
-			//wenn boardkarte leer ist, dann kann bot spieler die erste kleinste karte legen
-			if(gameInstance.getBoardCards() == null) {
-				gameInstance.getCurrentPlayer().getHand().get(i)
-			}
-		}	
+		gameInstance.setBoardCards(tempCardList);
+		PLAYSI.removeFromHand(gameInstance.getCurrentPlayer(), tempCardList);
+		addCurrentPlayerToResult();
+		gameInstance.setCurrentPlayer(PLAYSI.getNextPlayer(gameInstance));
+		updateCurrentBoardCardPanels(gameInstance);
+		updateCardButtons(gameInstance);
+		updateCurrentPlayerLabel();
 		
 		
 		//drcuh die karten des spielers gehen
