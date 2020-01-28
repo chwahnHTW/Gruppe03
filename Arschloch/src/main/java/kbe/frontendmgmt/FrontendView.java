@@ -1135,7 +1135,52 @@ public class FrontendView extends JFrame {
 	}
 	
 	public void validateBotMove() {
+		
 		List tempCardList = new LinkedList<Card>();
+		List botHandCards = new LinkedList<Card>();
+		botHandCards = cardService.sortCardsByValue(gameInstance.getCurrentPlayer().getHand());
+		boolean twoCardsEqual = true;
+		
+		Card x = (Card) botHandCards.get(0);
+		Card y = (Card) botHandCards.get(1);
+		tempCardList.add(x);
+		tempCardList.add(y);
+		
+		int c = x.compareTo(y);
+		if (c == 0) {
+			twoCardsEqual = true;
+		} else {
+			twoCardsEqual = false;
+		}
+		
+		if(twoCardsEqual) {
+			if(gameInstance.getBoardCards() == null) {
+				gameInstance.setBoardCards(tempCardList);
+				PLAYSI.removeFromHand(gameInstance.getCurrentPlayer(), tempCardList);
+				addCurrentPlayerToResult();
+				gameInstance.setCurrentPlayer(PLAYSI.getNextPlayer(gameInstance));
+				updateCurrentBoardCardPanels(gameInstance);
+				updateCardButtons(gameInstance);
+				updateCurrentPlayerLabel();
+			}
+		}
+		
+		for(Card card : gameInstance.getCurrentPlayer().getHand()) {
+			if(gameInstance.getBoardCards().isEmpty()) {
+				
+			}	
+		}
+		
+		
+		//durch die Hand des Bot Spielers/current spieler gehen
+		for(int i = 0; i < gameInstance.getCurrentPlayer().getHand().size(); i++) {
+			//wenn boardkarte leer ist, dann kann bot spieler die erste kleinste karte legen
+			if(gameInstance.getBoardCards() == null) {
+				gameInstance.getCurrentPlayer().getHand().get(i)
+			}
+		}	
+		
+		
 		//drcuh die karten des spielers gehen
 		
 		// checken ob eine oder 2 karten auf board
@@ -1154,6 +1199,7 @@ public class FrontendView extends JFrame {
 				}
 			}
 		}
+		
 		
 		try {
 			if (gameInstance.getBoardCards().get(0).getZahl().toString() == "ASS") {
@@ -1174,6 +1220,12 @@ public class FrontendView extends JFrame {
 		passCounter = 0;
 	}
 	
+	/**
+	 * NUR ZUM TESTEN VON BOT MOVE
+	 * @param tempCardList
+	 * @param k
+	 * @return
+	 */
 	public boolean checkSelectedCardsIfEqual(List<Card> tempCardList, int k) {
 		// tempCards valid? compareTo -> die ausgewählten Karten müssen die gleichen
 		// Zahlen haben
