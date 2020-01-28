@@ -1141,28 +1141,67 @@ public class FrontendView extends JFrame {
 		botHandCards = cardService.sortCardsByValue(gameInstance.getCurrentPlayer().getHand());
 		boolean twoCardsEqual = true;
 		
-		Card x = (Card) botHandCards.get(0);
-		Card y = (Card) botHandCards.get(1);
-		tempCardList.add(x);
-		tempCardList.add(y);
-		
-		int c = x.compareTo(y);
-		if (c == 0) {
-			twoCardsEqual = true;
-		} else {
-			twoCardsEqual = false;
+		if(gameInstance.getBoardCards() == null) {
+			Card x = (Card) botHandCards.get(0);
+			Card y = (Card) botHandCards.get(1);
+			
+			int c = x.compareTo(y);
+			if (c == 0) {
+				twoCardsEqual = true;
+			} else {
+				twoCardsEqual = false;
+			}
+			if(twoCardsEqual) {
+				tempCardList.add(x);
+				tempCardList.add(y);
+				
+			} else {
+				tempCardList.add(x);
+			}
+			gameInstance.setBoardCards(tempCardList);
+			PLAYSI.removeFromHand(gameInstance.getCurrentPlayer(), tempCardList);
+			addCurrentPlayerToResult();
+			gameInstance.setCurrentPlayer(PLAYSI.getNextPlayer(gameInstance));
+			updateCurrentBoardCardPanels(gameInstance);
+			updateCardButtons(gameInstance);
+			updateCurrentPlayerLabel();
 		}
 		
+		
 		if(twoCardsEqual) {
+			
 			if(gameInstance.getBoardCards() == null) {
-				gameInstance.setBoardCards(tempCardList);
-				PLAYSI.removeFromHand(gameInstance.getCurrentPlayer(), tempCardList);
-				addCurrentPlayerToResult();
-				gameInstance.setCurrentPlayer(PLAYSI.getNextPlayer(gameInstance));
-				updateCurrentBoardCardPanels(gameInstance);
-				updateCardButtons(gameInstance);
-				updateCurrentPlayerLabel();
+				
+			} else { // wenn bereits board karten liegen
+				try {
+					Card a = (Card) ((LinkedList) tempCardList).getFirst();
+					Card b = gameInstance.getBoardCards().get(0);
+
+					int z = y.compareTo(b);
+					// valider Spielzug
+					if (z == 1) {
+						// tempCards werden als Boardcards gesetzt
+						gameInstance.setBoardCards(tempCardList);
+						// tempCards werden von der Hand des Spielers entfernt
+						PLAYSI.removeFromHand(gameInstance.getCurrentPlayer(), tempCardList);
+						// Pruefung, obn Spieler keine Karten mehr hat
+						addCurrentPlayerToResult();
+
+						// nächsten Spieler setzen
+						gameInstance.setCurrentPlayer(PLAYSI.getNextPlayer(gameInstance));
+						// Update Frontend
+						updateCurrentBoardCardPanels(gameInstance);
+						updateCardButtons(gameInstance);
+						updateCurrentPlayerLabel();
+					} else {
+						// falsche Karten ausgewählt
+						validateMove();
+					}
+				} catch (Exception e){
+					
+				}
 			}
+			
 		}
 		
 		for(Card card : gameInstance.getCurrentPlayer().getHand()) {
