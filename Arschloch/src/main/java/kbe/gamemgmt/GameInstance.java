@@ -6,7 +6,6 @@ import java.util.List;
 
 import kbe.cardmgmt.Card;
 import kbe.playermgmt.Player;
-import org.springframework.stereotype.Service;
 
 import javax.persistence.*;
 

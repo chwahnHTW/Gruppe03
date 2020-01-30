@@ -52,6 +52,10 @@ public class Player {
         this.role = role;
     }
 
+    public Player(){
+
+    }
+
     /**
      * gibt den Namen eines Spielers zurück
      *
