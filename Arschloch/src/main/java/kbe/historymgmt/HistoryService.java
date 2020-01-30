@@ -1,11 +1,6 @@
 package kbe.historymgmt;
 
-import kbe.JpaRepository.PlayerRepository;
 import kbe.gamemgmt.GameInstance;
-import kbe.playermgmt.PlayerService;
-import org.springframework.beans.factory.annotation.Autowired;
-
-import java.io.IOException;
 
 /**
  * @authors Kaya Löher 				| Kim Anh Nguyen 		| Christian Wahnsiedler

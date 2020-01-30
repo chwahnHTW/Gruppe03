@@ -3,23 +3,18 @@ package kbe.historymgmt;
 import kbe.JpaRepository.CardRepository;
 import kbe.JpaRepository.GameInstanceRepository;
 import kbe.JpaRepository.PlayerRepository;
-import kbe.cardmgmt.Card;
 import kbe.cardmgmt.CardService;
+import kbe.gamemgmt.GameInstance;
 import kbe.gamemgmt.GameInstanceService;
 import kbe.playermgmt.Player;
 import kbe.playermgmt.PlayerService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
-
-import kbe.gamemgmt.GameInstance;
 import org.springframework.stereotype.Service;
 
-
-import java.io.FileWriter;
 import java.io.BufferedWriter;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.util.LinkedList;
-import java.util.stream.Collectors;
 import java.util.List;
 
 /**
@@ -61,15 +56,15 @@ public class HistoryServiceImpl implements HistoryService {
     @Autowired
     public GameInstance getLastPlayedGame() {
 
-//        List<Player> players = playerRepository.findAll();
-//        List<Card> cards = cardRepository.findAll();
-
-
         Integer lastGame = 1;
-        GameInstance gameInstance =  gameInstanceRepository.findOne(lastGame);
-
+        GameInstance gameInstance = gameInstanceRepository.findOne(lastGame);
 
         return gameInstance;
+    }
+
+    public void saveCurrentGame(GameInstance gameInstance) {
+        gameInstanceRepository.flush();
+        gameInstanceRepository.save(gameInstance);
     }
 
 
@@ -78,7 +73,6 @@ public class HistoryServiceImpl implements HistoryService {
 
         try {
             FileWriter writer = new FileWriter("/Users/kayaloeher/Desktop/gameHistory.csv");
-//        List<GameInstance> hist = history.getHistory();
 
             List<String> playerNames = new LinkedList<>();
             List<String> playerRole = new LinkedList<>();
@@ -103,7 +97,5 @@ public class HistoryServiceImpl implements HistoryService {
         } catch (IOException e) {
 
         }
-
-
     }
 }
