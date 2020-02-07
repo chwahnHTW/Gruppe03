@@ -147,7 +147,7 @@ public class FrontendView extends JFrame {
 							gameInstance.players.add(playerHuman);
 							System.out.println("human added");
 						}
-						Player playerBot = PLAYSI.createPlayer("Bot");
+						Player playerBot = PLAYSI.createPlayer("BotPlayer");
 						gameInstance.players.add(playerBot);
 						System.out.println("bots added");
 					} else {
@@ -205,9 +205,9 @@ public class FrontendView extends JFrame {
 	private boolean getIfBotPlayer() throws IllegalArgumentException {
 		String botPlayer = JOptionPane.showInputDialog(null, "Mit Bots spielen (J/N)?");
 		try {
-			if (botPlayer.equalsIgnoreCase("j")) {
+			if (botPlayer.equalsIgnoreCase("j") | botPlayer.equalsIgnoreCase("ja")) {
 				return true;
-			} else if (botPlayer.equalsIgnoreCase("n")) {
+			} else if (botPlayer.equalsIgnoreCase("n") | botPlayer.equalsIgnoreCase("nein")) {
 				return false;
 			} else {
 				return getIfBotPlayer();
@@ -220,7 +220,7 @@ public class FrontendView extends JFrame {
 	
 	private int getUserCountInput() throws IllegalArgumentException {
 		String userinput = JOptionPane.showInputDialog(null,
-				"Bitte Spieleranzahl eingeben (Spieleranzahl muss 3 bis 5 sein)");
+				"Bitte Anzahl Spieler/Bots eingeben (Spieleranzahl muss 3 bis 5 sein)");
 		try{
 			if (userinput.equals("3") | userinput.equals("4")| userinput.equals("5")) {
 				int spieleranzahl = Integer.parseInt(userinput);
@@ -973,7 +973,7 @@ public class FrontendView extends JFrame {
 	 */
 	public void validateMove() {
 		for(int j = 0; j < gameInstance.getPlayers().size(); j++) {
-			if(gameInstance.getPlayers().get(j).name == "Bot") {
+			if(gameInstance.getCurrentPlayer().getName() == "BotPlayer") {
 				validateBotMove();
 			} else {
 				// Eingabe öffnen für Auswählen der Karten
@@ -1194,7 +1194,7 @@ public class FrontendView extends JFrame {
 			updateCurrentBoardCardPanels(gameInstance);
 		}
 		// Reset des PAssspielzug-Counters nach jedem validen Spielzug
-		passCounter = 0;
+		//passCounter = 0;
 	}
 	
 	/**
