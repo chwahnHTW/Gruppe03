@@ -1125,7 +1125,7 @@ public class FrontendView extends JFrame {
 	 */
 	Boolean getContinueGame() throws IllegalArgumentException {
 		String continueGame = JOptionPane.showInputDialog(null, "Weiterspielen (J/N)?");
-		if (continueGame.equalsIgnoreCase("j")) {
+		if (continueGame.equalsIgnoreCase("j") | continueGame.equalsIgnoreCase("ja")) {
 			return true;
 		} else {
 			return false;

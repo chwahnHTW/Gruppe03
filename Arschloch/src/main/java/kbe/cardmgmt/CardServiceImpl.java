@@ -141,6 +141,12 @@ public void swapCards(GameInstance gameInstance) {
 			// i%anzahlPlayer, damit durhc jeden Player iteriert wird
 			gameInstance.players.get(i % anzahlPlayer).setHand(deck.get(i));
 		}
+		
+		for (int j = 0; j < gameInstance.players.size(); j++) {
+			sortCardsByValue(gameInstance.players.get(j).handCards);
+			System.out.println("*!*!*!*!*!*!*!*!**!*!");
+			System.out.println(gameInstance.players.get(j).handCards);
+		}
 
 	}
 
