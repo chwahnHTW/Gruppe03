@@ -12,8 +12,8 @@ import java.util.List;
 @Service
 public class GameInstanceServiceImpl implements GameInstanceService {
 
-    @Autowired
-    PlayerRepository playerRepository;
+//    @Autowired
+//    PlayerRepository playerRepository;
 
     /*
      * Methode, um Spielinstanz zu erzeugen
@@ -23,9 +23,9 @@ public class GameInstanceServiceImpl implements GameInstanceService {
         return new GameInstance();
     }
 
-    public void setGameState() {
-        List<Player> players = playerRepository.findAll();
-    }
+//    public void setGameState() {
+//        List<Player> players = playerRepository.findAll();
+//    }
 
 
     /*

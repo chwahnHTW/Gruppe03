@@ -16,11 +16,14 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.LinkedList;
 import java.util.List;
+import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
+
 
 /**
  * @authors Kaya Löher 				| Kim Anh Nguyen 		| Christian Wahnsiedler
  * Email-Adresse: 	s0564784@htw-berlin.de	| s0563958@htw-berlin.de| s0557193@htw-berlin.de
  */
+//@EnableJpaRepositories("kbe.JpaRepository")
 @Service
 public class HistoryServiceImpl implements HistoryService {
 
@@ -57,13 +60,16 @@ public class HistoryServiceImpl implements HistoryService {
     public GameInstance getLastPlayedGame() {
 
         Integer lastGame = 1;
+
+//        List<Player> players = gameInstanceRepository.findByPlayers();
+
         GameInstance gameInstance = gameInstanceRepository.findOne(lastGame);
 
         return gameInstance;
     }
 
     public void saveCurrentGame(GameInstance gameInstance) {
-        gameInstanceRepository.flush();
+//        gameInstanceRepository.flush();
         gameInstanceRepository.save(gameInstance);
     }
 

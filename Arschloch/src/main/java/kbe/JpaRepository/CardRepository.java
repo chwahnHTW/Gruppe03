@@ -1,9 +1,9 @@
 package kbe.JpaRepository;
 
 import kbe.cardmgmt.Card;
-import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
+import org.springframework.data.repository.CrudRepository;
 
 @Repository
-public interface CardRepository extends JpaRepository<Card, Integer> {
+public interface CardRepository extends CrudRepository<Card, Integer> {
 }
