@@ -1,12 +1,9 @@
 
 package kbe.gamemgmt;
 
-import kbe.JpaRepository.PlayerRepository;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import kbe.playermgmt.Player;
-import java.util.List;
 
 
 @Service

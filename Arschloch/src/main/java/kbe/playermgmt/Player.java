@@ -14,20 +14,16 @@ import kbe.cardmgmt.Card;
 @Entity
 @Table(name = "Player")
 public class Player {
+    private Integer playerId;
 
-    @Id
-    @GeneratedValue
-    Integer playerId;
 
-    @Column(name = "role")
-    public Role role;
+    private Role role;
 
-    @Column(name = "name")
-    public String name;
+    private String name;
 
-    @Column(name = "handCards")
-    @OneToMany
-    public List<Card> handCards;
+//    @Column(name = "handCards")
+//    @OneToMany
+    private List<Card> handCards;
 
     /**
      * Ein Enum, welches die Rolle darstellt, welche ein Spieler haben kann.
@@ -36,6 +32,16 @@ public class Player {
 
         PRAESIDENT1, PRAESIDENT2, MITTELKIND, ARSCHLOCH2, ARSCHLOCH1;
 
+    }
+
+    @Id
+    @GeneratedValue
+    public Integer getPlayerId() {
+        return playerId;
+    }
+
+    public void setPlayerId(Integer playerId) {
+        this.playerId = playerId;
     }
 
     /**
@@ -61,6 +67,7 @@ public class Player {
      *
      * @return: Der Name eines Spielers
      */
+    @Column(name = "name")
     public String getName() {
         return name;
     }
@@ -79,6 +86,7 @@ public class Player {
      *
      * @return: Die Karten des Spielers
      */
+    @Transient
     public List<Card> getHand() {
         return handCards;
     }
@@ -105,6 +113,7 @@ public class Player {
      *
      * @return: Die Rolle des Spielers
      */
+    @Column(name = "role")
     public Role getRole() {
         return role;
     }

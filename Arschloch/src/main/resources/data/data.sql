@@ -1,3 +1,3 @@
-INSERT INTO Player(Name, Role, HandCards) values ('Kaya', '', '');
-INSERT INTO Player(Name, Role, HandCards) values ('Chris', '', '');
-INSERT INTO Player(Name, Role, HandCards) values ('Kim', '', '');
+
+INSERT INTO Player(PLAYERID,Name, Role) values (2,'Chris', '');
+INSERT INTO Player(PLAYERID,Name, Role) values (3,'Kim', '');

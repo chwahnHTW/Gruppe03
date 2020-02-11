@@ -133,13 +133,16 @@ public class FrontendView extends JFrame {
 		btnStartGame = new JButton("Start Game");
 		btnStartGame.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				gameInstance.players = new LinkedList<>();
+				List<Player> players = new LinkedList<>();
+//				gameInstance.players = new LinkedList<>();
 				int playerCount = getUserCountInput();
 //                System.out.println(playerCount);
 				for (int i = 0; i < playerCount; i++) {
 					Player player = PLAYSI.createPlayer(getUserNameInput());
-					gameInstance.players.add(player);
+					players.add(player);
+//					gameInstance.players.add(player);
 				}
+				gameInstance.setPlayers(players);
 				cardService.dealCardsToPlayers(gameInstance);
 
 				try {
@@ -251,9 +254,9 @@ public class FrontendView extends JFrame {
 					if (continueGame) {
 						// Rollen herausfinden
 						setPlayerRoles();
-						gameInstance.getResult().get(0).handCards = new LinkedList<Card>();
-						gameInstance.getResult().get(1).handCards = new LinkedList<Card>();
-						gameInstance.getResult().get(2).handCards = new LinkedList<Card>();
+						gameInstance.getResult().get(0).setHandCards(new LinkedList<Card>());
+						gameInstance.getResult().get(1).setHandCards(new LinkedList<Card>());
+						gameInstance.getResult().get(2).setHandCards(new LinkedList<Card>());
 
 						// Spieler in neue Spielrunde uebernehmen
 						gameInstance.setPlayers(gameInstance.getResult());
@@ -389,8 +392,8 @@ public class FrontendView extends JFrame {
 				JLabel jl4 = new JLabel();
 				jl4.setBounds(859, 93, 99, 125);
 
-				String fileToBoardCard4 = "/" + gameInstance.boardCards.get(0).getSymbol().toString() + "_"
-						+ gameInstance.boardCards.get(0).getZahl().toString() + ".jpg";
+				String fileToBoardCard4 = "/" + gameInstance.getBoardCards().get(0).getSymbol().toString() + "_"
+						+ gameInstance.getBoardCards().get(0).getZahl().toString() + ".jpg";
 				jl4.setIcon(new javax.swing.ImageIcon(getClass().getResource(fileToBoardCard4)));
 				currentBoardCardPanel4.add(jl4);
 			} catch (IndexOutOfBoundsException e) {
@@ -409,14 +412,14 @@ public class FrontendView extends JFrame {
 
 ///////////////////////////////////////////////////////////////////////////////////    	
 
-			if (gameInstance.boardCards.size() == 2) {
+			if (gameInstance.getBoardCards().size() == 2) {
 				try {
 					currentBoardCardPanel3.removeAll();
 					JLabel jl3 = new JLabel();
 					jl3.setBounds(859, 93, 99, 125);
 
-					String fileToBoardCard3 = "/" + gameInstance.boardCards.get(1).getSymbol().toString() + "_"
-							+ gameInstance.boardCards.get(1).getZahl().toString() + ".jpg";
+					String fileToBoardCard3 = "/" + gameInstance.getBoardCards().get(1).getSymbol().toString() + "_"
+							+ gameInstance.getBoardCards().get(1).getZahl().toString() + ".jpg";
 					jl3.setIcon(new javax.swing.ImageIcon(getClass().getResource(fileToBoardCard3)));
 					currentBoardCardPanel3.add(jl3);
 				} catch (IndexOutOfBoundsException | NullPointerException e) {
@@ -428,13 +431,13 @@ public class FrontendView extends JFrame {
 				}
 			}
 ///////////////////////////////////////////////////////////////////////////////////
-			if (gameInstance.boardCards.size() == 3) {
+			if (gameInstance.getBoardCards().size() == 3) {
 				try {
 					currentBoardCardPanel2.removeAll();
 					JLabel jl2 = new JLabel();
 					jl2.setBounds(859, 93, 99, 125);
-					String fileToBoardCard2 = "/" + gameInstance.boardCards.get(2).getSymbol().toString() + "_"
-							+ gameInstance.boardCards.get(2).getZahl().toString() + ".jpg";
+					String fileToBoardCard2 = "/" + gameInstance.getBoardCards().get(2).getSymbol().toString() + "_"
+							+ gameInstance.getBoardCards().get(2).getZahl().toString() + ".jpg";
 					jl2.setIcon(new javax.swing.ImageIcon(getClass().getResource(fileToBoardCard2)));
 					currentBoardCardPanel2.add(jl2);
 				} catch (IndexOutOfBoundsException e) {
@@ -453,13 +456,13 @@ public class FrontendView extends JFrame {
 			}
 ///////////////////////////////////////////////////////////////////////////////////
 
-			if (gameInstance.boardCards.size() == 4) {
+			if (gameInstance.getBoardCards().size() == 4) {
 				try {
 					currentBoardCardPanel1.removeAll();
 					JLabel jl1 = new JLabel();
 					jl1.setBounds(859, 93, 99, 125);
-					String fileToBoardCard1 = "/" + gameInstance.boardCards.get(3).getSymbol().toString() + "_"
-							+ gameInstance.boardCards.get(3).getZahl().toString() + ".jpg";
+					String fileToBoardCard1 = "/" + gameInstance.getBoardCards().get(3).getSymbol().toString() + "_"
+							+ gameInstance.getBoardCards().get(3).getZahl().toString() + ".jpg";
 					jl1.setIcon(new javax.swing.ImageIcon(getClass().getResource(fileToBoardCard1)));
 					currentBoardCardPanel1.add(jl1);
 				} catch (IndexOutOfBoundsException e) {
@@ -539,8 +542,8 @@ public class FrontendView extends JFrame {
 			btnPlayerCard0.setBounds(104, 408, 98, 125);
 			// Pruefung, ob Karte vorhanden. Wenn ja, wird Pfad zum entsprechenden Bild als
 			// String gespeichert. Falls nicht,
-			String card0File = "/" + gameInstance.currentPlayer.getHand().get(0).getSymbol().toString() + "_"
-					+ gameInstance.currentPlayer.getHand().get(0).getZahl().toString() + ".jpg";
+			String card0File = "/" + gameInstance.getCurrentPlayer().getHand().get(0).getSymbol().toString() + "_"
+					+ gameInstance.getCurrentPlayer().getHand().get(0).getZahl().toString() + ".jpg";
 			JLabel imageCard0 = new JLabel();
 			// Falls ja wird das Bild zum Pfad in imageCard geladen
 			imageCard0.setBounds(104, 408, 98, 125);
@@ -572,8 +575,8 @@ public class FrontendView extends JFrame {
 			btnPlayerCard1 = null;
 			btnPlayerCard1 = new JPanel();
 			btnPlayerCard1.setBounds(212, 408, 98, 125);
-			String card1File = "/" + gameInstance.currentPlayer.getHand().get(1).getSymbol().toString() + "_"
-					+ gameInstance.currentPlayer.getHand().get(1).getZahl().toString() + ".jpg";
+			String card1File = "/" + gameInstance.getCurrentPlayer().getHand().get(1).getSymbol().toString() + "_"
+					+ gameInstance.getCurrentPlayer().getHand().get(1).getZahl().toString() + ".jpg";
 			JLabel imageCard1 = new JLabel();
 			imageCard1.setBounds(212, 408, 98, 125);
 			imageCard1.setIcon(new javax.swing.ImageIcon(getClass().getResource(card1File)));
@@ -604,8 +607,8 @@ public class FrontendView extends JFrame {
 			btnPlayerCard2 = null;
 			btnPlayerCard2 = new JPanel();
 			btnPlayerCard2.setBounds(320, 408, 98, 125);
-			String card2File = "/" + gameInstance.currentPlayer.getHand().get(2).getSymbol().toString() + "_"
-					+ gameInstance.currentPlayer.getHand().get(2).getZahl().toString() + ".jpg";
+			String card2File = "/" + gameInstance.getCurrentPlayer().getHand().get(2).getSymbol().toString() + "_"
+					+ gameInstance.getCurrentPlayer().getHand().get(2).getZahl().toString() + ".jpg";
 			JLabel imageCard2 = new JLabel();
 			imageCard2.setBounds(320, 408, 98, 125);
 			imageCard2.setIcon(new javax.swing.ImageIcon(getClass().getResource(card2File)));
@@ -636,8 +639,8 @@ public class FrontendView extends JFrame {
 			btnPlayerCard3 = null;
 			btnPlayerCard3 = new JPanel();
 			btnPlayerCard3.setBounds(428, 408, 98, 125);
-			String card3File = "/" + gameInstance.currentPlayer.getHand().get(3).getSymbol().toString() + "_"
-					+ gameInstance.currentPlayer.getHand().get(3).getZahl().toString() + ".jpg";
+			String card3File = "/" + gameInstance.getCurrentPlayer().getHand().get(3).getSymbol().toString() + "_"
+					+ gameInstance.getCurrentPlayer().getHand().get(3).getZahl().toString() + ".jpg";
 			JLabel imageCard3 = new JLabel();
 			imageCard3.setBounds(428, 408, 98, 125);
 			imageCard3.setIcon(new javax.swing.ImageIcon(getClass().getResource(card3File)));
@@ -668,8 +671,8 @@ public class FrontendView extends JFrame {
 			btnPlayerCard4 = null;
 			btnPlayerCard4 = new JPanel();
 			btnPlayerCard4.setBounds(536, 408, 98, 125);
-			String card4File = "/" + gameInstance.currentPlayer.getHand().get(4).getSymbol().toString() + "_"
-					+ gameInstance.currentPlayer.getHand().get(4).getZahl().toString() + ".jpg";
+			String card4File = "/" + gameInstance.getCurrentPlayer().getHand().get(4).getSymbol().toString() + "_"
+					+ gameInstance.getCurrentPlayer().getHand().get(4).getZahl().toString() + ".jpg";
 			JLabel imageCard4 = new JLabel();
 			imageCard4.setBounds(536, 408, 98, 125);
 			imageCard4.setIcon(new javax.swing.ImageIcon(getClass().getResource(card4File)));
@@ -699,8 +702,8 @@ public class FrontendView extends JFrame {
 			btnPlayerCard5 = null;
 			btnPlayerCard5 = new JPanel();
 			btnPlayerCard5.setBounds(644, 408, 98, 125);
-			String card5File = "/" + gameInstance.currentPlayer.getHand().get(5).getSymbol().toString() + "_"
-					+ gameInstance.currentPlayer.getHand().get(5).getZahl().toString() + ".jpg";
+			String card5File = "/" + gameInstance.getCurrentPlayer().getHand().get(5).getSymbol().toString() + "_"
+					+ gameInstance.getCurrentPlayer().getHand().get(5).getZahl().toString() + ".jpg";
 			JLabel imageCard5 = new JLabel();
 			imageCard5.setBounds(644, 408, 98, 125);
 			imageCard5.setIcon(new javax.swing.ImageIcon(getClass().getResource(card5File)));
@@ -730,8 +733,8 @@ public class FrontendView extends JFrame {
 			btnPlayerCard6 = null;
 			btnPlayerCard6 = new JPanel();
 			btnPlayerCard6.setBounds(752, 408, 98, 125);
-			String card6File = "/" + gameInstance.currentPlayer.getHand().get(6).getSymbol().toString() + "_"
-					+ gameInstance.currentPlayer.getHand().get(6).getZahl().toString() + ".jpg";
+			String card6File = "/" + gameInstance.getCurrentPlayer().getHand().get(6).getSymbol().toString() + "_"
+					+ gameInstance.getCurrentPlayer().getHand().get(6).getZahl().toString() + ".jpg";
 			JLabel imageCard6 = new JLabel();
 			imageCard6.setBounds(752, 408, 98, 125);
 			imageCard6.setIcon(new javax.swing.ImageIcon(getClass().getResource(card6File)));
@@ -761,8 +764,8 @@ public class FrontendView extends JFrame {
 			btnPlayerCard7 = null;
 			btnPlayerCard7 = new JPanel();
 			btnPlayerCard7.setBounds(860, 408, 98, 125);
-			String card7File = "/" + gameInstance.currentPlayer.getHand().get(7).getSymbol().toString() + "_"
-					+ gameInstance.currentPlayer.getHand().get(7).getZahl().toString() + ".jpg";
+			String card7File = "/" + gameInstance.getCurrentPlayer().getHand().get(7).getSymbol().toString() + "_"
+					+ gameInstance.getCurrentPlayer().getHand().get(7).getZahl().toString() + ".jpg";
 			JLabel imageCard7 = new JLabel();
 			imageCard7.setBounds(860, 408, 98, 125);
 			imageCard7.setIcon(new javax.swing.ImageIcon(getClass().getResource(card7File)));
@@ -792,8 +795,8 @@ public class FrontendView extends JFrame {
 			btnPlayerCard8 = null;
 			btnPlayerCard8 = new JPanel();
 			btnPlayerCard8.setBounds(320, 543, 98, 125);
-			String card8File = "/" + gameInstance.currentPlayer.getHand().get(8).getSymbol().toString() + "_"
-					+ gameInstance.currentPlayer.getHand().get(8).getZahl().toString() + ".jpg";
+			String card8File = "/" + gameInstance.getCurrentPlayer().getHand().get(8).getSymbol().toString() + "_"
+					+ gameInstance.getCurrentPlayer().getHand().get(8).getZahl().toString() + ".jpg";
 			JLabel imageCard8 = new JLabel();
 			imageCard8.setBounds(320, 543, 98, 125);
 			imageCard8.setIcon(new javax.swing.ImageIcon(getClass().getResource(card8File)));
@@ -825,8 +828,8 @@ public class FrontendView extends JFrame {
 			btnPlayerCard9 = null;
 			btnPlayerCard9 = new JPanel();
 			btnPlayerCard9.setBounds(428, 543, 98, 125);
-			String card9File = "/" + gameInstance.currentPlayer.getHand().get(9).getSymbol().toString() + "_"
-					+ gameInstance.currentPlayer.getHand().get(9).getZahl().toString() + ".jpg";
+			String card9File = "/" + gameInstance.getCurrentPlayer().getHand().get(9).getSymbol().toString() + "_"
+					+ gameInstance.getCurrentPlayer().getHand().get(9).getZahl().toString() + ".jpg";
 			JLabel imageCard9 = new JLabel();
 			imageCard9.setBounds(428, 543, 98, 125);
 			imageCard9.setIcon(new javax.swing.ImageIcon(getClass().getResource(card9File)));
@@ -858,8 +861,8 @@ public class FrontendView extends JFrame {
 			btnPlayerCard10 = null;
 			btnPlayerCard10 = new JPanel();
 			btnPlayerCard10.setBounds(536, 543, 98, 125);
-			String card10File = "/" + gameInstance.currentPlayer.getHand().get(10).getSymbol().toString() + "_"
-					+ gameInstance.currentPlayer.getHand().get(10).getZahl().toString() + ".jpg";
+			String card10File = "/" + gameInstance.getCurrentPlayer().getHand().get(10).getSymbol().toString() + "_"
+					+ gameInstance.getCurrentPlayer().getHand().get(10).getZahl().toString() + ".jpg";
 			JLabel imageCard10 = new JLabel();
 			imageCard10.setBounds(536, 543, 98, 125);
 			imageCard10.setIcon(new javax.swing.ImageIcon(getClass().getResource(card10File)));
@@ -892,8 +895,8 @@ public class FrontendView extends JFrame {
 			btnPlayerCard11 = null;
 			btnPlayerCard11 = new JPanel();
 			btnPlayerCard11.setBounds(644, 543, 98, 125);
-			String card11File = "/" + gameInstance.currentPlayer.getHand().get(11).getSymbol().toString() + "_"
-					+ gameInstance.currentPlayer.getHand().get(11).getZahl().toString() + ".jpg";
+			String card11File = "/" + gameInstance.getCurrentPlayer().getHand().get(11).getSymbol().toString() + "_"
+					+ gameInstance.getCurrentPlayer().getHand().get(11).getZahl().toString() + ".jpg";
 			JLabel imageCard11 = new JLabel();
 			imageCard11.setBounds(644, 543, 98, 125);
 			imageCard11.setIcon(new javax.swing.ImageIcon(getClass().getResource(card11File)));

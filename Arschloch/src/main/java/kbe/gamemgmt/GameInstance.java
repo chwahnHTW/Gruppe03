@@ -10,7 +10,7 @@ import kbe.playermgmt.Player;
 import javax.persistence.*;
 
 /**
- * @authors         Kaya Löher 				| Kim Anh Nguyen 		| Christian Wahnsiedler
+ * @authors Kaya Löher 				| Kim Anh Nguyen 		| Christian Wahnsiedler
  * Email-Adresse: 	s0564784@htw-berlin.de	| s0563958@htw-berlin.de| s0557193@htw-berlin.de
  * <p>
  * Diese Klasse stellt die Instanz eines Spiels dar.
@@ -20,6 +20,7 @@ import javax.persistence.*;
 @Table(name = "GameInstance")
 public class GameInstance {
 
+
     /**
      * @param players: Liste der an einem Spiel beteiligten Spieler
      * @param result:  Siegerreihenfolge
@@ -27,32 +28,37 @@ public class GameInstance {
      * @param current: Spieler, der gerade an der Reihe ist, einen Zug zu machen
      */
 
-    @Id
-    @GeneratedValue
-    Integer gameId;
 
-    @Column(name = "players")
-    @OneToMany
-    public List<Player> players;
+    private Integer gameId;
 
-    @Transient
-    public List result = new LinkedList<Player>();
 
-    @Column(name = "cards")
-    @OneToMany
-    public List<Card> boardCards = null;
+    private List<Player> players;
 
-    @Column(name = "current")
-    @OneToOne
-    public Player currentPlayer = null;
+
+    private List result = new LinkedList<Player>();
+
+
+    private List<Card> boardCards = null;
+
+
+    private Player currentPlayer = null;
 
     /**
      * Generiert eine Spielinstanz
      * Enthält die Informationen, die während eines Spiels vorrangig wichtig sind
-     *
      */
     public GameInstance() {
 
+    }
+
+    @Id
+    @GeneratedValue
+    public Integer getGameId() {
+        return gameId;
+    }
+
+    public void setGameId(Integer gameId) {
+        this.gameId = gameId;
     }
 
     /**
@@ -60,6 +66,8 @@ public class GameInstance {
      *
      * @return : Liste aller Spieler
      */
+    @Column(name = "players")
+    @OneToMany
     public List<Player> getPlayers() {
         return players;
     }
@@ -78,6 +86,7 @@ public class GameInstance {
      *
      * @return : Liste von Spielern
      */
+    @Transient
     public List<Player> getResult() {
         return result;
     }
@@ -96,6 +105,8 @@ public class GameInstance {
      *
      * @return : Liste von Karten
      */
+    @Column(name = "cards")
+    @OneToMany
     public List<Card> getBoardCards() {
         return boardCards;
     }
@@ -114,6 +125,8 @@ public class GameInstance {
      *
      * @return : der Aktuelle Spieler
      */
+    @Column(name = "current")
+    @OneToOne
     public Player getCurrentPlayer() {
         return currentPlayer;
     }

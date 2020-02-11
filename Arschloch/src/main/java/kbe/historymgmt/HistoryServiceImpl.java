@@ -1,8 +1,7 @@
 package kbe.historymgmt;
 
-import kbe.JpaRepository.CardRepository;
-import kbe.JpaRepository.GameInstanceRepository;
-import kbe.JpaRepository.PlayerRepository;
+
+
 import kbe.cardmgmt.CardService;
 import kbe.gamemgmt.GameInstance;
 import kbe.gamemgmt.GameInstanceService;
@@ -16,7 +15,6 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.LinkedList;
 import java.util.List;
-import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 
 
 /**
@@ -30,23 +28,23 @@ public class HistoryServiceImpl implements HistoryService {
     History history = null;
 
 
-    @Autowired
-    PlayerRepository playerRepository;
-
-    @Autowired
-    PlayerService playerService;
-
-    @Autowired
-    CardRepository cardRepository;
-
-    @Autowired
-    CardService cardService;
-
-    @Autowired
-    GameInstanceRepository gameInstanceRepository;
-
-    @Autowired
-    GameInstanceService gameInstanceService;
+//    @Autowired
+//    PlayerRepository playerRepository;
+//
+//    @Autowired
+//    PlayerService playerService;
+//
+//    @Autowired
+//    CardRepository cardRepository;
+//
+//    @Autowired
+//    CardService cardService;
+//
+//    @Autowired
+//    GameInstanceRepository gameInstanceRepository;
+//
+//    @Autowired
+//    GameInstanceService gameInstanceService;
 
     @Override
     public void persist(GameInstance instance) {
@@ -56,21 +54,21 @@ public class HistoryServiceImpl implements HistoryService {
     }
 
     @Override
-    @Autowired
+//    @Autowired
     public GameInstance getLastPlayedGame() {
 
         Integer lastGame = 1;
 
 //        List<Player> players = gameInstanceRepository.findByPlayers();
 
-        GameInstance gameInstance = gameInstanceRepository.findOne(lastGame);
+//        GameInstance gameInstance = gameInstanceRepository.findOne(lastGame);
 
-        return gameInstance;
+        return null;
     }
 
     public void saveCurrentGame(GameInstance gameInstance) {
 //        gameInstanceRepository.flush();
-        gameInstanceRepository.save(gameInstance);
+//        gameInstanceRepository.save(gameInstance);
     }
 
 
