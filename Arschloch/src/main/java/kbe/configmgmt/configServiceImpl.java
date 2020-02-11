@@ -1,6 +1,8 @@
 package kbe.configmgmt;
 
+import kbe.historymgmt.HistoryServiceImpl;
 import kbe.playermgmt.Player;
+import kbe.repositories.PlayerRepository;
 import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.context.annotation.*;
 import kbe.frontendmgmt.FrontendController;
@@ -25,42 +27,17 @@ import javax.sql.DataSource;
 @Configuration
 public class configServiceImpl {
 
+
+
     private static ConfigurableApplicationContext container = new AnnotationConfigApplicationContext("kbe");
 
     public static void main(String[] args) {
 
+//        FrontendController gui = container.getBean(FrontendController.class);
+//        gui.init();
 
-        EntityManagerFactory factory = Persistence.createEntityManagerFactory("myDb");
-        EntityManager entityManager = factory.createEntityManager();
-
-        entityManager.getTransaction().begin();
-
-
-
-        Player newUser = new Player();
-        newUser.setName("Kaya");
-        newUser.setRole(null);
-
-        entityManager.persist(newUser);
-
-
-        FrontendController gui = container.getBean(FrontendController.class);
-        gui.init();
-
-        entityManager.getTransaction().commit();
-        entityManager.close();
-        factory.close();
-//        try {
-//			nativeQuery(em, "SHOW TABLES");
-//			nativeQuery(em, "SHOW COLUMNS from Person");
-
-
-//        } catch (Exception e) {
-//
-//        } finally {
-//            em.close();
-//            emf.close();
-//        }
+        HistoryServiceImpl historyService = new HistoryServiceImpl();
+        historyService.tueEtwas();
     }
 
 }
