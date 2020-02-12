@@ -3,17 +3,14 @@ package kbe.configmgmt;
 import kbe.historymgmt.HistoryServiceImpl;
 import kbe.playermgmt.Player;
 import kbe.repositories.PlayerRepository;
+import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
+import org.springframework.boot.autoconfigure.domain.EntityScan;
 import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.context.annotation.*;
 import kbe.frontendmgmt.FrontendController;
+import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
 import org.springframework.scheduling.annotation.EnableScheduling;
-
-import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.Persistence;
-import javax.sql.DataSource;
-
 
 /**
  * @authors Kaya Löher 				| Kim Anh Nguyen 		| Christian Wahnsiedler
@@ -25,16 +22,18 @@ import javax.sql.DataSource;
 
 @EnableScheduling
 @Configuration
+//@EnableAutoConfiguration
+//@ComponentScan("kbe")
+//@EntityScan
+@EnableJpaRepositories(basePackageClasses = {PlayerRepository.class})
 public class configServiceImpl {
-
-
 
     private static ConfigurableApplicationContext container = new AnnotationConfigApplicationContext("kbe");
 
     public static void main(String[] args) {
 
-//        FrontendController gui = container.getBean(FrontendController.class);
-//        gui.init();
+        FrontendController gui = container.getBean(FrontendController.class);
+        gui.init();
 
         HistoryServiceImpl historyService = new HistoryServiceImpl();
         historyService.tueEtwas();

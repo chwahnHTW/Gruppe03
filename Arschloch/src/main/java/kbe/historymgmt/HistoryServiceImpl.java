@@ -9,7 +9,6 @@ import org.springframework.stereotype.Service;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
-import javax.persistence.PersistenceUnit;
 import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -29,8 +28,8 @@ public class HistoryServiceImpl implements HistoryService {
 
     private PlayerRepository playerRepository;
 
-//    @PersistenceUnit(unitName = "arschloch")
-    private EntityManager entityManager;
+    private EntityManagerFactory emf = Persistence.createEntityManagerFactory("arschloch");
+    private EntityManager entityManager = emf.createEntityManager();
 
     public void tueEtwas() {
 
