@@ -5,12 +5,12 @@ import kbe.playermgmt.Player;
 import org.springframework.stereotype.Repository;
 
 
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceException;
+import javax.persistence.*;
 
 @Repository
 public abstract class PlayerRepositoryImpl implements PlayerRepository {
 
+//    @PersistenceUnit(unitName = "arschloch")
     private EntityManager entityManager;
 
     @Override

@@ -1,25 +1,20 @@
 package kbe.historymgmt;
 
 
-import kbe.DataAccessException;
-import kbe.cardmgmt.CardService;
 import kbe.gamemgmt.GameInstance;
-import kbe.gamemgmt.GameInstanceService;
 import kbe.playermgmt.Player;
-import kbe.playermgmt.PlayerService;
 import kbe.repositories.PlayerRepository;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
+import javax.persistence.PersistenceUnit;
 import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.Properties;
 
 
 /**
@@ -30,20 +25,12 @@ import java.util.Properties;
 @Service
 public class HistoryServiceImpl implements HistoryService {
 
-    History history;
+    private History history;
 
     private PlayerRepository playerRepository;
 
-
-//    @Autowired
-//    public HistoryServiceImpl(PlayerRepository playerRepository) {
-//        this.playerRepository = playerRepository;
-//    }
-
-    //    EntityManagerFactory factory = Persistence.createEntityManagerFactory("arschloch");
-    //    EntityManager entityManager = factory.createEntityManager();
-
-    EntityManager entityManager;
+//    @PersistenceUnit(unitName = "arschloch")
+    private EntityManager entityManager;
 
     public void tueEtwas() {
 
@@ -61,21 +48,14 @@ public class HistoryServiceImpl implements HistoryService {
 
     @Override
     public void persist(GameInstance instance) {
-
         history.setHistory(instance);
-
     }
 
     @Override
-//    @Autowired
     public GameInstance getLastPlayedGame() {
-
-        Integer lastGame = 1;
-
+//        Integer lastGame = 1;
 //        List<Player> players = gameInstanceRepository.findByPlayers();
-
 //        GameInstance gameInstance = gameInstanceRepository.findOne(lastGame);
-
         return null;
     }
 

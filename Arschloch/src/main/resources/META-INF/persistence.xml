@@ -12,16 +12,28 @@
         <class>kbe.cardmgmt.Card</class>
 
         <properties>
-            <property name="javax.persistence.jdbc.driver" value="org.h2.Driver" />
-            <property name="javax.persistence.jdbc.url"    value="jdbc:h2:mem:arschloch" />
-            <property name="javax.persistence.jdbc.user" value="" />
-            <property name="javax.persistence.jdbc.password" value="" />
+            <!--<property name="hibernate.archive.autodetection" value="class" />-->
+            <!--<property name="hibernate.dialect" value="org.hibernate.dialect.H2Dialect" />-->
+            <!--<property name="hibernate.connection.driver" value="org.h2.Driver" />-->
+            <!--<property name="hibernate.connection.url" value="jdbc:h2:mem:arschloch" />-->
+            <!--<property name="hibernate.connection.user" value="sa" />-->
+            <!--&lt;!&ndash; <property name="hibernate.show_sql" value="true"/>-->
+            <!--<property name="hibernate.flushMode" value="FLUSH_AUTO" />&ndash;&gt;-->
+            <!--<property name="hibernate.hbm2ddl.auto" value="update" />-->
+
+
+            <property name="javax.persistence.jdbc.driver" value="org.h2.Driver"/>
+            <property name="javax.persistence.jdbc.url" value="jdbc:h2:mem:arschloch"/>
+            <property name="javax.persistence.jdbc.user" value=""/>
+            <property name="javax.persistence.jdbc.password" value=""/>
 
             <property name="hibernate.dialect" value="org.hibernate.dialect.H2Dialect"/>
-            <property name="hibernate.hbm2ddl.auto" value="create" />
+            <property name="hibernate.hbm2ddl.auto" value="create"/>
             <property name="show_sql" value="true"/>
             <property name="hibernate.temp.use_jdbc_metadata_defaults" value="false"/>
         </properties>
     </persistence-unit>
+
+
 
 </persistence>
