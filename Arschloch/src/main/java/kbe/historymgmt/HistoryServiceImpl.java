@@ -1,7 +1,7 @@
 package kbe.historymgmt;
 
 
-
+import kbe.DataAccessException;
 import kbe.cardmgmt.CardService;
 import kbe.gamemgmt.GameInstance;
 import kbe.gamemgmt.GameInstanceService;
@@ -19,6 +19,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Properties;
 
 
 /**
@@ -29,29 +30,33 @@ import java.util.List;
 @Service
 public class HistoryServiceImpl implements HistoryService {
 
-    History history = null;
+    History history;
 
-    private PlayerRepository playerRepository ;
+    private PlayerRepository playerRepository;
 
-    private EntityManager entityManager;
 
-    public void tueEtwas(){
-//        EntityManagerFactory factory = Persistence.createEntityManagerFactory("arschloch");
-//        EntityManager entityManager = factory.createEntityManager();
+//    @Autowired
+//    public HistoryServiceImpl(PlayerRepository playerRepository) {
+//        this.playerRepository = playerRepository;
+//    }
+
+    //    EntityManagerFactory factory = Persistence.createEntityManagerFactory("arschloch");
+    //    EntityManager entityManager = factory.createEntityManager();
+
+    EntityManager entityManager;
+
+    public void tueEtwas() {
 
         entityManager.getTransaction().begin();
+        // hier steht die Anwendungslogik
 
         Player newUser = new Player();
         newUser.setName("Kaya");
         newUser.setRole(null);
 
         playerRepository.create(newUser);
-//        playerRepository.findPlayerByName("Kaya");
-
-//        entityManager.persist(newUser);
 
         entityManager.getTransaction().commit();
-        entityManager.close();
     }
 
     @Override

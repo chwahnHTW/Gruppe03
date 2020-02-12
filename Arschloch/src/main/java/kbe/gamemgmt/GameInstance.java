@@ -66,7 +66,7 @@ public class GameInstance {
      *
      * @return : Liste aller Spieler
      */
-    @Column(name = "players")
+    @JoinColumn(name = "players")
     @OneToMany
     public List<Player> getPlayers() {
         return players;
@@ -105,7 +105,7 @@ public class GameInstance {
      *
      * @return : Liste von Karten
      */
-    @Column(name = "cards")
+    @JoinColumn(name = "cards")
     @OneToMany
     public List<Card> getBoardCards() {
         return boardCards;
@@ -125,7 +125,7 @@ public class GameInstance {
      *
      * @return : der Aktuelle Spieler
      */
-    @Column(name = "current")
+    @JoinColumn(name = "current")
     @OneToOne
     public Player getCurrentPlayer() {
         return currentPlayer;
