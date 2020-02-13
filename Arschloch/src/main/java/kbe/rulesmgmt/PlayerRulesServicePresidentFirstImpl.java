@@ -12,7 +12,7 @@ import org.springframework.stereotype.Service;
 @Qualifier("playerRulesServicePresidentFirstImpl")
 public class PlayerRulesServicePresidentFirstImpl implements PlayerRulesService {
 
-	/**RuleService zum Bestimmen des ersten Spielers einer Runde. 
+	/**RuleService zum Bestimmen des ersten Spielers einer nächsten Runde. 
 	 * PresidentFirst Implementierung : Spieler mit player.role = President spielt als erster.
 	 * Falls noch niemand palyer.role = President ( erste Runde im Spiel -> keine Rollen ) beginnt Karo 7 
 	 *
@@ -34,5 +34,29 @@ public class PlayerRulesServicePresidentFirstImpl implements PlayerRulesService 
 			
 		return initialPlayer;
 	}
+	
+	
+	/**RuleService zum Bestimmen des ersten Spielers einer Runde. 
+	 * PresidentFirst Implementierung : Spieler mit player.role = President spielt als erster.
+	 * Falls noch niemand palyer.role = President ( erste Runde im Spiel -> keine Rollen ) beginnt Karo 7 
+	 *
+	 */
+//	@Override
+//	public Player determineInitialPlayer(GameInstance gameInstance) {
+//		
+//		Player initialPlayer = null;
+//		for ( Player p : gameInstance.players ) {
+//			
+//			for (Card c : p.handCards){
+//				if ( c.getSymbol().toString() == "HERZ" && c.getZahl().toString() == "SIEBEN")
+//					
+//				{
+//					initialPlayer = p;
+//				}
+//			}
+//		}
+//			
+//		return initialPlayer;
+//	}
 
 }

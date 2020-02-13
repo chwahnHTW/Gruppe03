@@ -46,7 +46,7 @@ public class Rules {
         return playerRS.determineInitialPlayer(gameInstance);
     }
 
-//    private List<Card> comapareCards(Card card1, Card card2) {
-//        return cardRS.compareCards(card1, card2);
-//    }
+    private List<Card> comapareCards(Card card1, Card card2) {
+        return cardRS.compareCards(card1, card2);
+    }
 }
