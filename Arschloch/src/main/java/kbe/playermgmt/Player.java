@@ -41,15 +41,6 @@ public class Player {
 
     }
 
-
-    public Integer getPlayerId() {
-        return playerId;
-    }
-
-    public void setPlayerId(Integer playerId) {
-        this.playerId = playerId;
-    }
-
     /**
      * Generiert einen Spieler.
      *

@@ -49,12 +49,14 @@ public class Card implements Comparable {
         this.symbol = symbol;
     }
 
+    @Id
+    @GeneratedValue
     Integer cardId;
 
-
+    @Column(name = "zahl")
     public Zahl zahl;
 
-
+    @Column(name = "symbol")
     public Symbol symbol;
 
     /**
@@ -75,22 +77,11 @@ public class Card implements Comparable {
     public Card() {
     }
 
-    @Id
-    @GeneratedValue
-    public Integer getCardId() {
-        return cardId;
-    }
-
-    public void setCardId(Integer cardId) {
-        this.cardId = cardId;
-    }
-
     /**
      * Gibt eine Zahl zurück
      *
      * @return: Eine Zahl
      */
-    @Column(name = "zahl")
     public Zahl getZahl() {
 
         return zahl;
@@ -101,7 +92,6 @@ public class Card implements Comparable {
      *
      * @return: Eine Farbe
      */
-    @Column(name = "symbol")
     public Symbol getSymbol() {
         return symbol;
     }

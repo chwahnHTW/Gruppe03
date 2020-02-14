@@ -1,9 +1,6 @@
 package kbe.configmgmt;
 
 import kbe.frontendmgmt.FrontendController;
-import kbe.historymgmt.HistoryServiceImpl;
-import kbe.repositories.PlayerRepository;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.domain.EntityScan;
 import org.springframework.context.ApplicationContext;
@@ -23,8 +20,14 @@ import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 @SpringBootApplication
 @Configuration
 @ComponentScan(basePackages = {"kbe"})
-@EntityScan(basePackageClasses = {kbe.cardmgmt.Card.class, kbe.playermgmt.Player.class, kbe.gamemgmt.GameInstance.class })
-@EnableJpaRepositories(basePackageClasses = {PlayerRepository.class})
+@EntityScan(basePackageClasses = {
+        kbe.cardmgmt.Card.class,
+        kbe.playermgmt.Player.class,
+        kbe.gamemgmt.GameInstance.class})
+@EnableJpaRepositories(basePackageClasses = {
+        kbe.repositories.PlayerRepository.class,
+        kbe.repositories.CardRepository.class,
+        kbe.repositories.GameInstanceRepository.class})
 public class configServiceImpl {
 
     private static ApplicationContext applicationContext;

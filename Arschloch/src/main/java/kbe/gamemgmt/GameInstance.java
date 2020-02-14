@@ -28,19 +28,24 @@ public class GameInstance {
      * @param current: Spieler, der gerade an der Reihe ist, einen Zug zu machen
      */
 
-
+    @Id
+    @GeneratedValue
     private Integer gameId;
 
-
+    @JoinColumn(name = "players")
+    @OneToMany
     private List<Player> players;
 
+    @JoinColumn(name = "result")
+    @OneToMany
+    private List<Player> result = new LinkedList<>();
 
-    private List result = new LinkedList<Player>();
-
-
+    @JoinColumn(name = "boardCards")
+    @OneToMany
     private List<Card> boardCards = null;
 
-
+    @JoinColumn(name = "current")
+    @OneToOne
     private Player currentPlayer = null;
 
     /**
@@ -51,23 +56,11 @@ public class GameInstance {
 
     }
 
-    @Id
-    @GeneratedValue
-    public Integer getGameId() {
-        return gameId;
-    }
-
-    public void setGameId(Integer gameId) {
-        this.gameId = gameId;
-    }
-
     /**
      * Gibt eine Liste aller Spieler zurück
      *
      * @return : Liste aller Spieler
      */
-    @JoinColumn(name = "players")
-    @OneToMany
     public List<Player> getPlayers() {
         return players;
     }
@@ -86,7 +79,6 @@ public class GameInstance {
      *
      * @return : Liste von Spielern
      */
-    @Transient
     public List<Player> getResult() {
         return result;
     }
@@ -105,8 +97,6 @@ public class GameInstance {
      *
      * @return : Liste von Karten
      */
-    @JoinColumn(name = "boardCards")
-    @OneToMany
     public List<Card> getBoardCards() {
         return boardCards;
     }
@@ -125,8 +115,6 @@ public class GameInstance {
      *
      * @return : der Aktuelle Spieler
      */
-    @JoinColumn(name = "current")
-    @OneToOne
     public Player getCurrentPlayer() {
         return currentPlayer;
     }

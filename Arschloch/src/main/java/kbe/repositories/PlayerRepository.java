@@ -13,7 +13,4 @@ public interface PlayerRepository extends CrudRepository<Player, Integer>{
 //
     Player findPlayerByPlayerId(Integer playerId);
 
-
-
-
 }
