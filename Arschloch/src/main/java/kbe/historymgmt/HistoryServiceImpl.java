@@ -35,25 +35,16 @@ public class HistoryServiceImpl implements HistoryService {
     @Autowired
     PlayerRepository playerRepository;
 
-//    @Autowired
-//    EntityManager entityManager;
 
     @Override
     public void tueEtwas() {
-//        EntityTransaction trans = entityManager.getTransaction();
-//        trans.begin();
-        // hier steht die Anwendungslogik
-
         Player newUser = new Player();
         newUser.setName("Kaya");
         newUser.setRole(null);
 
-        playerRepository.save(newUser);
+        Player savedPlayer = playerRepository.save(newUser);
 
-//        trans.commit();
-
-        System.out.println("Neuer Spieler: " + playerRepository.findPlayerByName("Kaya"));
-//        playerRepository.findPlayerByName("Kaya");
+        System.out.println("Neuer Spieler: " + savedPlayer.getName());
 
 
     }

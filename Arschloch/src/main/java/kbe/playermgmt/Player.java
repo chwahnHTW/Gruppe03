@@ -17,12 +17,18 @@ import org.springframework.lang.NonNull;
 @Entity
 @Table(name = "Player")
 public class Player {
+    @Id
+    @GeneratedValue
     private Integer playerId;
 
+    @Column(name = "role")
     private Role role;
 
+    @Column(name = "name")
     private String name;
 
+    @OneToMany
+    @Column(name ="handCards")
     private List<Card> handCards;
 
 
@@ -35,8 +41,7 @@ public class Player {
 
     }
 
-    @Id
-    @GeneratedValue
+
     public Integer getPlayerId() {
         return playerId;
     }
@@ -68,7 +73,6 @@ public class Player {
      *
      * @return: Der Name eines Spielers
      */
-    @Column(name = "name")
     public String getName() {
         return name;
     }
@@ -92,8 +96,7 @@ public class Player {
         return handCards;
     }
 
-    @OneToMany
-    @Column(name ="handCards")
+
     public List<Card> getHandCards() {
         return handCards;
     }
@@ -120,7 +123,7 @@ public class Player {
      *
      * @return: Die Rolle des Spielers
      */
-    @Column(name = "role")
+
     public Role getRole() {
         return role;
     }
