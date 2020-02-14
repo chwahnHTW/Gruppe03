@@ -28,6 +28,7 @@ import kbe.rulesmgmt.CardRulesServiceStandardImpl;
 @Controller
 public class FrontendController implements FrontendService {
 
+	
     private GameInstance gameInstance;
 
     @Autowired
@@ -43,6 +44,8 @@ public class FrontendController implements FrontendService {
     public void setFrontendView(FrontendView frontendView) {
         this.frontendView = frontendView;
     }
+    
+    
 
     @Autowired
     private PlayerService PLAYSI;
@@ -51,11 +54,7 @@ public class FrontendController implements FrontendService {
         this.PLAYSI = PLAYSI;
     }
 
-
-
-//    @Autowired
-    private CardRulesService cardRulesService = new CardRulesServiceStandardImpl();
-
+    private CardRulesService cardRulesService;
 
 
 
@@ -70,6 +69,9 @@ public class FrontendController implements FrontendService {
     	return this.gameInstance;
     }
 
+    public void setGameInstance(GameInstance gameInstance) {
+    	this.gameInstance = gameInstance;
+    }
 
     /**
      * Eine Spielinstanz wird erstellt und zurückgegeben.
@@ -126,6 +128,14 @@ public class FrontendController implements FrontendService {
             }
         }
 
+    }
+    
+    public void whatever(){
+    	if ("eingabe" == "arschlosch") {
+    		cardRulesService = new CardRulesServiceStandardImpl();
+    	} else {
+    		cardRulesService = new CardRulesServicePresidentImpl();
+    	}
     }
 
 }

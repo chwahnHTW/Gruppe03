@@ -31,6 +31,8 @@ import kbe.rulesmgmt.CardRulesService;
 import kbe.rulesmgmt.CardRulesServiceStandardImpl;
 import kbe.rulesmgmt.PlayerRulesService;
 import kbe.rulesmgmt.PlayerRulesServicePresidentFirstImpl;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 ///**
@@ -72,8 +74,8 @@ public class FrontendView extends JFrame {
 	private PlayerRulesService playerRulesService = new PlayerRulesServicePresidentFirstImpl();
 
 	private CardRulesService cardRulesService = new CardRulesServiceStandardImpl();
-	// Autowired
-//	private FrontendController frontendController = new FrontendController();
+	@Autowired
+	private FrontendController frontendController;
 	private BotPlayerService botPlayerService = new BotPlayerServiceImpl();
 
 	private GameInstance gameInstance;
@@ -417,137 +419,142 @@ public class FrontendView extends JFrame {
 	 */
 	public void updateCurrentBoardCardPanels(GameInstance gameInstance) {
 
-		// Pruefung, ob BoardCards vorhanden
-		if (gameInstance.getBoardCards() != null) {
-			// wenn ja, neue Labels setzen
-			try {
-				currentBoardCardPanel4.removeAll();
-				JLabel jl4 = new JLabel();
-				jl4.setBounds(859, 93, 99, 125);
+		try {
+			// Pruefung, ob BoardCards vorhanden
+			if (gameInstance.getBoardCards() != null) {
+				// wenn ja, neue Labels setzen
+				try {
+					currentBoardCardPanel4.removeAll();
+					JLabel jl4 = new JLabel();
+					jl4.setBounds(859, 93, 99, 125);
 
-				String fileToBoardCard4 = "/" + gameInstance.boardCards.get(0).getSymbol().toString() + "_"
-						+ gameInstance.boardCards.get(0).getZahl().toString() + ".jpg";
-				jl4.setIcon(new javax.swing.ImageIcon(getClass().getResource(fileToBoardCard4)));
-				currentBoardCardPanel4.add(jl4);
-			} catch (IndexOutOfBoundsException e) {
+					String fileToBoardCard4 = "/" + gameInstance.boardCards.get(0).getSymbol().toString() + "_"
+							+ gameInstance.boardCards.get(0).getZahl().toString() + ".jpg";
+					jl4.setIcon(new javax.swing.ImageIcon(getClass().getResource(fileToBoardCard4)));
+					currentBoardCardPanel4.add(jl4);
+				} catch (IndexOutOfBoundsException e) {
+					currentBoardCardPanel4.removeAll();
+					JLabel jl4 = new JLabel();
+					jl4.setBounds(859, 93, 99, 125);
+					jl4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/emptyCard.jpg")));
+					currentBoardCardPanel4.add(jl4);
+				} catch (NullPointerException e) {
+					currentBoardCardPanel4.removeAll();
+					JLabel jl4 = new JLabel();
+					jl4.setBounds(859, 93, 99, 125);
+					jl4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/emptyCard.jpg")));
+					currentBoardCardPanel4.add(jl4);
+				}
+
+	///////////////////////////////////////////////////////////////////////////////////    	
+
+				if (gameInstance.boardCards.size() == 2) {
+					try {
+						currentBoardCardPanel3.removeAll();
+						JLabel jl3 = new JLabel();
+						jl3.setBounds(859, 93, 99, 125);
+
+						String fileToBoardCard3 = "/" + gameInstance.boardCards.get(1).getSymbol().toString() + "_"
+								+ gameInstance.boardCards.get(1).getZahl().toString() + ".jpg";
+						jl3.setIcon(new javax.swing.ImageIcon(getClass().getResource(fileToBoardCard3)));
+						currentBoardCardPanel3.add(jl3);
+					} catch (IndexOutOfBoundsException | NullPointerException e) {
+						currentBoardCardPanel3.removeAll();
+						JLabel jl3 = new JLabel();
+						jl3.setBounds(859, 93, 99, 125);
+						jl3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/emptyCard.jpg")));
+						currentBoardCardPanel3.add(jl3);
+					}
+				}
+	///////////////////////////////////////////////////////////////////////////////////
+				if (gameInstance.boardCards.size() == 3) {
+					try {
+						currentBoardCardPanel2.removeAll();
+						JLabel jl2 = new JLabel();
+						jl2.setBounds(859, 93, 99, 125);
+						String fileToBoardCard2 = "/" + gameInstance.boardCards.get(2).getSymbol().toString() + "_"
+								+ gameInstance.boardCards.get(2).getZahl().toString() + ".jpg";
+						jl2.setIcon(new javax.swing.ImageIcon(getClass().getResource(fileToBoardCard2)));
+						currentBoardCardPanel2.add(jl2);
+					} catch (IndexOutOfBoundsException e) {
+						currentBoardCardPanel2.removeAll();
+						JLabel jl2 = new JLabel();
+						jl2.setBounds(859, 93, 99, 125);
+						jl2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/emptyCard.jpg")));
+						currentBoardCardPanel2.add(jl2);
+					} catch (NullPointerException e) {
+						currentBoardCardPanel2.removeAll();
+						JLabel jl2 = new JLabel();
+						jl2.setBounds(859, 93, 99, 125);
+						jl2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/emptyCard.jpg")));
+						currentBoardCardPanel2.add(jl2);
+					}
+				}
+	///////////////////////////////////////////////////////////////////////////////////
+
+				if (gameInstance.boardCards.size() == 4) {
+					try {
+						currentBoardCardPanel1.removeAll();
+						JLabel jl1 = new JLabel();
+						jl1.setBounds(859, 93, 99, 125);
+						String fileToBoardCard1 = "/" + gameInstance.boardCards.get(3).getSymbol().toString() + "_"
+								+ gameInstance.boardCards.get(3).getZahl().toString() + ".jpg";
+						jl1.setIcon(new javax.swing.ImageIcon(getClass().getResource(fileToBoardCard1)));
+						currentBoardCardPanel1.add(jl1);
+					} catch (IndexOutOfBoundsException e) {
+						currentBoardCardPanel1.removeAll();
+						JLabel jl1 = new JLabel();
+						jl1.setBounds(859, 93, 99, 125);
+						jl1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/emptyCard.jpg")));
+						currentBoardCardPanel1.add(jl1);
+					} catch (NullPointerException e) {
+						currentBoardCardPanel1.removeAll();
+						JLabel jl1 = new JLabel();
+						jl1.setBounds(859, 93, 99, 125);
+						jl1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/emptyCard.jpg")));
+						currentBoardCardPanel1.add(jl1);
+					}
+				}
+				// Frontend Update
+				updateCardButtons(gameInstance);
+				contentPane.revalidate();
+			} else {
+				// wenn currentBoardCards = null ( keine BoardCards , z.B. nach Ass oder zu
+				// Spielbeginn )
+				currentBoardCardPanel1.removeAll();
+				JLabel jl1 = new JLabel();
+				jl1.setBounds(859, 93, 99, 125);
+				jl1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/emptyCard.jpg")));
+				currentBoardCardPanel1.add(jl1);
+
+				currentBoardCardPanel2.removeAll();
+				JLabel jl2 = new JLabel();
+				jl2.setBounds(859, 93, 99, 125);
+				jl2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/emptyCard.jpg")));
+				currentBoardCardPanel2.add(jl2);
+
+				currentBoardCardPanel3.removeAll();
+				JLabel jl3 = new JLabel();
+				jl3.setBounds(859, 93, 99, 125);
+				jl3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/emptyCard.jpg")));
+				currentBoardCardPanel3.add(jl3);
+
 				currentBoardCardPanel4.removeAll();
 				JLabel jl4 = new JLabel();
 				jl4.setBounds(859, 93, 99, 125);
 				jl4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/emptyCard.jpg")));
 				currentBoardCardPanel4.add(jl4);
-			} catch (NullPointerException e) {
-				currentBoardCardPanel4.removeAll();
-				JLabel jl4 = new JLabel();
-				jl4.setBounds(859, 93, 99, 125);
-				jl4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/emptyCard.jpg")));
-				currentBoardCardPanel4.add(jl4);
+
+				// Update Frontend
+
+				updateCardButtons(gameInstance);
+				contentPane.revalidate();
+
 			}
-
-///////////////////////////////////////////////////////////////////////////////////    	
-
-			if (gameInstance.boardCards.size() == 2) {
-				try {
-					currentBoardCardPanel3.removeAll();
-					JLabel jl3 = new JLabel();
-					jl3.setBounds(859, 93, 99, 125);
-
-					String fileToBoardCard3 = "/" + gameInstance.boardCards.get(1).getSymbol().toString() + "_"
-							+ gameInstance.boardCards.get(1).getZahl().toString() + ".jpg";
-					jl3.setIcon(new javax.swing.ImageIcon(getClass().getResource(fileToBoardCard3)));
-					currentBoardCardPanel3.add(jl3);
-				} catch (IndexOutOfBoundsException | NullPointerException e) {
-					currentBoardCardPanel3.removeAll();
-					JLabel jl3 = new JLabel();
-					jl3.setBounds(859, 93, 99, 125);
-					jl3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/emptyCard.jpg")));
-					currentBoardCardPanel3.add(jl3);
-				}
-			}
-///////////////////////////////////////////////////////////////////////////////////
-			if (gameInstance.boardCards.size() == 3) {
-				try {
-					currentBoardCardPanel2.removeAll();
-					JLabel jl2 = new JLabel();
-					jl2.setBounds(859, 93, 99, 125);
-					String fileToBoardCard2 = "/" + gameInstance.boardCards.get(2).getSymbol().toString() + "_"
-							+ gameInstance.boardCards.get(2).getZahl().toString() + ".jpg";
-					jl2.setIcon(new javax.swing.ImageIcon(getClass().getResource(fileToBoardCard2)));
-					currentBoardCardPanel2.add(jl2);
-				} catch (IndexOutOfBoundsException e) {
-					currentBoardCardPanel2.removeAll();
-					JLabel jl2 = new JLabel();
-					jl2.setBounds(859, 93, 99, 125);
-					jl2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/emptyCard.jpg")));
-					currentBoardCardPanel2.add(jl2);
-				} catch (NullPointerException e) {
-					currentBoardCardPanel2.removeAll();
-					JLabel jl2 = new JLabel();
-					jl2.setBounds(859, 93, 99, 125);
-					jl2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/emptyCard.jpg")));
-					currentBoardCardPanel2.add(jl2);
-				}
-			}
-///////////////////////////////////////////////////////////////////////////////////
-
-			if (gameInstance.boardCards.size() == 4) {
-				try {
-					currentBoardCardPanel1.removeAll();
-					JLabel jl1 = new JLabel();
-					jl1.setBounds(859, 93, 99, 125);
-					String fileToBoardCard1 = "/" + gameInstance.boardCards.get(3).getSymbol().toString() + "_"
-							+ gameInstance.boardCards.get(3).getZahl().toString() + ".jpg";
-					jl1.setIcon(new javax.swing.ImageIcon(getClass().getResource(fileToBoardCard1)));
-					currentBoardCardPanel1.add(jl1);
-				} catch (IndexOutOfBoundsException e) {
-					currentBoardCardPanel1.removeAll();
-					JLabel jl1 = new JLabel();
-					jl1.setBounds(859, 93, 99, 125);
-					jl1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/emptyCard.jpg")));
-					currentBoardCardPanel1.add(jl1);
-				} catch (NullPointerException e) {
-					currentBoardCardPanel1.removeAll();
-					JLabel jl1 = new JLabel();
-					jl1.setBounds(859, 93, 99, 125);
-					jl1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/emptyCard.jpg")));
-					currentBoardCardPanel1.add(jl1);
-				}
-			}
-			// Frontend Update
-			updateCardButtons(gameInstance);
-			contentPane.revalidate();
-		} else {
-			// wenn currentBoardCards = null ( keine BoardCards , z.B. nach Ass oder zu
-			// Spielbeginn )
-			currentBoardCardPanel1.removeAll();
-			JLabel jl1 = new JLabel();
-			jl1.setBounds(859, 93, 99, 125);
-			jl1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/emptyCard.jpg")));
-			currentBoardCardPanel1.add(jl1);
-
-			currentBoardCardPanel2.removeAll();
-			JLabel jl2 = new JLabel();
-			jl2.setBounds(859, 93, 99, 125);
-			jl2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/emptyCard.jpg")));
-			currentBoardCardPanel2.add(jl2);
-
-			currentBoardCardPanel3.removeAll();
-			JLabel jl3 = new JLabel();
-			jl3.setBounds(859, 93, 99, 125);
-			jl3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/emptyCard.jpg")));
-			currentBoardCardPanel3.add(jl3);
-
-			currentBoardCardPanel4.removeAll();
-			JLabel jl4 = new JLabel();
-			jl4.setBounds(859, 93, 99, 125);
-			jl4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/emptyCard.jpg")));
-			currentBoardCardPanel4.add(jl4);
-
-			// Update Frontend
-
-			updateCardButtons(gameInstance);
-			contentPane.revalidate();
-
+		} catch (Exception e) {
+			System.out.println("catch block");
 		}
+		
 
 	}
 
@@ -976,7 +983,7 @@ public class FrontendView extends JFrame {
 	 */
 	public void validateMove() {
 		if(gameInstance.getCurrentPlayer().getName() == "BotPlayer") {
-			botPlayerService.validateBotMove();
+			botPlayerService.validateBotMove(gameInstance);
 		}
 		else {
 			// Eingabe öffnen für Auswählen der Karten
@@ -1137,75 +1144,75 @@ public class FrontendView extends JFrame {
 		
 	}
 	
-//	public void validateBotMove() {
-//		System.out.println("*****BOT MOVE*****");
-//		List<Card> tempCardList = new LinkedList<Card>();
-//		List<Card> botHandCards = new LinkedList<Card>();
-//		botHandCards = cardService.sortCardsByValue(gameInstance.getCurrentPlayer().getHand());
-//		boolean twoCardsEqual = true;
-//		
-//		if(gameInstance.getBoardCards() == null) {
-//			System.out.println("BOT MOVE; BOARD NULL");
-//			Card x = (Card) botHandCards.get(0);
-//			Card y = (Card) botHandCards.get(1);
-//			
-//			int c = x.compareTo(y);
-//			if (c == 0) {
-//				twoCardsEqual = true;
-//			} else {
-//				twoCardsEqual = false;
-//			}
-//			if(twoCardsEqual) {
-//				tempCardList.add(x);
-//				tempCardList.add(y);
-//				
-//			} else {
-//				tempCardList.add(x);
-//			}
-//		} else {
-//			System.out.println("BOT MOVE; BOARD HAT KARTEN");
-//			Card b = gameInstance.getBoardCards().get(0);
-//			
-//			for(Card card : botHandCards) {//durch alle karten des bot
-//				if(card.getZahl().equals(b.getZahl())) { //die karten, die mit board stimmen
+	public void validateBotMove() {
+		System.out.println("*****BOT MOVE*****");
+		List<Card> tempCardList = new LinkedList<Card>();
+		List<Card> botHandCards = new LinkedList<Card>();
+		botHandCards = cardService.sortCardsByValue(gameInstance.getCurrentPlayer().getHand());
+		boolean twoCardsEqual = true;
+		
+		if(gameInstance.getBoardCards() == null) {
+			System.out.println("BOT MOVE; BOARD NULL");
+			Card x = (Card) botHandCards.get(0);
+			Card y = (Card) botHandCards.get(1);
+			
+			int c = x.compareTo(y);
+			if (c == 0) {
+				twoCardsEqual = true;
+			} else {
+				twoCardsEqual = false;
+			}
+			if(twoCardsEqual) {
+				tempCardList.add(x);
+				tempCardList.add(y);
+				
+			} else {
+				tempCardList.add(x);
+			}
+		} else {
+			System.out.println("BOT MOVE; BOARD HAT KARTEN");
+			Card b = gameInstance.getBoardCards().get(0);
+			
+			for(Card card : botHandCards) {//durch alle karten des bot
+				if(card.getZahl().equals(b.getZahl())) { //die karten, die mit board stimmen
+					for(int i = 0; i < gameInstance.getBoardCards().size(); i++) { //aber nur so lange wie board groß ist
+						tempCardList.add(card);
+					}
+				}
+//				if(card.getZahl().compareTo(b.getZahl())==1) { //die karten, die mit board stimmen
+//					//card.getZahl().equals(b.getZahl())
 //					for(int i = 0; i < gameInstance.getBoardCards().size(); i++) { //aber nur so lange wie board groß ist
 //						tempCardList.add(card);
 //					}
 //				}
-////				if(card.getZahl().compareTo(b.getZahl())==1) { //die karten, die mit board stimmen
-////					//card.getZahl().equals(b.getZahl())
-////					for(int i = 0; i < gameInstance.getBoardCards().size(); i++) { //aber nur so lange wie board groß ist
-////						tempCardList.add(card);
-////					}
-////				}
-//			}
-//		}
-//		gameInstance.setBoardCards(tempCardList);
-//		PLAYSI.removeFromHand(gameInstance.getCurrentPlayer(), tempCardList);
-//		addCurrentPlayerToResult();
-//		gameInstance.setCurrentPlayer(PLAYSI.getNextPlayer(gameInstance));
-//		updateCurrentBoardCardPanels(gameInstance);
-//		updateCardButtons(gameInstance);
-//		updateCurrentPlayerLabel();
-//		
-//		try {
-//			if (gameInstance.getBoardCards().get(0).getZahl().toString() == "ASS") {
-//
-//				// Setzen der boardCards auf null, Update Frontend
-//				gameInstance.setBoardCards(null);
-//				updateCurrentBoardCardPanels(gameInstance);
-//
-//			}
-//		} catch (NullPointerException e) {
-//			gameInstance.setBoardCards(null);
-//			updateCurrentBoardCardPanels(gameInstance);
-//		} catch (IndexOutOfBoundsException IOOB) {
-//			gameInstance.setBoardCards(null);
-//			updateCurrentBoardCardPanels(gameInstance);
-//		}
-//		// Reset des PAssspielzug-Counters nach jedem validen Spielzug
-//		//passCounter = 0;
-//	}
+			}
+		}
+		gameInstance.setBoardCards(tempCardList);
+		PLAYSI.removeFromHand(gameInstance.getCurrentPlayer(), tempCardList);
+		addCurrentPlayerToResult();
+		gameInstance.setCurrentPlayer(PLAYSI.getNextPlayer(gameInstance));
+		updateCurrentBoardCardPanels(gameInstance);
+		updateCardButtons(gameInstance);
+		updateCurrentPlayerLabel();
+		
+		try {
+			if (gameInstance.getBoardCards().get(0).getZahl().toString() == "ASS") {
+
+				// Setzen der boardCards auf null, Update Frontend
+				gameInstance.setBoardCards(null);
+				updateCurrentBoardCardPanels(gameInstance);
+
+			}
+		} catch (NullPointerException e) {
+			gameInstance.setBoardCards(null);
+			updateCurrentBoardCardPanels(gameInstance);
+		} catch (IndexOutOfBoundsException IOOB) {
+			gameInstance.setBoardCards(null);
+			updateCurrentBoardCardPanels(gameInstance);
+		}
+		// Reset des PAssspielzug-Counters nach jedem validen Spielzug
+		//passCounter = 0;
+	}
 	
 	/**
 	 * NUR ZUM TESTEN VON BOT MOVE

@@ -1,7 +1,9 @@
 package kbe.playermgmt;
 
+import kbe.gamemgmt.GameInstance;
+
 public interface BotPlayerService {
 	
-	void validateBotMove();
+	void validateBotMove(GameInstance gameInstance);
 
 }
