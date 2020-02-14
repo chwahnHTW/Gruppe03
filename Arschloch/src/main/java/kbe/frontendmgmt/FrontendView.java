@@ -387,7 +387,7 @@ public class FrontendView extends JFrame {
 
 		// Pruefung, ob BoardCards vorhanden
 		if (gameInstance.getBoardCards() != null) {
-			// wenn ja, neue Labels setzen
+			// wenn ja, mind. 1 neue Karten-Symbole setzen
 			try {
 				currentBoardCardPanel4.removeAll();
 				JLabel jl4 = new JLabel();
@@ -413,7 +413,7 @@ public class FrontendView extends JFrame {
 
 ///////////////////////////////////////////////////////////////////////////////////    	
 
-			if (gameInstance.boardCards.size() == 2) {
+			if (gameInstance.boardCards.size() >= 2) {
 				try {
 					currentBoardCardPanel3.removeAll();
 					JLabel jl3 = new JLabel();
@@ -432,7 +432,7 @@ public class FrontendView extends JFrame {
 				}
 			}
 ///////////////////////////////////////////////////////////////////////////////////
-			if (gameInstance.boardCards.size() == 3) {
+			if (gameInstance.boardCards.size() >= 3) {
 				try {
 					currentBoardCardPanel2.removeAll();
 					JLabel jl2 = new JLabel();
