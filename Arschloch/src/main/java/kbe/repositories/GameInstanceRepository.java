@@ -10,6 +10,6 @@ import java.util.List;
 @Repository
 public interface GameInstanceRepository extends CrudRepository<GameInstance, Integer> {
 
-    List<Player> findByPlayers();
+//    List<Player> findByPlayers();
 
 }
