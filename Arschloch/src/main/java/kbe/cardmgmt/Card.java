@@ -41,8 +41,13 @@ public class Card implements Comparable {
 
     }
 
+    public void setZahl(Zahl zahl) {
+        this.zahl = zahl;
+    }
 
-
+    public void setSymbol(Symbol symbol) {
+        this.symbol = symbol;
+    }
 
     Integer cardId;
 

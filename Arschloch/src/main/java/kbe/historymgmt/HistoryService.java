@@ -11,6 +11,7 @@ import kbe.gamemgmt.GameInstance;
  */
 public interface HistoryService {
 
+    void tueEtwas();
 
     /**
      * Speichert eine Spielinstanz in die Historie

@@ -7,6 +7,8 @@ import java.util.List;
 import javax.swing.JLabel;
 import javax.swing.SwingUtilities;
 
+import kbe.historymgmt.HistoryService;
+import kbe.historymgmt.HistoryServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 
@@ -57,11 +59,18 @@ public class FrontendController implements FrontendService {
     private CardRulesService cardRulesService = new CardRulesServiceStandardImpl();
 
 
+    @Autowired
+    private HistoryService historyService;
+
 
 
     @Override
     public void init() {
         System.out.println("Initializing.......");
+
+        historyService.tueEtwas();
+
+
         gameInstance = GISI.startGame();
         frontendView.createFrontendView(gameInstance);
     }

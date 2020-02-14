@@ -1,16 +1,16 @@
 package kbe.configmgmt;
 
-import kbe.historymgmt.HistoryServiceImpl;
-import kbe.playermgmt.Player;
-import kbe.repositories.PlayerRepository;
-import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
-import org.springframework.boot.autoconfigure.domain.EntityScan;
-import org.springframework.context.ConfigurableApplicationContext;
-import org.springframework.context.annotation.*;
 import kbe.frontendmgmt.FrontendController;
+import kbe.historymgmt.HistoryServiceImpl;
+import kbe.repositories.PlayerRepository;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.autoconfigure.domain.EntityScan;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.annotation.AnnotationConfigApplicationContext;
+import org.springframework.context.annotation.ComponentScan;
+import org.springframework.context.annotation.Configuration;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
-import org.springframework.jdbc.datasource.DriverManagerDataSource;
-import org.springframework.scheduling.annotation.EnableScheduling;
 
 /**
  * @authors Kaya Löher 				| Kim Anh Nguyen 		| Christian Wahnsiedler
@@ -20,23 +20,23 @@ import org.springframework.scheduling.annotation.EnableScheduling;
  * Hier läuft das Spiel im Großteil ab.
  */
 
-@EnableScheduling
+@SpringBootApplication
 @Configuration
-//@EnableAutoConfiguration
-//@ComponentScan("kbe")
-//@EntityScan
+@ComponentScan(basePackages = {"kbe"})
+@EntityScan(basePackageClasses = {kbe.cardmgmt.Card.class, kbe.playermgmt.Player.class, kbe.gamemgmt.GameInstance.class })
 @EnableJpaRepositories(basePackageClasses = {PlayerRepository.class})
 public class configServiceImpl {
 
-    private static ConfigurableApplicationContext container = new AnnotationConfigApplicationContext("kbe");
+    private static ApplicationContext applicationContext;
+
 
     public static void main(String[] args) {
+        applicationContext = new AnnotationConfigApplicationContext(configServiceImpl.class);
 
-        FrontendController gui = container.getBean(FrontendController.class);
+        FrontendController gui = applicationContext.getBean(FrontendController.class);
         gui.init();
 
-        HistoryServiceImpl historyService = new HistoryServiceImpl();
-        historyService.tueEtwas();
+
     }
 
 }

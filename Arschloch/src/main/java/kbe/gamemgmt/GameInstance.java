@@ -105,7 +105,7 @@ public class GameInstance {
      *
      * @return : Liste von Karten
      */
-    @JoinColumn(name = "cards")
+    @JoinColumn(name = "boardCards")
     @OneToMany
     public List<Card> getBoardCards() {
         return boardCards;

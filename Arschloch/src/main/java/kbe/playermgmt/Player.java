@@ -3,7 +3,10 @@ package kbe.playermgmt;
 import java.util.LinkedList;
 import java.util.List;
 import javax.persistence.*;
+
+import com.sun.istack.internal.NotNull;
 import kbe.cardmgmt.Card;
+import org.springframework.lang.NonNull;
 
 /**
  * @authors Kaya Löher 				| Kim Anh Nguyen 		| Christian Wahnsiedler
@@ -16,14 +19,12 @@ import kbe.cardmgmt.Card;
 public class Player {
     private Integer playerId;
 
-
     private Role role;
 
     private String name;
 
-//    @Column(name = "handCards")
-//    @OneToMany
     private List<Card> handCards;
+
 
     /**
      * Ein Enum, welches die Rolle darstellt, welche ein Spieler haben kann.
@@ -90,7 +91,13 @@ public class Player {
     public List<Card> getHand() {
         return handCards;
     }
-    
+
+    @OneToMany
+    @Column(name ="handCards")
+    public List<Card> getHandCards() {
+        return handCards;
+    }
+
     /**
      * ACHTUNG NEUER SETTER!!!
      * @param handCards

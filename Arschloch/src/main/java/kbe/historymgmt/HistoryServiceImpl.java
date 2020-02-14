@@ -3,12 +3,17 @@ package kbe.historymgmt;
 
 import kbe.gamemgmt.GameInstance;
 import kbe.playermgmt.Player;
+import kbe.playermgmt.PlayerService;
 import kbe.repositories.PlayerRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import kbe.jpaConfig.jpaConfiguration;
+
 import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.Persistence;
+import javax.persistence.EntityTransaction;
+import javax.persistence.PersistenceContext;
+import javax.transaction.Transactional;
 import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -22,27 +27,35 @@ import java.util.List;
  */
 //@EnableJpaRepositories("kbe.JpaRepository")
 @Service
+@Transactional
 public class HistoryServiceImpl implements HistoryService {
 
     private History history;
 
-    private PlayerRepository playerRepository;
+    @Autowired
+    PlayerRepository playerRepository;
 
-    private EntityManagerFactory emf = Persistence.createEntityManagerFactory("arschloch");
-    private EntityManager entityManager = emf.createEntityManager();
+//    @Autowired
+//    EntityManager entityManager;
 
+    @Override
     public void tueEtwas() {
-
-        entityManager.getTransaction().begin();
+//        EntityTransaction trans = entityManager.getTransaction();
+//        trans.begin();
         // hier steht die Anwendungslogik
 
         Player newUser = new Player();
         newUser.setName("Kaya");
         newUser.setRole(null);
 
-        playerRepository.create(newUser);
+        playerRepository.save(newUser);
 
-        entityManager.getTransaction().commit();
+//        trans.commit();
+
+        System.out.println("Neuer Spieler: " + playerRepository.findPlayerByName("Kaya"));
+//        playerRepository.findPlayerByName("Kaya");
+
+
     }
 
     @Override
@@ -62,7 +75,6 @@ public class HistoryServiceImpl implements HistoryService {
 //        gameInstanceRepository.flush();
 //        gameInstanceRepository.save(gameInstance);
     }
-
 
     @Override
     public void saveToCSV(GameInstance instance) {
