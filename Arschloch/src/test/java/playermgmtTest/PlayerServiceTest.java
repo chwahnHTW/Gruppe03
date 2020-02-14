@@ -86,8 +86,8 @@ public class PlayerServiceTest {
 //        System.out.println(player.getHand());
 //        Assert.assertTrue(player.getHand().size() == cards.size() + player.getHand().size() - cards.size());
 
-        Assert.assertEquals(cardsToAdd.get(0), player.handCards.get(0));
-        Assert.assertEquals(cardsToAdd.get(1), player.handCards.get(1));
+        Assert.assertEquals(cardsToAdd.get(0), player.getHand().get(0));
+        Assert.assertEquals(cardsToAdd.get(1), player.getHand().get(1));
     }
     
     @Test

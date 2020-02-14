@@ -1,22 +1,45 @@
 package kbe.configmgmt;
 
-
-import org.springframework.context.ConfigurableApplicationContext;
-import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import kbe.frontendmgmt.FrontendController;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.autoconfigure.domain.EntityScan;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.annotation.AnnotationConfigApplicationContext;
+import org.springframework.context.annotation.ComponentScan;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
+
 /**
- * @authors         Kaya Löher 				| Kim Anh Nguyen 		| Christian Wahnsiedler
+ * @authors Kaya Löher 				| Kim Anh Nguyen 		| Christian Wahnsiedler
  * Email-Adresse: 	s0564784@htw-berlin.de 	| s0563958@htw-berlin.de| s0557193@htw-berlin.de
  * <p>
  * Eine Klasse, die die Spielinstanz realisiert
  * Hier läuft das Spiel im Großteil ab.
  */
 
+@SpringBootApplication
+@Configuration
+@ComponentScan(basePackages = {"kbe"})
+@EntityScan(basePackageClasses = {
+        kbe.cardmgmt.Card.class,
+        kbe.playermgmt.Player.class,
+        kbe.gamemgmt.GameInstance.class})
+@EnableJpaRepositories(basePackageClasses = {
+        kbe.repositories.PlayerRepository.class,
+        kbe.repositories.CardRepository.class,
+        kbe.repositories.GameInstanceRepository.class})
 public class configServiceImpl {
-	private static ConfigurableApplicationContext container = new AnnotationConfigApplicationContext("kbe");
 
-	public static void main(String[] args) {
-		FrontendController gui = container.getBean(FrontendController.class);
-		gui.init();
-	}
+    private static ApplicationContext applicationContext;
+
+
+    public static void main(String[] args) {
+        applicationContext = new AnnotationConfigApplicationContext(configServiceImpl.class);
+
+        FrontendController gui = applicationContext.getBean(FrontendController.class);
+        gui.init();
+
+
+    }
+
 }

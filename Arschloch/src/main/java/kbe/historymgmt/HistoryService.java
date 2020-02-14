@@ -2,8 +2,6 @@ package kbe.historymgmt;
 
 import kbe.gamemgmt.GameInstance;
 
-import java.io.IOException;
-
 /**
  * @authors Kaya Löher 				| Kim Anh Nguyen 		| Christian Wahnsiedler
  * Email-Adresse: 	s0564784@htw-berlin.de 	| s0563958@htw-berlin.de| s0557193@htw-berlin.de
@@ -11,8 +9,9 @@ import java.io.IOException;
  * Diese Klasse stellt die Spielhistorie dar.
  * In der Historie werden vorherige Spielergebnisse gespeichert.
  */
-
 public interface HistoryService {
+
+    void tueEtwas();
 
     /**
      * Speichert eine Spielinstanz in die Historie

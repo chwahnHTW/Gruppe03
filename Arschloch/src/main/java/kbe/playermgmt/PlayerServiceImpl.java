@@ -1,12 +1,10 @@
 package kbe.playermgmt;
 
-import java.util.List;
-
-import com.sun.org.apache.xpath.internal.operations.Bool;
+import kbe.cardmgmt.Card;
 import kbe.gamemgmt.GameInstance;
 import org.springframework.stereotype.Service;
 
-import kbe.cardmgmt.Card;
+import java.util.List;
 
 @Service
 public class PlayerServiceImpl implements PlayerService {
@@ -16,7 +14,6 @@ public class PlayerServiceImpl implements PlayerService {
      * return boolean, true wenn ja, false wenn nicht
      *
      * */
-
     @Override
     public Boolean hasCards(Player player) {
         if (player.getHand().isEmpty()) {

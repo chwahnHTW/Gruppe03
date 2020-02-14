@@ -192,9 +192,9 @@ public class CardServiceTest {
     	gi.setPlayers(playerList);
     	service.dealCardsToPlayers(gi);
     	
-    	Assert.assertEquals(player1.getHand(),player1.handCards);
-    	Assert.assertEquals(player2.getHand(),player2.handCards);
-    	Assert.assertEquals(player3.getHand(),player3.handCards);
+    	Assert.assertEquals(player1.getHand(),player1.getHand());
+    	Assert.assertEquals(player2.getHand(),player2.getHand());
+    	Assert.assertEquals(player3.getHand(),player3.getHand());
     	
 //    	Assert.assertEquals(player1.getHand(),);
 //    	
@@ -244,11 +244,11 @@ public class CardServiceTest {
     	 * um spaeter vergleichen zu können
     	 */
     	List<Card> handCardsArschlochVorher = new ArrayList<Card>();
-    	handCardsArschlochVorher.add(service.sortCardsByValue(arschloch.handCards).get(arschloch.handCards.size()-2));
-    	handCardsArschlochVorher.add(service.sortCardsByValue(arschloch.handCards).get(arschloch.handCards.size()-1));
+    	handCardsArschlochVorher.add(service.sortCardsByValue(arschloch.getHand()).get(arschloch.getHand().size()-2));
+    	handCardsArschlochVorher.add(service.sortCardsByValue(arschloch.getHand()).get(arschloch.getHand().size()-1));
     	List<Card> handCardsPresidentVorher = new ArrayList<Card>();
-    	handCardsPresidentVorher.add(service.sortCardsByValue(president.handCards).get(0));
-    	handCardsPresidentVorher.add(service.sortCardsByValue(president.handCards).get(1));
+    	handCardsPresidentVorher.add(service.sortCardsByValue(president.getHand()).get(0));
+    	handCardsPresidentVorher.add(service.sortCardsByValue(president.getHand()).get(1));
     	
     	service.swapCards(gi);
     	
@@ -256,14 +256,14 @@ public class CardServiceTest {
     	 * Prüfen, ob die letzen Karten von Arschloch jetzt die letzten von Präsident sind
     	 * Prüfen, ob die ersten Karten von Präsident jetzt die ersten von Arschloch sind
     	 */
-    	Assert.assertEquals(handCardsArschlochVorher.get(0), president.handCards.get(president.handCards.size()-2));
-    	Assert.assertEquals(handCardsArschlochVorher.get(1), president.handCards.get(president.handCards.size()-1));
-    	System.out.println("presi: " + president.handCards);
-    	System.out.println("arsch: " + arschloch.handCards);
+    	Assert.assertEquals(handCardsArschlochVorher.get(0), president.getHand().get(president.getHand().size()-2));
+    	Assert.assertEquals(handCardsArschlochVorher.get(1), president.getHand().get(president.getHand().size()-1));
+    	System.out.println("presi: " + president.getHand());
+    	System.out.println("arsch: " + arschloch.getHand());
     	System.out.println(handCardsPresidentVorher.get(0));
-    	System.out.println(arschloch.handCards.get(arschloch.handCards.size()-2));
-    	Assert.assertEquals(handCardsPresidentVorher.get(0), arschloch.handCards.get(arschloch.handCards.size()-2));
-    	Assert.assertEquals(handCardsPresidentVorher.get(1), arschloch.handCards.get(arschloch.handCards.size()-1));
+    	System.out.println(arschloch.getHand().get(arschloch.getHand().size()-2));
+    	Assert.assertEquals(handCardsPresidentVorher.get(0), arschloch.getHand().get(arschloch.getHand().size()-2));
+    	Assert.assertEquals(handCardsPresidentVorher.get(1), arschloch.getHand().get(arschloch.getHand().size()-1));
     }
     
     @Test
@@ -303,18 +303,18 @@ public class CardServiceTest {
     	 * um spaeter vergleichen zu können
     	 */
     	List<Card> handCardsArschloch1Vorher = new ArrayList<Card>();
-    	handCardsArschloch1Vorher.add(service.sortCardsByValue(arschloch1.handCards).get(arschloch1.handCards.size()-2));
-    	handCardsArschloch1Vorher.add(service.sortCardsByValue(arschloch1.handCards).get(arschloch1.handCards.size()-1));
+    	handCardsArschloch1Vorher.add(service.sortCardsByValue(arschloch1.getHand()).get(arschloch1.getHand().size()-2));
+    	handCardsArschloch1Vorher.add(service.sortCardsByValue(arschloch1.getHand()).get(arschloch1.getHand().size()-1));
     	List<Card> handCardsPresident1Vorher = new ArrayList<Card>();
-    	handCardsPresident1Vorher.add(service.sortCardsByValue(president1.handCards).get(0));
-    	handCardsPresident1Vorher.add(service.sortCardsByValue(president1.handCards).get(1));
+    	handCardsPresident1Vorher.add(service.sortCardsByValue(president1.getHand()).get(0));
+    	handCardsPresident1Vorher.add(service.sortCardsByValue(president1.getHand()).get(1));
     	
     	List<Card> handCardsArschloch2Vorher = new ArrayList<Card>();
-    	handCardsArschloch2Vorher.add(service.sortCardsByValue(arschloch2.handCards).get(arschloch2.handCards.size()-2));
-    	handCardsArschloch2Vorher.add(service.sortCardsByValue(arschloch2.handCards).get(arschloch2.handCards.size()-1));
+    	handCardsArschloch2Vorher.add(service.sortCardsByValue(arschloch2.getHand()).get(arschloch2.getHand().size()-2));
+    	handCardsArschloch2Vorher.add(service.sortCardsByValue(arschloch2.getHand()).get(arschloch2.getHand().size()-1));
     	List<Card> handCardsPresident2Vorher = new ArrayList<Card>();
-    	handCardsPresident2Vorher.add(service.sortCardsByValue(president2.handCards).get(0));
-    	handCardsPresident2Vorher.add(service.sortCardsByValue(president2.handCards).get(1));
+    	handCardsPresident2Vorher.add(service.sortCardsByValue(president2.getHand()).get(0));
+    	handCardsPresident2Vorher.add(service.sortCardsByValue(president2.getHand()).get(1));
     	
     	service.swapCards(gi);
     	
@@ -322,18 +322,18 @@ public class CardServiceTest {
     	 * Prüfen, ob die letzen Karten von Arschloch jetzt die letzten von Präsident sind
     	 * Prüfen, ob die ersten Karten von Präsident jetzt die ersten von Arschloch sind
     	 */
-    	Assert.assertEquals(handCardsArschloch1Vorher.get(0), president1.handCards.get(president1.handCards.size()-2));
-    	Assert.assertEquals(handCardsArschloch1Vorher.get(1), president1.handCards.get(president1.handCards.size()-1));
-    	Assert.assertEquals(handCardsPresident1Vorher.get(0), arschloch1.handCards.get(arschloch1.handCards.size()-2));
-    	Assert.assertEquals(handCardsPresident1Vorher.get(1), arschloch1.handCards.get(arschloch1.handCards.size()-1));
+    	Assert.assertEquals(handCardsArschloch1Vorher.get(0), president1.getHand().get(president1.getHand().size()-2));
+    	Assert.assertEquals(handCardsArschloch1Vorher.get(1), president1.getHand().get(president1.getHand().size()-1));
+    	Assert.assertEquals(handCardsPresident1Vorher.get(0), arschloch1.getHand().get(arschloch1.getHand().size()-2));
+    	Assert.assertEquals(handCardsPresident1Vorher.get(1), arschloch1.getHand().get(arschloch1.getHand().size()-1));
     	
     	System.out.println("NACH SAWP");
-    	System.out.println("President2: " + president2.handCards);
-    	System.out.println("Arschloch2: " + arschloch2.handCards);
-    	Assert.assertEquals(handCardsArschloch2Vorher.get(0), president2.handCards.get(president2.handCards.size()-2));
-    	Assert.assertEquals(handCardsArschloch2Vorher.get(1), president2.handCards.get(president2.handCards.size()-1));
-    	Assert.assertEquals(handCardsPresident2Vorher.get(0), arschloch2.handCards.get(arschloch2.handCards.size()-2));
-    	Assert.assertEquals(handCardsPresident2Vorher.get(1), arschloch2.handCards.get(arschloch2.handCards.size()-1));
+    	System.out.println("President2: " + president2.getHand());
+    	System.out.println("Arschloch2: " + arschloch2.getHand());
+    	Assert.assertEquals(handCardsArschloch2Vorher.get(0), president2.getHand().get(president2.getHand().size()-2));
+    	Assert.assertEquals(handCardsArschloch2Vorher.get(1), president2.getHand().get(president2.getHand().size()-1));
+    	Assert.assertEquals(handCardsPresident2Vorher.get(0), arschloch2.getHand().get(arschloch2.getHand().size()-2));
+    	Assert.assertEquals(handCardsPresident2Vorher.get(1), arschloch2.getHand().get(arschloch2.getHand().size()-1));
     }
 
 }

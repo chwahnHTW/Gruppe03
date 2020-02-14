@@ -19,9 +19,9 @@ public class PlayerRulesServicePresidentFirstImpl implements PlayerRulesService 
 	public Player determineInitialPlayer(GameInstance gameInstance) {
 		
 		Player initialPlayer = null;
-		for ( Player p : gameInstance.players ) {
+		for ( Player p : gameInstance.getPlayers() ) {
 			
-			for (Card c : p.handCards){
+			for (Card c : p.getHand()){
 				if ( c.getSymbol().toString() == "HERZ" && c.getZahl().toString() == "SIEBEN")
 					
 				{

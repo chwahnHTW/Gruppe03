@@ -1,46 +1,77 @@
 package kbe.historymgmt;
 
-import kbe.playermgmt.Player;
-import org.springframework.stereotype.Component;
 
 import kbe.gamemgmt.GameInstance;
+import kbe.playermgmt.Player;
+import kbe.playermgmt.PlayerService;
+import kbe.repositories.PlayerRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.io.FileWriter;
+import kbe.jpaConfig.jpaConfiguration;
+
+import javax.persistence.EntityManager;
+import javax.persistence.EntityTransaction;
+import javax.persistence.PersistenceContext;
+import javax.transaction.Transactional;
 import java.io.BufferedWriter;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.util.LinkedList;
-import java.util.stream.Collectors;
 import java.util.List;
+
 
 /**
  * @authors Kaya Löher 				| Kim Anh Nguyen 		| Christian Wahnsiedler
  * Email-Adresse: 	s0564784@htw-berlin.de	| s0563958@htw-berlin.de| s0557193@htw-berlin.de
  */
+//@EnableJpaRepositories("kbe.JpaRepository")
 @Service
+@Transactional
 public class HistoryServiceImpl implements HistoryService {
 
-    History history = null;
+    private History history;
+
+    @Autowired
+    PlayerRepository playerRepository;
+
+
+    @Override
+    public void tueEtwas() {
+        Player newUser = new Player();
+        newUser.setName("Kaya");
+        newUser.setRole(null);
+
+        Player savedPlayer = playerRepository.save(newUser);
+
+        System.out.println("Neuer Spieler: " + savedPlayer.getName());
+
+
+    }
 
     @Override
     public void persist(GameInstance instance) {
-
         history.setHistory(instance);
-
     }
 
     @Override
     public GameInstance getLastPlayedGame() {
+//        Integer lastGame = 1;
+//        List<Player> players = gameInstanceRepository.findByPlayers();
+//        GameInstance gameInstance = gameInstanceRepository.findOne(lastGame);
         return null;
     }
 
+    public void saveCurrentGame(GameInstance gameInstance) {
+//        gameInstanceRepository.flush();
+//        gameInstanceRepository.save(gameInstance);
+    }
 
     @Override
     public void saveToCSV(GameInstance instance) {
 
         try {
             FileWriter writer = new FileWriter("/Users/kayaloeher/Desktop/gameHistory.csv");
-//        List<GameInstance> hist = history.getHistory();
 
             List<String> playerNames = new LinkedList<>();
             List<String> playerRole = new LinkedList<>();
@@ -55,32 +86,15 @@ public class HistoryServiceImpl implements HistoryService {
             bw.write("Name,Rolle");
             bw.newLine();
 
-            for(int i=0;i<playerNames.size();i++)
-            {
-                bw.write(playerNames.get(i)+","+playerRole.get(i));
+            for (int i = 0; i < playerNames.size(); i++) {
+                bw.write(playerNames.get(i) + "," + playerRole.get(i));
                 bw.newLine();
             }
-//            bw.write("\nApplication,Total");
-//            bw.newLine();
-//            for(int i=0;i<list2.size();i++)
-//            {
-//                bw.write(list2.get(i++)+","+list2.get(i));
-//                bw.newLine();
-//            }
             bw.close();
             writer.close();
-
-//            String collect = playerNames.stream().collect(Collectors.joining(","));
-//            System.out.println(collect);
-//
-//            writer.write(collect);
-//            writer.close();
 
         } catch (IOException e) {
 
         }
-
-
-
     }
 }

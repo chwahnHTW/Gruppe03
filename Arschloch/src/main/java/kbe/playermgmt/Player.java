@@ -2,8 +2,11 @@ package kbe.playermgmt;
 
 import java.util.LinkedList;
 import java.util.List;
+import javax.persistence.*;
 
+import com.sun.istack.internal.NotNull;
 import kbe.cardmgmt.Card;
+import org.springframework.lang.NonNull;
 
 /**
  * @authors Kaya Löher 				| Kim Anh Nguyen 		| Christian Wahnsiedler
@@ -11,20 +14,32 @@ import kbe.cardmgmt.Card;
  * <p>
  * Stellt einen Spieler dar. Ein Spieler besteht aus einem Namen, einer Id und den Karten, die er während eines Spiels besitzt.
  */
+@Entity
+@Table(name = "Player")
 public class Player {
+    @Id
+    @GeneratedValue
+    private Integer playerId;
+
+    @Column(name = "role")
+    private Role role;
+
+    @Column(name = "name")
+    private String name;
+
+    @OneToMany
+    @Column(name ="handCards")
+    private List<Card> handCards;
+
 
     /**
      * Ein Enum, welches die Rolle darstellt, welche ein Spieler haben kann.
      */
-	public enum Role {
+    public enum Role {
 
         PRAESIDENT1, PRAESIDENT2, MITTELKIND, ARSCHLOCH2, ARSCHLOCH1;
 
     }
-
-    public Role role;
-    public String name;
-    public List<Card> handCards;
 
     /**
      * Generiert einen Spieler.
@@ -32,11 +47,16 @@ public class Player {
      * @param name:      Der Name des Spielers
      * @param handCards: Die Karten, die der Spieler besitzt
      * @param role:      Die Rolle eines Spielers
+     *            String name, List<Card> handCards, Role role
      */
     public Player(String name, List<Card> handCards, Role role) {
         this.name = name;
         this.handCards = new LinkedList<Card>();
         this.role = role;
+    }
+
+    public Player(){
+
     }
 
     /**
@@ -62,10 +82,16 @@ public class Player {
      *
      * @return: Die Karten des Spielers
      */
+    @Transient
     public List<Card> getHand() {
         return handCards;
     }
-    
+
+
+    public List<Card> getHandCards() {
+        return handCards;
+    }
+
     /**
      * ACHTUNG NEUER SETTER!!!
      * @param handCards
@@ -88,6 +114,7 @@ public class Player {
      *
      * @return: Die Rolle des Spielers
      */
+
     public Role getRole() {
         return role;
     }
