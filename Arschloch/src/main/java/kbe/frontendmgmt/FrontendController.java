@@ -65,6 +65,14 @@ public class FrontendController implements FrontendService {
         gameInstance = GISI.startGame();
         frontendView.createFrontendView(gameInstance);
     }
+    
+    public GameInstance getGameInstance() {
+    	return this.gameInstance;
+    }
+
+    public void setGameInstance(GameInstance gameInstance) {
+    	this.gameInstance = gameInstance;
+    }
 
 
     /**
