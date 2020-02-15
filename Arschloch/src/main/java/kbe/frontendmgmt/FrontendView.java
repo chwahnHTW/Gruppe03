@@ -1151,27 +1151,24 @@ public class FrontendView extends JFrame {
 	 */
 	public void validateBotMove() {
 		System.out.println("*****BOT MOVE*****");
-		
         List<Card> cardsToPlay = new LinkedList<Card>();
         List<Card> botHandCards = new LinkedList<Card>();
         botHandCards = cardService.sortCardsByValue(gameInstance.getCurrentPlayer().getHand());
-        
         List<Card> higherCards = new LinkedList<Card>();
         
-//      boolean twoCardsEqual = true;
-       
         if(gameInstance.getBoardCards() == null) {
-           System.out.println("BOT MOVE; BOARD NULL");
-           //Methode prüft, ob die ersten zwei karten gleichwertig sind
-           //und setzt dann die eine oder zwei karten als tempCardList
-           cardsToPlay = setTwoEqualCards(botHandCards);
+           if(botHandCards.size() < 2) {
+        	   cardsToPlay = botHandCards;
+           } else if (botHandCards.size() >= 2){
+        	   //Methode prüft, ob die ersten zwei karten gleichwertig sind
+               //und setzt dann die zwei karten als tempCardList
+               cardsToPlay = setTwoEqualCards(botHandCards);
+           }
+           
            updateAll(cardsToPlay);
         }
         else if (gameInstance.getBoardCards().size() == 1) {
-           System.out.println("BOT MOVE; BOARD 1");
-           
            higherCards = findHigherCards(botHandCards);
-           
            if(higherCards.isEmpty()) {
         	   botPass();
            } else {
@@ -1180,7 +1177,6 @@ public class FrontendView extends JFrame {
            }
         }
         else if (gameInstance.getBoardCards().size() == 2) {
-        	System.out.println("BOT MOVE; BOARD 2");
             List<Card> temp = new LinkedList<Card>();
             higherCards = findHigherCards(botHandCards);
             if(higherCards.isEmpty()) {
@@ -1188,10 +1184,8 @@ public class FrontendView extends JFrame {
             }
             else {
             	// und die gleiche zahl haben
-                for (int i = 1; i < higherCards.size(); i++) { //was wenn bot nur noch 1 karte auf hand
-                	System.out.println("hier");
+                for (int i = 1; i < higherCards.size(); i++) {
         			if(higherCards.get(i-1).getZahl().equals(higherCards.get(i).getZahl())){
-        				System.out.println("hier2");
         				temp.add(higherCards.get(i-1));
         				temp.add(higherCards.get(i));
         			}
@@ -1203,33 +1197,16 @@ public class FrontendView extends JFrame {
                 	cardsToPlay.add(temp.get(1));
                     updateAll(cardsToPlay);
                 }
-                
             }
-            
         }
-        
-       
-        try {
-        	if (gameInstance.getBoardCards().get(0).getZahl().toString() == "ASS") {
-
-				// Setzen der boardCards auf null, Update Frontend
-				gameInstance.setBoardCards(null);
-				updateCurrentBoardCardPanels(gameInstance);
-
-        	}
-        } catch (NullPointerException e) {
-           gameInstance.setBoardCards(null);
-           updateCurrentBoardCardPanels(gameInstance);
-        } catch (IndexOutOfBoundsException IOOB) {
-           gameInstance.setBoardCards(null);
-           updateCurrentBoardCardPanels(gameInstance);
-        }
-        
-        // Reset des PAssspielzug-Counters nach jedem validen Spielzug
-        passCounter = 0;
-	
+        assOnBoard();
 	}
 	
+	/**
+	 * Nach validen Spielzug alles updaten.
+	 * 
+	 * @param cardsToPlay
+	 */
 	void updateAll(List<Card> cardsToPlay) {
 		gameInstance.setBoardCards(cardsToPlay);
         PLAYSI.removeFromHand(gameInstance.getCurrentPlayer(), cardsToPlay);
@@ -1238,6 +1215,9 @@ public class FrontendView extends JFrame {
         updateCurrentBoardCardPanels(gameInstance);
         updateCardButtons(gameInstance);
         updateCurrentPlayerLabel();
+        
+     // Reset des PAssspielzug-Counters nach jedem validen Spielzug
+        passCounter = 0;
 	}
 	
 	/**
@@ -1249,9 +1229,9 @@ public class FrontendView extends JFrame {
 	 */
 	public List<Card> setTwoEqualCards(List<Card> cardList) {
        
-        List<Card> twoEqualCards = new LinkedList<Card>();
+		List<Card> twoEqualCards = new LinkedList<Card>();
         boolean isEqual = true;
-       
+        
         Card x = (Card) cardList.get(0);
         Card y = (Card) cardList.get(1);
        
@@ -1293,6 +1273,9 @@ public class FrontendView extends JFrame {
         return higherCards;
 	}
 
+	/**
+	 * Wenn der Bot keine Karte hat zum Legen, wird gepasst.
+	 */
 	void botPass() {
 		System.out.println("BOT MUSS PASSEN");
 		passCounter++;
@@ -1317,6 +1300,28 @@ public class FrontendView extends JFrame {
 			updateCardButtons(gameInstance);
 			updateCurrentBoardCardPanels(gameInstance);
 		}
+	}
+	
+	/**
+	 * Wenn ein Ass gelegt wurde,
+	 * werden die Boardcards abgeräumt und neuer Zug beginnt.
+	 */
+	void assOnBoard() {
+		try {
+        	if (gameInstance.getBoardCards().get(0).getZahl().toString() == "ASS") {
+
+				// Setzen der boardCards auf null, Update Frontend
+				gameInstance.setBoardCards(null);
+				updateCurrentBoardCardPanels(gameInstance);
+
+        	}
+        } catch (NullPointerException e) {
+           gameInstance.setBoardCards(null);
+           updateCurrentBoardCardPanels(gameInstance);
+        } catch (IndexOutOfBoundsException IOOB) {
+           gameInstance.setBoardCards(null);
+           updateCurrentBoardCardPanels(gameInstance);
+        }
 	}
 
 	/*
