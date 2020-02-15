@@ -130,13 +130,13 @@ public class FrontendController implements FrontendService {
 
     }
     
-    public void whatever(){
-    	if ("eingabe" == "arschlosch") {
-    		cardRulesService = new CardRulesServiceStandardImpl();
-    	} else {
-    		cardRulesService = new CardRulesServicePresidentImpl();
-    	}
-    }
+//    public void whatever(){
+//    	if ("eingabe" == "arschlosch") {
+//    		cardRulesService = new CardRulesServiceStandardImpl();
+//    	} else {
+//    		cardRulesService = new CardRulesServicePresidentImpl();
+//    	}
+//    }
 
 }
 
