@@ -130,27 +130,25 @@ public class FrontendView extends JFrame {
 
                 if (frontendController.playNewGame()) {
                     frontendController.startNewGame(gameInstance);
-                    try {
-                        // nachdem alle automatischen Vorbereitungen getroffen sind, kann das Frontend
-                        // vollstaendig aufgebaut werden
-                        setupFrontend();
-                        // images in btnPlayerCard0-11 updaten, da anderer Spieler an der Reihe sein
-                        // sollte ( funktioniert nicht, ohne getNextPlayer()
-                        // keine genaue Fehlerquelle bestimmbar
-                        updateCardButtons(gameInstance);
-                        updateCurrentPlayerLabel();
-
-                    } catch (IOException e1) {
-                        // TODO Auto-generated catch block
-                        e1.printStackTrace();
-                    }
-
                 } else {
                     int gameId = frontendController.getGameId();
                     historyService.getLastPlayedGame(gameId);
                 }
-            }
+                try {
+                    // nachdem alle automatischen Vorbereitungen getroffen sind, kann das Frontend
+                    // vollstaendig aufgebaut werden
+                    setupFrontend();
+                    // images in btnPlayerCard0-11 updaten, da anderer Spieler an der Reihe sein
+                    // sollte ( funktioniert nicht, ohne getNextPlayer()
+                    // keine genaue Fehlerquelle bestimmbar
+                    updateCardButtons(gameInstance);
+                    updateCurrentPlayerLabel();
 
+                } catch (IOException e1) {
+                    // TODO Auto-generated catch block
+                    e1.printStackTrace();
+                }
+            }
         });
         btnStartGame.setForeground(Color.WHITE);
         btnStartGame.setBackground(new Color(0, 0, 153));
