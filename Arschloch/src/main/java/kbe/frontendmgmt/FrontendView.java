@@ -19,7 +19,6 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.IOException;
 import java.util.LinkedList;
-import java.util.List;
 
 /**
  * @param PLAYSI - PlayerServiceImplementierung
@@ -109,9 +108,9 @@ public class FrontendView extends JFrame {
      * @param gameInstance - Spielinstanz
      * @return void
      * @method removeFromHand() entzogen und als gameInstance.boardCards gesetzt.
-     *         Daraufhin wird der naechste Spieler im Spiel als currentPlayer
-     *         gesetzt und die UI geupdated (Update funktioniert irgendwie nicht
-     *         wirklich)
+     * Daraufhin wird der naechste Spieler im Spiel als currentPlayer
+     * gesetzt und die UI geupdated (Update funktioniert irgendwie nicht
+     * wirklich)
      */
     public void createFrontendView(GameInstance gameInstance) {
         this.gameInstance = gameInstance;
@@ -130,7 +129,22 @@ public class FrontendView extends JFrame {
             public void actionPerformed(ActionEvent e) {
 
                 if (frontendController.playNewGame()) {
-                    startNewGame(gameInstance);
+                    frontendController.startNewGame(gameInstance);
+                    try {
+                        // nachdem alle automatischen Vorbereitungen getroffen sind, kann das Frontend
+                        // vollstaendig aufgebaut werden
+                        setupFrontend();
+                        // images in btnPlayerCard0-11 updaten, da anderer Spieler an der Reihe sein
+                        // sollte ( funktioniert nicht, ohne getNextPlayer()
+                        // keine genaue Fehlerquelle bestimmbar
+                        updateCardButtons(gameInstance);
+                        updateCurrentPlayerLabel();
+
+                    } catch (IOException e1) {
+                        // TODO Auto-generated catch block
+                        e1.printStackTrace();
+                    }
+
                 } else {
                     int gameId = frontendController.getGameId();
                     historyService.getLastPlayedGame(gameId);
@@ -144,37 +158,9 @@ public class FrontendView extends JFrame {
         contentPane.add(btnStartGame);
     }
 
-    public void startNewGame(GameInstance gameInstance) {
-        List<Player> players = new LinkedList<>();
-        int playerCount = frontendController.getUserCountInput();
-        for (int i = 0; i < playerCount; i++) {
-            Player player = PLAYSI.createPlayer(frontendController.getUserNameInput());
-            players.add(player);
-        }
-        gameInstance.setPlayers(players);
-        cardService.dealCardsToPlayers(gameInstance);
-
-        try {
-            gameInstance.setCurrentPlayer(PLAYSI.getNextPlayer(gameInstance));
-//					System.out.println(gameInstance.getCurrentPlayer().getName());
-
-            // nachdem alle automatischen Vorbereitungen getroffen sind, kann das Frontend
-            // vollstaendig aufgebaut werden
-            setupFrontend();
-            // images in btnPlayerCard0-11 updaten, da anderer Spieler an der Reihe sein
-            // sollte ( funktioniert nicht, ohne getNextPlayer()
-            // keine genaue Fehlerquelle bestimmbar
-            updateCardButtons(gameInstance);
-            updateCurrentPlayerLabel();
-
-        } catch (IOException e1) {
-            // TODO Auto-generated catch block
-            e1.printStackTrace();
-        }
-    }
-
     /**
      * Methode, um das Frontend zu initiieren
+     *
      * @throws IOException
      */
     void setupFrontend() throws IOException {
@@ -341,9 +327,6 @@ public class FrontendView extends JFrame {
      * leeres Feld angezeigt
      *
      * @param gameInstance - Spielinstanz
-     *
-     *
-     *
      */
     public void updateCurrentBoardCardPanels(GameInstance gameInstance) {
 
@@ -486,6 +469,7 @@ public class FrontendView extends JFrame {
      * Methode zum Updaten der CardButtons Prueft, ob momentan eine Karte im
      * entsprechenden Slot liegt Wenn ja, wird sie angezeigt, Wenn nein, wird ein
      * leeres Feld angezeigt
+     *
      * @param gameInstance - Spielinstanz
      */
     public void updateCardButtons(GameInstance gameInstance) {

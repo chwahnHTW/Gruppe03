@@ -1,6 +1,7 @@
 package kbe.frontendmgmt;
 
 
+import java.io.IOException;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -8,6 +9,7 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.SwingUtilities;
 
+import kbe.cardmgmt.CardService;
 import kbe.historymgmt.HistoryService;
 import kbe.historymgmt.HistoryServiceImpl;
 import kbe.playermgmt.Player;
@@ -62,6 +64,9 @@ public class FrontendController implements FrontendService {
 
     @Autowired
     private HistoryService historyService;
+
+    @Autowired
+    private CardService cardService;
 
     @Override
     public void init() {
@@ -406,19 +411,35 @@ public class FrontendController implements FrontendService {
 
     /**
      * GameId eingeben, um Spiel später wieder herstellen zu können
+     *
      * @return
      * @throws IllegalArgumentException
      */
     int getGameId() throws IllegalArgumentException {
         String userinput = JOptionPane.showInputDialog(null,
                 "Bitte die Spielnummer eingeben");
-        try{
+        try {
 
             return Integer.valueOf(userinput);
-        }
-        catch (NumberFormatException e){
+        } catch (NumberFormatException e) {
             return getGameId();
         }
+    }
+
+    /**
+     * @param gameInstance
+     */
+    public void startNewGame(GameInstance gameInstance) {
+        List<Player> players = new LinkedList<>();
+        int playerCount = getUserCountInput();
+        for (int i = 0; i < playerCount; i++) {
+            Player player = PLAYSI.createPlayer(getUserNameInput());
+            players.add(player);
+        }
+        gameInstance.setPlayers(players);
+        cardService.dealCardsToPlayers(gameInstance);
+
+        gameInstance.setCurrentPlayer(PLAYSI.getNextPlayer(gameInstance));
     }
 }
 
