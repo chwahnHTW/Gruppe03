@@ -10,6 +10,7 @@ import javax.swing.SwingUtilities;
 
 import kbe.historymgmt.HistoryService;
 import kbe.historymgmt.HistoryServiceImpl;
+import kbe.playermgmt.Player;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 
@@ -182,7 +183,7 @@ public class FrontendController implements FrontendService {
 					// wenn nein, wird er in result ( "Siegerliste, Rangfolge der Spieler" )
 					// aufgenommen, um spaeter die Rollen fuer ein potentielles
 					// weiteres Spiel zu ermitteln
-					addCurrentPlayerToResult();
+					addCurrentPlayerToResult(gameInstance);
 					// setzt naechsten Spieler nach validem Spielzug
 					gameInstance.setCurrentPlayer(PLAYSI.getNextPlayer(gameInstance));
 					// Update Frontend
@@ -209,7 +210,7 @@ public class FrontendController implements FrontendService {
 							// tempCards werden von der Hand des Spielers entfernt
 							PLAYSI.removeFromHand(gameInstance.getCurrentPlayer(), tempCardList);
 							// Pruefung, obn Spieler keine Karten mehr hat
-							addCurrentPlayerToResult();
+							addCurrentPlayerToResult(gameInstance);
 
 							// nächsten Spieler setzen
 							gameInstance.setCurrentPlayer(PLAYSI.getNextPlayer(gameInstance));
@@ -228,7 +229,7 @@ public class FrontendController implements FrontendService {
 						gameInstance.setBoardCards(tempCardList);
 						PLAYSI.removeFromHand(gameInstance.getCurrentPlayer(), tempCardList);
 
-						addCurrentPlayerToResult();
+						addCurrentPlayerToResult(gameInstance);
 
 						gameInstance.setCurrentPlayer(PLAYSI.getNextPlayer(gameInstance));
 
@@ -265,17 +266,131 @@ public class FrontendController implements FrontendService {
 		// Reset des PAssspielzug-Counters nach jedem validen Spielzug
 		passCounter  = 0;
 	}
-    
-	private void addCurrentPlayerToResult() {
+
+
+	/**
+	 * Setzen der Spielerrollen, Ueber die Reihenfolge, in der die Spieler in die
+	 * Ergebnisliste aufgenommen wurden laesst sich ermitteln, welche Rolle sie
+	 * haben ( erster Spieler, der fertig ist =
+	 * gameInstance.getResult().get(0).setRole(Player.Role.PRAESIDENT) usw. ) Simple
+	 * Implementierung, da momentan nur mit 3 Spielern spielbar
+	 *
+	 */
+	void setPlayerRoles(GameInstance gameInstance) {
+		int resultSize = gameInstance.getResult().size();
+		gameInstance.getResult().get(0).setRole(Player.Role.PRAESIDENT1);
+		gameInstance.getResult().get(resultSize-1).setRole(Player.Role.ARSCHLOCH1);
+
+		if(resultSize>3) {
+			gameInstance.getResult().get(1).setRole(Player.Role.PRAESIDENT2);
+			gameInstance.getResult().get(resultSize-2).setRole(Player.Role.ARSCHLOCH2);
+		}
+	}
+
+	/**
+	 * Methode, die ueberprueft, ob ein Spieler noch Karten hat, um ihn, falls dem
+	 * nicht so ist, in die Erbegnissliste einzutragen, anhand derer spaeter die
+	 * Rollen der Spieler ermittelt werden
+	 */
+	public void addCurrentPlayerToResult(GameInstance gameInstance) {
 		if (gameInstance.getCurrentPlayer().getHand().isEmpty()) {
 			if (!gameInstance.getResult().contains(gameInstance.getCurrentPlayer())) {
 				gameInstance.setResult(gameInstance.getCurrentPlayer());
+
 				System.out.println("RESULT LISTE " + gameInstance.getResult().size());
 			}
 		}
 	}
 
+	/**
+	 * Fragt den User ab, wer die naechste Runde anfangen soll zu legen, und setzt
+	 * entweder Arschloch oder Praesident als current player.
+	 *
+	 * @throws IllegalArgumentException
+	 * @param gameInstance
+	 */
+	void setInitialPlayerForNextRound(GameInstance gameInstance) throws IllegalArgumentException {
+		String initialPlayerForNextRound = JOptionPane.showInputDialog(null,
+				"Wer soll anfangen (Arschloch (a)/Praesident (p))?");
+		if (initialPlayerForNextRound.equalsIgnoreCase("a")) {
+			for (int i = 0; i < gameInstance.getPlayers().size(); i++) {
+				try {
+					if (gameInstance.getPlayers().get(i).getRole().equals(Player.Role.ARSCHLOCH1)) {
+						gameInstance.setCurrentPlayer(gameInstance.getPlayers().get(i)); // current player setzen mit arschloch
+						System.out.println("ARSCHLOCH1 faengt an");
+					}
+				} catch (Exception e) {
 
+				}
+			}
+		} else if (initialPlayerForNextRound.equalsIgnoreCase("p")) {
+			for (int i = 0; i < gameInstance.getPlayers().size(); i++) {
+				try {
+					if (gameInstance.getPlayers().get(i).getRole().equals(Player.Role.PRAESIDENT1)) {
+						gameInstance.setCurrentPlayer(gameInstance.getPlayers().get(i)); // current player setzen mit praesident
+						System.out.println("PRAESIDENT1 faengt an");
+					}
+				} catch (Exception e) {
+
+				}
+			}
+		} else {
+			setInitialPlayerForNextRound(gameInstance);
+		}
+	}
+
+	/**
+	 * Methode, die nach Spielabschluss erfaesst, ob weitergepspielt werden soll
+	 *
+	 * @return boolean - weiterspielen oder nicht ( true , false )
+	 *
+	 */
+	Boolean getContinueGame() throws IllegalArgumentException {
+		String continueGame = JOptionPane.showInputDialog(null, "Weiterspielen (J/N)?");
+		if (continueGame.equalsIgnoreCase("j") | continueGame.equalsIgnoreCase("ja")) {
+			return true;
+		} else {
+			return false;
+		}
+	}
+
+	/**
+	 * Methode, um die Namen der Spieler eines Spiels zu erfassen
+	 *
+	 * @return - String - Name fuer einen User
+	 */
+	String getUserNameInput() {
+		String spielerName = JOptionPane.showInputDialog(null, "Bitte Spielernamen eingeben");
+		if(spielerName.isEmpty()){
+			return getUserNameInput();
+		} else {
+			return spielerName;
+		}
+	}
+
+	/**
+	 * Methode, um Userinput ( Spieleranzahl ) zu erhalten
+	 *
+	 * @return - int - vom Spieler eingegebene Spieleranzahl
+	 * @throws IllegalArgumentException - falsche Eingabe HINWEIS : funktioniert nur
+	 *                                  mit 3 Playern, da der Algorithmus zum
+	 *                                  Erfassen des naechsten Spielers nicht
+	 *                                  perfekt funktioniert
+	 */
+	int getUserCountInput() throws IllegalArgumentException {
+		String userinput = JOptionPane.showInputDialog(null,
+				"Bitte Spieleranzahl eingeben (Spieleranzahl muss 3 bis 5 sein)");
+		try{
+			if (userinput.equals("3") | userinput.equals("4")| userinput.equals("5")) {
+				int spieleranzahl = Integer.parseInt(userinput);
+				return Integer.valueOf(spieleranzahl);
+			} else {
+				return getUserCountInput();
+			}
+		} catch (NumberFormatException e){
+			return getUserCountInput();
+		}
+	}
 }
 
 

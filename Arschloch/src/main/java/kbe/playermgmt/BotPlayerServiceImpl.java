@@ -89,7 +89,7 @@ public class BotPlayerServiceImpl {
 		gameInstance.setBoardCards(tempCardList);
 		System.out.println("boardcards gesetzt");
 		PLAYSI.removeFromHand(gameInstance.getCurrentPlayer(), tempCardList);
-		frontendView.addCurrentPlayerToResult();
+		frontendView.frontendController.addCurrentPlayerToResult(gameInstance);
 		gameInstance.setCurrentPlayer(PLAYSI.getNextPlayer(gameInstance));
 		frontendView.updateCurrentBoardCardPanels(gameInstance);
 		frontendView.updateCardButtons(gameInstance);
