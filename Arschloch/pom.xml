@@ -19,8 +19,6 @@
         <junit.platform.version>1.4.2</junit.platform.version>
     </properties>
 
-
-
     <dependencies>
         <dependency>
             <groupId>org.hamcrest</groupId>
@@ -114,6 +112,13 @@
                 <version>2.22.2</version>
                 <configuration>
                     <skipTests>true</skipTests>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+                <configuration>
+                    <classifier>exec</classifier>
                 </configuration>
             </plugin>
         </plugins>

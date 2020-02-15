@@ -1,5 +1,8 @@
 package kbe.cardmgmt;
 
+import kbe.gamemgmt.GameInstance;
+import kbe.playermgmt.Player;
+
 import javax.persistence.*;
 
 /**
@@ -70,6 +73,14 @@ public class Card implements Comparable {
         this.symbol = symbol;
 
     }
+
+//    @ManyToOne
+//    @JoinColumn(name = "BoardCardsForGameInstance")
+//    private GameInstance gameInstanceBoardCards;
+//
+//    @ManyToOne
+//    @JoinColumn(name = "HandCardsForPlayers")
+//    private Player PlayerHandCards;
 
     /**
      * Konstruktor der Karte

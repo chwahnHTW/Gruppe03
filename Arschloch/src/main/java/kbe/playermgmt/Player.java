@@ -1,12 +1,10 @@
 package kbe.playermgmt;
 
+import kbe.cardmgmt.Card;
+
+import javax.persistence.*;
 import java.util.LinkedList;
 import java.util.List;
-import javax.persistence.*;
-
-import com.sun.istack.internal.NotNull;
-import kbe.cardmgmt.Card;
-import org.springframework.lang.NonNull;
 
 /**
  * @authors Kaya Löher 				| Kim Anh Nguyen 		| Christian Wahnsiedler
@@ -27,10 +25,21 @@ public class Player {
     @Column(name = "name")
     private String name;
 
+//    @OneToMany(mappedBy = "Player")
     @OneToMany
-    @Column(name ="handCards")
+    @JoinColumn(name = "handCards")
     private List<Card> handCards;
 
+//    @OneToOne(mappedBy = "Player")
+//    private GameInstance gameInstanceForCurrent;
+//
+//    @ManyToOne
+//    @JoinColumn(name = "GameInstanceForPlayers")
+//    private GameInstance gameInstanceForAllPlayers;
+//
+//    @ManyToOne
+//    @JoinColumn(name="GameInstanceForResult")
+//    private GameInstance gameInstanceForResult;
 
     /**
      * Ein Enum, welches die Rolle darstellt, welche ein Spieler haben kann.

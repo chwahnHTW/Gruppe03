@@ -34,14 +34,17 @@ public class GameInstance {
 
     @JoinColumn(name = "players")
     @OneToMany
+//    @OneToMany(mappedBy = "GameInstance")
     private List<Player> players;
 
     @JoinColumn(name = "result")
     @OneToMany
+//    @OneToMany(mappedBy = "GameInstance")
     private List<Player> result = new LinkedList<>();
 
     @JoinColumn(name = "boardCards")
     @OneToMany
+//    @OneToMany(mappedBy = "GameInstance")
     private List<Card> boardCards = null;
 
     @JoinColumn(name = "current")

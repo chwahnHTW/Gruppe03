@@ -380,8 +380,36 @@ public class FrontendController implements FrontendService {
     /**
      * Zeigt die gespeicherte Id der Spielinstanz an, um sie später wieder herstellen zu können
      */
-    public void showSavedGameId(){
+    public void showSavedGameId() {
         JOptionPane.showMessageDialog(null, "Die Spielnummer lautet: ");
+    }
+
+
+    public void showResultList(GameInstance gameInstance) {
+        if(gameInstance.getResult().size() == 3){
+            JOptionPane.showMessageDialog(null, "Die Reihenfolge der Gewinner ist: " +
+                    gameInstance.getResult().get(0).getName() + " ist Erster, " +
+                    gameInstance.getResult().get(1).getName() + " ist Zweiter, " +
+                    gameInstance.getResult().get(2).getName() + " ist Dritter, "
+            );
+        } else if (gameInstance.getResult().size() == 4){
+            JOptionPane.showMessageDialog(null, "Die Reihenfolge der Gewinner ist: " +
+                    gameInstance.getResult().get(0).getName() + " ist Erster, " +
+                    gameInstance.getResult().get(1).getName() + " ist Zweiter, " +
+                    gameInstance.getResult().get(2).getName() + " ist Dritter, " +
+                    gameInstance.getResult().get(3).getName() + " ist Vierter, "
+            );
+        } else if (gameInstance.getResult().size() == 5){
+            JOptionPane.showMessageDialog(null, "Die Reihenfolge der Gewinner ist: " +
+                    gameInstance.getResult().get(0).getName() + " ist Erster, " +
+                    gameInstance.getResult().get(1).getName() + " ist Zweiter, " +
+                    gameInstance.getResult().get(2).getName() + " ist Dritter, " +
+                    gameInstance.getResult().get(3).getName() + " ist Vierter, " +
+                    gameInstance.getResult().get(4).getName() + " ist Fünfter, "
+            );
+        } else {
+
+        }
     }
 
     /**
@@ -425,6 +453,7 @@ public class FrontendController implements FrontendService {
     /**
      * Hier wird ein neues Spiel erstellt, in dem neue Spieler eingegeben werden.
      * Jeder Spieler bekommt eine Hand an Karten und es wird der erste Spieler gesetzt
+     *
      * @param gameInstance : Spiel Instanz
      */
     public void startNewGame(GameInstance gameInstance) {
@@ -442,11 +471,16 @@ public class FrontendController implements FrontendService {
 
     /**
      * Hier wird eine gespeicherte Spielinstanz wieder hergestellt
+     *
      * @param gameInstance gameInstanz
      */
-    public void startSavedGame(GameInstance gameInstance){
+    public void startSavedGame(GameInstance gameInstance) {
         int gameId = getGameId();
         gameInstance = historyService.getLastPlayedGame(gameId);
+
+        gameInstance.setPlayers(gameInstance.getPlayers());
+        gameInstance.setCurrentPlayer(PLAYSI.getNextPlayer(gameInstance));
+
     }
 }
 

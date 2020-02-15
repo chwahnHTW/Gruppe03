@@ -84,6 +84,7 @@ public class FrontendView extends JFrame {
     private JPanel playerNamesPanel;
     private JLabel lblCurrentBoardcards;
     private JButton btnSaveGame;
+    private JButton btnCancel;
     private JButton btnStartGame;
     private JPanel btnPlayerCard0;
     private JPanel btnPlayerCard1;
@@ -162,6 +163,24 @@ public class FrontendView extends JFrame {
         // StartGame Button von Panel entfernen
         this.remove(btnStartGame);
 
+        btnCancel = new JButton("Cancel Game");
+        btnCancel.setForeground(Color.WHITE);
+        btnCancel.setBackground(new Color(0, 0, 153));
+        btnCancel.setBounds(445, 335, 99, 21);
+        btnCancel.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                GameInstance game = new GameInstance();
+                gameInstance.setBoardCards(null);
+                // Frontend Update
+                updateCurrentBoardCardPanels(gameInstance);
+                updateCardButtons(gameInstance);
+                updateCurrentPlayerLabel();
+                createFrontendView(game);
+            }
+        });
+        contentPane.add(btnCancel);
+
         btnSaveGame = new JButton("Save Game");
         btnSaveGame.setForeground(Color.WHITE);
         btnSaveGame.setBackground(new Color(0, 0, 153));
@@ -195,8 +214,6 @@ public class FrontendView extends JFrame {
                 if (gameState.equals("Running")) {
                     // Spiel geht weiter
                 } else {
-                    // Weiter spielen? User Abfrage
-                    Boolean continueGame = frontendController.getContinueGame();
 
                     // letzten Spieler in Resultliste speichern, damit Roles richtig gesetzt werden
                     for (Player player : gameInstance.getPlayers()) {
@@ -204,12 +221,20 @@ public class FrontendView extends JFrame {
                             gameInstance.setResult(player);
                         }
                     }
+                    frontendController.showResultList(gameInstance);
+                    // Weiter spielen? User Abfrage
+                    Boolean continueGame = frontendController.getContinueGame();
+
                     if (continueGame) {
                         // Rollen herausfinden
                         frontendController.setPlayerRoles(gameInstance);
-                        gameInstance.getResult().get(0).setHandCards(new LinkedList<Card>());
-                        gameInstance.getResult().get(1).setHandCards(new LinkedList<Card>());
-                        gameInstance.getResult().get(2).setHandCards(new LinkedList<Card>());
+
+                        for(int i = 0; i < gameInstance.getResult().size() ; i++){
+                            gameInstance.getResult().get(i).setHandCards(new LinkedList<>());
+                        }
+//                        gameInstance.getResult().get(0).setHandCards(new LinkedList<Card>());
+//                        gameInstance.getResult().get(1).setHandCards(new LinkedList<Card>());
+//                        gameInstance.getResult().get(2).setHandCards(new LinkedList<Card>());
 
                         // Spieler in neue Spielrunde uebernehmen
                         gameInstance.setPlayers(gameInstance.getResult());
@@ -227,9 +252,13 @@ public class FrontendView extends JFrame {
                         updateCurrentPlayerLabel();
                     } else {
                         // wenn nicht weitergespielt werden soll , schließt sich die Anwendung
-//                        gameInstance.setBoardCards(null);
-//                        createFrontendView(gameInstance);
-                        System.exit(0);
+                        GameInstance game = new GameInstance();
+                        gameInstance.setBoardCards(null);
+                        updateCurrentBoardCardPanels(gameInstance);
+                        updateCardButtons(gameInstance);
+                        updateCurrentPlayerLabel();
+                        createFrontendView(game);
+//                        System.exit(0);
                     }
                 }
                 // Frontend Update
@@ -311,7 +340,7 @@ public class FrontendView extends JFrame {
         contentPane.add(playerNamesPanel);
         // Label fuer CurrentBoardCards
         lblCurrentBoardcards = new JLabel("Current BoardCard(s)");
-        lblCurrentBoardcards.setBounds(833, 225, 125, 13);
+        lblCurrentBoardcards.setBounds(833, 225, 170, 13);
         contentPane.add(lblCurrentBoardcards);
         // Frontend update
         contentPane.revalidate();
