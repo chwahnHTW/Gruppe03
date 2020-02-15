@@ -383,7 +383,7 @@ public class FrontendView extends JFrame {
 	 * @throws IndexOutOfBounds & Nullpointer Exception
 	 * 
 	 */
-	void updateCurrentBoardCardPanels(GameInstance gameInstance) {
+	public void updateCurrentBoardCardPanels(GameInstance gameInstance) {
 
 		// Pruefung, ob BoardCards vorhanden
 		if (gameInstance.getBoardCards() != null) {
@@ -519,7 +519,7 @@ public class FrontendView extends JFrame {
 
 	}
 
-	void updateCardButtons(GameInstance gameInstance) {
+	public void updateCardButtons(GameInstance gameInstance) {
 ///////////////////////////////////////////////////////////////////////////////////
 
 		/*
@@ -936,7 +936,7 @@ public class FrontendView extends JFrame {
 	/*
 	 * Methode, um lblCurrentPlayer zu updaten
 	 */
-	void updateCurrentPlayerLabel() {
+	public void updateCurrentPlayerLabel() {
 
 		try {
 			lblCurrentPlayer.removeAll();
@@ -1010,7 +1010,7 @@ public class FrontendView extends JFrame {
 	 * nicht so ist, in die Erbegnissliste einzutragen, anhand derer spaeter die
 	 * Rollen der Spieler ermittelt werden
 	 */
-	private void addCurrentPlayerToResult() {
+	public void addCurrentPlayerToResult() {
 		if (gameInstance.getCurrentPlayer().getHand().isEmpty()) {
 			if (!gameInstance.getResult().contains(gameInstance.getCurrentPlayer())) {
 				gameInstance.setResult(gameInstance.getCurrentPlayer());
