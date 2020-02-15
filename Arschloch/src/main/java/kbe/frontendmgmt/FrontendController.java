@@ -1,27 +1,20 @@
 package kbe.frontendmgmt;
 
 
-import java.io.IOException;
-import java.util.LinkedList;
-import java.util.List;
-
-import javax.swing.JLabel;
-import javax.swing.JOptionPane;
-import javax.swing.SwingUtilities;
-
+import kbe.cardmgmt.Card;
 import kbe.cardmgmt.CardService;
+import kbe.gamemgmt.GameInstance;
+import kbe.gamemgmt.GameInstanceService;
 import kbe.historymgmt.HistoryService;
-import kbe.historymgmt.HistoryServiceImpl;
 import kbe.playermgmt.Player;
+import kbe.playermgmt.PlayerService;
+import kbe.rulesmgmt.CardRulesService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 
-import kbe.cardmgmt.Card;
-import kbe.gamemgmt.GameInstance;
-import kbe.gamemgmt.GameInstanceService;
-import kbe.playermgmt.PlayerService;
-import kbe.rulesmgmt.CardRulesService;
-import kbe.rulesmgmt.CardRulesServiceStandardImpl;
+import javax.swing.*;
+import java.util.LinkedList;
+import java.util.List;
 
 /**
  * @authors Kaya Löher 				| Kim Anh Nguyen 		| Christian Wahnsiedler
@@ -384,15 +377,18 @@ public class FrontendController implements FrontendService {
         }
     }
 
+    /**
+     * Zeigt die gespeicherte Id der Spielinstanz an, um sie später wieder herstellen zu können
+     */
+    public void showSavedGameId(){
+        JOptionPane.showMessageDialog(null, "Die Spielnummer lautet: ");
+    }
 
     /**
      * Methode, um Userinput ( Spieleranzahl ) zu erhalten
      *
-     * @return - int - vom Spieler eingegebene Spieleranzahl
-     * @throws IllegalArgumentException - falsche Eingabe HINWEIS : funktioniert nur
-     *                                  mit 3 Playern, da der Algorithmus zum
-     *                                  Erfassen des naechsten Spielers nicht
-     *                                  perfekt funktioniert
+     * @return vom Spieler eingegebene Spieleranzahl
+     * @throws IllegalArgumentException
      */
     int getUserCountInput() throws IllegalArgumentException {
         String userinput = JOptionPane.showInputDialog(null,
@@ -412,7 +408,7 @@ public class FrontendController implements FrontendService {
     /**
      * GameId eingeben, um Spiel später wieder herstellen zu können
      *
-     * @return
+     * @return gameId
      * @throws IllegalArgumentException
      */
     int getGameId() throws IllegalArgumentException {
@@ -427,7 +423,9 @@ public class FrontendController implements FrontendService {
     }
 
     /**
-     * @param gameInstance
+     * Hier wird ein neues Spiel erstellt, in dem neue Spieler eingegeben werden.
+     * Jeder Spieler bekommt eine Hand an Karten und es wird der erste Spieler gesetzt
+     * @param gameInstance : Spiel Instanz
      */
     public void startNewGame(GameInstance gameInstance) {
         List<Player> players = new LinkedList<>();
@@ -440,6 +438,15 @@ public class FrontendController implements FrontendService {
         cardService.dealCardsToPlayers(gameInstance);
 
         gameInstance.setCurrentPlayer(PLAYSI.getNextPlayer(gameInstance));
+    }
+
+    /**
+     * Hier wird eine gespeicherte Spielinstanz wieder hergestellt
+     * @param gameInstance gameInstanz
+     */
+    public void startSavedGame(GameInstance gameInstance){
+        int gameId = getGameId();
+        gameInstance = historyService.getLastPlayedGame(gameId);
     }
 }
 

@@ -26,7 +26,7 @@ public interface HistoryService {
      *
      * @return : eine Spielinstanz
      */
-    void getLastPlayedGame(int gameId);
+    GameInstance getLastPlayedGame(int gameId);
 
     /**
      *

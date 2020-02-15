@@ -101,9 +101,7 @@ public class FrontendView extends JFrame {
     /**
      * Methode, um das Frame des Frontends zu erstellen Im Frame befindet
      * sich @param btnStartGame, ein JButton, der ueber einen actionListener das
-     * Spiel startet. der Spieler mit der Karte HERZ_SIEBEN wird über @method
-     * determineInitialPlayer() ermittelt. Anschließend wird die Karte HERZ_SIEBEN
-     * seiner Hand über
+     * Spiel startet.
      *
      * @param gameInstance - Spielinstanz
      * @return void
@@ -131,8 +129,7 @@ public class FrontendView extends JFrame {
                 if (frontendController.playNewGame()) {
                     frontendController.startNewGame(gameInstance);
                 } else {
-                    int gameId = frontendController.getGameId();
-                    historyService.getLastPlayedGame(gameId);
+                    frontendController.startSavedGame(gameInstance);
                 }
                 try {
                     // nachdem alle automatischen Vorbereitungen getroffen sind, kann das Frontend
@@ -157,7 +154,7 @@ public class FrontendView extends JFrame {
     }
 
     /**
-     * Methode, um das Frontend zu initiieren
+     * Methode, um das Frontend zu initiieren, nachdem das Spiel gestartet wurde
      *
      * @throws IOException
      */
@@ -173,6 +170,9 @@ public class FrontendView extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 historyService.saveCurrentGame(gameInstance);
+
+                frontendController.showSavedGameId();
+
                 System.out.println("SPIEL GESPEICHERT");
             }
         });
@@ -227,10 +227,11 @@ public class FrontendView extends JFrame {
                         updateCurrentPlayerLabel();
                     } else {
                         // wenn nicht weitergespielt werden soll , schließt sich die Anwendung
+//                        gameInstance.setBoardCards(null);
+//                        createFrontendView(gameInstance);
                         System.exit(0);
                     }
                 }
-
                 // Frontend Update
                 updateCardButtons(gameInstance);
                 updateCurrentBoardCardPanels(gameInstance);
