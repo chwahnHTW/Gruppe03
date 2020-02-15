@@ -142,10 +142,10 @@ public void swapCards(GameInstance gameInstance) {
 			gameInstance.getPlayers().get(i % anzahlPlayer).setHand(deck.get(i));
 		}
 		
-		for (int j = 0; j < gameInstance.players.size(); j++) {
-			sortCardsByValue(gameInstance.players.get(j).handCards);
+		for (int j = 0; j < gameInstance.getPlayers().size(); j++) {
+			sortCardsByValue(gameInstance.getPlayers().get(j).getHandCards());
 			System.out.println("*!*!*!*!*!*!*!*!**!*!");
-			System.out.println(gameInstance.players.get(j).handCards);
+			System.out.println(gameInstance.getPlayers().get(j).getHandCards());
 		}
 
 	}

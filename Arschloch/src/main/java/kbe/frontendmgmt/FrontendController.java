@@ -36,7 +36,6 @@ public class FrontendController implements FrontendService {
     @Autowired
     private GameInstanceService GISI;
 
-    
     public void setGISI(GameInstanceService GISI) {
         this.GISI = GISI;
     }
@@ -56,25 +55,17 @@ public class FrontendController implements FrontendService {
     }
 
 
-
-//    @Autowired
-    private CardRulesService cardRulesService = new CardRulesServiceStandardImpl();
+    @Autowired
+    private CardRulesService cardRulesService;
     
     int passCounter = 0;
-
 
     @Autowired
     private HistoryService historyService;
 
-
-
     @Override
     public void init() {
         System.out.println("Initializing.......");
-
-        historyService.tueEtwas();
-
-
         gameInstance = GISI.startGame();
         frontendView.createFrontendView(gameInstance);
     }

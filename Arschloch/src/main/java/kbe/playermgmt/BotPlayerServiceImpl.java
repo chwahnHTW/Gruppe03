@@ -84,7 +84,7 @@ public class BotPlayerServiceImpl {
 		}
 		 
 		System.out.println(tempCardList.toString());
-		System.out.println(gameInstance.getCurrentPlayer().handCards.toString());
+		System.out.println(gameInstance.getCurrentPlayer().getHandCards().toString());
 		
 		gameInstance.setBoardCards(tempCardList);
 		System.out.println("boardcards gesetzt");

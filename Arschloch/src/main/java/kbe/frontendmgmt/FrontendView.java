@@ -1,37 +1,25 @@
 package kbe.frontendmgmt;
 
-import java.awt.Color;
+import kbe.cardmgmt.Card;
+import kbe.cardmgmt.CardService;
+import kbe.gamemgmt.GameInstance;
+import kbe.gamemgmt.GameInstanceService;
+import kbe.historymgmt.HistoryService;
+import kbe.playermgmt.Player;
+import kbe.playermgmt.PlayerService;
+import kbe.rulesmgmt.CardRulesService;
+import kbe.rulesmgmt.PlayerRulesService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import javax.swing.*;
+import javax.swing.border.EmptyBorder;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.IOException;
 import java.util.LinkedList;
 import java.util.List;
-
-import javax.swing.JButton;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JOptionPane;
-import javax.swing.JPanel;
-import javax.swing.SwingUtilities;
-import javax.swing.border.EmptyBorder;
-
-import kbe.cardmgmt.Card;
-import kbe.cardmgmt.CardService;
-import kbe.cardmgmt.CardServiceImpl;
-import kbe.gamemgmt.GameInstance;
-
-import kbe.gamemgmt.GameInstanceService;
-import kbe.gamemgmt.GameInstanceServiceImpl;
-import kbe.playermgmt.Player;
-import kbe.playermgmt.PlayerService;
-import kbe.playermgmt.PlayerServiceImpl;
-import kbe.rulesmgmt.CardRulesService;
-import kbe.rulesmgmt.CardRulesServiceStandardImpl;
-import kbe.rulesmgmt.PlayerRulesService;
-import kbe.rulesmgmt.PlayerRulesServicePresidentFirstImpl;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
 
 ///**
 // * @authors         Kaya Löher 				| Kim Anh Nguyen 		| Christian Wahnsiedler
@@ -58,27 +46,35 @@ import org.springframework.stereotype.Service;
 // *
 // *
 // */
-
 @Service
 public class FrontendView extends JFrame {
 
 //	private FrontendController frontendController
 
-	// @Autowired
-	private PlayerService PLAYSI = new PlayerServiceImpl();
-	// @Autowired
-	private CardService cardService = new CardServiceImpl();
-	// @Autowired
-	private PlayerRulesService playerRulesService = new PlayerRulesServicePresidentFirstImpl();
 
-	private CardRulesService cardRulesService = new CardRulesServiceStandardImpl();
+	@Autowired
+    private HistoryService historyService;
+
+	// @Autowired
+	@Autowired
+	private PlayerService PLAYSI;
+	// @Autowired
+	@Autowired
+	private CardService cardService;
+	// @Autowired
+	@Autowired
+	private PlayerRulesService playerRulesService;
+
+	@Autowired
+	private CardRulesService cardRulesService;
 	
 	@Autowired
 	private FrontendController frontendController;
 	
 	private GameInstance gameInstance;
 
-	private GameInstanceService GISI = new GameInstanceServiceImpl();
+	@Autowired
+	private GameInstanceService GISI;
 
 	private JPanel contentPane;
 	private JButton btnPlaycards;
@@ -92,6 +88,7 @@ public class FrontendView extends JFrame {
 	private JLabel lblPlayers;
 	private JPanel playerNamesPanel;
 	private JLabel lblCurrentBoardcards;
+	private  JButton btnSaveGame;
 	private JButton btnStartGame;
 	private JPanel btnPlayerCard0;
 	private JPanel btnPlayerCard1;
@@ -137,20 +134,17 @@ public class FrontendView extends JFrame {
 		btnStartGame.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				List<Player> players = new LinkedList<>();
-//				gameInstance.players = new LinkedList<>();
 				int playerCount = getUserCountInput();
-//                System.out.println(playerCount);
 				for (int i = 0; i < playerCount; i++) {
 					Player player = PLAYSI.createPlayer(getUserNameInput());
 					players.add(player);
-//					gameInstance.players.add(player);
 				}
 				gameInstance.setPlayers(players);
 				cardService.dealCardsToPlayers(gameInstance);
 
 				try {
 					gameInstance.setCurrentPlayer(PLAYSI.getNextPlayer(gameInstance));
-					System.out.println(gameInstance.getCurrentPlayer().getName());
+//					System.out.println(gameInstance.getCurrentPlayer().getName());
 
 					// nachdem alle automatischen Vorbereitungen getroffen sind, kann das Frontend
 					// vollstaendig aufgebaut werden
@@ -183,15 +177,6 @@ public class FrontendView extends JFrame {
 	 *                                  Erfassen des naechsten Spielers nicht
 	 *                                  perfekt funktioniert
 	 */
-//	private int getUserCountInput() throws IllegalArgumentException {
-//		String spieleranzahl = JOptionPane.showInputDialog(null,
-//				"Bitte Spieleranzahl eingeben (Spieleranzahl muss 3 sein)");
-//		if (spieleranzahl.equals("3") | spieleranzahl.equals("4")| spieleranzahl.equals("5")) {
-//			return Integer.valueOf(spieleranzahl);
-//		} else {
-//			return getUserCountInput();
-//		}
-//	}
 	private int getUserCountInput() throws IllegalArgumentException {
 		String userinput = JOptionPane.showInputDialog(null,
 				"Bitte Spieleranzahl eingeben (Spieleranzahl muss 3 bis 5 sein)");
@@ -205,7 +190,6 @@ public class FrontendView extends JFrame {
 		} catch (NumberFormatException e){
 			return getUserCountInput();
 		}
-			
 	}
 
 	/**
@@ -228,6 +212,19 @@ public class FrontendView extends JFrame {
 	void setupFrontend() throws IOException {
 		// StartGame Button von Panel entfernen
 		this.remove(btnStartGame);
+
+		btnSaveGame = new JButton("Save Game");
+		btnSaveGame.setForeground(Color.WHITE);
+		btnSaveGame.setBackground(new Color(0, 0, 153));
+		btnSaveGame.setBounds(583, 335, 99, 21);
+		btnSaveGame.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				historyService.saveCurrentGame(gameInstance);
+				System.out.println("SPIEL GESPEICHERT");
+			}
+		});
+		contentPane.add(btnSaveGame);
 
 		// Button :btnPlayCards einrichten
 		btnPlaycards = new JButton("PlayCard(s)");
@@ -386,7 +383,7 @@ public class FrontendView extends JFrame {
 	 * @throws IndexOutOfBounds & Nullpointer Exception
 	 * 
 	 */
-	void updateCurrentBoardCardPanels(GameInstance gameInstance) {
+	public void updateCurrentBoardCardPanels(GameInstance gameInstance) {
 
 		// Pruefung, ob BoardCards vorhanden
 		if (gameInstance.getBoardCards() != null) {
@@ -527,7 +524,7 @@ public class FrontendView extends JFrame {
 
 	}
 
-	void updateCardButtons(GameInstance gameInstance) {
+	public void updateCardButtons(GameInstance gameInstance) {
 ///////////////////////////////////////////////////////////////////////////////////
 
 		/*
@@ -944,7 +941,7 @@ public class FrontendView extends JFrame {
 	/*
 	 * Methode, um lblCurrentPlayer zu updaten
 	 */
-	void updateCurrentPlayerLabel() {
+	public void updateCurrentPlayerLabel() {
 
 		try {
 			lblCurrentPlayer.removeAll();
@@ -1018,7 +1015,7 @@ public class FrontendView extends JFrame {
 	 * nicht so ist, in die Erbegnissliste einzutragen, anhand derer spaeter die
 	 * Rollen der Spieler ermittelt werden
 	 */
-	private void addCurrentPlayerToResult() {
+	public void addCurrentPlayerToResult() {
 		if (gameInstance.getCurrentPlayer().getHand().isEmpty()) {
 			if (!gameInstance.getResult().contains(gameInstance.getCurrentPlayer())) {
 				gameInstance.setResult(gameInstance.getCurrentPlayer());
