@@ -137,11 +137,26 @@ public class FrontendView extends JFrame {
 		btnStartGame.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				gameInstance.players = new LinkedList<>();
+				boolean ifBotPlayer = getIfBotPlayer();
 				int playerCount = getUserCountInput();
 //                System.out.println(playerCount);
+				
 				for (int i = 0; i < playerCount; i++) {
-					Player player = PLAYSI.createPlayer(getUserNameInput());
-					gameInstance.players.add(player);
+					if(ifBotPlayer) {
+						System.out.println("ifBotPlayer is true");
+						if(i == 0) {
+							System.out.println("i == 0");
+							Player playerHuman = PLAYSI.createPlayer(getUserNameInput());
+							gameInstance.players.add(playerHuman);
+							System.out.println("human added");
+						}
+						Player playerBot = PLAYSI.createPlayer("BotPlayer");
+						gameInstance.players.add(playerBot);
+						System.out.println("bots added");
+					} else {
+						Player player = PLAYSI.createPlayer(getUserNameInput());
+						gameInstance.players.add(player);
+					}
 				}
 				cardService.dealCardsToPlayers(gameInstance);
 
@@ -203,6 +218,22 @@ public class FrontendView extends JFrame {
 			return getUserCountInput();
 		}
 			
+	}
+	
+	private boolean getIfBotPlayer() throws IllegalArgumentException {
+		String botPlayer = JOptionPane.showInputDialog(null, "Mit Bots spielen (J/N)?");
+		try {
+			if (botPlayer.equalsIgnoreCase("j") | botPlayer.equalsIgnoreCase("ja")) {
+				return true;
+			} else if (botPlayer.equalsIgnoreCase("n") | botPlayer.equalsIgnoreCase("nein")) {
+				return false;
+			} else {
+				return getIfBotPlayer();
+			}
+		} catch (Exception e) {
+			return getIfBotPlayer();
+		}
+		
 	}
 
 	/**
