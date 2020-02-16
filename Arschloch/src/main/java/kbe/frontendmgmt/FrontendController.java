@@ -445,19 +445,20 @@ public class FrontendController implements FrontendService {
      * @throws IllegalArgumentException
      */
     int getUserCountInput() throws IllegalArgumentException {
-        String userinput = JOptionPane.showInputDialog(null,
-                "Bitte Spieleranzahl eingeben (Spieleranzahl muss 3 bis 5 sein)");
-        try {
-            if (userinput.equals("3") | userinput.equals("4") | userinput.equals("5")) {
-                int spieleranzahl = Integer.parseInt(userinput);
-                return Integer.valueOf(spieleranzahl);
-            } else {
-                return getUserCountInput();
-            }
-        } catch (NumberFormatException e) {
-            return getUserCountInput();
-        }
-    }
+		String userinput = JOptionPane.showInputDialog(null,
+				"Bitte Anzahl Spieler/Bots eingeben (Spieleranzahl muss 3 bis 5 sein)");
+		try{
+			if (userinput.equals("3") | userinput.equals("4")| userinput.equals("5")) {
+				int spieleranzahl = Integer.parseInt(userinput);
+				return Integer.valueOf(spieleranzahl);
+			} else {
+				return getUserCountInput();
+			}
+		} catch (NumberFormatException e){
+			return getUserCountInput();
+		}
+			
+	}
 
     /**
      * GameId eingeben, um Spiel später wieder herstellen zu können
@@ -485,14 +486,38 @@ public class FrontendController implements FrontendService {
     public void startNewGame(GameInstance gameInstance) {
         List<Player> players = new LinkedList<>();
         int playerCount = getUserCountInput();
+        boolean ifBotPlayer = getIfBotPlayer();
+        
         for (int i = 0; i < playerCount; i++) {
-            Player player = PLAYSI.createPlayer(getUserNameInput());
-            players.add(player);
-        }
-        gameInstance.setPlayers(players);
-        cardService.dealCardsToPlayers(gameInstance);
+			if(ifBotPlayer) {
+				System.out.println("ifBotPlayer is true");
+				if(i == 0) {
+					System.out.println("i == 0");
+					Player playerHuman = PLAYSI.createPlayer(getUserNameInput());
+					gameInstance.players.add(playerHuman);
+					System.out.println("human added");
+				}
+				Player playerBot = PLAYSI.createPlayer("BotPlayer");
+				gameInstance.players.add(playerBot);
+				System.out.println("bots added");
+			} else { //keine botplayer
+				Player player = PLAYSI.createPlayer(getUserNameInput());
+	            players.add(player);
+			}
+			gameInstance.setPlayers(players);
+	        cardService.dealCardsToPlayers(gameInstance);
 
-        gameInstance.setCurrentPlayer(PLAYSI.getNextPlayer(gameInstance));
+	        gameInstance.setCurrentPlayer(PLAYSI.getNextPlayer(gameInstance));
+		}
+        
+//        for (int i = 0; i < playerCount; i++) {
+//            Player player = PLAYSI.createPlayer(getUserNameInput());
+//            players.add(player);
+//        }
+//        gameInstance.setPlayers(players);
+//        cardService.dealCardsToPlayers(gameInstance);
+//
+//        gameInstance.setCurrentPlayer(PLAYSI.getNextPlayer(gameInstance));
     }
 
     /**
@@ -508,6 +533,28 @@ public class FrontendController implements FrontendService {
         gameInstance.setCurrentPlayer(PLAYSI.getNextPlayer(gameInstance));
 
     }
+    
+    /**
+     * Fragt, ob User mit Bots spielen möchte.
+     * 
+     * @return
+     * @throws IllegalArgumentException
+     */
+    public boolean getIfBotPlayer() throws IllegalArgumentException {
+		String botPlayer = JOptionPane.showInputDialog(null, "Mit Bots spielen (J/N)?");
+		try {
+			if (botPlayer.equalsIgnoreCase("j") | botPlayer.equalsIgnoreCase("ja")) {
+				return true;
+			} else if (botPlayer.equalsIgnoreCase("n") | botPlayer.equalsIgnoreCase("nein")) {
+				return false;
+			} else {
+				return getIfBotPlayer();
+			}
+		} catch (Exception e) {
+			return getIfBotPlayer();
+		}
+		
+	}
 	
 //	public void whatever(){
 //    	if ("eingabe" == "arschlosch") {

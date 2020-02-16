@@ -22,6 +22,7 @@ import kbe.gamemgmt.GameInstance;
 
 import kbe.gamemgmt.GameInstanceService;
 import kbe.gamemgmt.GameInstanceServiceImpl;
+import kbe.historymgmt.HistoryService;
 import kbe.playermgmt.Player;
 import kbe.playermgmt.PlayerService;
 import kbe.playermgmt.PlayerServiceImpl;
@@ -33,79 +34,84 @@ import kbe.rulesmgmt.PlayerRulesServicePresidentFirstImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-///**
-// * @authors         Kaya Löher 				| Kim Anh Nguyen 		| Christian Wahnsiedler
-// * Email-Adresse: 	s0564784@htw-berlin.de 	| s0563958@htw-berlin.de| s0557193@htw-berlin.de
-// * Class - FrontendView
-// * Eine Klasse, die die Spielinstanz realisiert
-// * Hier läuft das Spiel im Großteil ab.
-// * @param PLAYSI - PlayerServiceImplementierung
-// * @param cardService - CardServiceImplementierung
-// * @param playerRulesService - PlayerRuleServiceImplementierung
-// * @param cardRulesService - CardRuleServiceImplementierung
-// * @param gameInstance - Spielinstanz - Hier werden Spieler und deren Karten gehalten
-// * @param contentPane - Content-Pane - Hauptfenster der GUI
-// * @param btnPlaycards . Button, mit dem die Validierung und Ausführung eines Spielzugs getriggert wird.
-// * @param btnPass - Button, mit dem ein Parr-Spielzug getätigt wird
-// * @param lblCurrentPlayer - Label, das den momentanen Spieler anzeigt
-// * @param currentBoardCardPanel1-4 - Panels, die gameInstance.boardCards anzeigen
-// * @param lblPlayers - Label fuer die Playernamen
-// * @param playerNamesPanel - Panel fuer die PlayerNamen
-// * @param lblCurrentBoardcards -  LAbel fuer gameInstance.boardCards
-// * @param btnStartGame - Button, um das Spiel zu starten
-// * @param btnPlayerCard0-11 - Buttons, um Karten anzuzeigen
-// * @param selectedCards - vom Spieler durch Anclicken ausgewählte Karten
-// *
-// *
-// */
+/**
+ * @param PLAYSI - PlayerServiceImplementierung
+ * @param cardService - CardServiceImplementierung
+ * @param playerRulesService - PlayerRuleServiceImplementierung
+ * @param cardRulesService - CardRuleServiceImplementierung
+ * @param gameInstance - Spielinstanz - Hier werden Spieler und deren Karten gehalten
+ * @param contentPane - Content-Pane - Hauptfenster der GUI
+ * @param btnPlaycards . Button, mit dem die Validierung und Ausführung eines Spielzugs getriggert wird.
+ * @param btnPass - Button, mit dem ein Parr-Spielzug getätigt wird
+ * @param lblCurrentPlayer - Label, das den momentanen Spieler anzeigt
+ * @param currentBoardCardPanel1-4 - Panels, die gameInstance.boardCards anzeigen
+ * @param lblPlayers - Label fuer die Playernamen
+ * @param playerNamesPanel - Panel fuer die PlayerNamen
+ * @param lblCurrentBoardcards -  LAbel fuer gameInstance.boardCards
+ * @param btnStartGame - Button, um das Spiel zu starten
+ * @param btnPlayerCard0-11 - Buttons, um Karten anzuzeigen
+ * @param selectedCards - vom Spieler durch Anclicken ausgewählte Karten
+ */
 
+/**
+ * @authors Kaya Löher 						| Kim Anh Nguyen 		| Christian Wahnsiedler
+ * Email-Adresse: 	s0564784@htw-berlin.de 	| s0563958@htw-berlin.de| s0557193@htw-berlin.de
+ * Class - FrontendView
+ * Eine Klasse, die die Spielinstanz realisiert
+ * Hier läuft das Spiel im Großteil ab.
+ */
 @Service
 public class FrontendView extends JFrame {
 
-//	private FrontendController frontendController
+	@Autowired
+    private HistoryService historyService;
+	
+	@Autowired
+	private PlayerService PLAYSI;
+	
+	@Autowired
+	private CardService cardService;
+	
+	@Autowired
+	private PlayerRulesService playerRulesService;
 
-	// @Autowired
-	private PlayerService PLAYSI = new PlayerServiceImpl();
-	// @Autowired
-	private CardService cardService = new CardServiceImpl();
-	// @Autowired
-	private PlayerRulesService playerRulesService = new PlayerRulesServicePresidentFirstImpl();
-
-	private CardRulesService cardRulesService = new CardRulesServiceStandardImpl();
+	@Autowired
+	private CardRulesService cardRulesService;
 	
 	@Autowired
 	private FrontendController frontendController;
 	
 	private GameInstance gameInstance;
 
-	private GameInstanceService GISI = new GameInstanceServiceImpl();
+	@Autowired
+	private GameInstanceService GISI;
 
 	private JPanel contentPane;
-	private JButton btnPlaycards;
-	private JButton btnPass;
-//	int passCounter = 0;
-	public JLabel lblCurrentPlayer;
-	private JPanel currentBoardCardPanel1;
-	private JPanel currentBoardCardPanel2;
-	private JPanel currentBoardCardPanel3;
-	private JPanel currentBoardCardPanel4;
-	private JLabel lblPlayers;
-	private JPanel playerNamesPanel;
-	private JLabel lblCurrentBoardcards;
-	private JButton btnStartGame;
-	private JPanel btnPlayerCard0;
-	private JPanel btnPlayerCard1;
-	private JPanel btnPlayerCard2;
-	private JPanel btnPlayerCard3;
-	private JPanel btnPlayerCard4;
-	private JPanel btnPlayerCard5;
-	private JPanel btnPlayerCard6;
-	private JPanel btnPlayerCard7;
-	private JPanel btnPlayerCard8;
-	private JPanel btnPlayerCard9;
-	private JPanel btnPlayerCard10;
-	private JPanel btnPlayerCard11;
-//    private int[] selectedCards = new int[12];
+    private JButton btnPlaycards;
+    private JButton btnPass;
+    public JLabel lblCurrentPlayer;
+    private JPanel currentBoardCardPanel1;
+    private JPanel currentBoardCardPanel2;
+    private JPanel currentBoardCardPanel3;
+    private JPanel currentBoardCardPanel4;
+    private JLabel lblPlayers;
+    private JPanel playerNamesPanel;
+    private JLabel lblCurrentBoardcards;
+    private JButton btnSaveGame;
+    private JButton btnCancel;
+    private JButton btnStartGame;
+    private JPanel btnPlayerCard0;
+    private JPanel btnPlayerCard1;
+    private JPanel btnPlayerCard2;
+    private JPanel btnPlayerCard3;
+    private JPanel btnPlayerCard4;
+    private JPanel btnPlayerCard5;
+    private JPanel btnPlayerCard6;
+    private JPanel btnPlayerCard7;
+    private JPanel btnPlayerCard8;
+    private JPanel btnPlayerCard9;
+    private JPanel btnPlayerCard10;
+    private JPanel btnPlayerCard11;
 
 	/**
 	 * Methode, um das Frame des Frontends zu erstellen Im Frame befindet
@@ -136,34 +142,14 @@ public class FrontendView extends JFrame {
 		btnStartGame = new JButton("Start Game");
 		btnStartGame.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				gameInstance.players = new LinkedList<>();
-				boolean ifBotPlayer = getIfBotPlayer();
-				int playerCount = getUserCountInput();
-//                System.out.println(playerCount);
 				
-				for (int i = 0; i < playerCount; i++) {
-					if(ifBotPlayer) {
-						System.out.println("ifBotPlayer is true");
-						if(i == 0) {
-							System.out.println("i == 0");
-							Player playerHuman = PLAYSI.createPlayer(getUserNameInput());
-							gameInstance.players.add(playerHuman);
-							System.out.println("human added");
-						}
-						Player playerBot = PLAYSI.createPlayer("BotPlayer");
-						gameInstance.players.add(playerBot);
-						System.out.println("bots added");
-					} else {
-						Player player = PLAYSI.createPlayer(getUserNameInput());
-						gameInstance.players.add(player);
-					}
-				}
-				cardService.dealCardsToPlayers(gameInstance);
+				if (frontendController.playNewGame()) {
+                    frontendController.startNewGame(gameInstance);
+                } else {
+                    frontendController.startSavedGame(gameInstance);
+                }
 
 				try {
-					gameInstance.setCurrentPlayer(PLAYSI.getNextPlayer(gameInstance));
-					System.out.println(gameInstance.getCurrentPlayer().getName());
-
 					// nachdem alle automatischen Vorbereitungen getroffen sind, kann das Frontend
 					// vollstaendig aufgebaut werden
 					setupFrontend();
@@ -187,56 +173,6 @@ public class FrontendView extends JFrame {
 	}
 
 	/**
-	 * Methode, um Userinput ( Spieleranzahl ) zu erhalten
-	 *
-	 * @return - int - vom Spieler eingegebene Spieleranzahl
-	 * @throws IllegalArgumentException - falsche Eingabe HINWEIS : funktioniert nur
-	 *                                  mit 3 Playern, da der Algorithmus zum
-	 *                                  Erfassen des naechsten Spielers nicht
-	 *                                  perfekt funktioniert
-	 */
-//	private int getUserCountInput() throws IllegalArgumentException {
-//		String spieleranzahl = JOptionPane.showInputDialog(null,
-//				"Bitte Spieleranzahl eingeben (Spieleranzahl muss 3 sein)");
-//		if (spieleranzahl.equals("3") | spieleranzahl.equals("4")| spieleranzahl.equals("5")) {
-//			return Integer.valueOf(spieleranzahl);
-//		} else {
-//			return getUserCountInput();
-//		}
-//	}
-	private int getUserCountInput() throws IllegalArgumentException {
-		String userinput = JOptionPane.showInputDialog(null,
-				"Bitte Spieleranzahl eingeben (Spieleranzahl muss 3 bis 5 sein)");
-		try{
-			if (userinput.equals("3") | userinput.equals("4")| userinput.equals("5")) {
-				int spieleranzahl = Integer.parseInt(userinput);
-				return Integer.valueOf(spieleranzahl);
-			} else {
-				return getUserCountInput();
-			}
-		} catch (NumberFormatException e){
-			return getUserCountInput();
-		}
-			
-	}
-	
-	private boolean getIfBotPlayer() throws IllegalArgumentException {
-		String botPlayer = JOptionPane.showInputDialog(null, "Mit Bots spielen (J/N)?");
-		try {
-			if (botPlayer.equalsIgnoreCase("j") | botPlayer.equalsIgnoreCase("ja")) {
-				return true;
-			} else if (botPlayer.equalsIgnoreCase("n") | botPlayer.equalsIgnoreCase("nein")) {
-				return false;
-			} else {
-				return getIfBotPlayer();
-			}
-		} catch (Exception e) {
-			return getIfBotPlayer();
-		}
-		
-	}
-
-	/**
 	 * Methode, um die Namen der Spieler eines Spiels zu erfassen
 	 * 
 	 * @return - String - Name fuer einen User
@@ -256,6 +192,40 @@ public class FrontendView extends JFrame {
 	void setupFrontend() throws IOException {
 		// StartGame Button von Panel entfernen
 		this.remove(btnStartGame);
+		
+		btnCancel = new JButton("Cancel Game");
+        btnCancel.setForeground(Color.WHITE);
+        btnCancel.setBackground(new Color(0, 0, 153));
+        btnCancel.setBounds(445, 335, 99, 21);
+        btnCancel.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                GameInstance game = new GameInstance();
+                gameInstance.setBoardCards(null);
+                // Frontend Update
+                updateCurrentBoardCardPanels(gameInstance);
+                updateCardButtons(gameInstance);
+                updateCurrentPlayerLabel();
+                createFrontendView(game);
+            }
+        });
+        contentPane.add(btnCancel);
+
+        btnSaveGame = new JButton("Save Game");
+        btnSaveGame.setForeground(Color.WHITE);
+        btnSaveGame.setBackground(new Color(0, 0, 153));
+        btnSaveGame.setBounds(583, 335, 99, 21);
+        btnSaveGame.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                historyService.saveCurrentGame(gameInstance);
+
+                frontendController.showSavedGameId();
+
+                System.out.println("SPIEL GESPEICHERT");
+            }
+        });
+        contentPane.add(btnSaveGame);
 
 		// Button :btnPlayCards einrichten
 		btnPlaycards = new JButton("PlayCard(s)");
@@ -274,8 +244,6 @@ public class FrontendView extends JFrame {
 				if (gameState.equals("Running")) {
 					// Spiel geht weiter
 				} else {
-					// Weiter spielen? User Abfrage
-					Boolean continueGame = getContinueGame();
 
 					// letzten Spieler in Resultliste speichern, damit Roles richtig gesetzt werden
 					for (Player player : gameInstance.getPlayers()) {
@@ -283,30 +251,44 @@ public class FrontendView extends JFrame {
 							gameInstance.setResult(player);
 						}
 					}
+					frontendController.showResultList(gameInstance);
+					// Weiter spielen? User Abfrage
+					Boolean continueGame = getContinueGame();
+					
 					if (continueGame) {
 						// Rollen herausfinden
-						setPlayerRoles();
-						gameInstance.getResult().get(0).handCards = new LinkedList<Card>();
-						gameInstance.getResult().get(1).handCards = new LinkedList<Card>();
-						gameInstance.getResult().get(2).handCards = new LinkedList<Card>();
+                        frontendController.setPlayerRoles(gameInstance);
 
-						// Spieler in neue Spielrunde uebernehmen
-						gameInstance.setPlayers(gameInstance.getResult());
-						// Karten austeilen
-						cardService.dealCardsToPlayers(gameInstance);
-						// Karten entsprechend der Rollen austauschen
-						cardService.swapCards(gameInstance);
-						// Setzen des ersten Spielers der nächsten Runde
-						setInitialPlayerForNextRound();
-						// Update der boardCards auf null, da frisches Spiel
-						gameInstance.setBoardCards(null);
-						// Frontend Update
-						updateCurrentBoardCardPanels(gameInstance);
-						updateCardButtons(gameInstance);
-						updateCurrentPlayerLabel();
+                        for(int i = 0; i < gameInstance.getResult().size() ; i++){
+                            gameInstance.getResult().get(i).setHandCards(new LinkedList<>());
+                        }
+//                        gameInstance.getResult().get(0).setHandCards(new LinkedList<Card>());
+//                        gameInstance.getResult().get(1).setHandCards(new LinkedList<Card>());
+//                        gameInstance.getResult().get(2).setHandCards(new LinkedList<Card>());
+
+                        // Spieler in neue Spielrunde uebernehmen
+                        gameInstance.setPlayers(gameInstance.getResult());
+                        // Karten austeilen
+                        cardService.dealCardsToPlayers(gameInstance);
+                        // Karten entsprechend der Rollen austauschen
+                        cardService.swapCards(gameInstance);
+                        // Setzen des ersten Spielers der nächsten Runde
+                        frontendController.setInitialPlayerForNextRound(gameInstance);
+                        // Update der boardCards auf null, da frisches Spiel
+                        gameInstance.setBoardCards(null);
+                        // Frontend Update
+                        updateCurrentBoardCardPanels(gameInstance);
+                        updateCardButtons(gameInstance);
+                        updateCurrentPlayerLabel();
 					} else {
 						// wenn nicht weitergespielt werden soll , schließt sich die Anwendung
-						System.exit(0);
+                        GameInstance game = new GameInstance();
+                        gameInstance.setBoardCards(null);
+                        updateCurrentBoardCardPanels(gameInstance);
+                        updateCardButtons(gameInstance);
+                        updateCurrentPlayerLabel();
+                        createFrontendView(game);
+//                      System.exit(0);
 					}
 				}
 
@@ -997,75 +979,6 @@ public class FrontendView extends JFrame {
 			return true;
 		} else {
 			return false;
-		}
-	}
-
-	/**
-	 * Fragt den User ab, wer die naechste Runde anfangen soll zu legen, und setzt
-	 * entweder Arschloch oder Praesident als current player.
-	 *
-	 * @throws IllegalArgumentException
-	 */
-	void setInitialPlayerForNextRound() throws IllegalArgumentException {
-		String initialPlayerForNextRound = JOptionPane.showInputDialog(null,
-				"Wer soll anfangen (Arschloch (a)/Praesident (p))?");
-		if (initialPlayerForNextRound.equalsIgnoreCase("a")) {
-			for (int i = 0; i < gameInstance.getPlayers().size(); i++) {
-				try {
-					if (gameInstance.getPlayers().get(i).getRole().equals(Player.Role.ARSCHLOCH1)) {
-						gameInstance.setCurrentPlayer(gameInstance.getPlayers().get(i)); // current player setzen mit arschloch
-						System.out.println("ARSCHLOCH1 faengt an");
-					}
-				} catch (Exception e) {
-
-				}
-			}
-		} else if (initialPlayerForNextRound.equalsIgnoreCase("p")) {
-			for (int i = 0; i < gameInstance.getPlayers().size(); i++) {
-				try {
-					if (gameInstance.getPlayers().get(i).getRole().equals(Player.Role.PRAESIDENT1)) {
-						gameInstance.setCurrentPlayer(gameInstance.getPlayers().get(i)); // current player setzen mit praesident
-						System.out.println("PRAESIDENT1 faengt an");
-					}
-				} catch (Exception e) {
-
-				}
-			}
-		} else {
-			setInitialPlayerForNextRound();
-		}
-	}
-
-	/*
-	 * Methode, die ueberprueft, ob ein Spieler noch Karten hat, um ihn, falls dem
-	 * nicht so ist, in die Erbegnissliste einzutragen, anhand derer spaeter die
-	 * Rollen der Spieler ermittelt werden
-	 */
-	public void addCurrentPlayerToResult() {
-		if (gameInstance.getCurrentPlayer().getHand().isEmpty()) {
-			if (!gameInstance.getResult().contains(gameInstance.getCurrentPlayer())) {
-				gameInstance.setResult(gameInstance.getCurrentPlayer());
-
-				System.out.println("RESULT LISTE " + gameInstance.getResult().size());
-			}
-		}
-	}
-	/*
-	 * Setzen der Spielerrollen, Ueber die Reihenfolge, in der die Spieler in die
-	 * Ergebnisliste aufgenommen wurden laesst sich ermitteln, welche Rolle sie
-	 * haben ( erster Spieler, der fertig ist =
-	 * gameInstance.getResult().get(0).setRole(Player.Role.PRAESIDENT) usw. ) Simple
-	 * Implementierung, da momentan nur mit 3 Spielern spielbar
-	 * 
-	 */
-	private void setPlayerRoles() {
-		int resultSize = gameInstance.getResult().size();
-		gameInstance.getResult().get(0).setRole(Player.Role.PRAESIDENT1);
-		gameInstance.getResult().get(resultSize-1).setRole(Player.Role.ARSCHLOCH1);
-
-		if(resultSize>3) {
-			gameInstance.getResult().get(1).setRole(Player.Role.PRAESIDENT2);
-			gameInstance.getResult().get(resultSize-2).setRole(Player.Role.ARSCHLOCH2);
 		}
 	}
 }
