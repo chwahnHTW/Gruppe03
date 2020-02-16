@@ -12,10 +12,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 
 import kbe.cardmgmt.Card;
+import kbe.cardmgmt.CardService;
 import kbe.gamemgmt.GameInstance;
 import kbe.gamemgmt.GameInstanceService;
+import kbe.historymgmt.HistoryService;
 import kbe.playermgmt.BotPlayerService;
 import kbe.playermgmt.BotPlayerServiceImpl;
+import kbe.playermgmt.Player;
 import kbe.playermgmt.PlayerService;
 import kbe.rulesmgmt.CardRulesService;
 import kbe.rulesmgmt.CardRulesServiceStandardImpl;
@@ -59,8 +62,8 @@ public class FrontendController implements FrontendService {
     private BotPlayerService botPlayerService = new BotPlayerServiceImpl();
 
 
-//    @Autowired
-    private CardRulesService cardRulesService = new CardRulesServiceStandardImpl();
+    @Autowired
+    private CardRulesService cardRulesService;
     
     int passCounter = 0;
 
@@ -71,6 +74,12 @@ public class FrontendController implements FrontendService {
 	public void setPassCounter(int passCounter) {
 		this.passCounter = passCounter;
 	}
+	
+	@Autowired
+    private HistoryService historyService;
+
+    @Autowired
+    private CardService cardService;
 
 	@Override
     public void init() {
@@ -195,7 +204,7 @@ public class FrontendController implements FrontendService {
     					// wenn nein, wird er in result ( "Siegerliste, Rangfolge der Spieler" )
     					// aufgenommen, um spaeter die Rollen fuer ein potentielles
     					// weiteres Spiel zu ermitteln
-    					addCurrentPlayerToResult();
+    					addCurrentPlayerToResult(gameInstance);
     					// setzt naechsten Spieler nach validem Spielzug
     					gameInstance.setCurrentPlayer(PLAYSI.getNextPlayer(gameInstance));
     					// Update Frontend
@@ -222,7 +231,7 @@ public class FrontendController implements FrontendService {
     							// tempCards werden von der Hand des Spielers entfernt
     							PLAYSI.removeFromHand(gameInstance.getCurrentPlayer(), tempCardList);
     							// Pruefung, obn Spieler keine Karten mehr hat
-    							addCurrentPlayerToResult();
+    							addCurrentPlayerToResult(gameInstance);
 
     							// nächsten Spieler setzen
     							gameInstance.setCurrentPlayer(PLAYSI.getNextPlayer(gameInstance));
@@ -241,7 +250,7 @@ public class FrontendController implements FrontendService {
     						gameInstance.setBoardCards(tempCardList);
     						PLAYSI.removeFromHand(gameInstance.getCurrentPlayer(), tempCardList);
 
-    						addCurrentPlayerToResult();
+    						addCurrentPlayerToResult(gameInstance);
 
     						gameInstance.setCurrentPlayer(PLAYSI.getNextPlayer(gameInstance));
 
@@ -281,14 +290,232 @@ public class FrontendController implements FrontendService {
 		
 	}
     
-	private void addCurrentPlayerToResult() {
-		if (gameInstance.getCurrentPlayer().getHand().isEmpty()) {
-			if (!gameInstance.getResult().contains(gameInstance.getCurrentPlayer())) {
-				gameInstance.setResult(gameInstance.getCurrentPlayer());
-				System.out.println("RESULT LISTE " + gameInstance.getResult().size());
-			}
-		}
-	}
+    
+    /**
+     * Setzen der Spielerrollen, Ueber die Reihenfolge, in der die Spieler in die
+     * Ergebnisliste aufgenommen wurden laesst sich ermitteln, welche Rolle sie
+     * haben ( erster Spieler, der fertig ist =
+     * gameInstance.getResult().get(0).setRole(Player.Role.PRAESIDENT) usw. ) Simple
+     * Implementierung, da momentan nur mit 3 Spielern spielbar
+     */
+    void setPlayerRoles(GameInstance gameInstance) {
+        int resultSize = gameInstance.getResult().size();
+        gameInstance.getResult().get(0).setRole(Player.Role.PRAESIDENT1);
+        gameInstance.getResult().get(resultSize - 1).setRole(Player.Role.ARSCHLOCH1);
+
+        if (resultSize > 3) {
+            gameInstance.getResult().get(1).setRole(Player.Role.PRAESIDENT2);
+            gameInstance.getResult().get(resultSize - 2).setRole(Player.Role.ARSCHLOCH2);
+        }
+    }
+
+    /**
+     * Methode, die ueberprueft, ob ein Spieler noch Karten hat, um ihn, falls dem
+     * nicht so ist, in die Erbegnissliste einzutragen, anhand derer spaeter die
+     * Rollen der Spieler ermittelt werden
+     */
+    public void addCurrentPlayerToResult(GameInstance gameInstance) {
+        if (gameInstance.getCurrentPlayer().getHand().isEmpty()) {
+            if (!gameInstance.getResult().contains(gameInstance.getCurrentPlayer())) {
+                gameInstance.setResult(gameInstance.getCurrentPlayer());
+
+                System.out.println("RESULT LISTE " + gameInstance.getResult().size());
+            }
+        }
+    }
+    
+    /**
+     * Fragt den User ab, wer die naechste Runde anfangen soll zu legen, und setzt
+     * entweder Arschloch oder Praesident als current player.
+     *
+     * @param gameInstance
+     * @throws IllegalArgumentException
+     */
+    void setInitialPlayerForNextRound(GameInstance gameInstance) throws IllegalArgumentException {
+        String initialPlayerForNextRound = JOptionPane.showInputDialog(null,
+                "Wer soll anfangen (Arschloch (a)/Praesident (p))?");
+        if (initialPlayerForNextRound.equalsIgnoreCase("a")) {
+            for (int i = 0; i < gameInstance.getPlayers().size(); i++) {
+                try {
+                    if (gameInstance.getPlayers().get(i).getRole().equals(Player.Role.ARSCHLOCH1)) {
+                        gameInstance.setCurrentPlayer(gameInstance.getPlayers().get(i)); // current player setzen mit arschloch
+                        System.out.println("ARSCHLOCH1 faengt an");
+                    }
+                } catch (Exception e) {
+
+                }
+            }
+        } else if (initialPlayerForNextRound.equalsIgnoreCase("p")) {
+            for (int i = 0; i < gameInstance.getPlayers().size(); i++) {
+                try {
+                    if (gameInstance.getPlayers().get(i).getRole().equals(Player.Role.PRAESIDENT1)) {
+                        gameInstance.setCurrentPlayer(gameInstance.getPlayers().get(i)); // current player setzen mit praesident
+                        System.out.println("PRAESIDENT1 faengt an");
+                    }
+                } catch (Exception e) {
+
+                }
+            }
+        } else {
+            setInitialPlayerForNextRound(gameInstance);
+        }
+    }
+    
+    /**
+     * Methode, die nach Spielabschluss erfaesst, ob weitergepspielt werden soll
+     *
+     * @return boolean - weiterspielen oder nicht ( true , false )
+     */
+    Boolean getContinueGame() throws IllegalArgumentException {
+        String continueGame = JOptionPane.showInputDialog(null, "Weiterspielen (J/N)?");
+        if (continueGame.equalsIgnoreCase("j") | continueGame.equalsIgnoreCase("ja")) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    /**
+     * fragt ab, ob ein Spiel neu gestartet werden soll oder ein altes wiederhergestellt werden soll
+     *
+     * @return
+     */
+    Boolean playNewGame() throws IllegalArgumentException {
+        String newGame = JOptionPane.showInputDialog(null, "Neues Spiel beginnen oder gespeichertes wiederherstellen (J/N)?");
+        if (newGame.equalsIgnoreCase("j") | newGame.equalsIgnoreCase("ja")) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    /**
+     * Methode, um die Namen der Spieler eines Spiels zu erfassen
+     *
+     * @return - String - Name fuer einen User
+     */
+    String getUserNameInput() {
+        String spielerName = JOptionPane.showInputDialog(null, "Bitte Spielernamen eingeben");
+        if (spielerName.isEmpty()) {
+            return getUserNameInput();
+        } else {
+            return spielerName;
+        }
+    }
+    
+    /**
+     * Zeigt die gespeicherte Id der Spielinstanz an, um sie später wieder herstellen zu können
+     */
+    public void showSavedGameId() {
+        JOptionPane.showMessageDialog(null, "Die Spielnummer lautet: ");
+    }
+
+
+    public void showResultList(GameInstance gameInstance) {
+        if(gameInstance.getResult().size() == 3){
+            JOptionPane.showMessageDialog(null, "Die Reihenfolge der Gewinner ist: " +
+                    gameInstance.getResult().get(0).getName() + " ist Erster, " +
+                    gameInstance.getResult().get(1).getName() + " ist Zweiter, " +
+                    gameInstance.getResult().get(2).getName() + " ist Dritter, "
+            );
+        } else if (gameInstance.getResult().size() == 4){
+            JOptionPane.showMessageDialog(null, "Die Reihenfolge der Gewinner ist: " +
+                    gameInstance.getResult().get(0).getName() + " ist Erster, " +
+                    gameInstance.getResult().get(1).getName() + " ist Zweiter, " +
+                    gameInstance.getResult().get(2).getName() + " ist Dritter, " +
+                    gameInstance.getResult().get(3).getName() + " ist Vierter, "
+            );
+        } else if (gameInstance.getResult().size() == 5){
+            JOptionPane.showMessageDialog(null, "Die Reihenfolge der Gewinner ist: " +
+                    gameInstance.getResult().get(0).getName() + " ist Erster, " +
+                    gameInstance.getResult().get(1).getName() + " ist Zweiter, " +
+                    gameInstance.getResult().get(2).getName() + " ist Dritter, " +
+                    gameInstance.getResult().get(3).getName() + " ist Vierter, " +
+                    gameInstance.getResult().get(4).getName() + " ist Fünfter, "
+            );
+        } else {
+
+        }
+    }
+
+    /**
+     * Methode, um Userinput ( Spieleranzahl ) zu erhalten
+     *
+     * @return vom Spieler eingegebene Spieleranzahl
+     * @throws IllegalArgumentException
+     */
+    int getUserCountInput() throws IllegalArgumentException {
+        String userinput = JOptionPane.showInputDialog(null,
+                "Bitte Spieleranzahl eingeben (Spieleranzahl muss 3 bis 5 sein)");
+        try {
+            if (userinput.equals("3") | userinput.equals("4") | userinput.equals("5")) {
+                int spieleranzahl = Integer.parseInt(userinput);
+                return Integer.valueOf(spieleranzahl);
+            } else {
+                return getUserCountInput();
+            }
+        } catch (NumberFormatException e) {
+            return getUserCountInput();
+        }
+    }
+
+    /**
+     * GameId eingeben, um Spiel später wieder herstellen zu können
+     *
+     * @return gameId
+     * @throws IllegalArgumentException
+     */
+    int getGameId() throws IllegalArgumentException {
+        String userinput = JOptionPane.showInputDialog(null,
+                "Bitte die Spielnummer eingeben");
+        try {
+
+            return Integer.valueOf(userinput);
+        } catch (NumberFormatException e) {
+            return getGameId();
+        }
+    }
+
+    /**
+     * Hier wird ein neues Spiel erstellt, in dem neue Spieler eingegeben werden.
+     * Jeder Spieler bekommt eine Hand an Karten und es wird der erste Spieler gesetzt
+     *
+     * @param gameInstance : Spiel Instanz
+     */
+    public void startNewGame(GameInstance gameInstance) {
+        List<Player> players = new LinkedList<>();
+        int playerCount = getUserCountInput();
+        for (int i = 0; i < playerCount; i++) {
+            Player player = PLAYSI.createPlayer(getUserNameInput());
+            players.add(player);
+        }
+        gameInstance.setPlayers(players);
+        cardService.dealCardsToPlayers(gameInstance);
+
+        gameInstance.setCurrentPlayer(PLAYSI.getNextPlayer(gameInstance));
+    }
+
+    /**
+     * Hier wird eine gespeicherte Spielinstanz wieder hergestellt
+     *
+     * @param gameInstance gameInstanz
+     */
+    public void startSavedGame(GameInstance gameInstance) {
+        int gameId = getGameId();
+        gameInstance = historyService.getLastPlayedGame(gameId);
+
+        gameInstance.setPlayers(gameInstance.getPlayers());
+        gameInstance.setCurrentPlayer(PLAYSI.getNextPlayer(gameInstance));
+
+    }
+	
+//	public void whatever(){
+//    	if ("eingabe" == "arschlosch") {
+//    		cardRulesService = new CardRulesServiceStandardImpl();
+//    	} else {
+//    		cardRulesService = new CardRulesServicePresidentImpl();
+//    	}
+//    }
 
 
 }
