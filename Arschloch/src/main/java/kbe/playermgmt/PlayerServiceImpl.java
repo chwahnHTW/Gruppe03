@@ -9,11 +9,6 @@ import java.util.List;
 @Service
 public class PlayerServiceImpl implements PlayerService {
 
-    /*
-     * Prueft, ob Spieler Karten hat
-     * return boolean, true wenn ja, false wenn nicht
-     *
-     * */
     @Override
     public Boolean hasCards(Player player) {
         if (player.getHand().isEmpty()) {
@@ -22,13 +17,6 @@ public class PlayerServiceImpl implements PlayerService {
             return true;
         }
     }
-
-    /*Zieht Karten von der Hand eines Spielers ab
-     * @param Player - Spieler, von dem abgezogen werden soll
-     * @cards - Liste der Karten, die abgezogen werden sollen
-     *
-     * */
-
 
     @Override
     public void removeFromHand(Player player, List<Card> cards) {
@@ -42,8 +30,6 @@ public class PlayerServiceImpl implements PlayerService {
         }
     }
 
-
-    // Fuegt @cards der Hand von @Player hinzu
     @Override
     public void addToHand(Player player, List<Card> cards) {
         if (!player.getHand().containsAll(cards)) {

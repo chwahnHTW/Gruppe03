@@ -1,6 +1,5 @@
 package kbe.configmgmt;
 
-import kbe.frontendmgmt.FrontendController;
 import kbe.frontendmgmt.FrontendService;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.domain.EntityScan;
@@ -17,7 +16,6 @@ import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
  * Eine Klasse, die die Spielinstanz realisiert
  * Hier läuft das Spiel im Großteil ab.
  */
-
 @SpringBootApplication
 @Configuration
 @ComponentScan(basePackages = {"kbe"})

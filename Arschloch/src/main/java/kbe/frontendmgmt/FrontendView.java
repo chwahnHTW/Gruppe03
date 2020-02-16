@@ -215,8 +215,10 @@ public class FrontendView extends JFrame {
                 String gameState = GISI.calculateGameState(gameInstance);
                 if (gameState.equals("Running")) {
                     // Spiel geht weiter
+                    // Frontend Update
+                    updateCardButtons(gameInstance);
+                    updateCurrentBoardCardPanels(gameInstance);
                 } else {
-
                     // letzten Spieler in Resultliste speichern, damit Roles richtig gesetzt werden
                     for (Player player : gameInstance.getPlayers()) {
                         if (PLAYSI.hasCards(player)) {
@@ -256,12 +258,8 @@ public class FrontendView extends JFrame {
                         updateCardButtons(gameInstance);
                         updateCurrentPlayerLabel();
                         createFrontendView(game);
-//                        System.exit(0);
                     }
                 }
-                // Frontend Update
-                updateCardButtons(gameInstance);
-                updateCurrentBoardCardPanels(gameInstance);
             }
         });
         // Hier wird das Frontend mit dem Button btnPlayCards bestückt

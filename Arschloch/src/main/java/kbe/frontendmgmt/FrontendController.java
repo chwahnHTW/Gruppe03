@@ -7,7 +7,6 @@ import kbe.gamemgmt.GameInstance;
 import kbe.gamemgmt.GameInstanceService;
 import kbe.historymgmt.HistoryService;
 import kbe.playermgmt.BotPlayerService;
-import kbe.playermgmt.BotPlayerServiceImpl;
 import kbe.playermgmt.Player;
 import kbe.playermgmt.PlayerService;
 import kbe.rulesmgmt.CardRulesService;
@@ -24,39 +23,60 @@ import java.util.List;
  * <p>
  * Controller zum Frontend. Hier werden Spielmodel gehalten und der programmseitige Kontrollfluss geregelt.
  */
-
-
 @Controller
 public class FrontendController implements FrontendService {
 
     int passCounter = 0;
     private GameInstance gameInstance;
-    @Autowired
-    private GameInstanceService GISI;
-    @Autowired
-    private FrontendView frontendView;
-    @Autowired
-    private PlayerService PLAYSI;
-    @Autowired
-    private BotPlayerService botPlayerService = new BotPlayerServiceImpl();
-    @Autowired
-    private CardRulesService cardRulesService;
-    @Autowired
-    private HistoryService historyService;
-    @Autowired
-    private CardService cardService;
 
     public void setGISI(GameInstanceService GISI) {
         this.GISI = GISI;
     }
 
+    @Autowired
+    private GameInstanceService GISI;
+
     public void setFrontendView(FrontendView frontendView) {
         this.frontendView = frontendView;
     }
 
+    @Autowired
+    private FrontendView frontendView;
+
     public void setPLAYSI(PlayerService PLAYSI) {
         this.PLAYSI = PLAYSI;
     }
+
+    @Autowired
+    private PlayerService PLAYSI;
+
+    public void setBotPlayerService(BotPlayerService botPlayerService) {
+        this.botPlayerService = botPlayerService;
+    }
+
+    @Autowired
+    private BotPlayerService botPlayerService;
+
+    public void setCardRulesService(CardRulesService cardRulesService) {
+        this.cardRulesService = cardRulesService;
+    }
+
+    @Autowired
+    private CardRulesService cardRulesService;
+
+    public void setHistoryService(HistoryService historyService) {
+        this.historyService = historyService;
+    }
+
+    @Autowired
+    private HistoryService historyService;
+
+    public void setCardService(CardService cardService) {
+        this.cardService = cardService;
+    }
+
+    @Autowired
+    private CardService cardService;
 
     public int getPassCounter() {
         return passCounter;
@@ -73,15 +93,6 @@ public class FrontendController implements FrontendService {
         frontendView.createFrontendView(gameInstance);
 
     }
-
-    public GameInstance getGameInstance() {
-        return this.gameInstance;
-    }
-
-    public void setGameInstance(GameInstance gameInstance) {
-        this.gameInstance = gameInstance;
-    }
-
 
     /**
      * Eine Spielinstanz wird erstellt und zurückgegeben.

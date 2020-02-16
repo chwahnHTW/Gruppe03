@@ -8,8 +8,6 @@ import kbe.gamemgmt.GameInstance;
  * <p>
  * * Hier wird das Frontend realisiert.
  */
-
-
 public interface FrontendService {
 
     /**
