@@ -88,6 +88,11 @@ public class HistoryServiceImpl implements HistoryService {
             }
         }
         gameInstanceRepository.save(instance);
+
+        System.out.println("MMMMMMMMMMMMMMMMMMMMMMMM");
+//        System.out.println(gameInstanceRepository.findByPlayers(players).getPlayers().get(0).getName());
+//        System.out.println("MMMMMMMMMMMMMMMMMMMMMMMM");
+
     }
 
     @Override

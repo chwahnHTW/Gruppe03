@@ -1,5 +1,10 @@
 package kbe.cardmgmt;
 
+import kbe.gamemgmt.GameInstance;
+import kbe.playermgmt.Player;
+
+import javax.persistence.*;
+
 /**
  * @authors Kaya Löher 				| Kim Anh Nguyen 		| Christian Wahnsiedler
  * Email-Adresse: 	s0564784@htw-berlin.de	| s0563958@htw-berlin.de| s0557193@htw-berlin.de
@@ -7,6 +12,8 @@ package kbe.cardmgmt;
  * Diese Klasse stellt eine Karte dar.
  * Eine Karte besteht aus einer Zahl und einer Farbe.
  */
+@Entity
+@Table(name = "Cards")
 public class Card implements Comparable {
 
     /**
@@ -15,16 +22,16 @@ public class Card implements Comparable {
     public enum Zahl {
 
         SIEBEN(7), ACHT(8), NEUN(9), ZEHN(10), BUBE(11), DAMEN(12), KOENIG(13), ASS(14);
-    	
-    	private int kartenWert;
-    	
-    	Zahl (int kartenZahl){
-    		this.kartenWert = kartenZahl;
-    	}
-    	
-    	public int getKartenWert() {
-    		return this.kartenWert;
-    	}
+
+        private int kartenWert;
+
+        Zahl(int kartenZahl) {
+            this.kartenWert = kartenZahl;
+        }
+
+        public int getKartenWert() {
+            return this.kartenWert;
+        }
 
     }
 
@@ -37,8 +44,23 @@ public class Card implements Comparable {
 
     }
 
-    Zahl zahl;
-    Symbol symbol;
+    public void setZahl(Zahl zahl) {
+        this.zahl = zahl;
+    }
+
+    public void setSymbol(Symbol symbol) {
+        this.symbol = symbol;
+    }
+
+    @Id
+    @GeneratedValue
+    Integer cardId;
+
+    @Column(name = "zahl")
+    public Zahl zahl;
+
+    @Column(name = "symbol")
+    public Symbol symbol;
 
     /**
      * Eine Karte besteht aus einer Zahl und einer Farbe.
@@ -51,6 +73,14 @@ public class Card implements Comparable {
         this.symbol = symbol;
 
     }
+
+//    @ManyToOne
+//    @JoinColumn(name = "BoardCardsForGameInstance")
+//    private GameInstance gameInstanceBoardCards;
+//
+//    @ManyToOne
+//    @JoinColumn(name = "HandCardsForPlayers")
+//    private Player PlayerHandCards;
 
     /**
      * Konstruktor der Karte
@@ -76,14 +106,14 @@ public class Card implements Comparable {
     public Symbol getSymbol() {
         return symbol;
     }
-    
+
     /**
      * Setzt die eine Karte aus Zahl und Symbol zusammen.
-     * 
-     * @return:	Name der Karte
+     *
+     * @return: Name der Karte
      */
     public String toString() {
-    	return symbol + " " + zahl;
+        return symbol + " " + zahl;
     }
 
     @Override
@@ -99,18 +129,15 @@ public class Card implements Comparable {
                 System.out.println("Other:" + intOthercard);
                 System.out.println("Gleicher wert");
                 return 0;
-            }
-            else if (intThis < intOthercard) {
+            } else if (intThis < intOthercard) {
                 System.out.println("This:" + intThis);
                 System.out.println("Other:" + intOthercard);
                 System.out.println("this kleiner als other");
                 return -1;
-            }
-            else if (intOthercard == null) {
+            } else if (intOthercard == null) {
                 System.out.println("intOther NULL");
                 return 1;
-            }
-            else {
+            } else {
                 System.out.println("This:" + intThis);
                 System.out.println("Other:" + intOthercard);
                 System.out.println("this groesser als other");

@@ -1,36 +1,42 @@
 
 package kbe.gamemgmt;
 
-import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
 import kbe.playermgmt.Player;
 
-@Service
 
+@Service
 public class GameInstanceServiceImpl implements GameInstanceService {
 
-	/*
-	 * Methode, um Spielinstanz zu erzeugen
-	 * */
+//    @Autowired
+//    PlayerRepository playerRepository;
+
+    /*
+     * Methode, um Spielinstanz zu erzeugen
+     * */
     @Override
     public GameInstance startGame() {
         return new GameInstance();
     }
 
+//    public void setGameState() {
+//        List<Player> players = playerRepository.findAll();
+//    }
+
+
     /*
-     * 
-     * Methode, um den Spielstatus zu erfassen. 
+     *
+     * Methode, um den Spielstatus zu erfassen.
      * return String - Spielstatus - running, wenn spiel noch lauft
      * finished, wenn Spiel vorbei
-     * 
+     *
      * */
-    
     @Override
     public String calculateGameState(GameInstance gameInstance) {
         String gameState = null;
         int counter = 1;
-        for (Player player : gameInstance.getPlayers()){
+        for (Player player : gameInstance.getPlayers()) {
             try {
                 if (player.getHand().isEmpty()) {
                     counter++;

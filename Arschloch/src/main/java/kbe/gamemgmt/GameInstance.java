@@ -6,18 +6,20 @@ import java.util.List;
 
 import kbe.cardmgmt.Card;
 import kbe.playermgmt.Player;
-import org.springframework.stereotype.Service;
+
+import javax.persistence.*;
 
 /**
- * @authors         Kaya Löher 				| Kim Anh Nguyen 		| Christian Wahnsiedler
+ * @authors Kaya Löher 				| Kim Anh Nguyen 		| Christian Wahnsiedler
  * Email-Adresse: 	s0564784@htw-berlin.de	| s0563958@htw-berlin.de| s0557193@htw-berlin.de
  * <p>
  * Diese Klasse stellt die Instanz eines Spiels dar.
  * Ein Spiel beinhaltet die Spieler, das momentane Rundenergebnis, die Karten, mit denen gerade gespielt wird und den aktuellen Spieler.
  */
-
-//@Service
+@Entity
+@Table(name = "GameInstance")
 public class GameInstance {
+
 
     /**
      * @param players: Liste der an einem Spiel beteiligten Spieler
@@ -25,15 +27,33 @@ public class GameInstance {
      * @param cards:   Karte(n), die sich momentan auf dem Spielfeld befindet/n. Diese gilt es zu überspielen
      * @param current: Spieler, der gerade an der Reihe ist, einen Zug zu machen
      */
-    public List<Player> players;
-    public List result = new LinkedList<Player>();
-    public List<Card> boardCards = null;
-    public Player currentPlayer = null;
+
+    @Id
+    @GeneratedValue
+    private Integer gameId;
+
+    @JoinColumn(name = "players")
+    @OneToMany(cascade = CascadeType.ALL)
+//    @OneToMany(mappedBy = "GameInstance")
+    private List<Player> players;
+
+    @JoinColumn(name = "result")
+    @OneToMany(cascade = CascadeType.ALL)
+//    @OneToMany(mappedBy = "GameInstance")
+    private List<Player> result = new LinkedList<>();
+
+    @JoinColumn(name = "boardCards")
+    @OneToMany(cascade = CascadeType.ALL)
+//    @OneToMany(mappedBy = "GameInstance")
+    private List<Card> boardCards = null;
+
+    @JoinColumn(name = "current")
+    @OneToOne(cascade = CascadeType.ALL)
+    private Player currentPlayer = null;
 
     /**
      * Generiert eine Spielinstanz
      * Enthält die Informationen, die während eines Spiels vorrangig wichtig sind
-     *
      */
     public GameInstance() {
 
