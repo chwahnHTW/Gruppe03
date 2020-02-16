@@ -1,8 +1,5 @@
 package kbe.cardmgmt;
 
-import kbe.gamemgmt.GameInstance;
-import kbe.playermgmt.Player;
-
 import javax.persistence.*;
 
 /**
@@ -16,51 +13,13 @@ import javax.persistence.*;
 @Table(name = "Cards")
 public class Card implements Comparable {
 
-    /**
-     * Ein Enum, welches die Zahlen darstellt, welche für ein Kartenspiel benötigt werden.
-     */
-    public enum Zahl {
-
-        SIEBEN(7), ACHT(8), NEUN(9), ZEHN(10), BUBE(11), DAMEN(12), KOENIG(13), ASS(14);
-
-        private int kartenWert;
-
-        Zahl(int kartenZahl) {
-            this.kartenWert = kartenZahl;
-        }
-
-        public int getKartenWert() {
-            return this.kartenWert;
-        }
-
-    }
-
-    /**
-     * Ein Enum, welches die Farben darstellt, die für ein Kartenspiel benötigt werden.
-     */
-    public enum Symbol {
-
-        KARO, HERZ, PIK, KREUZ;
-
-    }
-
-    public void setZahl(Zahl zahl) {
-        this.zahl = zahl;
-    }
-
-    public void setSymbol(Symbol symbol) {
-        this.symbol = symbol;
-    }
-
+    @Column(name = "zahl")
+    public Zahl zahl;
+    @Column(name = "symbol")
+    public Symbol symbol;
     @Id
     @GeneratedValue
     Integer cardId;
-
-    @Column(name = "zahl")
-    public Zahl zahl;
-
-    @Column(name = "symbol")
-    public Symbol symbol;
 
     /**
      * Eine Karte besteht aus einer Zahl und einer Farbe.
@@ -73,14 +32,6 @@ public class Card implements Comparable {
         this.symbol = symbol;
 
     }
-
-//    @ManyToOne
-//    @JoinColumn(name = "BoardCardsForGameInstance")
-//    private GameInstance gameInstanceBoardCards;
-//
-//    @ManyToOne
-//    @JoinColumn(name = "HandCardsForPlayers")
-//    private Player PlayerHandCards;
 
     /**
      * Konstruktor der Karte
@@ -98,6 +49,10 @@ public class Card implements Comparable {
         return zahl;
     }
 
+    public void setZahl(Zahl zahl) {
+        this.zahl = zahl;
+    }
+
     /**
      * Gibt eine Farbe zurück
      *
@@ -105,6 +60,18 @@ public class Card implements Comparable {
      */
     public Symbol getSymbol() {
         return symbol;
+    }
+
+//    @ManyToOne
+//    @JoinColumn(name = "BoardCardsForGameInstance")
+//    private GameInstance gameInstanceBoardCards;
+//
+//    @ManyToOne
+//    @JoinColumn(name = "HandCardsForPlayers")
+//    private Player PlayerHandCards;
+
+    public void setSymbol(Symbol symbol) {
+        this.symbol = symbol;
     }
 
     /**
@@ -147,6 +114,34 @@ public class Card implements Comparable {
             System.out.println("NullPointerException: keine Karte");
             return 1;
         }
+
+    }
+
+    /**
+     * Ein Enum, welches die Zahlen darstellt, welche für ein Kartenspiel benötigt werden.
+     */
+    public enum Zahl {
+
+        SIEBEN(7), ACHT(8), NEUN(9), ZEHN(10), BUBE(11), DAMEN(12), KOENIG(13), ASS(14);
+
+        private int kartenWert;
+
+        Zahl(int kartenZahl) {
+            this.kartenWert = kartenZahl;
+        }
+
+        public int getKartenWert() {
+            return this.kartenWert;
+        }
+
+    }
+
+    /**
+     * Ein Enum, welches die Farben darstellt, die für ein Kartenspiel benötigt werden.
+     */
+    public enum Symbol {
+
+        KARO, HERZ, PIK, KREUZ;
 
     }
 

@@ -1,9 +1,9 @@
 package kbe.playermgmt;
 
-import java.util.List;
-
 import kbe.cardmgmt.Card;
 import kbe.gamemgmt.GameInstance;
+
+import java.util.List;
 
 /**
  * @authors Kaya Löher 				| Kim Anh Nguyen 		| Christian Wahnsiedler

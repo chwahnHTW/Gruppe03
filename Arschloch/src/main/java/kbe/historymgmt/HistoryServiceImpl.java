@@ -26,20 +26,15 @@ import java.util.List;
 @Transactional
 public class HistoryServiceImpl implements HistoryService {
 
-    private History history;
-
     @Autowired
     PlayerRepository playerRepository;
-
     @Autowired
     GameInstanceRepository gameInstanceRepository;
-
     @Autowired
     CardRepository cardRepository;
-
     @Autowired
     PlayerService playerService;
-
+    private History history;
 
     @Override
     public void persist(GameInstance instance) {
@@ -83,7 +78,7 @@ public class HistoryServiceImpl implements HistoryService {
             playerRepository.save(player);
         }
         if (!instance.getBoardCards().isEmpty()) {
-            for(Card card : instance.getBoardCards()){
+            for (Card card : instance.getBoardCards()) {
                 cardRepository.save(card);
             }
         }

@@ -1,13 +1,11 @@
-
 package kbe.gamemgmt;
-
-import java.util.LinkedList;
-import java.util.List;
 
 import kbe.cardmgmt.Card;
 import kbe.playermgmt.Player;
 
 import javax.persistence.*;
+import java.util.LinkedList;
+import java.util.List;
 
 /**
  * @authors Kaya Löher 				| Kim Anh Nguyen 		| Christian Wahnsiedler
