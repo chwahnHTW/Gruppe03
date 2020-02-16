@@ -400,7 +400,7 @@ public class FrontendView extends JFrame {
             }
 
 ///////////////////////////////////////////////////////////////////////////////////
-            if (gameInstance.getBoardCards().size() == 2) {
+            if (gameInstance.getBoardCards().size() >= 2) {
 
                 try {
                     currentBoardCardPanel3.removeAll();
@@ -421,7 +421,7 @@ public class FrontendView extends JFrame {
             }
 ///////////////////////////////////////////////////////////////////////////////////
 
-            if (gameInstance.getBoardCards().size() == 3) {
+            if (gameInstance.getBoardCards().size() >= 3) {
                 try {
                     currentBoardCardPanel2.removeAll();
                     JLabel jl2 = new JLabel();
