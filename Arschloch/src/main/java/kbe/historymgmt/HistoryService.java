@@ -41,4 +41,6 @@ public interface HistoryService {
      */
     void saveToCSV(GameInstance instance);
 
+    int getGameIdForUser(GameInstance instance);
+
 }

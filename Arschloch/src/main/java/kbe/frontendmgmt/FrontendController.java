@@ -14,6 +14,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 
 import javax.swing.*;
+import javax.transaction.Transactional;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -24,6 +25,7 @@ import java.util.List;
  * Controller zum Frontend. Hier werden Spielmodel gehalten und der programmseitige Kontrollfluss geregelt.
  */
 @Controller
+@Transactional
 public class FrontendController implements FrontendService {
 
     int passCounter = 0;
@@ -282,8 +284,7 @@ public class FrontendController implements FrontendService {
         if (gameInstance.getCurrentPlayer().getHand().isEmpty()) {
             if (!gameInstance.getResult().contains(gameInstance.getCurrentPlayer())) {
                 gameInstance.setResult(gameInstance.getCurrentPlayer());
-
-                System.out.println("RESULT LISTE " + gameInstance.getResult().size());
+//                System.out.println("RESULT LISTE " + gameInstance.getResult().size());
             }
         }
     }
@@ -351,7 +352,7 @@ public class FrontendController implements FrontendService {
 
     @Override
     public void showSavedGameId() {
-        JOptionPane.showMessageDialog(null, "Die Spielnummer lautet: ");
+        JOptionPane.showMessageDialog(null, "Die Spielnummer lautet: " + historyService.getGameIdForUser(gameInstance));
     }
 
     @Override
@@ -464,4 +465,5 @@ public class FrontendController implements FrontendService {
             return getIfBotPlayer();
         }
     }
+
 }

@@ -98,8 +98,6 @@ public class PlayerServiceImpl implements PlayerService {
         return current;
     }
 
-
-    // Erstellt Player
     @Override
     public Player createPlayer(String name) {
         return new Player(name, null, null);

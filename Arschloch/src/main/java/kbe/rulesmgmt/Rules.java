@@ -34,7 +34,6 @@ public class Rules {
     @Autowired
     CardRulesService cardRS;
 
-
     private Player determineInitialPlayer(GameInstance gameInstance) {
         return playerRS.determineInitialPlayer(gameInstance);
     }
