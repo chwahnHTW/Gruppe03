@@ -1,13 +1,7 @@
 package kbe.frontendmgmt;
 
-import kbe.cardmgmt.CardService;
 import kbe.gamemgmt.GameInstance;
-import kbe.gamemgmt.GameInstanceService;
-import kbe.historymgmt.HistoryService;
 import kbe.playermgmt.Player;
-import kbe.playermgmt.PlayerService;
-import kbe.rulesmgmt.CardRulesService;
-import kbe.rulesmgmt.PlayerRulesService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -52,20 +46,10 @@ public class FrontendView extends JFrame {
 
     @Autowired
     public FrontendController frontendController;
-    public JLabel lblCurrentPlayer;
-    @Autowired
-    private HistoryService historyService;
-    @Autowired
-    private PlayerService PLAYSI;
-    @Autowired
-    private CardService cardService;
-    @Autowired
-    private PlayerRulesService playerRulesService;
-    @Autowired
-    private CardRulesService cardRulesService;
+
     private GameInstance gameInstance;
-    @Autowired
-    private GameInstanceService GISI;
+
+    public JLabel lblCurrentPlayer;
     private JPanel contentPane;
     private JButton btnPlaycards;
     private JButton btnPass;
@@ -105,6 +89,7 @@ public class FrontendView extends JFrame {
      * wirklich)
      */
     public void createFrontendView(GameInstance gameInstance) {
+
         this.gameInstance = gameInstance;
         this.setVisible(true);
         setResizable(false);
@@ -190,7 +175,7 @@ public class FrontendView extends JFrame {
 
                 System.out.println("XXXXXXXXXXX SPIEL SPEICHERN");
 
-                historyService.saveCurrentGame(gameInstance);
+                frontendController.getHistoryService().saveCurrentGame(gameInstance);
 
                 frontendController.showSavedGameId();
 
@@ -212,7 +197,7 @@ public class FrontendView extends JFrame {
                 //validateMove();
                 frontendController.validateMove();
                 // Methode, um den SielStatus auszuwerden
-                String gameState = GISI.calculateGameState(gameInstance);
+                String gameState = frontendController.getGISI().calculateGameState(gameInstance);
                 if (gameState.equals("Running")) {
                     // Spiel geht weiter
                     // Frontend Update
@@ -221,7 +206,7 @@ public class FrontendView extends JFrame {
                 } else {
                     // letzten Spieler in Resultliste speichern, damit Roles richtig gesetzt werden
                     for (Player player : gameInstance.getPlayers()) {
-                        if (PLAYSI.hasCards(player)) {
+                        if (frontendController.getPLAYSI().hasCards(player)) {
                             gameInstance.setResult(player);
                         }
                     }
@@ -239,9 +224,9 @@ public class FrontendView extends JFrame {
                         // Spieler in neue Spielrunde uebernehmen
                         gameInstance.setPlayers(gameInstance.getResult());
                         // Karten austeilen
-                        cardService.dealCardsToPlayers(gameInstance);
+                        frontendController.getCardService().dealCardsToPlayers(gameInstance);
                         // Karten entsprechend der Rollen austauschen
-                        cardService.swapCards(gameInstance);
+                        frontendController.getCardService().swapCards(gameInstance);
                         // Setzen des ersten Spielers der nächsten Runde
                         frontendController.setInitialPlayerForNextRound(gameInstance);
                         // Update der boardCards auf null, da frisches Spiel
@@ -277,7 +262,7 @@ public class FrontendView extends JFrame {
                 System.out.println("PASSEN");
                 frontendController.passCounter++;
                 // setzen des naechsten Spielers
-                gameInstance.setCurrentPlayer(PLAYSI.getNextPlayer(gameInstance));
+                gameInstance.setCurrentPlayer(frontendController.getPLAYSI().getNextPlayer(gameInstance));
                 // Frontend Update
                 updateCurrentPlayerLabel();
                 updateCardButtons(gameInstance);
@@ -285,7 +270,7 @@ public class FrontendView extends JFrame {
 
                 int playersWithCardsCounter = 0;
                 for (Player player : gameInstance.getPlayers()) {
-                    if (PLAYSI.hasCards(player)) {
+                    if (frontendController.getPLAYSI().hasCards(player)) {
                         playersWithCardsCounter++;
                     }
                 }

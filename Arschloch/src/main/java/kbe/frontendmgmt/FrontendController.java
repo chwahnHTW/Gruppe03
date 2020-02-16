@@ -35,50 +35,82 @@ public class FrontendController implements FrontendService {
         this.GISI = GISI;
     }
 
+    public GameInstance getGameInstance() {
+        return gameInstance;
+    }
+
+    public GameInstanceService getGISI() {
+        return GISI;
+    }
+
+    public FrontendView getFrontendView() {
+        return frontendView;
+    }
+
+    public PlayerService getPLAYSI() {
+        return PLAYSI;
+    }
+
+    public BotPlayerService getBotPlayerService() {
+        return botPlayerService;
+    }
+
+    public CardRulesService getCardRulesService() {
+        return cardRulesService;
+    }
+
+    public HistoryService getHistoryService() {
+        return historyService;
+    }
+
+    public CardService getCardService() {
+        return cardService;
+    }
+
     @Autowired
-    private GameInstanceService GISI;
+    public GameInstanceService GISI;
 
     public void setFrontendView(FrontendView frontendView) {
         this.frontendView = frontendView;
     }
 
     @Autowired
-    private FrontendView frontendView;
+    public FrontendView frontendView;
 
     public void setPLAYSI(PlayerService PLAYSI) {
         this.PLAYSI = PLAYSI;
     }
 
     @Autowired
-    private PlayerService PLAYSI;
+    public PlayerService PLAYSI;
 
     public void setBotPlayerService(BotPlayerService botPlayerService) {
         this.botPlayerService = botPlayerService;
     }
 
     @Autowired
-    private BotPlayerService botPlayerService;
+    public BotPlayerService botPlayerService;
 
     public void setCardRulesService(CardRulesService cardRulesService) {
         this.cardRulesService = cardRulesService;
     }
 
     @Autowired
-    private CardRulesService cardRulesService;
+    public CardRulesService cardRulesService;
 
     public void setHistoryService(HistoryService historyService) {
         this.historyService = historyService;
     }
 
     @Autowired
-    private HistoryService historyService;
+    public HistoryService historyService;
 
     public void setCardService(CardService cardService) {
         this.cardService = cardService;
     }
 
     @Autowired
-    private CardService cardService;
+    public CardService cardService;
 
     public int getPassCounter() {
         return passCounter;
