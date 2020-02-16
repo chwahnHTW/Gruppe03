@@ -4,6 +4,9 @@ import kbe.cardmgmt.Card;
 import kbe.cardmgmt.CardService;
 import kbe.gamemgmt.GameInstance;
 import kbe.gamemgmt.GameInstanceService;
+
+import kbe.gamemgmt.GameInstanceServiceImpl;
+
 import kbe.historymgmt.HistoryService;
 import kbe.playermgmt.Player;
 import kbe.playermgmt.PlayerService;
@@ -19,6 +22,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.IOException;
 import java.util.LinkedList;
+
 
 /**
  * @param PLAYSI - PlayerServiceImplementierung
@@ -40,7 +44,9 @@ import java.util.LinkedList;
  */
 
 /**
+
  * @authors Kaya Löher 				| Kim Anh Nguyen 		| Christian Wahnsiedler
+
  * Email-Adresse: 	s0564784@htw-berlin.de 	| s0563958@htw-berlin.de| s0557193@htw-berlin.de
  * Class - FrontendView
  * Eine Klasse, die die Spielinstanz realisiert
@@ -193,6 +199,7 @@ public void actionPerformed(ActionEvent e) {
         this.remove(btnStartGame);
 
         btnCancel = new JButton("Cancel Game");
+
         btnCancel.setForeground(Color.WHITE);
         btnCancel.setBackground(new Color(0, 0, 153));
         btnCancel.setBounds(445, 335, 99, 21);
@@ -208,6 +215,7 @@ public void actionPerformed(ActionEvent e) {
         updateCurrentPlayerLabel();
         createFrontendView(game);
         }
+
         });
         contentPane.add(btnCancel);
 
@@ -216,6 +224,7 @@ public void actionPerformed(ActionEvent e) {
         btnSaveGame.setBackground(new Color(0, 0, 153));
         btnSaveGame.setBounds(583, 335, 99, 21);
         btnSaveGame.addActionListener(new ActionListener() {
+          
 public void actionPerformed(ActionEvent e) {
 
         System.out.println("XXXXXXXXXXX SPIEL SPEICHERN");
@@ -264,6 +273,7 @@ public void actionPerformed(ActionEvent e) {
         for(int i = 0; i < gameInstance.getResult().size() ; i++){
         gameInstance.getResult().get(i).setHandCards(new LinkedList<>());
         }
+
 //                        gameInstance.getResult().get(0).setHandCards(new LinkedList<Card>());
 //                        gameInstance.getResult().get(1).setHandCards(new LinkedList<Card>());
 //                        gameInstance.getResult().get(2).setHandCards(new LinkedList<Card>());
@@ -432,9 +442,7 @@ public void updateCurrentBoardCardPanels(GameInstance gameInstance) {
         jl4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/emptyCard.jpg")));
         currentBoardCardPanel4.add(jl4);
         }
-        
-
-
+       
 ///////////////////////////////////////////////////////////////////////////////////
             if (gameInstance.getBoardCards().size() == 2) {
 
@@ -907,8 +915,6 @@ public void updateCurrentBoardCardPanels(GameInstance gameInstance) {
             btnPlayerCard10.add(imageCard10);
             contentPane.add(btnPlayerCard10);
         }
-
-
 ///////////////////////////////////////////////////////////////////////////////////
 
         try {
@@ -941,7 +947,7 @@ public void updateCurrentBoardCardPanels(GameInstance gameInstance) {
             btnPlayerCard11.add(imageCard11);
             contentPane.add(btnPlayerCard11);
         }
-        ;
+        
         // SwingUtilities.updateComponentTreeUI(this);
 
         contentPane.revalidate();
@@ -966,5 +972,6 @@ public void updateCurrentBoardCardPanels(GameInstance gameInstance) {
         lblCurrentPlayer.repaint();
 
     }
+
 
 }
