@@ -6,6 +6,8 @@ import kbe.cardmgmt.CardService;
 import kbe.gamemgmt.GameInstance;
 import kbe.gamemgmt.GameInstanceService;
 import kbe.historymgmt.HistoryService;
+import kbe.playermgmt.BotPlayerService;
+import kbe.playermgmt.BotPlayerServiceImpl;
 import kbe.playermgmt.Player;
 import kbe.playermgmt.PlayerService;
 import kbe.rulesmgmt.CardRulesService;
@@ -51,17 +53,29 @@ public class FrontendController implements FrontendService {
     }
 
     @Autowired
-    private CardRulesService cardRulesService;
+    private BotPlayerService botPlayerService = new BotPlayerServiceImpl();
 
-    int passCounter = 0;
 
     @Autowired
+    private CardRulesService cardRulesService;
+    
+    int passCounter = 0;
+
+    public int getPassCounter() {
+		return passCounter;
+	}
+
+	public void setPassCounter(int passCounter) {
+		this.passCounter = passCounter;
+	}
+	
+	@Autowired
     private HistoryService historyService;
 
     @Autowired
     private CardService cardService;
 
-    @Override
+	@Override
     public void init() {
         System.out.println("Initializing.......");
         gameInstance = GISI.startGame();
@@ -107,162 +121,168 @@ public class FrontendController implements FrontendService {
      * Erneute Eingabeaufforderung, kein getNextPlayer
      */
     public void validateMove() {
+        if(gameInstance.getCurrentPlayer().getName() == "BotPlayer") {
+        System.out.println("botPlayerService.validateBotMove(gameInstance)");
+        botPlayerService.validateBotMove(gameInstance);
+        }
+        else {
 
         // Eingabe öffnen für Auswählen der Karten
         try {
-            String cardIndexes = JOptionPane.showInputDialog(null,
-                    "Bitte Karten angeben (Positionen: 0-11, mit Komma getrennt)");
+        String cardIndexes = JOptionPane.showInputDialog(null,
+        "Bitte Karten angeben (Positionen: 0-11, mit Komma getrennt)");
 
-            // Eingabe in Array speichern, ueber Komma getrennt
-            String[] cardsIndexesArray = cardIndexes.split(",");
-            // Liste der zu spielenden Indizes
-            List cardIndexesToBePlayed = new LinkedList<Integer>();
+        // Eingabe in Array speichern, ueber Komma getrennt
+        String[] cardsIndexesArray = cardIndexes.split(",");
+        // Liste der zu spielenden Indizes
+        List cardIndexesToBePlayed = new LinkedList<Integer>();
 
-            // für die Länge des Userinputs Indizes der Karten speichern
-            for (int i = 0; i < cardsIndexesArray.length; i++) {
-                int f = Integer.parseInt(cardsIndexesArray[i]);
+        // für die Länge des Userinputs Indizes der Karten speichern
+        for (int i = 0; i < cardsIndexesArray.length; i++) {
+        int f = Integer.parseInt(cardsIndexesArray[i]);
 
-                if (f < 0 | f > 11) {
-                    validateMove();
-                    break;
-                }
-                cardIndexesToBePlayed.add(f);
-            }
+        if (f < 0 | f > 11) {
+        validateMove();
+        break;
+        }
+        cardIndexesToBePlayed.add(f);
+        }
 
-            // Liste, in der die aus dem Array ausgelesenen, selektierten Karten erfasst und
-            // gehalten werden
-            List tempCardList = new LinkedList<Card>();
-            Boolean tempCardsEqual = true;
+        // Liste, in der die aus dem Array ausgelesenen, selektierten Karten erfasst und
+        // gehalten werden
+        List tempCardList = new LinkedList<Card>();
+        Boolean tempCardsEqual = true;
 
-            // geclickte Kartenfelder( Frontend) auslesen
-            for (int i = 0; i < cardIndexesToBePlayed.size(); i++) {
-                // tempCards werden anhand der eingegeben Zahlen geholt
-                int r = (Integer) cardIndexesToBePlayed.get(i);
-                tempCardList.add((gameInstance.getCurrentPlayer().getHand().get(r)));
-                // Wenn Karte im Frontend geclickt wurde, wird Sie in selectedCards
-                // erfasst. Durch dessen Iterierung erhalten wir alle selektierten Karten
+        // geclickte Kartenfelder( Frontend) auslesen
+        for (int i = 0; i < cardIndexesToBePlayed.size(); i++) {
+        // tempCards werden anhand der eingegeben Zahlen geholt
+        int r = (Integer) cardIndexesToBePlayed.get(i);
+        tempCardList.add((gameInstance.getCurrentPlayer().getHand().get(r)));
+        // Wenn Karte im Frontend geclickt wurde, wird Sie in selectedCards
+        // erfasst. Durch dessen Iterierung erhalten wir alle selektierten Karten
 
-                // tempCards valid? compareTo -> die ausgewählten Karten müssen die gleichen
-                // Zahlen haben
-                if (tempCardList.size() >= 2) {
-                    // gerade hinzugefügte Card
-                    Card x = (Card) tempCardList.get(i);
-                    Card y = (Card) ((LinkedList) tempCardList).getFirst();
+        // tempCards valid? compareTo -> die ausgewählten Karten müssen die gleichen
+        // Zahlen haben
+        if (tempCardList.size() >= 2) {
+        // gerade hinzugefügte Card
+        Card x = (Card) tempCardList.get(i);
+        Card y = (Card) ((LinkedList) tempCardList).getFirst();
 
-                    int c = x.compareTo(y);
-                    if (c == 0) {
-                        tempCardsEqual = true;
-                    } else {
-                        tempCardsEqual = false;
-                    }
-                }
-            }
+        int c = x.compareTo(y);
+        if (c == 0) {
+        tempCardsEqual = true;
+        } else {
+        tempCardsEqual = false;
+        }
+        }
+        }
 
-            // Spielzug validieren
-            // hier findet später die Überprüfung statt, ob der Spielzug richtig ist. Wenn
-            // die Liste die von Compare zurückkommt die gleiche ist wie die,die wir in
-            // tempList als selektierte Karten haben
-            // wenn ja, Karten von Hand des CurrentPlayers abziehen und mit getNextPlayer
-            // das Spiel weiterlaufen lassen.
-            // wenn nicht, Auffoderung, erneut Karten auszuwählen
+        // Spielzug validieren
+        // hier findet später die Überprüfung statt, ob der Spielzug richtig ist. Wenn
+        // die Liste die von Compare zurückkommt die gleiche ist wie die,die wir in
+        // tempList als selektierte Karten haben
+        // wenn ja, Karten von Hand des CurrentPlayers abziehen und mit getNextPlayer
+        // das Spiel weiterlaufen lassen.
+        // wenn nicht, Auffoderung, erneut Karten auszuwählen
 
-            // tempCards valid? compareTo -> die ausgwählten Karten müssen höher sein als
-            // die BoardCards
+        // tempCards valid? compareTo -> die ausgwählten Karten müssen höher sein als
+        // die BoardCards
 
-            if (tempCardsEqual) {
-                // BoardCards = null -> alle gespielten KArten sind valide, solange sie
-                // denselben Zahlenwert haben
-                if (gameInstance.getBoardCards() == null) {
-                    gameInstance.setBoardCards(tempCardList);
-                    // Entfernen der Karten des validen Spielzuges aus Hand des Players
-                    PLAYSI.removeFromHand(gameInstance.getCurrentPlayer(), tempCardList);
-                    // Prueft, ob aktueller Spieler noch Karten hat, oder nicht
-                    // wenn nein, wird er in result ( "Siegerliste, Rangfolge der Spieler" )
-                    // aufgenommen, um spaeter die Rollen fuer ein potentielles
-                    // weiteres Spiel zu ermitteln
-                    addCurrentPlayerToResult(gameInstance);
-                    // setzt naechsten Spieler nach validem Spielzug
-                    gameInstance.setCurrentPlayer(PLAYSI.getNextPlayer(gameInstance));
-                    // Update Frontend
-                    frontendView.updateCurrentBoardCardPanels(gameInstance);
-                    frontendView.updateCardButtons(gameInstance);
-                    frontendView.updateCurrentPlayerLabel();
-                } else {
-                    // ungueltiger Spielzug : erneute Eingabe
-                    if (tempCardList.size() != gameInstance.getBoardCards().size()) {
-                        tempCardList = null;
-                        validateMove();
-                    }
-                    // Vergleich der selektierten Indizes mit den BoardCards
-                    try {
-                        Card y = (Card) ((LinkedList) tempCardList).getFirst();
+        if (tempCardsEqual) {
+        // BoardCards = null -> alle gespielten KArten sind valide, solange sie
+        // denselben Zahlenwert haben
+        if (gameInstance.getBoardCards() == null) {
+        gameInstance.setBoardCards(tempCardList);
+        // Entfernen der Karten des validen Spielzuges aus Hand des Players
+        PLAYSI.removeFromHand(gameInstance.getCurrentPlayer(), tempCardList);
+        // Prueft, ob aktueller Spieler noch Karten hat, oder nicht
+        // wenn nein, wird er in result ( "Siegerliste, Rangfolge der Spieler" )
+        // aufgenommen, um spaeter die Rollen fuer ein potentielles
+        // weiteres Spiel zu ermitteln
+        addCurrentPlayerToResult(gameInstance);
+        // setzt naechsten Spieler nach validem Spielzug
+        gameInstance.setCurrentPlayer(PLAYSI.getNextPlayer(gameInstance));
+        // Update Frontend
+        frontendView.updateCurrentBoardCardPanels(gameInstance);
+        frontendView.updateCardButtons(gameInstance);
+        frontendView.updateCurrentPlayerLabel();
+        } else {
+        // ungueltiger Spielzug : erneute Eingabe
+        if (tempCardList.size() != gameInstance.getBoardCards().size()) {
+        tempCardList = null;
+        validateMove();
+        }
+        // Vergleich der selektierten Indizes mit den BoardCards
+        try {
+        Card y = (Card) ((LinkedList) tempCardList).getFirst();
 
-                        Card b = gameInstance.getBoardCards().get(0);
+        Card b = gameInstance.getBoardCards().get(0);
 
-                        int c = y.compareTo(b);
-                        // valider Spielzug
-                        if (c == 1) {
-                            // tempCards werden als Boardcards gesetzt
-                            gameInstance.setBoardCards(tempCardList);
-                            // tempCards werden von der Hand des Spielers entfernt
-                            PLAYSI.removeFromHand(gameInstance.getCurrentPlayer(), tempCardList);
-                            // Pruefung, obn Spieler keine Karten mehr hat
-                            addCurrentPlayerToResult(gameInstance);
+        int c = y.compareTo(b);
+        // valider Spielzug
+        if (c == 1) {
+        // tempCards werden als Boardcards gesetzt
+        gameInstance.setBoardCards(tempCardList);
+        // tempCards werden von der Hand des Spielers entfernt
+        PLAYSI.removeFromHand(gameInstance.getCurrentPlayer(), tempCardList);
+        // Pruefung, obn Spieler keine Karten mehr hat
+        addCurrentPlayerToResult(gameInstance);
 
-                            // nächsten Spieler setzen
-                            gameInstance.setCurrentPlayer(PLAYSI.getNextPlayer(gameInstance));
-                            // Update Frontend
-                            frontendView.updateCurrentBoardCardPanels(gameInstance);
-                            frontendView.updateCardButtons(gameInstance);
-                            frontendView.updateCurrentPlayerLabel();
-                        } else {
-                            // falsche Karten ausgewählt
-                            validateMove();
-                        }
-                    }
-                    // Exception Handling
-                    catch (IndexOutOfBoundsException e) {
-                        System.out.print("no board cards to validate against, move passed");
-                        gameInstance.setBoardCards(tempCardList);
-                        PLAYSI.removeFromHand(gameInstance.getCurrentPlayer(), tempCardList);
+        // nächsten Spieler setzen
+        gameInstance.setCurrentPlayer(PLAYSI.getNextPlayer(gameInstance));
+        // Update Frontend
+        frontendView.updateCurrentBoardCardPanels(gameInstance);
+        frontendView.updateCardButtons(gameInstance);
+        frontendView.updateCurrentPlayerLabel();
+        } else {
+        // falsche Karten ausgewählt
+        validateMove();
+        }
+        }
+        // Exception Handling
+        catch (IndexOutOfBoundsException e) {
+        System.out.print("no board cards to validate against, move passed");
+        gameInstance.setBoardCards(tempCardList);
+        PLAYSI.removeFromHand(gameInstance.getCurrentPlayer(), tempCardList);
 
-                        addCurrentPlayerToResult(gameInstance);
+        addCurrentPlayerToResult(gameInstance);
 
-                        gameInstance.setCurrentPlayer(PLAYSI.getNextPlayer(gameInstance));
+        gameInstance.setCurrentPlayer(PLAYSI.getNextPlayer(gameInstance));
 
-                        frontendView.updateCurrentBoardCardPanels(gameInstance);
-                        frontendView.updateCardButtons(gameInstance);
-                        frontendView.updateCurrentPlayerLabel();
-                    }
+        frontendView.updateCurrentBoardCardPanels(gameInstance);
+        frontendView.updateCardButtons(gameInstance);
+        frontendView.updateCurrentPlayerLabel();
+        }
 
-                }
-            } else {
-                // falsche Karten ausgewählt
-                validateMove();
-            }
-            System.out.println(cardIndexesToBePlayed.size());
+        }
+        } else {
+        // falsche Karten ausgewählt
+        validateMove();
+        }
+        System.out.println(cardIndexesToBePlayed.size());
         } catch (Exception e) {
 
         }
         // Wenn BoardCards = Ass, wird das Feld abgeraumt,
         try {
-            if (gameInstance.getBoardCards().get(0).getZahl().toString() == "ASS") {
+        if (gameInstance.getBoardCards().get(0).getZahl().toString() == "ASS") {
 
-                // Setzen der boardCards auf null, Update Frontend
-                gameInstance.setBoardCards(null);
-                frontendView.updateCurrentBoardCardPanels(gameInstance);
+        // Setzen der boardCards auf null, Update Frontend
+        gameInstance.setBoardCards(null);
+        frontendView.updateCurrentBoardCardPanels(gameInstance);
 
-            }
+        }
         } catch (NullPointerException e) {
-            gameInstance.setBoardCards(null);
-            frontendView.updateCurrentBoardCardPanels(gameInstance);
+        gameInstance.setBoardCards(null);
+        frontendView.updateCurrentBoardCardPanels(gameInstance);
         } catch (IndexOutOfBoundsException IOOB) {
-            gameInstance.setBoardCards(null);
-            frontendView.updateCurrentBoardCardPanels(gameInstance);
+        gameInstance.setBoardCards(null);
+        frontendView.updateCurrentBoardCardPanels(gameInstance);
         }
         // Reset des PAssspielzug-Counters nach jedem validen Spielzug
         passCounter = 0;
-    }
+        }
+
 
 
     /**
@@ -297,7 +317,6 @@ public class FrontendController implements FrontendService {
             }
         }
     }
-
     /**
      * Fragt den User ab, wer die naechste Runde anfangen soll zu legen, und setzt
      * entweder Arschloch oder Praesident als current player.
