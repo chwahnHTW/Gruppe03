@@ -35,6 +35,7 @@ public class BotPlayerServiceImpl implements BotPlayerService{
 	 */
 	public void validateBotMove(GameInstance gameInstance) {
 		System.out.println("*****BOT MOVE aus Service*****");
+		
         List<Card> cardsToPlay = new LinkedList<Card>();
         List<Card> botHandCards = new LinkedList<Card>();
         botHandCards = cardService.sortCardsByValue(gameInstance.getCurrentPlayer().getHand());
@@ -54,6 +55,7 @@ public class BotPlayerServiceImpl implements BotPlayerService{
         else if (gameInstance.getBoardCards().size() == 1) {
            higherCards = findHigherCards(botHandCards, gameInstance);
            if(higherCards.isEmpty()) {
+        	   System.out.println("no higher cards");
         	   botPass(gameInstance);
            } else {
         	   cardsToPlay.add(higherCards.get(0));
@@ -61,26 +63,33 @@ public class BotPlayerServiceImpl implements BotPlayerService{
            }
         }
         else if (gameInstance.getBoardCards().size() >= 2) {
+        	System.out.println("anzahl boardcards: " + gameInstance.getBoardCards().size());
             List<Card> temp = new LinkedList<Card>();
             higherCards = findHigherCards(botHandCards, gameInstance);
             if(higherCards.isEmpty()) {
+            	System.out.println("no higher cards");
             	botPass(gameInstance);
             }
             else {
             	// und die gleiche zahl haben
                 for (int i = 1; i < higherCards.size(); i++) {
-        			if(higherCards.get(i-1).getZahl().equals(higherCards.get(i).getZahl())){
+        			if(higherCards.get(i).getZahl() == higherCards.get(i-1).getZahl()){
+        				
         				temp.add(higherCards.get(i-1));
         				temp.add(higherCards.get(i));
         			}
+        			
         		}
-                if(temp.size()<gameInstance.getBoardCards().size()) {
+                System.out.println("temp: " + temp.toString());
+                if(temp.size() < gameInstance.getBoardCards().size()) {
+                	System.out.println("hier2");
                 	botPass(gameInstance);
+                	
                 } else {
-                	for(int i = 0; i < temp.size(); i++) {
+                	System.out.println("hier");
+                	for(int i = 0; i < gameInstance.getBoardCards().size(); i++) {
                 		cardsToPlay.add(temp.get(i));
                 	}
-                	System.out.println("temp: " + temp.toString());
                 	System.out.println("Cards to play: " + cardsToPlay.toString());
                     updateAll(cardsToPlay, gameInstance);
                 }
