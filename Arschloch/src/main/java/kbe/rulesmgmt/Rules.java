@@ -18,30 +18,30 @@ import kbe.playermgmt.Player;
  */
 @Component
 public class Rules {
+//
+//
+//    /**
+//     * @param palyerRS - PlayerRulesService, der die Rollen der Spieler eines Spiels vergleicht, um denjenigen Spieler zu bestimmen, der in einer
+//     * Runde als erster eine Karte spielen darf.
+//     * Standard-Implementierung : Arschloch oder Spieler mit Karo 7 als erster
+//     * PresidentFirst-Implementierung : President oder Spieler mit Karo 7 als erster
+//     */
+//    @Autowired
+//    PlayerRulesService playerRS;
+//
+//    /**
+//     * @param palyerRS - PlayerRulesService, der die Rollen der Spieler eines Spiels vergleicht, um denjenigen Spieler zu bestimmen, der in einer
+//     * Runde als erster eine Karte spielen darf.
+//     * Standard-Implementierung : Arschloch oder Spieler mit Karo 7 als erster
+//     * PresidentFirst-Implementierung : President oder Spieler mit Karo 7 als erster
+//     */
+//    @Autowired
+//    CardRulesService cardRS;
 
-
-    /**
-     * @param palyerRS - PlayerRulesService, der die Rollen der Spieler eines Spiels vergleicht, um denjenigen Spieler zu bestimmen, der in einer
-     * Runde als erster eine Karte spielen darf.
-     * Standard-Implementierung : Arschloch oder Spieler mit Karo 7 als erster
-     * PresidentFirst-Implementierung : President oder Spieler mit Karo 7 als erster
-     */
-    @Autowired
-    PlayerRulesService playerRS;
-
-    /**
-     * @param palyerRS - PlayerRulesService, der die Rollen der Spieler eines Spiels vergleicht, um denjenigen Spieler zu bestimmen, der in einer
-     * Runde als erster eine Karte spielen darf.
-     * Standard-Implementierung : Arschloch oder Spieler mit Karo 7 als erster
-     * PresidentFirst-Implementierung : President oder Spieler mit Karo 7 als erster
-     */
-    @Autowired
-    CardRulesService cardRS;
-
-
-    private Player determineInitialPlayer(GameInstance gameInstance) {
-        return playerRS.determineInitialPlayer(gameInstance);
-    }
+//
+//    private Player determineInitialPlayer(GameInstance gameInstance) {
+//        return playerRS.determineInitialPlayer(gameInstance);
+//    }
 
 //    private List<Card> comapareCards(Card card1, Card card2) {
 //        return cardRS.compareCards(card1, card2);

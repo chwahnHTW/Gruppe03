@@ -7,8 +7,6 @@ import kbe.gamemgmt.GameInstanceService;
 import kbe.historymgmt.HistoryService;
 import kbe.playermgmt.Player;
 import kbe.playermgmt.PlayerService;
-import kbe.rulesmgmt.CardRulesService;
-import kbe.rulesmgmt.PlayerRulesService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -57,12 +55,6 @@ public class FrontendView extends JFrame {
 
     @Autowired
     private CardService cardService;
-
-    @Autowired
-    private PlayerRulesService playerRulesService;
-
-    @Autowired
-    private CardRulesService cardRulesService;
 
     @Autowired
     public FrontendController frontendController;
@@ -248,7 +240,7 @@ public class FrontendView extends JFrame {
                         // Karten entsprechend der Rollen austauschen
                         cardService.swapCards(gameInstance);
                         // Setzen des ersten Spielers der nächsten Runde
-                        frontendController.setInitialPlayerForNextRound(gameInstance);
+//                        frontendController.setInitialPlayerForNextRound(gameInstance);
                         // Update der boardCards auf null, da frisches Spiel
                         gameInstance.setBoardCards(null);
                         // Frontend Update

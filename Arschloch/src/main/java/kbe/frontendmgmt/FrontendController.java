@@ -11,7 +11,12 @@ import kbe.playermgmt.BotPlayerServiceImpl;
 import kbe.playermgmt.Player;
 import kbe.playermgmt.PlayerService;
 import kbe.rulesmgmt.CardRulesService;
+import kbe.rulesmgmt.PlayerRulesService;
+import kbe.rulesmgmt.PlayerRulesServiceArschlochImpl;
+import kbe.rulesmgmt.PlayerRulesServicePresidentImpl;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
 
 import javax.swing.*;
@@ -56,7 +61,12 @@ public class FrontendController implements FrontendService {
     private BotPlayerService botPlayerService = new BotPlayerServiceImpl();
 
     @Autowired
-    private CardRulesService cardRulesService;
+    @Qualifier("playerRulesServiceArschlochImpl")
+    private PlayerRulesService playerRulesArschlochService;
+    
+    @Autowired
+    @Qualifier("playerRulesServicePresidentImpl")
+    private PlayerRulesService playerRulesPresidentService;
 
     int passCounter = 0;
 
@@ -326,29 +336,11 @@ public class FrontendController implements FrontendService {
      */
     void setInitialPlayerForNextRound(GameInstance gameInstance) throws IllegalArgumentException {
         String initialPlayerForNextRound = JOptionPane.showInputDialog(null,
-                "Wer soll anfangen (Arschloch (a)/Praesident (p))?");
+                "Wer soll bei jeder neuen Runde anfangen (Arschloch (a)/Praesident (p))?");
         if (initialPlayerForNextRound.equalsIgnoreCase("a")) {
-            for (int i = 0; i < gameInstance.getPlayers().size(); i++) {
-                try {
-                    if (gameInstance.getPlayers().get(i).getRole().equals(Player.Role.ARSCHLOCH1)) {
-                        gameInstance.setCurrentPlayer(gameInstance.getPlayers().get(i)); // current player setzen mit arschloch
-                        System.out.println("ARSCHLOCH1 faengt an");
-                    }
-                } catch (Exception e) {
-
-                }
-            }
+        	playerRulesArschlochService = new PlayerRulesServiceArschlochImpl();
         } else if (initialPlayerForNextRound.equalsIgnoreCase("p")) {
-            for (int i = 0; i < gameInstance.getPlayers().size(); i++) {
-                try {
-                    if (gameInstance.getPlayers().get(i).getRole().equals(Player.Role.PRAESIDENT1)) {
-                        gameInstance.setCurrentPlayer(gameInstance.getPlayers().get(i)); // current player setzen mit praesident
-                        System.out.println("PRAESIDENT1 faengt an");
-                    }
-                } catch (Exception e) {
-
-                }
-            }
+            playerRulesPresidentService = new PlayerRulesServicePresidentImpl();
         } else {
             setInitialPlayerForNextRound(gameInstance);
         }
@@ -362,6 +354,7 @@ public class FrontendController implements FrontendService {
     Boolean getContinueGame() throws IllegalArgumentException {
         String continueGame = JOptionPane.showInputDialog(null, "Weiterspielen (J/N)?");
         if (continueGame.equalsIgnoreCase("j") | continueGame.equalsIgnoreCase("ja")) {
+        	showInitialPlayer(gameInstance);
             return true;
         } else {
             return false;
@@ -430,6 +423,10 @@ public class FrontendController implements FrontendService {
 
         }
     }
+    
+    public void showInitialPlayer(GameInstance gameInstance) {
+    	JOptionPane.showMessageDialog(null, "Es fängt an: " + gameInstance.getCurrentPlayer().getName());
+    }
 
     /**
      * Methode, um Userinput ( Spieleranzahl ) zu erhalten
@@ -476,6 +473,7 @@ public class FrontendController implements FrontendService {
      * @param gameInstance : Spiel Instanz
      */
     public void startNewGame(GameInstance gameInstance) {
+    	setInitialPlayerForNextRound(gameInstance);
         List<Player> players = new LinkedList<>();
         boolean ifBotPlayer = getIfBotPlayer();
         int playerCount = getUserCountInput();

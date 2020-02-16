@@ -14,6 +14,6 @@ public interface PlayerRulesService {
      * @param card2 - zweite zu vergleichende Karte
      * @return Liste in Reihenfolge der Kartenwertigekeiten, soriteirt nach Standard-Blatt
      */
-    Player determineInitialPlayer(GameInstance gameInstance);
+    public void determineInitialPlayer(GameInstance gameInstance);
 
 }
