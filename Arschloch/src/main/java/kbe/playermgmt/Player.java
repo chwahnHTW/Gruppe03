@@ -1,10 +1,13 @@
 package kbe.playermgmt;
 
-import kbe.cardmgmt.Card;
-
-import javax.persistence.*;
 import java.util.LinkedList;
 import java.util.List;
+import javax.persistence.*;
+
+import com.sun.istack.internal.NotNull;
+import kbe.cardmgmt.Card;
+import kbe.gamemgmt.GameInstance;
+import org.springframework.lang.NonNull;
 
 /**
  * @authors Kaya Löher 				| Kim Anh Nguyen 		| Christian Wahnsiedler
@@ -26,7 +29,7 @@ public class Player {
     private String name;
 
 //    @OneToMany(mappedBy = "Player")
-    @OneToMany
+    @OneToMany(cascade = CascadeType.ALL)
     @JoinColumn(name = "handCards")
     private List<Card> handCards;
 

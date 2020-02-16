@@ -14,4 +14,5 @@ public interface GameInstanceRepository extends CrudRepository<GameInstance, Int
 
     List<Player> findPlayersByGameId(int gameId);
 
+    GameInstance findByPlayers(List<Player> players);
 }

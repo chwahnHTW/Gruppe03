@@ -130,7 +130,9 @@ public class FrontendView extends JFrame {
                 if (frontendController.playNewGame()) {
                     frontendController.startNewGame(gameInstance);
                 } else {
+                    System.out.println("YYYYYYYYYYY SPIEL WIEDERHERSTELLEN");
                     frontendController.startSavedGame(gameInstance);
+                    System.out.println("YYYYYYYYYYY SPIEL WIEDERHERGESTELLT");
                 }
                 try {
                     // nachdem alle automatischen Vorbereitungen getroffen sind, kann das Frontend
@@ -188,11 +190,14 @@ public class FrontendView extends JFrame {
         btnSaveGame.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+
+                System.out.println("XXXXXXXXXXX SPIEL SPEICHERN");
+
                 historyService.saveCurrentGame(gameInstance);
 
                 frontendController.showSavedGameId();
 
-                System.out.println("SPIEL GESPEICHERT");
+                System.out.println("XXXXXXXXXXX SPIEL GESPEICHERT");
             }
         });
         contentPane.add(btnSaveGame);

@@ -33,22 +33,22 @@ public class GameInstance {
     private Integer gameId;
 
     @JoinColumn(name = "players")
-    @OneToMany
+    @OneToMany(cascade = CascadeType.ALL)
 //    @OneToMany(mappedBy = "GameInstance")
     private List<Player> players;
 
     @JoinColumn(name = "result")
-    @OneToMany
+    @OneToMany(cascade = CascadeType.ALL)
 //    @OneToMany(mappedBy = "GameInstance")
     private List<Player> result = new LinkedList<>();
 
     @JoinColumn(name = "boardCards")
-    @OneToMany
+    @OneToMany(cascade = CascadeType.ALL)
 //    @OneToMany(mappedBy = "GameInstance")
     private List<Card> boardCards = null;
 
     @JoinColumn(name = "current")
-    @OneToOne
+    @OneToOne(cascade = CascadeType.ALL)
     private Player currentPlayer = null;
 
     /**
