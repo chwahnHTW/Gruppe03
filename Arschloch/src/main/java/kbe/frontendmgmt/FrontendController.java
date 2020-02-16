@@ -93,24 +93,7 @@ public class FrontendController implements FrontendService {
         return new GameInstance();
     }
 
-
-    /**
-     * Das Spiel wird beendet.
-     *
-     * @param game: Eine Spielinstanz
-     */
-    private void endRound(GameInstance game) {
-    }
-
-
-    /**
-     * Validiert einen Spielzug. Nimmt hierfuer Userinput entgegen und vergleicht
-     * diesen mit BoardCards. Ueber den Rueckgabewert der Eingabeaufforderung wird
-     * der Spielfluss gesteuert Valider Move : Karten vom Spieler abziehen, als
-     * BoardCards setzen, Spielstatus pruefen, nextPlayer setzen und weiterspielen(
-     * oder Dialog zum Beenden / Neustarten des Spiels aufrufen) Invalider move :
-     * Erneute Eingabeaufforderung, kein getNextPlayer
-     */
+    @Override
     public void validateMove() {
         if (gameInstance.getCurrentPlayer().getName() == "BotPlayer") {
             System.out.println("botPlayerService.validateBotMove(gameInstance)");
@@ -251,7 +234,7 @@ public class FrontendController implements FrontendService {
                 }
                 System.out.println(cardIndexesToBePlayed.size());
             } catch (Exception e) {
-
+                e.getStackTrace();
             }
             // Wenn BoardCards = Ass, wird das Feld abgeraumt,
             try {
@@ -262,10 +245,7 @@ public class FrontendController implements FrontendService {
                     frontendView.updateCurrentBoardCardPanels(gameInstance);
 
                 }
-            } catch (NullPointerException e) {
-                gameInstance.setBoardCards(null);
-                frontendView.updateCurrentBoardCardPanels(gameInstance);
-            } catch (IndexOutOfBoundsException IOOB) {
+            } catch (NullPointerException | IndexOutOfBoundsException e) {
                 gameInstance.setBoardCards(null);
                 frontendView.updateCurrentBoardCardPanels(gameInstance);
             }
@@ -274,14 +254,7 @@ public class FrontendController implements FrontendService {
         }
     }
 
-
-    /**
-     * Setzen der Spielerrollen, Ueber die Reihenfolge, in der die Spieler in die
-     * Ergebnisliste aufgenommen wurden laesst sich ermitteln, welche Rolle sie
-     * haben ( erster Spieler, der fertig ist =
-     * gameInstance.getResult().get(0).setRole(Player.Role.PRAESIDENT) usw. ) Simple
-     * Implementierung, da momentan nur mit 3 Spielern spielbar
-     */
+    @Override
     public void setPlayerRoles(GameInstance gameInstance) {
         int resultSize = gameInstance.getResult().size();
         gameInstance.getResult().get(0).setRole(Player.Role.PRAESIDENT1);
@@ -293,11 +266,7 @@ public class FrontendController implements FrontendService {
         }
     }
 
-    /**
-     * Methode, die ueberprueft, ob ein Spieler noch Karten hat, um ihn, falls dem
-     * nicht so ist, in die Erbegnissliste einzutragen, anhand derer spaeter die
-     * Rollen der Spieler ermittelt werden
-     */
+    @Override
     public void addCurrentPlayerToResult(GameInstance gameInstance) {
         if (gameInstance.getCurrentPlayer().getHand().isEmpty()) {
             if (!gameInstance.getResult().contains(gameInstance.getCurrentPlayer())) {
@@ -308,14 +277,8 @@ public class FrontendController implements FrontendService {
         }
     }
 
-    /**
-     * Fragt den User ab, wer die naechste Runde anfangen soll zu legen, und setzt
-     * entweder Arschloch oder Praesident als current player.
-     *
-     * @param gameInstance
-     * @throws IllegalArgumentException
-     */
-    void setInitialPlayerForNextRound(GameInstance gameInstance) throws IllegalArgumentException {
+    @Override
+    public void setInitialPlayerForNextRound(GameInstance gameInstance) throws IllegalArgumentException {
         String initialPlayerForNextRound = JOptionPane.showInputDialog(null,
                 "Wer soll anfangen (Arschloch (a)/Praesident (p))?");
         if (initialPlayerForNextRound.equalsIgnoreCase("a")) {
@@ -345,12 +308,8 @@ public class FrontendController implements FrontendService {
         }
     }
 
-    /**
-     * Methode, die nach Spielabschluss erfaesst, ob weitergepspielt werden soll
-     *
-     * @return boolean - weiterspielen oder nicht ( true , false )
-     */
-    Boolean getContinueGame() throws IllegalArgumentException {
+    @Override
+    public Boolean getContinueGame() throws IllegalArgumentException {
         String continueGame = JOptionPane.showInputDialog(null, "Weiterspielen (J/N)?");
         if (continueGame.equalsIgnoreCase("j") | continueGame.equalsIgnoreCase("ja")) {
             return true;
@@ -359,12 +318,8 @@ public class FrontendController implements FrontendService {
         }
     }
 
-    /**
-     * fragt ab, ob ein Spiel neu gestartet werden soll oder ein altes wiederhergestellt werden soll
-     *
-     * @return
-     */
-    Boolean playNewGame() throws IllegalArgumentException {
+    @Override
+    public Boolean playNewGame() throws IllegalArgumentException {
         String newGame = JOptionPane.showInputDialog(null, "Neues Spiel beginnen oder gespeichertes wiederherstellen (J/N)?");
         if (newGame.equalsIgnoreCase("j") | newGame.equalsIgnoreCase("ja")) {
             return true;
@@ -373,12 +328,8 @@ public class FrontendController implements FrontendService {
         }
     }
 
-    /**
-     * Methode, um die Namen der Spieler eines Spiels zu erfassen
-     *
-     * @return - String - Name fuer einen User
-     */
-    String getUserNameInput() {
+    @Override
+    public String getUserNameInput() {
         String spielerName = JOptionPane.showInputDialog(null, "Bitte Spielernamen eingeben");
         if (spielerName.isEmpty()) {
             return getUserNameInput();
@@ -387,14 +338,12 @@ public class FrontendController implements FrontendService {
         }
     }
 
-    /**
-     * Zeigt die gespeicherte Id der Spielinstanz an, um sie später wieder herstellen zu können
-     */
+    @Override
     public void showSavedGameId() {
         JOptionPane.showMessageDialog(null, "Die Spielnummer lautet: ");
     }
 
-
+    @Override
     public void showResultList(GameInstance gameInstance) {
         if (gameInstance.getResult().size() == 3) {
             JOptionPane.showMessageDialog(null, "Die Reihenfolge der Gewinner ist: " +
@@ -422,13 +371,8 @@ public class FrontendController implements FrontendService {
         }
     }
 
-    /**
-     * Methode, um Userinput ( Spieleranzahl ) zu erhalten
-     *
-     * @return vom Spieler eingegebene Spieleranzahl
-     * @throws IllegalArgumentException
-     */
-    int getUserCountInput() throws IllegalArgumentException {
+    @Override
+    public int getUserCountInput() throws IllegalArgumentException {
         String userinput = JOptionPane.showInputDialog(null,
                 "Bitte Anzahl Spieler/Bots eingeben (Spieleranzahl muss 3 bis 5 sein)");
         try {
@@ -441,16 +385,10 @@ public class FrontendController implements FrontendService {
         } catch (NumberFormatException e) {
             return getUserCountInput();
         }
-
     }
 
-    /**
-     * GameId eingeben, um Spiel später wieder herstellen zu können
-     *
-     * @return gameId
-     * @throws IllegalArgumentException
-     */
-    int getGameId() throws IllegalArgumentException {
+    @Override
+    public int getGameId() throws IllegalArgumentException {
         String userinput = JOptionPane.showInputDialog(null,
                 "Bitte die Spielnummer eingeben");
         try {
@@ -461,12 +399,7 @@ public class FrontendController implements FrontendService {
         }
     }
 
-    /**
-     * Hier wird ein neues Spiel erstellt, in dem neue Spieler eingegeben werden.
-     * Jeder Spieler bekommt eine Hand an Karten und es wird der erste Spieler gesetzt
-     *
-     * @param gameInstance : Spiel Instanz
-     */
+    @Override
     public void startNewGame(GameInstance gameInstance) {
         List<Player> players = new LinkedList<>();
         boolean ifBotPlayer = getIfBotPlayer();
@@ -495,11 +428,7 @@ public class FrontendController implements FrontendService {
         gameInstance.setCurrentPlayer(PLAYSI.getNextPlayer(gameInstance));
     }
 
-    /**
-     * Hier wird eine gespeicherte Spielinstanz wieder hergestellt
-     *
-     * @param gameInstance gameInstanz
-     */
+    @Override
     public void startSavedGame(GameInstance gameInstance) {
         int gameId = getGameId();
         gameInstance = historyService.getLastPlayedGame(gameId);
@@ -509,13 +438,8 @@ public class FrontendController implements FrontendService {
 
     }
 
-    /**
-     * Fragt, ob User mit Bots spielen möchte.
-     *
-     * @return
-     * @throws IllegalArgumentException
-     */
-    public boolean getIfBotPlayer() throws IllegalArgumentException {
+    @Override
+    public Boolean getIfBotPlayer() throws IllegalArgumentException {
         String botPlayer = JOptionPane.showInputDialog(null, "Mit Bots spielen (J/N)?");
         try {
             if (botPlayer.equalsIgnoreCase("j") | botPlayer.equalsIgnoreCase("ja")) {
@@ -528,15 +452,5 @@ public class FrontendController implements FrontendService {
         } catch (Exception e) {
             return getIfBotPlayer();
         }
-
     }
 }
-
-
-//	public void whatever(){
-//    	if ("eingabe" == "arschlosch") {
-//    		cardRulesService = new CardRulesServiceStandardImpl();
-//    	} else {
-//    		cardRulesService = new CardRulesServicePresidentImpl();
-//    	}
-//    }

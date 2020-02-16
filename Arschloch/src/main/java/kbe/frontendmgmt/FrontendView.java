@@ -347,23 +347,6 @@ public class FrontendView extends JFrame {
 
     }
 
-    private boolean getIfBotPlayer() throws IllegalArgumentException {
-        String botPlayer = JOptionPane.showInputDialog(null, "Mit Bots spielen (J/N)?");
-        try {
-            if (botPlayer.equalsIgnoreCase("j") | botPlayer.equalsIgnoreCase("ja")) {
-                return true;
-            } else if (botPlayer.equalsIgnoreCase("n") | botPlayer.equalsIgnoreCase("nein")) {
-                return false;
-            } else {
-                return getIfBotPlayer();
-            }
-        } catch (Exception e) {
-            return getIfBotPlayer();
-        }
-
-    }
-
-
     /**
      * Methode zum Updaten der currentBoardCardPanels Prueft, ob momentan eine Karte
      * im entsprechenden Slot liegt Wenn ja, wird sie angezeigt, Wenn nein, wird ein
@@ -385,13 +368,7 @@ public class FrontendView extends JFrame {
                         + gameInstance.getBoardCards().get(0).getZahl().toString() + ".jpg";
                 jl4.setIcon(new javax.swing.ImageIcon(getClass().getResource(fileToBoardCard4)));
                 currentBoardCardPanel4.add(jl4);
-            } catch (IndexOutOfBoundsException e) {
-                currentBoardCardPanel4.removeAll();
-                JLabel jl4 = new JLabel();
-                jl4.setBounds(859, 93, 99, 125);
-                jl4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/emptyCard.jpg")));
-                currentBoardCardPanel4.add(jl4);
-            } catch (NullPointerException e) {
+            } catch (IndexOutOfBoundsException | NullPointerException e) {
                 currentBoardCardPanel4.removeAll();
                 JLabel jl4 = new JLabel();
                 jl4.setBounds(859, 93, 99, 125);
@@ -400,7 +377,7 @@ public class FrontendView extends JFrame {
             }
 
 ///////////////////////////////////////////////////////////////////////////////////
-            if (gameInstance.getBoardCards().size() == 2) {
+            if (gameInstance.getBoardCards().size() >= 2) {
 
                 try {
                     currentBoardCardPanel3.removeAll();
@@ -421,7 +398,7 @@ public class FrontendView extends JFrame {
             }
 ///////////////////////////////////////////////////////////////////////////////////
 
-            if (gameInstance.getBoardCards().size() == 3) {
+            if (gameInstance.getBoardCards().size() >= 3) {
                 try {
                     currentBoardCardPanel2.removeAll();
                     JLabel jl2 = new JLabel();
@@ -430,13 +407,7 @@ public class FrontendView extends JFrame {
                             + gameInstance.getBoardCards().get(2).getZahl().toString() + ".jpg";
                     jl2.setIcon(new javax.swing.ImageIcon(getClass().getResource(fileToBoardCard2)));
                     currentBoardCardPanel2.add(jl2);
-                } catch (IndexOutOfBoundsException e) {
-                    currentBoardCardPanel2.removeAll();
-                    JLabel jl2 = new JLabel();
-                    jl2.setBounds(859, 93, 99, 125);
-                    jl2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/emptyCard.jpg")));
-                    currentBoardCardPanel2.add(jl2);
-                } catch (NullPointerException e) {
+                } catch (IndexOutOfBoundsException | NullPointerException e) {
                     currentBoardCardPanel2.removeAll();
                     JLabel jl2 = new JLabel();
                     jl2.setBounds(859, 93, 99, 125);
@@ -455,13 +426,7 @@ public class FrontendView extends JFrame {
                             + gameInstance.getBoardCards().get(3).getZahl().toString() + ".jpg";
                     jl1.setIcon(new javax.swing.ImageIcon(getClass().getResource(fileToBoardCard1)));
                     currentBoardCardPanel1.add(jl1);
-                } catch (IndexOutOfBoundsException e) {
-                    currentBoardCardPanel1.removeAll();
-                    JLabel jl1 = new JLabel();
-                    jl1.setBounds(859, 93, 99, 125);
-                    jl1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/emptyCard.jpg")));
-                    currentBoardCardPanel1.add(jl1);
-                } catch (NullPointerException e) {
+                } catch (IndexOutOfBoundsException | NullPointerException e) {
                     currentBoardCardPanel1.removeAll();
                     JLabel jl1 = new JLabel();
                     jl1.setBounds(859, 93, 99, 125);
@@ -499,13 +464,9 @@ public class FrontendView extends JFrame {
             jl4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/emptyCard.jpg")));
             currentBoardCardPanel4.add(jl4);
 
-            // Update Frontend
-
             updateCardButtons(gameInstance);
             contentPane.revalidate();
-
         }
-
     }
 
     /**
@@ -536,14 +497,7 @@ public class FrontendView extends JFrame {
             btnPlayerCard0.add(imageCard0);
             contentPane.add(btnPlayerCard0);
             // falls nein bleibt das Feld ueber Exception-Handling leer
-        } catch (NullPointerException e) {
-            System.out.println("no card at slot 0");
-            JLabel imageCard0 = new JLabel("no card");
-            imageCard0.setBounds(104, 408, 98, 125);
-            imageCard0.setIcon(new javax.swing.ImageIcon(getClass().getResource("/emptyCard.jpg")));
-            btnPlayerCard0.add(imageCard0);
-            contentPane.add(btnPlayerCard0);
-        } catch (IndexOutOfBoundsException e) {
+        } catch (NullPointerException | IndexOutOfBoundsException e) {
             System.out.println("no card at slot 0");
             JLabel imageCard0 = new JLabel("no card");
             imageCard0.setBounds(104, 408, 98, 125);
@@ -551,7 +505,7 @@ public class FrontendView extends JFrame {
             btnPlayerCard0.add(imageCard0);
             contentPane.add(btnPlayerCard0);
         }
-        ;
+
 ///////////////////////////////////////////////////////////////////////////////////
         // Alle weiteren Buttons funktionieren analog zu btnPlayerCard0
         try {
@@ -565,17 +519,7 @@ public class FrontendView extends JFrame {
             imageCard1.setIcon(new javax.swing.ImageIcon(getClass().getResource(card1File)));
             btnPlayerCard1.add(imageCard1);
             contentPane.add(btnPlayerCard1);
-        } catch (NullPointerException e) {
-
-            btnPlayerCard1 = null;
-            btnPlayerCard1 = new JPanel();
-            btnPlayerCard1.setBounds(212, 408, 98, 125);
-            JLabel imageCard1 = new JLabel();
-            imageCard1.setBounds(212, 408, 98, 125);
-            imageCard1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/emptyCard.jpg")));
-            btnPlayerCard1.add(imageCard1);
-            contentPane.add(btnPlayerCard1);
-        } catch (IndexOutOfBoundsException e) {
+        } catch (NullPointerException | IndexOutOfBoundsException e) {
             btnPlayerCard1 = null;
             btnPlayerCard1 = new JPanel();
             btnPlayerCard1.setBounds(212, 408, 98, 125);
@@ -597,17 +541,7 @@ public class FrontendView extends JFrame {
             imageCard2.setIcon(new javax.swing.ImageIcon(getClass().getResource(card2File)));
             btnPlayerCard2.add(imageCard2);
             contentPane.add(btnPlayerCard2);
-        } catch (NullPointerException e) {
-
-            btnPlayerCard2 = null;
-            btnPlayerCard2 = new JPanel();
-            btnPlayerCard2.setBounds(320, 408, 98, 125);
-            JLabel imageCard2 = new JLabel("no cards");
-            imageCard2.setBounds(320, 408, 98, 125);
-            imageCard2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/emptyCard.jpg")));
-            btnPlayerCard2.add(imageCard2);
-            contentPane.add(btnPlayerCard2);
-        } catch (IndexOutOfBoundsException e) {
+        } catch (NullPointerException | IndexOutOfBoundsException e) {
             btnPlayerCard2 = null;
             btnPlayerCard2 = new JPanel();
             btnPlayerCard2.setBounds(320, 408, 98, 125);
@@ -629,16 +563,7 @@ public class FrontendView extends JFrame {
             imageCard3.setIcon(new javax.swing.ImageIcon(getClass().getResource(card3File)));
             btnPlayerCard3.add(imageCard3);
             contentPane.add(btnPlayerCard3);
-        } catch (NullPointerException e) {
-            btnPlayerCard3 = null;
-            btnPlayerCard3 = new JPanel();
-            btnPlayerCard3.setBounds(428, 408, 98, 125);
-            JLabel imageCard3 = new JLabel("no card");
-            imageCard3.setBounds(428, 408, 98, 125);
-            imageCard3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/emptyCard.jpg")));
-            btnPlayerCard3.add(imageCard3);
-            contentPane.add(btnPlayerCard3);
-        } catch (IndexOutOfBoundsException e) {
+        } catch (NullPointerException | IndexOutOfBoundsException e) {
             btnPlayerCard3 = null;
             btnPlayerCard3 = new JPanel();
             btnPlayerCard3.setBounds(428, 408, 98, 125);
@@ -661,16 +586,7 @@ public class FrontendView extends JFrame {
             imageCard4.setIcon(new javax.swing.ImageIcon(getClass().getResource(card4File)));
             btnPlayerCard4.add(imageCard4);
             contentPane.add(btnPlayerCard4);
-        } catch (NullPointerException e) {
-            btnPlayerCard4 = null;
-            btnPlayerCard4 = new JPanel();
-            btnPlayerCard4.setBounds(536, 408, 98, 125);
-            JLabel imageCard4 = new JLabel("no card");
-            imageCard4.setBounds(536, 408, 98, 125);
-            imageCard4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/emptyCard.jpg")));
-            btnPlayerCard4.add(imageCard4);
-            contentPane.add(btnPlayerCard4);
-        } catch (IndexOutOfBoundsException e) {
+        } catch (NullPointerException | IndexOutOfBoundsException e) {
             btnPlayerCard4 = null;
             btnPlayerCard4 = new JPanel();
             btnPlayerCard4.setBounds(536, 408, 98, 125);
@@ -692,16 +608,7 @@ public class FrontendView extends JFrame {
             imageCard5.setIcon(new javax.swing.ImageIcon(getClass().getResource(card5File)));
             btnPlayerCard5.add(imageCard5);
             contentPane.add(btnPlayerCard5);
-        } catch (NullPointerException e) {
-            btnPlayerCard5 = null;
-            btnPlayerCard5 = new JPanel();
-            btnPlayerCard5.setBounds(644, 408, 98, 125);
-            JLabel imageCard5 = new JLabel();
-            imageCard5.setBounds(644, 408, 98, 125);
-            imageCard5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/emptyCard.jpg")));
-            btnPlayerCard5.add(imageCard5);
-            contentPane.add(btnPlayerCard5);
-        } catch (IndexOutOfBoundsException e) {
+        } catch (NullPointerException | IndexOutOfBoundsException e) {
             btnPlayerCard5 = null;
             btnPlayerCard5 = new JPanel();
             btnPlayerCard5.setBounds(644, 408, 98, 125);
@@ -723,16 +630,7 @@ public class FrontendView extends JFrame {
             imageCard6.setIcon(new javax.swing.ImageIcon(getClass().getResource(card6File)));
             btnPlayerCard6.add(imageCard6);
             contentPane.add(btnPlayerCard6);
-        } catch (NullPointerException e) {
-            btnPlayerCard6 = null;
-            btnPlayerCard6 = new JPanel();
-            btnPlayerCard6.setBounds(752, 408, 98, 125);
-            JLabel imageCard6 = new JLabel("no card");
-            imageCard6.setBounds(752, 408, 98, 125);
-            imageCard6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/emptyCard.jpg")));
-            btnPlayerCard6.add(imageCard6);
-            contentPane.add(btnPlayerCard6);
-        } catch (IndexOutOfBoundsException e) {
+        } catch (NullPointerException | IndexOutOfBoundsException e) {
             btnPlayerCard6 = null;
             btnPlayerCard6 = new JPanel();
             btnPlayerCard6.setBounds(752, 408, 98, 125);
@@ -754,16 +652,7 @@ public class FrontendView extends JFrame {
             imageCard7.setIcon(new javax.swing.ImageIcon(getClass().getResource(card7File)));
             btnPlayerCard7.add(imageCard7);
             contentPane.add(btnPlayerCard7);
-        } catch (NullPointerException e) {
-            btnPlayerCard7 = null;
-            btnPlayerCard7 = new JPanel();
-            btnPlayerCard7.setBounds(860, 408, 98, 125);
-            JLabel imageCard7 = new JLabel("no card");
-            imageCard7.setBounds(860, 408, 98, 125);
-            imageCard7.setIcon(new javax.swing.ImageIcon(getClass().getResource("/emptyCard.jpg")));
-            btnPlayerCard7.add(imageCard7);
-            contentPane.add(btnPlayerCard7);
-        } catch (IndexOutOfBoundsException e) {
+        } catch (NullPointerException | IndexOutOfBoundsException e) {
             btnPlayerCard7 = null;
             btnPlayerCard7 = new JPanel();
             btnPlayerCard7.setBounds(860, 408, 98, 125);
@@ -785,7 +674,7 @@ public class FrontendView extends JFrame {
             imageCard8.setIcon(new javax.swing.ImageIcon(getClass().getResource(card8File)));
             btnPlayerCard8.add(imageCard8);
             contentPane.add(btnPlayerCard8);
-        } catch (NullPointerException e) {
+        } catch (NullPointerException | IndexOutOfBoundsException e) {
             btnPlayerCard8 = null;
             btnPlayerCard8 = new JPanel();
             btnPlayerCard8.setBounds(320, 543, 98, 125);
@@ -795,17 +684,7 @@ public class FrontendView extends JFrame {
             btnPlayerCard8.add(imageCard8);
             contentPane.add(btnPlayerCard8);
 
-        } catch (IndexOutOfBoundsException e) {
-            btnPlayerCard8 = null;
-            btnPlayerCard8 = new JPanel();
-            btnPlayerCard8.setBounds(320, 543, 98, 125);
-            JLabel imageCard8 = new JLabel("no card");
-            imageCard8.setBounds(320, 543, 98, 125);
-            imageCard8.setIcon(new javax.swing.ImageIcon(getClass().getResource("/emptyCard.jpg")));
-            btnPlayerCard8.add(imageCard8);
-            contentPane.add(btnPlayerCard8);
         }
-        ;
 ///////////////////////////////////////////////////////////////////////////////////
         try {
             btnPlayerCard9 = null;
@@ -818,16 +697,7 @@ public class FrontendView extends JFrame {
             imageCard9.setIcon(new javax.swing.ImageIcon(getClass().getResource(card9File)));
             btnPlayerCard9.add(imageCard9);
             contentPane.add(btnPlayerCard9);
-        } catch (NullPointerException e) {
-            btnPlayerCard9 = null;
-            btnPlayerCard9 = new JPanel();
-            btnPlayerCard9.setBounds(428, 543, 98, 125);
-            JLabel imageCard9 = new JLabel("no Card");
-            imageCard9.setBounds(428, 543, 98, 125);
-            imageCard9.setIcon(new javax.swing.ImageIcon(getClass().getResource("/emptyCard.jpg")));
-            btnPlayerCard9.add(imageCard9);
-            contentPane.add(btnPlayerCard9);
-        } catch (IndexOutOfBoundsException e) {
+        } catch (NullPointerException | IndexOutOfBoundsException e) {
             btnPlayerCard9 = null;
             btnPlayerCard9 = new JPanel();
             btnPlayerCard9.setBounds(428, 543, 98, 125);
@@ -837,7 +707,6 @@ public class FrontendView extends JFrame {
             btnPlayerCard9.add(imageCard9);
             contentPane.add(btnPlayerCard9);
         }
-        ;
 
 ///////////////////////////////////////////////////////////////////////////////////
         try {
@@ -851,17 +720,7 @@ public class FrontendView extends JFrame {
             imageCard10.setIcon(new javax.swing.ImageIcon(getClass().getResource(card10File)));
             btnPlayerCard10.add(imageCard10);
             contentPane.add(btnPlayerCard10);
-        } catch (NullPointerException e) {
-            btnPlayerCard10 = null;
-            btnPlayerCard10 = new JPanel();
-            btnPlayerCard10.setBounds(536, 543, 98, 125);
-            JLabel imageCard10 = new JLabel("no card");
-            imageCard10.setBounds(536, 543, 98, 125);
-            imageCard10.setIcon(new javax.swing.ImageIcon(getClass().getResource("/emptyCard.jpg")));
-            btnPlayerCard10.add(imageCard10);
-            contentPane.add(btnPlayerCard10);
-        } catch (IndexOutOfBoundsException e) {
-            System.out.println("less than 11 cards left for this player");
+        } catch (NullPointerException | IndexOutOfBoundsException e) {
             btnPlayerCard10 = null;
             btnPlayerCard10 = new JPanel();
             btnPlayerCard10.setBounds(536, 543, 98, 125);
@@ -884,16 +743,7 @@ public class FrontendView extends JFrame {
             imageCard11.setIcon(new javax.swing.ImageIcon(getClass().getResource(card11File)));
             btnPlayerCard11.add(imageCard11);
             contentPane.add(btnPlayerCard11);
-        } catch (NullPointerException e) {
-            btnPlayerCard11 = null;
-            btnPlayerCard11 = new JPanel();
-            btnPlayerCard11.setBounds(644, 543, 98, 125);
-            JLabel imageCard11 = new JLabel();
-            imageCard11.setBounds(644, 543, 98, 125);
-            imageCard11.setIcon(new javax.swing.ImageIcon(getClass().getResource("/emptyCard.jpg")));
-            btnPlayerCard11.add(imageCard11);
-            contentPane.add(btnPlayerCard11);
-        } catch (IndexOutOfBoundsException e) {
+        } catch (NullPointerException | IndexOutOfBoundsException e) {
             btnPlayerCard11 = null;
             btnPlayerCard11 = new JPanel();
             btnPlayerCard11.setBounds(644, 543, 98, 125);
@@ -903,9 +753,6 @@ public class FrontendView extends JFrame {
             btnPlayerCard11.add(imageCard11);
             contentPane.add(btnPlayerCard11);
         }
-
-        // SwingUtilities.updateComponentTreeUI(this);
-
         contentPane.revalidate();
     }
 
@@ -928,6 +775,4 @@ public class FrontendView extends JFrame {
         lblCurrentPlayer.repaint();
 
     }
-
-
 }
