@@ -1,11 +1,11 @@
 package kbe.historymgmt;
 
-import java.util.List;
-
 import kbe.gamemgmt.GameInstance;
 
+import java.util.List;
+
 /**
- * @authors         Kaya Löher 				| Kim Anh Nguyen 		| Christian Wahnsiedler
+ * @authors Kaya Löher 				| Kim Anh Nguyen 		| Christian Wahnsiedler
  * Email-Adresse: 	s0564784@htw-berlin.de 	| s0563958@htw-berlin.de| s0557193@htw-berlin.de
  * <p>
  * Nach jedem beendeten Spiel gibt es ein Ergbenis mit der Reihenfolge der Gewinner, den Regeln und den schon gespielten Spielen.

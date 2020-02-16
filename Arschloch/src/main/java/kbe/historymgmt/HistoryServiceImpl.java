@@ -1,18 +1,15 @@
 package kbe.historymgmt;
 
-
+import kbe.cardmgmt.Card;
 import kbe.gamemgmt.GameInstance;
 import kbe.playermgmt.Player;
 import kbe.playermgmt.PlayerService;
+import kbe.repositories.CardRepository;
+import kbe.repositories.GameInstanceRepository;
 import kbe.repositories.PlayerRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import kbe.jpaConfig.jpaConfiguration;
-
-import javax.persistence.EntityManager;
-import javax.persistence.EntityTransaction;
-import javax.persistence.PersistenceContext;
 import javax.transaction.Transactional;
 import java.io.BufferedWriter;
 import java.io.FileWriter;
@@ -22,32 +19,22 @@ import java.util.List;
 
 
 /**
- * @authors Kaya Löher 				| Kim Anh Nguyen 		| Christian Wahnsiedler
+ * @authors Kaya Löher 						| Kim Anh Nguyen 		| Christian Wahnsiedler
  * Email-Adresse: 	s0564784@htw-berlin.de	| s0563958@htw-berlin.de| s0557193@htw-berlin.de
  */
-//@EnableJpaRepositories("kbe.JpaRepository")
 @Service
 @Transactional
 public class HistoryServiceImpl implements HistoryService {
 
-    private History history;
-
     @Autowired
     PlayerRepository playerRepository;
-
-
-    @Override
-    public void tueEtwas() {
-        Player newUser = new Player();
-        newUser.setName("Kaya");
-        newUser.setRole(null);
-
-        Player savedPlayer = playerRepository.save(newUser);
-
-        System.out.println("Neuer Spieler: " + savedPlayer.getName());
-
-
-    }
+    @Autowired
+    GameInstanceRepository gameInstanceRepository;
+    @Autowired
+    CardRepository cardRepository;
+    @Autowired
+    PlayerService playerService;
+    private History history;
 
     @Override
     public void persist(GameInstance instance) {
@@ -55,16 +42,52 @@ public class HistoryServiceImpl implements HistoryService {
     }
 
     @Override
-    public GameInstance getLastPlayedGame() {
-//        Integer lastGame = 1;
-//        List<Player> players = gameInstanceRepository.findByPlayers();
-//        GameInstance gameInstance = gameInstanceRepository.findOne(lastGame);
-        return null;
+    public GameInstance getLastPlayedGame(int gameId) {
+
+        GameInstance gameInstance = gameInstanceRepository.findByGameId(gameId);
+        List<Player> players = gameInstanceRepository.findPlayersByGameId(gameId);
+        for (Player player : players) {
+            Player player1 = new Player();
+            player1.setName(player.getName());
+            player1.setRole(player.getRole());
+        }
+
+        List<Card> cards = cardRepository.findAllCards();
+        for (Card card : cards) {
+            Card card1 = new Card();
+            card1.setSymbol(card.getSymbol());
+            card1.setZahl(card.getZahl());
+        }
+        return gameInstance;
+
     }
 
-    public void saveCurrentGame(GameInstance gameInstance) {
-//        gameInstanceRepository.flush();
-//        gameInstanceRepository.save(gameInstance);
+    @Override
+    public void saveCurrentGame(GameInstance instance) {
+
+        gameInstanceRepository.deleteAll();
+        playerRepository.deleteAll();
+        cardRepository.deleteAll();
+
+        List<Player> players = instance.getPlayers();
+        for (Player player : players) {
+
+            for (Card card : player.getHandCards()) {
+                cardRepository.save(card);
+            }
+            playerRepository.save(player);
+        }
+        if (!instance.getBoardCards().isEmpty()) {
+            for (Card card : instance.getBoardCards()) {
+                cardRepository.save(card);
+            }
+        }
+        gameInstanceRepository.save(instance);
+
+        System.out.println("MMMMMMMMMMMMMMMMMMMMMMMM");
+//        System.out.println(gameInstanceRepository.findByPlayers(players).getPlayers().get(0).getName());
+//        System.out.println("MMMMMMMMMMMMMMMMMMMMMMMM");
+
     }
 
     @Override

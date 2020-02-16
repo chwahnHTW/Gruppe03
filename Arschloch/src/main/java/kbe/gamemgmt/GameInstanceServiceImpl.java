@@ -1,9 +1,7 @@
-
 package kbe.gamemgmt;
 
-import org.springframework.stereotype.Service;
-
 import kbe.playermgmt.Player;
+import org.springframework.stereotype.Service;
 
 
 @Service

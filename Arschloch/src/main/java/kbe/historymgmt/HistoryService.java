@@ -11,7 +11,7 @@ import kbe.gamemgmt.GameInstance;
  */
 public interface HistoryService {
 
-    void tueEtwas();
+//    void tueEtwas();
 
     /**
      * Speichert eine Spielinstanz in die Historie
@@ -26,7 +26,12 @@ public interface HistoryService {
      *
      * @return : eine Spielinstanz
      */
-    GameInstance getLastPlayedGame();
+    GameInstance getLastPlayedGame(int gameId);
+
+    /**
+     * @param instance
+     */
+    void saveCurrentGame(GameInstance instance);
 
 
     /**

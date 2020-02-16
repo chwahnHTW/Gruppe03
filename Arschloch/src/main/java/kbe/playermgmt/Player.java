@@ -1,12 +1,10 @@
 package kbe.playermgmt;
 
+import kbe.cardmgmt.Card;
+
+import javax.persistence.*;
 import java.util.LinkedList;
 import java.util.List;
-import javax.persistence.*;
-
-import com.sun.istack.internal.NotNull;
-import kbe.cardmgmt.Card;
-import org.springframework.lang.NonNull;
 
 /**
  * @authors Kaya Löher 				| Kim Anh Nguyen 		| Christian Wahnsiedler
@@ -27,19 +25,21 @@ public class Player {
     @Column(name = "name")
     private String name;
 
-    @OneToMany
-    @Column(name ="handCards")
+    //    @OneToMany(mappedBy = "Player")
+    @OneToMany(cascade = CascadeType.ALL)
+    @JoinColumn(name = "handCards")
     private List<Card> handCards;
 
-
-    /**
-     * Ein Enum, welches die Rolle darstellt, welche ein Spieler haben kann.
-     */
-    public enum Role {
-
-        PRAESIDENT1, PRAESIDENT2, MITTELKIND, ARSCHLOCH2, ARSCHLOCH1;
-
-    }
+//    @OneToOne(mappedBy = "Player")
+//    private GameInstance gameInstanceForCurrent;
+//
+//    @ManyToOne
+//    @JoinColumn(name = "GameInstanceForPlayers")
+//    private GameInstance gameInstanceForAllPlayers;
+//
+//    @ManyToOne
+//    @JoinColumn(name="GameInstanceForResult")
+//    private GameInstance gameInstanceForResult;
 
     /**
      * Generiert einen Spieler.
@@ -47,7 +47,7 @@ public class Player {
      * @param name:      Der Name des Spielers
      * @param handCards: Die Karten, die der Spieler besitzt
      * @param role:      Die Rolle eines Spielers
-     *            String name, List<Card> handCards, Role role
+     *                   String name, List<Card> handCards, Role role
      */
     public Player(String name, List<Card> handCards, Role role) {
         this.name = name;
@@ -55,7 +55,7 @@ public class Player {
         this.role = role;
     }
 
-    public Player(){
+    public Player() {
 
     }
 
@@ -87,19 +87,6 @@ public class Player {
         return handCards;
     }
 
-
-    public List<Card> getHandCards() {
-        return handCards;
-    }
-
-    /**
-     * ACHTUNG NEUER SETTER!!!
-     * @param handCards
-     */
-    public void setHandCards(List<Card> handCards) {
-    	this.handCards = handCards;
-    }
-
     /**
      * Fuegt einzelne Karten in die Liste der Handkarten des Spielers.
      *
@@ -107,6 +94,19 @@ public class Player {
      */
     public void setHand(Card card) {
         handCards.add(card);
+    }
+
+    public List<Card> getHandCards() {
+        return handCards;
+    }
+
+    /**
+     * ACHTUNG NEUER SETTER!!!
+     *
+     * @param handCards
+     */
+    public void setHandCards(List<Card> handCards) {
+        this.handCards = handCards;
     }
 
     /**
@@ -126,5 +126,14 @@ public class Player {
      */
     public void setRole(Role role) {
         this.role = role;
+    }
+
+    /**
+     * Ein Enum, welches die Rolle darstellt, welche ein Spieler haben kann.
+     */
+    public enum Role {
+
+        PRAESIDENT1, PRAESIDENT2, MITTELKIND, ARSCHLOCH2, ARSCHLOCH1;
+
     }
 }

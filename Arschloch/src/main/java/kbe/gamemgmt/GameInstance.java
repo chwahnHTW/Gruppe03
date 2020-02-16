@@ -1,13 +1,11 @@
-
 package kbe.gamemgmt;
-
-import java.util.LinkedList;
-import java.util.List;
 
 import kbe.cardmgmt.Card;
 import kbe.playermgmt.Player;
 
 import javax.persistence.*;
+import java.util.LinkedList;
+import java.util.List;
 
 /**
  * @authors Kaya Löher 				| Kim Anh Nguyen 		| Christian Wahnsiedler
@@ -33,19 +31,22 @@ public class GameInstance {
     private Integer gameId;
 
     @JoinColumn(name = "players")
-    @OneToMany
+    @OneToMany(cascade = CascadeType.ALL)
+//    @OneToMany(mappedBy = "GameInstance")
     private List<Player> players;
 
     @JoinColumn(name = "result")
-    @OneToMany
+    @OneToMany(cascade = CascadeType.ALL)
+//    @OneToMany(mappedBy = "GameInstance")
     private List<Player> result = new LinkedList<>();
 
     @JoinColumn(name = "boardCards")
-    @OneToMany
+    @OneToMany(cascade = CascadeType.ALL)
+//    @OneToMany(mappedBy = "GameInstance")
     private List<Card> boardCards = null;
 
     @JoinColumn(name = "current")
-    @OneToOne
+    @OneToOne(cascade = CascadeType.ALL)
     private Player currentPlayer = null;
 
     /**
