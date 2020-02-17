@@ -27,12 +27,12 @@ import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
         kbe.repositories.PlayerRepository.class,
         kbe.repositories.CardRepository.class,
         kbe.repositories.GameInstanceRepository.class})
-public class ConfigServiceImpl {
+public class configServiceImpl {
 
     private static ApplicationContext applicationContext;
 
     public static void main(String[] args) {
-        applicationContext = new AnnotationConfigApplicationContext(ConfigServiceImpl.class);
+        applicationContext = new AnnotationConfigApplicationContext(configServiceImpl.class);
 
         FrontendService gui = applicationContext.getBean(FrontendService.class);
         gui.init();

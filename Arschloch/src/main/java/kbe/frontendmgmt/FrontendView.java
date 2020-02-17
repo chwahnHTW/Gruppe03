@@ -218,7 +218,7 @@ public class FrontendView extends JFrame {
                         // Karten entsprechend der Rollen austauschen
                         frontendController.getCardService().swapCards(gameInstance);
                         // Setzen des ersten Spielers der nächsten Runde
-                        frontendController.setInitialPlayerForNextRound(gameInstance);
+//                        frontendController.setInitialPlayerForNextRound(gameInstance);
                         // Update der boardCards auf null, da frisches Spiel
                         gameInstance.setBoardCards(null);
                         // Frontend Update
