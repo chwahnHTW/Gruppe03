@@ -11,6 +11,7 @@ import java.util.List;
  * Nach jedem beendeten Spiel gibt es ein Ergbenis mit der Reihenfolge der Gewinner, den Regeln und den schon gespielten Spielen.
  * Hier wird die Spielhistorie gespeichert.
  */
+@Deprecated
 public class History {
 
     String fileName = "example.csv";

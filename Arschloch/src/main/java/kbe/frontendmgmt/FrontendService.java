@@ -121,4 +121,34 @@ public interface FrontendService {
      * @throws IllegalArgumentException
      */
     Boolean getIfBotPlayer();
+
+    /**
+     * startet ein Spiel
+     * @param gameInstance : eine Spielinstanz
+     */
+    void startGame(GameInstance gameInstance);
+
+    /**
+     * Passen eines Zuges wird hier validiert
+     * @param gameInstance
+     */
+    void pass(GameInstance gameInstance);
+
+    void gameStateEvaluation(GameInstance gameInstance);
+
+    int getGameIdForUser(GameInstance instance);
+
+    /**
+     * Hier wird das letzte beendete Spiel aus der Hsitorie abgerufen, um dessen Result zu untersuchen
+     * und zu prüfen, ob Karten getauscht werden müssen, oder nicht, sowie welcher Spieler anfängt
+     *
+     * @return : eine Spielinstanz
+     */
+    GameInstance getLastPlayedGame(int gameId);
+
+    /**
+     * @param instance
+     */
+    void saveCurrentGame(GameInstance instance);
+
 }

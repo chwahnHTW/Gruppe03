@@ -22,6 +22,7 @@ import java.util.List;
  * @authors Kaya Löher 						| Kim Anh Nguyen 		| Christian Wahnsiedler
  * Email-Adresse: 	s0564784@htw-berlin.de	| s0563958@htw-berlin.de| s0557193@htw-berlin.de
  */
+@Deprecated
 @Service
 @Transactional
 public class HistoryServiceImpl implements HistoryService {
@@ -39,53 +40,6 @@ public class HistoryServiceImpl implements HistoryService {
     @Override
     public void persist(GameInstance instance) {
         history.setHistory(instance);
-    }
-
-    @Override
-    public GameInstance getLastPlayedGame(int gameId) {
-
-        GameInstance gameInstance = gameInstanceRepository.findByGameId(gameId);
-//        List<Player> players = gameInstanceRepository.findPlayersByGameId(gameId);
-//        for (Player player : players) {
-//            Player player1 = new Player();
-//            player1.setName(player.getName());
-//            player1.setRole(player.getRole());
-//        }
-//
-//        List<Card> cards = cardRepository.findAllCards();
-//        for (Card card : cards) {
-//            Card card1 = new Card();
-//            card1.setSymbol(card.getSymbol());
-//            card1.setZahl(card.getZahl());
-//        }
-        return gameInstance;
-
-    }
-
-    public int getGameIdForUser (GameInstance instance){
-        return instance.getGameId();
-    }
-
-    @Override
-    public void saveCurrentGame(GameInstance instance) {
-//        gameInstanceRepository.deleteAll();
-//        playerRepository.deleteAll();
-//        cardRepository.deleteAll();
-//
-//        List<Player> players = instance.getPlayers();
-//        for (Player player : players) {
-//
-//            for (Card card : player.getHandCards()) {
-//                cardRepository.save(card);
-//            }
-//            playerRepository.save(player);
-//        }
-//        if (!instance.getBoardCards().isEmpty()) {
-//            for (Card card : instance.getBoardCards()) {
-//                cardRepository.save(card);
-//            }
-//        }
-        gameInstanceRepository.save(instance);
     }
 
     @Override

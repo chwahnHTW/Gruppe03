@@ -5,14 +5,12 @@ import kbe.cardmgmt.Card;
 import kbe.cardmgmt.CardService;
 import kbe.gamemgmt.GameInstance;
 import kbe.gamemgmt.GameInstanceService;
-import kbe.historymgmt.HistoryService;
 import kbe.playermgmt.BotPlayerService;
 import kbe.playermgmt.Player;
 import kbe.playermgmt.PlayerService;
 import kbe.rulesmgmt.PlayerRulesService;
 import kbe.rulesmgmt.PlayerRulesServiceArschlochImpl;
 import kbe.rulesmgmt.PlayerRulesServicePresidentImpl;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
@@ -58,14 +56,16 @@ public class FrontendController implements FrontendService {
     public BotPlayerService getBotPlayerService() {
         return botPlayerService;
     }
+    public CardRulesService getCardRulesService() {
+        return cardRulesService;
 
-    public HistoryService getHistoryService() {
-        return historyService;
-    }
 
     public CardService getCardService() {
         return cardService;
     }
+
+    @Autowired
+    GameInstanceRepository gameInstanceRepository;
 
     @Autowired
     public GameInstanceService GISI;
@@ -98,13 +98,6 @@ public class FrontendController implements FrontendService {
     @Autowired
     @Qualifier("playerRulesServicePresidentImpl")
     private PlayerRulesService playerRulesPresidentService;
-
-    public void setHistoryService(HistoryService historyService) {
-        this.historyService = historyService;
-    }
-
-    @Autowired
-    public HistoryService historyService;
 
     public void setCardService(CardService cardService) {
         this.cardService = cardService;
@@ -394,7 +387,7 @@ public class FrontendController implements FrontendService {
 
     @Override
     public void showSavedGameId() {
-        JOptionPane.showMessageDialog(null, "Die Spielnummer lautet: " + historyService.getGameIdForUser(gameInstance));
+        JOptionPane.showMessageDialog(null, "Die Spielnummer lautet: " + getGameIdForUser(gameInstance));
     }
 
     @Override
@@ -497,7 +490,7 @@ public class FrontendController implements FrontendService {
     @Override
     public void startSavedGame(GameInstance gameInstance) {
         int gameId = getGameId();
-        gameInstance = historyService.getLastPlayedGame(gameId);
+        gameInstance = getLastPlayedGame(gameId);
 
         gameInstance.setPlayers(gameInstance.getPlayers());
         gameInstance.setCurrentPlayer(PLAYSI.getNextPlayer(gameInstance));
@@ -520,7 +513,7 @@ public class FrontendController implements FrontendService {
         }
     }
 
-
+@Override
     public void startGame(GameInstance instance){
         if (playNewGame()) {
             startNewGame(gameInstance);
@@ -530,6 +523,7 @@ public class FrontendController implements FrontendService {
         }
     }
 
+    @Override
     public void pass(GameInstance gameInstance){
         passCounter++;
         // setzen des naechsten Spielers
@@ -545,10 +539,95 @@ public class FrontendController implements FrontendService {
 
         if (passCounter == playersWithCardsCounter - 1) {
             gameInstance.setBoardCards(null);
-            System.out.println("Pass-Counter = Anzahl Spieler mit Karten - boardCards resettet");
         }
     }
 
+    @Override
     public void gameStateEvaluation(GameInstance gameInstance){
+        String gameState = GISI.calculateGameState(gameInstance);
+        if (gameState.equals("Running")) {
+        } else {
+            // letzten Spieler in Resultliste speichern, damit Roles richtig gesetzt werden
+            for (Player player : gameInstance.getPlayers()) {
+                if (PLAYSI.hasCards(player)) {
+                    gameInstance.setResult(player);
+                }
+            }
+            showResultList(gameInstance);
+            // Weiter spielen? User Abfrage
+            Boolean continueGame = getContinueGame();
+
+            if (continueGame) {
+                // Rollen herausfinden
+                setPlayerRoles(gameInstance);
+
+                for (int i = 0; i < gameInstance.getResult().size(); i++) {
+                    gameInstance.getResult().get(i).setHandCards(new LinkedList<>());
+                }
+                // Spieler in neue Spielrunde uebernehmen
+                gameInstance.setPlayers(gameInstance.getResult());
+                // Karten austeilen
+                getCardService().dealCardsToPlayers(gameInstance);
+                // Karten entsprechend der Rollen austauschen
+                getCardService().swapCards(gameInstance);
+                // Setzen des ersten Spielers der nächsten Runde
+                setInitialPlayerForNextRound(gameInstance);
+                // Update der boardCards auf null, da frisches Spiel
+                gameInstance.setBoardCards(null);
+                // Frontend Update
+
+            } else {
+                // wenn nicht weitergespielt werden soll , schließt sich die Anwendung
+
+                System.exit(0);
+            }
+        }
+    }
+
+    @Override
+    public GameInstance getLastPlayedGame(int gameId) {
+
+        GameInstance gameInstance = gameInstanceRepository.findByGameId(gameId);
+//        List<Player> players = gameInstanceRepository.findPlayersByGameId(gameId);
+//        for (Player player : players) {
+//            Player player1 = new Player();
+//            player1.setName(player.getName());
+//            player1.setRole(player.getRole());
+//        }
+//
+//        List<Card> cards = cardRepository.findAllCards();
+//        for (Card card : cards) {
+//            Card card1 = new Card();
+//            card1.setSymbol(card.getSymbol());
+//            card1.setZahl(card.getZahl());
+//        }
+        return gameInstance;
+
+    }
+
+    public int getGameIdForUser (GameInstance instance){
+        return instance.getGameId();
+    }
+
+    @Override
+    public void saveCurrentGame(GameInstance instance) {
+//        gameInstanceRepository.deleteAll();
+//        playerRepository.deleteAll();
+//        cardRepository.deleteAll();
+//
+//        List<Player> players = instance.getPlayers();
+//        for (Player player : players) {
+//
+//            for (Card card : player.getHandCards()) {
+//                cardRepository.save(card);
+//            }
+//            playerRepository.save(player);
+//        }
+//        if (!instance.getBoardCards().isEmpty()) {
+//            for (Card card : instance.getBoardCards()) {
+//                cardRepository.save(card);
+//            }
+//        }
+        gameInstanceRepository.save(instance);
     }
 }
