@@ -205,6 +205,7 @@ public class FrontendView extends JFrame {
                 frontendController.pass(gameInstance);
                 updateCurrentPlayerLabel();
                 updateCardButtons(gameInstance);
+                updateCurrentBoardCardPanels(gameInstance);
 
 
             }
