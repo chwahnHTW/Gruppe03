@@ -6,10 +6,4 @@ public interface BotPlayerService {
 	
 	void validateBotMove(GameInstance gameInstance);
 
-<<<<<<< HEAD
 }
-=======
-    void validateBotMove(GameInstance gameInstance);
-
-}
->>>>>>> master

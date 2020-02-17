@@ -7,29 +7,11 @@ import org.springframework.stereotype.Service;
 @Service
 public class GameInstanceServiceImpl implements GameInstanceService {
 
-//    @Autowired
-//    PlayerRepository playerRepository;
-
-    /*
-     * Methode, um Spielinstanz zu erzeugen
-     * */
     @Override
     public GameInstance startGame() {
         return new GameInstance();
     }
 
-//    public void setGameState() {
-//        List<Player> players = playerRepository.findAll();
-//    }
-
-
-    /*
-     *
-     * Methode, um den Spielstatus zu erfassen.
-     * return String - Spielstatus - running, wenn spiel noch lauft
-     * finished, wenn Spiel vorbei
-     *
-     * */
     @Override
     public String calculateGameState(GameInstance gameInstance) {
         String gameState = null;

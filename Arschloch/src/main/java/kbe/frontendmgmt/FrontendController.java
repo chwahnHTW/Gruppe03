@@ -7,9 +7,9 @@ import kbe.gamemgmt.GameInstance;
 import kbe.gamemgmt.GameInstanceService;
 import kbe.historymgmt.HistoryService;
 import kbe.playermgmt.BotPlayerService;
-import kbe.playermgmt.BotPlayerServiceImpl;
 import kbe.playermgmt.Player;
 import kbe.playermgmt.PlayerService;
+import kbe.rulesmgmt.CardRulesService;
 import kbe.rulesmgmt.PlayerRulesService;
 import kbe.rulesmgmt.PlayerRulesServiceArschlochImpl;
 import kbe.rulesmgmt.PlayerRulesServicePresidentImpl;
@@ -19,6 +19,7 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
 
 import javax.swing.*;
+import javax.transaction.Transactional;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -28,44 +29,61 @@ import java.util.List;
  * <p>
  * Controller zum Frontend. Hier werden Spielmodel gehalten und der programmseitige Kontrollfluss geregelt.
  */
-
-
 @Controller
+@Transactional
 public class FrontendController implements FrontendService {
 
-    int passCounter = 0;
     private GameInstance gameInstance;
-    @Autowired
-    private GameInstanceService GISI;
-    @Autowired
-    private FrontendView frontendView;
-    @Autowired
-    private PlayerService PLAYSI;
-    @Autowired
-    private BotPlayerService botPlayerService = new BotPlayerServiceImpl();
-    @Autowired
-    private CardRulesService cardRulesService;
-    @Autowired
-    private HistoryService historyService;
-    @Autowired
-    private CardService cardService;
 
     public void setGISI(GameInstanceService GISI) {
         this.GISI = GISI;
     }
 
+    public GameInstance getGameInstance() {
+        return gameInstance;
+    }
+
+    public GameInstanceService getGISI() {
+        return GISI;
+    }
+
+    public FrontendView getFrontendView() {
+        return frontendView;
+    }
+
+    public PlayerService getPLAYSI() {
+        return PLAYSI;
+    }
+
+    public BotPlayerService getBotPlayerService() {
+        return botPlayerService;
+    }
+
+    public HistoryService getHistoryService() {
+        return historyService;
+    }
+
+    public CardService getCardService() {
+        return cardService;
+    }
+
+    @Autowired
+    public GameInstanceService GISI;
+
     public void setFrontendView(FrontendView frontendView) {
         this.frontendView = frontendView;
     }
+
+    @Autowired
+    public FrontendView frontendView;
 
     public void setPLAYSI(PlayerService PLAYSI) {
         this.PLAYSI = PLAYSI;
     }
     
-    @Autowired
-    private BotPlayerService botPlayerService = new BotPlayerServiceImpl();
+//    @Autowired
+//    private BotPlayerService botPlayerService = new BotPlayerServiceImpl();
 
-<<<<<<< HEAD
     @Autowired
     @Qualifier("playerRulesServiceArschlochImpl")
     private PlayerRulesService playerRulesArschlochService;
@@ -84,22 +102,31 @@ public class FrontendController implements FrontendService {
 		this.passCounter = passCounter;
 	}
 
-	@Autowired
-    private HistoryService historyService;
+    @Autowired
+    public PlayerService PLAYSI;
 
     @Autowired
-    private CardService cardService;
+    public BotPlayerService botPlayerService;
     
-    String initialPlayer = null;
-=======
-    public int getPassCounter() {
-        return passCounter;
+    public void setBotPlayerService(BotPlayerService botPlayerService) {
+        this.botPlayerService = botPlayerService;
     }
 
-    public void setPassCounter(int passCounter) {
-        this.passCounter = passCounter;
+    public void setHistoryService(HistoryService historyService) {
+        this.historyService = historyService;
     }
->>>>>>> master
+
+    @Autowired
+    public HistoryService historyService;
+
+    @Autowired
+    public CardService cardService;
+    
+    public void setCardService(CardService cardService) {
+        this.cardService = cardService;
+    }
+    
+    String initialPlayer = null;
 
     @Override
     public void init() {
@@ -108,15 +135,6 @@ public class FrontendController implements FrontendService {
         frontendView.createFrontendView(gameInstance);
 
     }
-
-    public GameInstance getGameInstance() {
-        return this.gameInstance;
-    }
-
-    public void setGameInstance(GameInstance gameInstance) {
-        this.gameInstance = gameInstance;
-    }
-
 
     /**
      * Eine Spielinstanz wird erstellt und zurückgegeben.
@@ -128,40 +146,19 @@ public class FrontendController implements FrontendService {
         return new GameInstance();
     }
 
-
-    /**
-     * Das Spiel wird beendet.
-     *
-     * @param game: Eine Spielinstanz
-     */
-    private void endRound(GameInstance game) {
-    }
-
-
-    /**
-     * Validiert einen Spielzug. Nimmt hierfuer Userinput entgegen und vergleicht
-     * diesen mit BoardCards. Ueber den Rueckgabewert der Eingabeaufforderung wird
-     * der Spielfluss gesteuert Valider Move : Karten vom Spieler abziehen, als
-     * BoardCards setzen, Spielstatus pruefen, nextPlayer setzen und weiterspielen(
-     * oder Dialog zum Beenden / Neustarten des Spiels aufrufen) Invalider move :
-     * Erneute Eingabeaufforderung, kein getNextPlayer
-     */
+    @Override
     public void validateMove() {
-<<<<<<< HEAD
-    	
     	if(gameInstance.getCurrentPlayer().getName().contains("Bot")) {
     		botPlayerService.validateBotMove(gameInstance);
     	}
     	else {
     		// Eingabe öffnen für Auswählen der Karten
-=======
         if (gameInstance.getCurrentPlayer().getName() == "BotPlayer") {
             System.out.println("botPlayerService.validateBotMove(gameInstance)");
             botPlayerService.validateBotMove(gameInstance);
         } else {
 
             // Eingabe öffnen für Auswählen der Karten
->>>>>>> master
             try {
                 String cardIndexes = JOptionPane.showInputDialog(null,
                         "Bitte Karten angeben (Positionen: 0-11, mit Komma getrennt)");
@@ -236,10 +233,6 @@ public class FrontendController implements FrontendService {
                         addCurrentPlayerToResult(gameInstance);
                         // setzt naechsten Spieler nach validem Spielzug
                         gameInstance.setCurrentPlayer(PLAYSI.getNextPlayer(gameInstance));
-                        // Update Frontend
-                        frontendView.updateCurrentBoardCardPanels(gameInstance);
-                        frontendView.updateCardButtons(gameInstance);
-                        frontendView.updateCurrentPlayerLabel();
                     } else {
                         // ungueltiger Spielzug : erneute Eingabe
                         if (tempCardList.size() != gameInstance.getBoardCards().size()) {
@@ -264,10 +257,6 @@ public class FrontendController implements FrontendService {
 
                                 // nächsten Spieler setzen
                                 gameInstance.setCurrentPlayer(PLAYSI.getNextPlayer(gameInstance));
-                                // Update Frontend
-                                frontendView.updateCurrentBoardCardPanels(gameInstance);
-                                frontendView.updateCardButtons(gameInstance);
-                                frontendView.updateCurrentPlayerLabel();
                             } else {
                                 // falsche Karten ausgewählt
                                 validateMove();
@@ -282,12 +271,7 @@ public class FrontendController implements FrontendService {
                             addCurrentPlayerToResult(gameInstance);
 
                             gameInstance.setCurrentPlayer(PLAYSI.getNextPlayer(gameInstance));
-
-                            frontendView.updateCurrentBoardCardPanels(gameInstance);
-                            frontendView.updateCardButtons(gameInstance);
-                            frontendView.updateCurrentPlayerLabel();
                         }
-
                     }
                 } else {
                     // falsche Karten ausgewählt
@@ -295,7 +279,7 @@ public class FrontendController implements FrontendService {
                 }
                 System.out.println(cardIndexesToBePlayed.size());
             } catch (Exception e) {
-
+                e.getStackTrace();
             }
             // Wenn BoardCards = Ass, wird das Feld abgeraumt,
             try {
@@ -306,31 +290,17 @@ public class FrontendController implements FrontendService {
                     frontendView.updateCurrentBoardCardPanels(gameInstance);
 
                 }
-            } catch (NullPointerException e) {
-                gameInstance.setBoardCards(null);
-                frontendView.updateCurrentBoardCardPanels(gameInstance);
-            } catch (IndexOutOfBoundsException IOOB) {
+            } catch (NullPointerException | IndexOutOfBoundsException e) {
                 gameInstance.setBoardCards(null);
                 frontendView.updateCurrentBoardCardPanels(gameInstance);
             }
             // Reset des PAssspielzug-Counters nach jedem validen Spielzug
             passCounter = 0;
-<<<<<<< HEAD
     	}
-
-=======
         }
->>>>>>> master
     }
 
-
-    /**
-     * Setzen der Spielerrollen, Ueber die Reihenfolge, in der die Spieler in die
-     * Ergebnisliste aufgenommen wurden laesst sich ermitteln, welche Rolle sie
-     * haben ( erster Spieler, der fertig ist =
-     * gameInstance.getResult().get(0).setRole(Player.Role.PRAESIDENT) usw. ) Simple
-     * Implementierung, da momentan nur mit 3 Spielern spielbar
-     */
+    @Override
     public void setPlayerRoles(GameInstance gameInstance) {
         int resultSize = gameInstance.getResult().size();
         gameInstance.getResult().get(0).setRole(Player.Role.PRAESIDENT1);
@@ -342,17 +312,12 @@ public class FrontendController implements FrontendService {
         }
     }
 
-    /**
-     * Methode, die ueberprueft, ob ein Spieler noch Karten hat, um ihn, falls dem
-     * nicht so ist, in die Erbegnissliste einzutragen, anhand derer spaeter die
-     * Rollen der Spieler ermittelt werden
-     */
+    @Override
     public void addCurrentPlayerToResult(GameInstance gameInstance) {
         if (gameInstance.getCurrentPlayer().getHand().isEmpty()) {
             if (!gameInstance.getResult().contains(gameInstance.getCurrentPlayer())) {
                 gameInstance.setResult(gameInstance.getCurrentPlayer());
-
-                System.out.println("RESULT LISTE " + gameInstance.getResult().size());
+//                System.out.println("RESULT LISTE " + gameInstance.getResult().size());
             }
         }
     }
@@ -367,18 +332,25 @@ public class FrontendController implements FrontendService {
     	String initialPlayerForNextRound = JOptionPane.showInputDialog(null,
                 "Wer soll bei jeder neuen Runde anfangen (Arschloch (a)/Praesident (p))?");
     	System.out.println("askInitialPlayerString");
-        if (initialPlayerForNextRound.equalsIgnoreCase("a")) {
-        	System.out.println("Arschloch soll anfangen");
-        	initialPlayer = "Arschloch";
-        	System.out.println("Arschloch soll anfangen2");
-        } else if (initialPlayerForNextRound.equalsIgnoreCase("p")) {
-        	System.out.println("President soll anfangen");
-            initialPlayer = "President";
-            System.out.println("President soll anfangen2");
-        } else {
-           askInitialPlayerString(gameInstance);
-        }
     }
+
+
+//    @Override
+//    public void setInitialPlayerForNextRound(GameInstance gameInstance) throws IllegalArgumentException {
+//        String initialPlayerForNextRound = JOptionPane.showInputDialog(null,
+//                "Wer soll anfangen (Arschloch (a)/Praesident (p))?");
+//        if (initialPlayerForNextRound.equalsIgnoreCase("a")) {
+//        	System.out.println("Arschloch soll anfangen");
+//        	initialPlayer = "Arschloch";
+//        	System.out.println("Arschloch soll anfangen2");
+//        } else if (initialPlayerForNextRound.equalsIgnoreCase("p")) {
+//        	System.out.println("President soll anfangen");
+//            initialPlayer = "President";
+//            System.out.println("President soll anfangen2");
+//        } else {
+//           askInitialPlayerString(gameInstance);
+//        }
+//    }
     
     /**
      * Setzt den Spieler, der anfagen soll,
@@ -387,7 +359,7 @@ public class FrontendController implements FrontendService {
      * @param gameInstance
      * @throws IllegalArgumentException
      */
-    void setInitialPlayer(GameInstance gameInstance) throws IllegalArgumentException {
+    public void setInitialPlayer(GameInstance gameInstance) throws IllegalArgumentException {
     	System.out.println("setInitialPlayer");
         if (initialPlayer == "Arschloch") {
         	System.out.println("Arschloch soll anfangen");
@@ -402,12 +374,8 @@ public class FrontendController implements FrontendService {
         }
     }
 
-    /**
-     * Methode, die nach Spielabschluss erfaesst, ob weitergepspielt werden soll
-     *
-     * @return boolean - weiterspielen oder nicht ( true , false )
-     */
-    Boolean getContinueGame() throws IllegalArgumentException {
+    @Override
+    public Boolean getContinueGame() throws IllegalArgumentException {
         String continueGame = JOptionPane.showInputDialog(null, "Weiterspielen (J/N)?");
         if (continueGame.equalsIgnoreCase("j") | continueGame.equalsIgnoreCase("ja")) {
         	setInitialPlayer(gameInstance);
@@ -417,13 +385,9 @@ public class FrontendController implements FrontendService {
             return false;
         }
     }
-
-    /**
-     * fragt ab, ob ein Spiel neu gestartet werden soll oder ein altes wiederhergestellt werden soll
-     *
-     * @return
-     */
-    Boolean playNewGame() throws IllegalArgumentException {
+    
+    @Override
+    public Boolean playNewGame() throws IllegalArgumentException {
         String newGame = JOptionPane.showInputDialog(null, "Neues Spiel beginnen oder gespeichertes wiederherstellen (J/N)?");
         if (newGame.equalsIgnoreCase("j") | newGame.equalsIgnoreCase("ja")) {
             return true;
@@ -431,13 +395,9 @@ public class FrontendController implements FrontendService {
             return false;
         }
     }
-
-    /**
-     * Methode, um die Namen der Spieler eines Spiels zu erfassen
-     *
-     * @return - String - Name fuer einen User
-     */
-    String getUserNameInput() {
+    
+    @Override
+    public String getUserNameInput() {
         String spielerName = JOptionPane.showInputDialog(null, "Bitte Spielernamen eingeben");
         if (spielerName.isEmpty()) {
             return getUserNameInput();
@@ -445,15 +405,13 @@ public class FrontendController implements FrontendService {
             return spielerName;
         }
     }
-
-    /**
-     * Zeigt die gespeicherte Id der Spielinstanz an, um sie später wieder herstellen zu können
-     */
+    
+    @Override
     public void showSavedGameId() {
-        JOptionPane.showMessageDialog(null, "Die Spielnummer lautet: ");
+        JOptionPane.showMessageDialog(null, "Die Spielnummer lautet: " + historyService.getGameIdForUser(gameInstance));
     }
-
-
+    
+    @Override
     public void showResultList(GameInstance gameInstance) {
         if (gameInstance.getResult().size() == 3) {
             JOptionPane.showMessageDialog(null, "Die Reihenfolge der Gewinner ist: " +
@@ -481,32 +439,8 @@ public class FrontendController implements FrontendService {
         }
     }
     
-    public void showInitialPlayer(GameInstance gameInstance) {
-    	JOptionPane.showMessageDialog(null, "Es fängt an: " + gameInstance.getCurrentPlayer().getName());
-    }
-
-    /**
-     * Methode, um Userinput ( Spieleranzahl ) zu erhalten
-     *
-     * @return vom Spieler eingegebene Spieleranzahl
-     * @throws IllegalArgumentException
-     */
-    int getUserCountInput() throws IllegalArgumentException {
-<<<<<<< HEAD
-		String userinput = JOptionPane.showInputDialog(null,
-				"Bitte Anzahl Spieler/Bots eingeben (Spieleranzahl muss 3 bis 5 sein)");
-		try{
-			if (userinput.equals("3") | userinput.equals("4")| userinput.equals("5")) {
-				int spieleranzahl = Integer.parseInt(userinput);
-				return Integer.valueOf(spieleranzahl);
-			} else {
-				return getUserCountInput();
-			}
-		} catch (NumberFormatException e){
-			return getUserCountInput();
-		}
-	}
-=======
+    @Override
+    public int getUserCountInput() throws IllegalArgumentException {
         String userinput = JOptionPane.showInputDialog(null,
                 "Bitte Anzahl Spieler/Bots eingeben (Spieleranzahl muss 3 bis 5 sein)");
         try {
@@ -519,17 +453,10 @@ public class FrontendController implements FrontendService {
         } catch (NumberFormatException e) {
             return getUserCountInput();
         }
-
     }
->>>>>>> master
-
-    /**
-     * GameId eingeben, um Spiel später wieder herstellen zu können
-     *
-     * @return gameId
-     * @throws IllegalArgumentException
-     */
-    int getGameId() throws IllegalArgumentException {
+    
+    @Override
+    public int getGameId() throws IllegalArgumentException {
         String userinput = JOptionPane.showInputDialog(null,
                 "Bitte die Spielnummer eingeben");
         try {
@@ -540,39 +467,12 @@ public class FrontendController implements FrontendService {
         }
     }
 
-    /**
-     * Hier wird ein neues Spiel erstellt, in dem neue Spieler eingegeben werden.
-     * Jeder Spieler bekommt eine Hand an Karten und es wird der erste Spieler gesetzt
-     *
-     * @param gameInstance : Spiel Instanz
-     */
-    public void startNewGame(GameInstance gameInstance) {
-    	askInitialPlayerString(gameInstance);
-        List<Player> players = new LinkedList<>();
+    @Override
+	public void startNewGame(GameInstance gameInstance) {
+		askInitialPlayerString(gameInstance);
+		List<Player> players = new LinkedList<>();
         boolean ifBotPlayer = getIfBotPlayer();
         int playerCount = getUserCountInput();
-<<<<<<< HEAD
-        
-        for (int i = 0; i < playerCount; i++) {
-			if(ifBotPlayer) {
-				System.out.println("ifBotPlayer is true");
-				if(i == 0) {
-					System.out.println("i == 0");
-					Player playerHuman = PLAYSI.createPlayer(getUserNameInput());
-					players.add(playerHuman);
-					System.out.println("human added");
-				}
-				String name = "Bot"+(i+1);
-				Player playerBot = PLAYSI.createPlayer(name);
-				players.add(playerBot);
-				System.out.println("bots added");
-			} else { //keine botplayer
-				Player player = PLAYSI.createPlayer(getUserNameInput());
-	            players.add(player);
-			}
-			
-		}
-=======
 
         for (int i = 0; i < playerCount; i++) {
             if (ifBotPlayer) {
@@ -583,7 +483,8 @@ public class FrontendController implements FrontendService {
                     gameInstance.getPlayers().add(playerHuman);
                     System.out.println("human added");
                 }
-                Player playerBot = PLAYSI.createPlayer("BotPlayer");
+                String name = "Bot"+(i+1);
+                Player playerBot = PLAYSI.createPlayer(name);
                 gameInstance.getPlayers().add(playerBot);
                 System.out.println("bots added");
             } else { //keine botplayer
@@ -591,27 +492,14 @@ public class FrontendController implements FrontendService {
                 players.add(player);
             }
         }
->>>>>>> master
         gameInstance.setPlayers(players);
         cardService.dealCardsToPlayers(gameInstance);
 
         gameInstance.setCurrentPlayer(PLAYSI.getNextPlayer(gameInstance));
-        
-//        for (int i = 0; i < playerCount; i++) {
-//            Player player = PLAYSI.createPlayer(getUserNameInput());
-//            players.add(player);
-//        }
-//        gameInstance.setPlayers(players);
-//        cardService.dealCardsToPlayers(gameInstance);
-//
-//        gameInstance.setCurrentPlayer(PLAYSI.getNextPlayer(gameInstance));
-    }
-
-    /**
-     * Hier wird eine gespeicherte Spielinstanz wieder hergestellt
-     *
-     * @param gameInstance gameInstanz
-     */
+		
+	}
+    
+    @Override
     public void startSavedGame(GameInstance gameInstance) {
         int gameId = getGameId();
         gameInstance = historyService.getLastPlayedGame(gameId);
@@ -620,50 +508,9 @@ public class FrontendController implements FrontendService {
         gameInstance.setCurrentPlayer(PLAYSI.getNextPlayer(gameInstance));
 
     }
-<<<<<<< HEAD
     
-    /**
-     * Fragt, ob User mit Bots spielen möchte.
-     * 
-     * @return
-     * @throws IllegalArgumentException
-     */
-    public boolean getIfBotPlayer() throws IllegalArgumentException {
-		String botPlayer = JOptionPane.showInputDialog(null, "Mit Bots spielen (J/N)?");
-		try {
-			if (botPlayer.equalsIgnoreCase("j") | botPlayer.equalsIgnoreCase("ja")) {
-				return true;
-			} else if (botPlayer.equalsIgnoreCase("n") | botPlayer.equalsIgnoreCase("nein")) {
-				return false;
-			} else {
-				return getIfBotPlayer();
-			}
-		} catch (Exception e) {
-			return getIfBotPlayer();
-		}
-		
-	}
-	
-//	public void whatever(){
-//    	if ("eingabe" == "arschlosch") {
-//    		cardRulesService = new CardRulesServiceStandardImpl();
-//    	} else {
-//    		cardRulesService = new CardRulesServicePresidentImpl();
-//    	}
-//    }
-    
-}
-
-=======
->>>>>>> master
-
-    /**
-     * Fragt, ob User mit Bots spielen möchte.
-     *
-     * @return
-     * @throws IllegalArgumentException
-     */
-    public boolean getIfBotPlayer() throws IllegalArgumentException {
+    @Override
+    public Boolean getIfBotPlayer() throws IllegalArgumentException {
         String botPlayer = JOptionPane.showInputDialog(null, "Mit Bots spielen (J/N)?");
         try {
             if (botPlayer.equalsIgnoreCase("j") | botPlayer.equalsIgnoreCase("ja")) {
@@ -676,15 +523,41 @@ public class FrontendController implements FrontendService {
         } catch (Exception e) {
             return getIfBotPlayer();
         }
-
     }
+    
+    public void startGame(GameInstance instance){
+        if (playNewGame()) {
+            startNewGame(gameInstance);
+
+        } else {
+            startSavedGame(gameInstance);
+        }
+    }
+    
+    public void pass(GameInstance gameInstance){
+        passCounter++;
+        // setzen des naechsten Spielers
+        gameInstance.setCurrentPlayer(PLAYSI.getNextPlayer(gameInstance));
+        // reset der Current BoardCard, da jeder Spieler 1x gepasst hat
+
+        int playersWithCardsCounter = 0;
+        for (Player player : gameInstance.getPlayers()) {
+            if (PLAYSI.hasCards(player)) {
+                playersWithCardsCounter++;
+            }
+        }
+
+        if (passCounter == playersWithCardsCounter - 1) {
+            gameInstance.setBoardCards(null);
+            System.out.println("Pass-Counter = Anzahl Spieler mit Karten - boardCards resettet");
+        }
+    }
+
+    public void gameStateEvaluation(GameInstance gameInstance){
+    }    
+    
+    public void showInitialPlayer(GameInstance gameInstance) {
+    	JOptionPane.showMessageDialog(null, "Es fängt an: " + gameInstance.getCurrentPlayer().getName());
+    }
+
 }
-
-
-//	public void whatever(){
-//    	if ("eingabe" == "arschlosch") {
-//    		cardRulesService = new CardRulesServiceStandardImpl();
-//    	} else {
-//    		cardRulesService = new CardRulesServicePresidentImpl();
-//    	}
-//    }

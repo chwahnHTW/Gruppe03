@@ -30,17 +30,6 @@ public class Player {
     @JoinColumn(name = "handCards")
     private List<Card> handCards;
 
-//    @OneToOne(mappedBy = "Player")
-//    private GameInstance gameInstanceForCurrent;
-//
-//    @ManyToOne
-//    @JoinColumn(name = "GameInstanceForPlayers")
-//    private GameInstance gameInstanceForAllPlayers;
-//
-//    @ManyToOne
-//    @JoinColumn(name="GameInstanceForResult")
-//    private GameInstance gameInstanceForResult;
-
     /**
      * Generiert einen Spieler.
      *

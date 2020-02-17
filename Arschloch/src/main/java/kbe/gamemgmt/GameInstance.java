@@ -19,6 +19,10 @@ import java.util.List;
 public class GameInstance {
 
 
+    public Integer getGameId() {
+        return gameId;
+    }
+
     /**
      * @param players: Liste der an einem Spiel beteiligten Spieler
      * @param result:  Siegerreihenfolge
