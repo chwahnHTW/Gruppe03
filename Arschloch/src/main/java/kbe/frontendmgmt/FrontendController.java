@@ -10,7 +10,6 @@ import kbe.playermgmt.BotPlayerService;
 import kbe.playermgmt.BotPlayerServiceImpl;
 import kbe.playermgmt.Player;
 import kbe.playermgmt.PlayerService;
-import kbe.rulesmgmt.CardRulesService;
 import kbe.rulesmgmt.PlayerRulesService;
 import kbe.rulesmgmt.PlayerRulesServiceArschlochImpl;
 import kbe.rulesmgmt.PlayerRulesServicePresidentImpl;
