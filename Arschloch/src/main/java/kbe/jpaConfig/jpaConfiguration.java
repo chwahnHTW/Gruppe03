@@ -33,7 +33,9 @@ public class jpaConfiguration {
         DriverManagerDataSource dataSource = new DriverManagerDataSource();
 
         dataSource.setDriverClassName("org.h2.Driver");
-        dataSource.setUrl("jdbc:h2:mem:arschloch");
+        dataSource.setUrl("jdbc:h2:mem:testdb");
+        dataSource.setUsername("sa");
+        dataSource.setPassword("");
 //        dataSource
 
 
@@ -43,11 +45,10 @@ public class jpaConfiguration {
 
 
     @Bean
-    public EntityManagerFactory entityManagerFactory(LocalContainerEntityManagerFactoryBean entityManagerFactoryBean, JpaVendorAdapter jpaVendorAdapter) throws SQLException {
+    public EntityManagerFactory entityManagerFactory(LocalContainerEntityManagerFactoryBean entityManagerFactoryBean) throws SQLException {
 
         System.out.println(" blabla hallo entity");
 
-        entityManagerFactoryBean.setJpaVendorAdapter(jpaVendorAdapter);
         entityManagerFactoryBean.setPackagesToScan("kbe");
         entityManagerFactoryBean.setDataSource(dataSource());
         entityManagerFactoryBean.afterPropertiesSet();

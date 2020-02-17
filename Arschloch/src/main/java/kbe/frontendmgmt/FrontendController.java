@@ -220,10 +220,6 @@ public class FrontendController implements FrontendService {
                         addCurrentPlayerToResult(gameInstance);
                         // setzt naechsten Spieler nach validem Spielzug
                         gameInstance.setCurrentPlayer(PLAYSI.getNextPlayer(gameInstance));
-                        // Update Frontend
-                        frontendView.updateCurrentBoardCardPanels(gameInstance);
-                        frontendView.updateCardButtons(gameInstance);
-                        frontendView.updateCurrentPlayerLabel();
                     } else {
                         // ungueltiger Spielzug : erneute Eingabe
                         if (tempCardList.size() != gameInstance.getBoardCards().size()) {
@@ -248,10 +244,6 @@ public class FrontendController implements FrontendService {
 
                                 // nächsten Spieler setzen
                                 gameInstance.setCurrentPlayer(PLAYSI.getNextPlayer(gameInstance));
-                                // Update Frontend
-                                frontendView.updateCurrentBoardCardPanels(gameInstance);
-                                frontendView.updateCardButtons(gameInstance);
-                                frontendView.updateCurrentPlayerLabel();
                             } else {
                                 // falsche Karten ausgewählt
                                 validateMove();
@@ -266,12 +258,7 @@ public class FrontendController implements FrontendService {
                             addCurrentPlayerToResult(gameInstance);
 
                             gameInstance.setCurrentPlayer(PLAYSI.getNextPlayer(gameInstance));
-
-                            frontendView.updateCurrentBoardCardPanels(gameInstance);
-                            frontendView.updateCardButtons(gameInstance);
-                            frontendView.updateCurrentPlayerLabel();
                         }
-
                     }
                 } else {
                     // falsche Karten ausgewählt
@@ -498,4 +485,35 @@ public class FrontendController implements FrontendService {
         }
     }
 
+
+    public void startGame(GameInstance instance){
+        if (playNewGame()) {
+            startNewGame(gameInstance);
+
+        } else {
+            startSavedGame(gameInstance);
+        }
+    }
+
+    public void pass(GameInstance gameInstance){
+        passCounter++;
+        // setzen des naechsten Spielers
+        gameInstance.setCurrentPlayer(PLAYSI.getNextPlayer(gameInstance));
+        // reset der Current BoardCard, da jeder Spieler 1x gepasst hat
+
+        int playersWithCardsCounter = 0;
+        for (Player player : gameInstance.getPlayers()) {
+            if (PLAYSI.hasCards(player)) {
+                playersWithCardsCounter++;
+            }
+        }
+
+        if (passCounter == playersWithCardsCounter - 1) {
+            gameInstance.setBoardCards(null);
+            System.out.println("Pass-Counter = Anzahl Spieler mit Karten - boardCards resettet");
+        }
+    }
+
+    public void gameStateEvaluation(GameInstance gameInstance){
+    }
 }

@@ -105,14 +105,8 @@ public class FrontendView extends JFrame {
         btnStartGame.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
 
-                if (frontendController.playNewGame()) {
-                    frontendController.startNewGame(gameInstance);
+                frontendController.startGame(gameInstance);
 
-                } else {
-                    System.out.println("YYYYYYYYYYY SPIEL WIEDERHERSTELLEN");
-                    frontendController.startSavedGame(gameInstance);
-                    System.out.println("YYYYYYYYYYY SPIEL WIEDERHERGESTELLT");
-                }
                 try {
                     // nachdem alle automatischen Vorbereitungen getroffen sind, kann das Frontend
                     // vollstaendig aufgebaut werden
@@ -150,8 +144,6 @@ public class FrontendView extends JFrame {
         btnCancel.setBackground(new Color(0, 0, 153));
         btnCancel.setBounds(445, 335, 99, 21);
         btnCancel.addActionListener(new ActionListener() {
-
-
             public void actionPerformed(ActionEvent e) {
                 GameInstance game = new GameInstance();
                 gameInstance.setBoardCards(null);
@@ -161,7 +153,6 @@ public class FrontendView extends JFrame {
                 updateCurrentPlayerLabel();
                 createFrontendView(game);
             }
-
         });
         contentPane.add(btnCancel);
 
@@ -172,14 +163,8 @@ public class FrontendView extends JFrame {
         btnSaveGame.addActionListener(new ActionListener() {
 
             public void actionPerformed(ActionEvent e) {
-
-                System.out.println("XXXXXXXXXXX SPIEL SPEICHERN");
-
                 frontendController.getHistoryService().saveCurrentGame(gameInstance);
-
                 frontendController.showSavedGameId();
-
-                System.out.println("XXXXXXXXXXX SPIEL GESPEICHERT");
             }
         });
         contentPane.add(btnSaveGame);
@@ -196,7 +181,12 @@ public class FrontendView extends JFrame {
                 // einer Eingabe aufnimmt und Auswertet
                 //validateMove();
                 frontendController.validateMove();
+                updateCurrentBoardCardPanels(gameInstance);
+                updateCardButtons(gameInstance);
+                updateCurrentPlayerLabel();
                 // Methode, um den SielStatus auszuwerden
+
+
                 String gameState = frontendController.getGISI().calculateGameState(gameInstance);
                 if (gameState.equals("Running")) {
                     // Spiel geht weiter
@@ -258,30 +248,11 @@ public class FrontendView extends JFrame {
         btnPass.addActionListener(new ActionListener() {
             // ActionListener fuer den Passspielzug
             public void actionPerformed(ActionEvent e) {
-                // setzen des Cpounters der PAss-Spielzuege
-                System.out.println("PASSEN");
-                frontendController.passCounter++;
-                // setzen des naechsten Spielers
-                gameInstance.setCurrentPlayer(frontendController.getPLAYSI().getNextPlayer(gameInstance));
-                // Frontend Update
+                frontendController.pass(gameInstance);
                 updateCurrentPlayerLabel();
                 updateCardButtons(gameInstance);
-                // reset der Current BoardCard, da jeder Spieler 1x gepasst hat
 
-                int playersWithCardsCounter = 0;
-                for (Player player : gameInstance.getPlayers()) {
-                    if (frontendController.getPLAYSI().hasCards(player)) {
-                        playersWithCardsCounter++;
-                    }
-                }
 
-                if (frontendController.passCounter == playersWithCardsCounter - 1) {
-                    gameInstance.setBoardCards(null);
-                    System.out.println("Pass-Counter = Anzahl Spieler mit Karten - boardCards resettet");
-                    // Frontend Update
-                    updateCardButtons(gameInstance);
-                    updateCurrentBoardCardPanels(gameInstance);
-                }
             }
         });
         // Label, das den Namen des aktuellen Spielers traegt
@@ -399,7 +370,6 @@ public class FrontendView extends JFrame {
                 }
             }
 ///////////////////////////////////////////////////////////////////////////////////
-
             if (gameInstance.getBoardCards().size() == 4) {
                 try {
                     currentBoardCardPanel1.removeAll();
