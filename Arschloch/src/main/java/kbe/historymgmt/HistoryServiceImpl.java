@@ -19,27 +19,22 @@ import java.util.List;
 
 
 /**
- * @authors Kaya Löher 				| Kim Anh Nguyen 		| Christian Wahnsiedler
+ * @authors Kaya Löher 						| Kim Anh Nguyen 		| Christian Wahnsiedler
  * Email-Adresse: 	s0564784@htw-berlin.de	| s0563958@htw-berlin.de| s0557193@htw-berlin.de
  */
 @Service
 @Transactional
 public class HistoryServiceImpl implements HistoryService {
 
-    private History history;
-
     @Autowired
     PlayerRepository playerRepository;
-
     @Autowired
     GameInstanceRepository gameInstanceRepository;
-
     @Autowired
     CardRepository cardRepository;
-
     @Autowired
     PlayerService playerService;
-
+    private History history;
 
     @Override
     public void persist(GameInstance instance) {
@@ -50,19 +45,19 @@ public class HistoryServiceImpl implements HistoryService {
     public GameInstance getLastPlayedGame(int gameId) {
 
         GameInstance gameInstance = gameInstanceRepository.findByGameId(gameId);
-//        List<Player> players = gameInstanceRepository.findPlayersByGameId(gameId);
-//        for (Player player : players) {
-//            Player player1 = new Player();
-//            player1.setName(player.getName());
-//            player1.setRole(player.getRole());
-//        }
-//
-//        List<Card> cards = cardRepository.findAllCards();
-//        for (Card card : cards) {
-//            Card card1 = new Card();
-//            card1.setSymbol(card.getSymbol());
-//            card1.setZahl(card.getZahl());
-//        }
+        List<Player> players = gameInstanceRepository.findPlayersByGameId(gameId);
+        for (Player player : players) {
+            Player player1 = new Player();
+            player1.setName(player.getName());
+            player1.setRole(player.getRole());
+        }
+
+        List<Card> cards = cardRepository.findAllCards();
+        for (Card card : cards) {
+            Card card1 = new Card();
+            card1.setSymbol(card.getSymbol());
+            card1.setZahl(card.getZahl());
+        }
         return gameInstance;
 
     }
@@ -83,7 +78,7 @@ public class HistoryServiceImpl implements HistoryService {
             playerRepository.save(player);
         }
         if (!instance.getBoardCards().isEmpty()) {
-            for(Card card : instance.getBoardCards()){
+            for (Card card : instance.getBoardCards()) {
                 cardRepository.save(card);
             }
         }
@@ -92,6 +87,7 @@ public class HistoryServiceImpl implements HistoryService {
         System.out.println("MMMMMMMMMMMMMMMMMMMMMMMM");
 //        System.out.println(gameInstanceRepository.findByPlayers(players).getPlayers().get(0).getName());
 //        System.out.println("MMMMMMMMMMMMMMMMMMMMMMMM");
+
     }
 
     @Override

@@ -1,6 +1,5 @@
 package kbe.frontendmgmt;
 
-import kbe.cardmgmt.Card;
 import kbe.cardmgmt.CardService;
 import kbe.gamemgmt.GameInstance;
 import kbe.gamemgmt.GameInstanceService;
@@ -17,6 +16,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.IOException;
 import java.util.LinkedList;
+
 
 /**
  * @param PLAYSI - PlayerServiceImplementierung
@@ -39,6 +39,7 @@ import java.util.LinkedList;
 
 /**
  * @authors Kaya Löher 				| Kim Anh Nguyen 		| Christian Wahnsiedler
+ * <p>
  * Email-Adresse: 	s0564784@htw-berlin.de 	| s0563958@htw-berlin.de| s0557193@htw-berlin.de
  * Class - FrontendView
  * Eine Klasse, die die Spielinstanz realisiert
@@ -48,26 +49,29 @@ import java.util.LinkedList;
 public class FrontendView extends JFrame {
 
     @Autowired
+    public FrontendController frontendController;
+    public JLabel lblCurrentPlayer;
+    @Autowired
     private HistoryService historyService;
-
     @Autowired
     private PlayerService PLAYSI;
-
     @Autowired
     private CardService cardService;
-
     @Autowired
+<<<<<<< HEAD
     public FrontendController frontendController;
 
+=======
+    private PlayerRulesService playerRulesService;
+    @Autowired
+    private CardRulesService cardRulesService;
+>>>>>>> master
     private GameInstance gameInstance;
-
     @Autowired
     private GameInstanceService GISI;
-
     private JPanel contentPane;
     private JButton btnPlaycards;
     private JButton btnPass;
-    public JLabel lblCurrentPlayer;
     private JPanel currentBoardCardPanel1;
     private JPanel currentBoardCardPanel2;
     private JPanel currentBoardCardPanel3;
@@ -121,6 +125,7 @@ public class FrontendView extends JFrame {
 
                 if (frontendController.playNewGame()) {
                     frontendController.startNewGame(gameInstance);
+
                 } else {
                     System.out.println("YYYYYYYYYYY SPIEL WIEDERHERSTELLEN");
                     frontendController.startSavedGame(gameInstance);
@@ -158,11 +163,13 @@ public class FrontendView extends JFrame {
         this.remove(btnStartGame);
 
         btnCancel = new JButton("Cancel Game");
+
         btnCancel.setForeground(Color.WHITE);
         btnCancel.setBackground(new Color(0, 0, 153));
         btnCancel.setBounds(445, 335, 99, 21);
         btnCancel.addActionListener(new ActionListener() {
-            @Override
+
+
             public void actionPerformed(ActionEvent e) {
                 GameInstance game = new GameInstance();
                 gameInstance.setBoardCards(null);
@@ -172,6 +179,7 @@ public class FrontendView extends JFrame {
                 updateCurrentPlayerLabel();
                 createFrontendView(game);
             }
+
         });
         contentPane.add(btnCancel);
 
@@ -180,7 +188,7 @@ public class FrontendView extends JFrame {
         btnSaveGame.setBackground(new Color(0, 0, 153));
         btnSaveGame.setBounds(583, 335, 99, 21);
         btnSaveGame.addActionListener(new ActionListener() {
-            @Override
+
             public void actionPerformed(ActionEvent e) {
 
                 System.out.println("XXXXXXXXXXX SPIEL SPEICHERN");
@@ -226,13 +234,9 @@ public class FrontendView extends JFrame {
                         // Rollen herausfinden
                         frontendController.setPlayerRoles(gameInstance);
 
-                        for(int i = 0; i < gameInstance.getResult().size() ; i++){
+                        for (int i = 0; i < gameInstance.getResult().size(); i++) {
                             gameInstance.getResult().get(i).setHandCards(new LinkedList<>());
                         }
-//                        gameInstance.getResult().get(0).setHandCards(new LinkedList<Card>());
-//                        gameInstance.getResult().get(1).setHandCards(new LinkedList<Card>());
-//                        gameInstance.getResult().get(2).setHandCards(new LinkedList<Card>());
-
                         // Spieler in neue Spielrunde uebernehmen
                         gameInstance.setPlayers(gameInstance.getResult());
                         // Karten austeilen
@@ -346,6 +350,23 @@ public class FrontendView extends JFrame {
 
     }
 
+    private boolean getIfBotPlayer() throws IllegalArgumentException {
+        String botPlayer = JOptionPane.showInputDialog(null, "Mit Bots spielen (J/N)?");
+        try {
+            if (botPlayer.equalsIgnoreCase("j") | botPlayer.equalsIgnoreCase("ja")) {
+                return true;
+            } else if (botPlayer.equalsIgnoreCase("n") | botPlayer.equalsIgnoreCase("nein")) {
+                return false;
+            } else {
+                return getIfBotPlayer();
+            }
+        } catch (Exception e) {
+            return getIfBotPlayer();
+        }
+
+    }
+
+
     /**
      * Methode zum Updaten der currentBoardCardPanels Prueft, ob momentan eine Karte
      * im entsprechenden Slot liegt Wenn ja, wird sie angezeigt, Wenn nein, wird ein
@@ -382,7 +403,7 @@ public class FrontendView extends JFrame {
             }
 
 ///////////////////////////////////////////////////////////////////////////////////
-            if (gameInstance.getBoardCards().size() == 2) {
+            if (gameInstance.getBoardCards().size() >= 2) {
 
                 try {
                     currentBoardCardPanel3.removeAll();
@@ -403,7 +424,7 @@ public class FrontendView extends JFrame {
             }
 ///////////////////////////////////////////////////////////////////////////////////
 
-            if (gameInstance.getBoardCards().size() == 3) {
+            if (gameInstance.getBoardCards().size() >= 3) {
                 try {
                     currentBoardCardPanel2.removeAll();
                     JLabel jl2 = new JLabel();
@@ -853,9 +874,8 @@ public class FrontendView extends JFrame {
             btnPlayerCard10.add(imageCard10);
             contentPane.add(btnPlayerCard10);
         }
-
-
 ///////////////////////////////////////////////////////////////////////////////////
+
         try {
             btnPlayerCard11 = null;
             btnPlayerCard11 = new JPanel();
@@ -886,7 +906,7 @@ public class FrontendView extends JFrame {
             btnPlayerCard11.add(imageCard11);
             contentPane.add(btnPlayerCard11);
         }
-        ;
+
         // SwingUtilities.updateComponentTreeUI(this);
 
         contentPane.revalidate();
@@ -911,4 +931,6 @@ public class FrontendView extends JFrame {
         lblCurrentPlayer.repaint();
 
     }
+
+
 }

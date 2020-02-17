@@ -33,24 +33,30 @@ import java.util.List;
 @Controller
 public class FrontendController implements FrontendService {
 
+    int passCounter = 0;
     private GameInstance gameInstance;
-
     @Autowired
     private GameInstanceService GISI;
+    @Autowired
+    private FrontendView frontendView;
+    @Autowired
+    private PlayerService PLAYSI;
+    @Autowired
+    private BotPlayerService botPlayerService = new BotPlayerServiceImpl();
+    @Autowired
+    private CardRulesService cardRulesService;
+    @Autowired
+    private HistoryService historyService;
+    @Autowired
+    private CardService cardService;
 
     public void setGISI(GameInstanceService GISI) {
         this.GISI = GISI;
     }
 
-    @Autowired
-    private FrontendView frontendView;
-
     public void setFrontendView(FrontendView frontendView) {
         this.frontendView = frontendView;
     }
-
-    @Autowired
-    private PlayerService PLAYSI;
 
     public void setPLAYSI(PlayerService PLAYSI) {
         this.PLAYSI = PLAYSI;
@@ -59,6 +65,7 @@ public class FrontendController implements FrontendService {
     @Autowired
     private BotPlayerService botPlayerService = new BotPlayerServiceImpl();
 
+<<<<<<< HEAD
     @Autowired
     @Qualifier("playerRulesServiceArschlochImpl")
     private PlayerRulesService playerRulesArschlochService;
@@ -84,6 +91,15 @@ public class FrontendController implements FrontendService {
     private CardService cardService;
     
     String initialPlayer = null;
+=======
+    public int getPassCounter() {
+        return passCounter;
+    }
+
+    public void setPassCounter(int passCounter) {
+        this.passCounter = passCounter;
+    }
+>>>>>>> master
 
     @Override
     public void init() {
@@ -131,12 +147,21 @@ public class FrontendController implements FrontendService {
      * Erneute Eingabeaufforderung, kein getNextPlayer
      */
     public void validateMove() {
+<<<<<<< HEAD
     	
     	if(gameInstance.getCurrentPlayer().getName().contains("Bot")) {
     		botPlayerService.validateBotMove(gameInstance);
     	}
     	else {
     		// Eingabe öffnen für Auswählen der Karten
+=======
+        if (gameInstance.getCurrentPlayer().getName() == "BotPlayer") {
+            System.out.println("botPlayerService.validateBotMove(gameInstance)");
+            botPlayerService.validateBotMove(gameInstance);
+        } else {
+
+            // Eingabe öffnen für Auswählen der Karten
+>>>>>>> master
             try {
                 String cardIndexes = JOptionPane.showInputDialog(null,
                         "Bitte Karten angeben (Positionen: 0-11, mit Komma getrennt)");
@@ -290,8 +315,12 @@ public class FrontendController implements FrontendService {
             }
             // Reset des PAssspielzug-Counters nach jedem validen Spielzug
             passCounter = 0;
+<<<<<<< HEAD
     	}
 
+=======
+        }
+>>>>>>> master
     }
 
 
@@ -302,7 +331,7 @@ public class FrontendController implements FrontendService {
      * gameInstance.getResult().get(0).setRole(Player.Role.PRAESIDENT) usw. ) Simple
      * Implementierung, da momentan nur mit 3 Spielern spielbar
      */
-    void setPlayerRoles(GameInstance gameInstance) {
+    public void setPlayerRoles(GameInstance gameInstance) {
         int resultSize = gameInstance.getResult().size();
         gameInstance.getResult().get(0).setRole(Player.Role.PRAESIDENT1);
         gameInstance.getResult().get(resultSize - 1).setRole(Player.Role.ARSCHLOCH1);
@@ -426,20 +455,20 @@ public class FrontendController implements FrontendService {
 
 
     public void showResultList(GameInstance gameInstance) {
-        if(gameInstance.getResult().size() == 3){
+        if (gameInstance.getResult().size() == 3) {
             JOptionPane.showMessageDialog(null, "Die Reihenfolge der Gewinner ist: " +
                     gameInstance.getResult().get(0).getName() + " ist Erster, " +
                     gameInstance.getResult().get(1).getName() + " ist Zweiter, " +
                     gameInstance.getResult().get(2).getName() + " ist Dritter, "
             );
-        } else if (gameInstance.getResult().size() == 4){
+        } else if (gameInstance.getResult().size() == 4) {
             JOptionPane.showMessageDialog(null, "Die Reihenfolge der Gewinner ist: " +
                     gameInstance.getResult().get(0).getName() + " ist Erster, " +
                     gameInstance.getResult().get(1).getName() + " ist Zweiter, " +
                     gameInstance.getResult().get(2).getName() + " ist Dritter, " +
                     gameInstance.getResult().get(3).getName() + " ist Vierter, "
             );
-        } else if (gameInstance.getResult().size() == 5){
+        } else if (gameInstance.getResult().size() == 5) {
             JOptionPane.showMessageDialog(null, "Die Reihenfolge der Gewinner ist: " +
                     gameInstance.getResult().get(0).getName() + " ist Erster, " +
                     gameInstance.getResult().get(1).getName() + " ist Zweiter, " +
@@ -463,6 +492,7 @@ public class FrontendController implements FrontendService {
      * @throws IllegalArgumentException
      */
     int getUserCountInput() throws IllegalArgumentException {
+<<<<<<< HEAD
 		String userinput = JOptionPane.showInputDialog(null,
 				"Bitte Anzahl Spieler/Bots eingeben (Spieleranzahl muss 3 bis 5 sein)");
 		try{
@@ -476,6 +506,22 @@ public class FrontendController implements FrontendService {
 			return getUserCountInput();
 		}
 	}
+=======
+        String userinput = JOptionPane.showInputDialog(null,
+                "Bitte Anzahl Spieler/Bots eingeben (Spieleranzahl muss 3 bis 5 sein)");
+        try {
+            if (userinput.equals("3") | userinput.equals("4") | userinput.equals("5")) {
+                int spieleranzahl = Integer.parseInt(userinput);
+                return Integer.valueOf(spieleranzahl);
+            } else {
+                return getUserCountInput();
+            }
+        } catch (NumberFormatException e) {
+            return getUserCountInput();
+        }
+
+    }
+>>>>>>> master
 
     /**
      * GameId eingeben, um Spiel später wieder herstellen zu können
@@ -505,6 +551,7 @@ public class FrontendController implements FrontendService {
         List<Player> players = new LinkedList<>();
         boolean ifBotPlayer = getIfBotPlayer();
         int playerCount = getUserCountInput();
+<<<<<<< HEAD
         
         for (int i = 0; i < playerCount; i++) {
 			if(ifBotPlayer) {
@@ -525,6 +572,26 @@ public class FrontendController implements FrontendService {
 			}
 			
 		}
+=======
+
+        for (int i = 0; i < playerCount; i++) {
+            if (ifBotPlayer) {
+                System.out.println("ifBotPlayer is true");
+                if (i == 0) {
+                    System.out.println("i == 0");
+                    Player playerHuman = PLAYSI.createPlayer(getUserNameInput());
+                    gameInstance.getPlayers().add(playerHuman);
+                    System.out.println("human added");
+                }
+                Player playerBot = PLAYSI.createPlayer("BotPlayer");
+                gameInstance.getPlayers().add(playerBot);
+                System.out.println("bots added");
+            } else { //keine botplayer
+                Player player = PLAYSI.createPlayer(getUserNameInput());
+                players.add(player);
+            }
+        }
+>>>>>>> master
         gameInstance.setPlayers(players);
         cardService.dealCardsToPlayers(gameInstance);
 
@@ -553,6 +620,7 @@ public class FrontendController implements FrontendService {
         gameInstance.setCurrentPlayer(PLAYSI.getNextPlayer(gameInstance));
 
     }
+<<<<<<< HEAD
     
     /**
      * Fragt, ob User mit Bots spielen möchte.
@@ -586,7 +654,37 @@ public class FrontendController implements FrontendService {
     
 }
 
+=======
+>>>>>>> master
+
+    /**
+     * Fragt, ob User mit Bots spielen möchte.
+     *
+     * @return
+     * @throws IllegalArgumentException
+     */
+    public boolean getIfBotPlayer() throws IllegalArgumentException {
+        String botPlayer = JOptionPane.showInputDialog(null, "Mit Bots spielen (J/N)?");
+        try {
+            if (botPlayer.equalsIgnoreCase("j") | botPlayer.equalsIgnoreCase("ja")) {
+                return true;
+            } else if (botPlayer.equalsIgnoreCase("n") | botPlayer.equalsIgnoreCase("nein")) {
+                return false;
+            } else {
+                return getIfBotPlayer();
+            }
+        } catch (Exception e) {
+            return getIfBotPlayer();
+        }
+
+    }
+}
 
 
-
-
+//	public void whatever(){
+//    	if ("eingabe" == "arschlosch") {
+//    		cardRulesService = new CardRulesServiceStandardImpl();
+//    	} else {
+//    		cardRulesService = new CardRulesServicePresidentImpl();
+//    	}
+//    }

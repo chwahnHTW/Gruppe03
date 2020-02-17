@@ -1,13 +1,9 @@
 package kbe.rulesmgmt;
 
-import java.util.List;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
-
-import kbe.cardmgmt.Card;
 import kbe.gamemgmt.GameInstance;
 import kbe.playermgmt.Player;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 /**
  * @authors Kaya Löher 				| Kim Anh Nguyen 		| Christian Wahnsiedler

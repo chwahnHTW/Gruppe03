@@ -29,7 +29,6 @@ public interface HistoryService {
     GameInstance getLastPlayedGame(int gameId);
 
     /**
-     *
      * @param instance
      */
     void saveCurrentGame(GameInstance instance);
