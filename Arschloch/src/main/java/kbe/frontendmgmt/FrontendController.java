@@ -8,6 +8,7 @@ import kbe.gamemgmt.GameInstanceService;
 import kbe.playermgmt.BotPlayerService;
 import kbe.playermgmt.Player;
 import kbe.playermgmt.PlayerService;
+import kbe.repositories.GameInstanceRepository;
 import kbe.rulesmgmt.PlayerRulesService;
 import kbe.rulesmgmt.PlayerRulesServiceArschlochImpl;
 import kbe.rulesmgmt.PlayerRulesServicePresidentImpl;
@@ -56,9 +57,6 @@ public class FrontendController implements FrontendService {
     public BotPlayerService getBotPlayerService() {
         return botPlayerService;
     }
-    public CardRulesService getCardRulesService() {
-        return cardRulesService;
-
 
     public CardService getCardService() {
         return cardService;
@@ -571,7 +569,6 @@ public class FrontendController implements FrontendService {
                 // Karten entsprechend der Rollen austauschen
                 getCardService().swapCards(gameInstance);
                 // Setzen des ersten Spielers der nächsten Runde
-                setInitialPlayerForNextRound(gameInstance);
                 // Update der boardCards auf null, da frisches Spiel
                 gameInstance.setBoardCards(null);
                 // Frontend Update
