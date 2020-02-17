@@ -83,6 +83,8 @@ public class FrontendController implements FrontendService {
 
     @Autowired
     private CardService cardService;
+    
+    String initialPlayer = null;
 
     @Override
     public void init() {
@@ -326,23 +328,49 @@ public class FrontendController implements FrontendService {
             }
         }
     }
-
+    
     /**
-     * Fragt den User ab, wer die naechste Runde anfangen soll zu legen, und setzt
-     * entweder Arschloch oder Praesident als current player.
-     *
+     * Fragt den User ab nach welcher Regel gespielt werden soll.
+     * Ob Arschloch oder President bei einer neuen Runde anfangen soll.
+     * 
+     * @param gameInstance
+     */
+    void askInitialPlayerString (GameInstance gameInstance) {
+    	String initialPlayerForNextRound = JOptionPane.showInputDialog(null,
+                "Wer soll bei jeder neuen Runde anfangen (Arschloch (a)/Praesident (p))?");
+    	System.out.println("askInitialPlayerString");
+        if (initialPlayerForNextRound.equalsIgnoreCase("a")) {
+        	System.out.println("Arschloch soll anfangen");
+        	initialPlayer = "Arschloch";
+        	System.out.println("Arschloch soll anfangen2");
+        } else if (initialPlayerForNextRound.equalsIgnoreCase("p")) {
+        	System.out.println("President soll anfangen");
+            initialPlayer = "President";
+            System.out.println("President soll anfangen2");
+        } else {
+           askInitialPlayerString(gameInstance);
+        }
+    }
+    
+    /**
+     * Setzt den Spieler, der anfagen soll,
+     * nachdem über askInitialPlayer nach der Regel gefragt wurde.
+     * 
      * @param gameInstance
      * @throws IllegalArgumentException
      */
-    void setInitialPlayerForNextRound(GameInstance gameInstance) throws IllegalArgumentException {
-        String initialPlayerForNextRound = JOptionPane.showInputDialog(null,
-                "Wer soll bei jeder neuen Runde anfangen (Arschloch (a)/Praesident (p))?");
-        if (initialPlayerForNextRound.equalsIgnoreCase("a")) {
+    void setInitialPlayer(GameInstance gameInstance) throws IllegalArgumentException {
+    	System.out.println("setInitialPlayer");
+        if (initialPlayer == "Arschloch") {
+        	System.out.println("Arschloch soll anfangen");
         	playerRulesArschlochService = new PlayerRulesServiceArschlochImpl();
-        } else if (initialPlayerForNextRound.equalsIgnoreCase("p")) {
+        	playerRulesArschlochService.determineInitialPlayer(gameInstance);
+        } else if (initialPlayer == "President") {
+        	System.out.println("President soll anfangen");
             playerRulesPresidentService = new PlayerRulesServicePresidentImpl();
+            playerRulesPresidentService.determineInitialPlayer(gameInstance);
         } else {
-            setInitialPlayerForNextRound(gameInstance);
+            setInitialPlayer(gameInstance);
         }
     }
 
@@ -354,6 +382,7 @@ public class FrontendController implements FrontendService {
     Boolean getContinueGame() throws IllegalArgumentException {
         String continueGame = JOptionPane.showInputDialog(null, "Weiterspielen (J/N)?");
         if (continueGame.equalsIgnoreCase("j") | continueGame.equalsIgnoreCase("ja")) {
+        	setInitialPlayer(gameInstance);
         	showInitialPlayer(gameInstance);
             return true;
         } else {
@@ -473,7 +502,7 @@ public class FrontendController implements FrontendService {
      * @param gameInstance : Spiel Instanz
      */
     public void startNewGame(GameInstance gameInstance) {
-    	setInitialPlayerForNextRound(gameInstance);
+    	askInitialPlayerString(gameInstance);
         List<Player> players = new LinkedList<>();
         boolean ifBotPlayer = getIfBotPlayer();
         int playerCount = getUserCountInput();
