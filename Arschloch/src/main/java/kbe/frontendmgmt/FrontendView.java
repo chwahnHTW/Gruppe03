@@ -11,26 +11,6 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.IOException;
 
-
-/**
- * @param PLAYSI - PlayerServiceImplementierung
- * @param cardService - CardServiceImplementierung
- * @param playerRulesService - PlayerRuleServiceImplementierung
- * @param cardRulesService - CardRuleServiceImplementierung
- * @param gameInstance - Spielinstanz - Hier werden Spieler und deren Karten gehalten
- * @param contentPane - Content-Pane - Hauptfenster der GUI
- * @param btnPlaycards . Button, mit dem die Validierung und Ausführung eines Spielzugs getriggert wird.
- * @param btnPass - Button, mit dem ein Parr-Spielzug getätigt wird
- * @param lblCurrentPlayer - Label, das den momentanen Spieler anzeigt
- * @param currentBoardCardPanel1-4 - Panels, die gameInstance.boardCards anzeigen
- * @param lblPlayers - Label fuer die Playernamen
- * @param playerNamesPanel - Panel fuer die PlayerNamen
- * @param lblCurrentBoardcards -  LAbel fuer gameInstance.boardCards
- * @param btnStartGame - Button, um das Spiel zu starten
- * @param btnPlayerCard0-11 - Buttons, um Karten anzuzeigen
- * @param selectedCards - vom Spieler durch Anclicken ausgewählte Karten
- */
-
 /**
  * @authors Kaya Löher 				| Kim Anh Nguyen 		| Christian Wahnsiedler
  * <p>
@@ -106,17 +86,11 @@ public class FrontendView extends JFrame {
                 frontendController.startGame(gameInstance);
 
                 try {
-                    // nachdem alle automatischen Vorbereitungen getroffen sind, kann das Frontend
-                    // vollstaendig aufgebaut werden
                     setupFrontend();
-                    // images in btnPlayerCard0-11 updaten, da anderer Spieler an der Reihe sein
-                    // sollte ( funktioniert nicht, ohne getNextPlayer()
-                    // keine genaue Fehlerquelle bestimmbar
                     updateCardButtons(gameInstance);
                     updateCurrentPlayerLabel();
 
                 } catch (IOException e1) {
-                    // TODO Auto-generated catch block
                     e1.printStackTrace();
                 }
             }
@@ -133,7 +107,6 @@ public class FrontendView extends JFrame {
      * @throws IOException
      */
     void setupFrontend() throws IOException {
-        // StartGame Button von Panel entfernen
         this.remove(btnStartGame);
 
         btnCancel = new JButton("Cancel Game");
@@ -145,7 +118,6 @@ public class FrontendView extends JFrame {
             public void actionPerformed(ActionEvent e) {
                 GameInstance game = new GameInstance();
                 gameInstance.setBoardCards(null);
-                // Frontend Update
                 updateCurrentBoardCardPanels(gameInstance);
                 updateCardButtons(gameInstance);
                 updateCurrentPlayerLabel();
@@ -167,34 +139,25 @@ public class FrontendView extends JFrame {
         });
         contentPane.add(btnSaveGame);
 
-        // Button :btnPlayCards einrichten
         btnPlaycards = new JButton("PlayCard(s)");
         btnPlaycards.setForeground(Color.WHITE);
         btnPlaycards.setBackground(new Color(0, 0, 153));
         btnPlaycards.setBounds(721, 335, 99, 21);
         btnPlaycards.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                // bei Click auf den Button wird die methode validateMove() aufgerufen, welche
-                // einen Spielzug in Form
-                // einer Eingabe aufnimmt und Auswertet
-                //validateMove();
                 frontendController.validateMove();
+
                 updateCurrentBoardCardPanels(gameInstance);
                 updateCardButtons(gameInstance);
                 updateCurrentPlayerLabel();
-                // Methode, um den SielStatus auszuwerden
-
                 frontendController.gameStateEvaluation(gameInstance);
-
                 updateCurrentBoardCardPanels(gameInstance);
                 updateCardButtons(gameInstance);
                 updateCurrentPlayerLabel();
 
             }
         });
-        // Hier wird das Frontend mit dem Button btnPlayCards bestückt
         contentPane.add(btnPlaycards);
-        // Hier wird der Button fuer einen Pass-Spielzug erstellt
         btnPass = new JButton("Pass");
         btnPass.setForeground(Color.WHITE);
         btnPass.setBackground(new Color(255, 0, 0));
@@ -207,36 +170,27 @@ public class FrontendView extends JFrame {
                 updateCurrentPlayerLabel();
                 updateCardButtons(gameInstance);
                 updateCurrentBoardCardPanels(gameInstance);
-
-
             }
         });
-        // Label, das den Namen des aktuellen Spielers traegt
+
         lblCurrentPlayer = new JLabel("Current Player: " + gameInstance.getCurrentPlayer().getName());
         lblCurrentPlayer.setBounds(104, 276, 155, 34);
         contentPane.add(lblCurrentPlayer);
-
-        // Label fuer CurrentBoardCards
         currentBoardCardPanel1 = new JPanel();
         currentBoardCardPanel1.setBounds(532, 93, 99, 125);
         contentPane.add(currentBoardCardPanel1);
-        // Label fuer CurrentBoardCards
         currentBoardCardPanel2 = new JPanel();
         currentBoardCardPanel2.setBounds(641, 93, 99, 125);
         contentPane.add(currentBoardCardPanel2);
-        // Label fuer CurrentBoardCards
         currentBoardCardPanel3 = new JPanel();
         currentBoardCardPanel3.setBounds(750, 93, 99, 125);
         contentPane.add(currentBoardCardPanel3);
-        // Label fuer CurrentBoardCards
         currentBoardCardPanel4 = new JPanel();
         currentBoardCardPanel4.setBounds(859, 93, 99, 125);
         contentPane.add(currentBoardCardPanel4);
-        // Label fuer Spielernamen
         lblPlayers = new JLabel("Players");
         lblPlayers.setBounds(107, 67, 73, 29);
         contentPane.add(lblPlayers);
-        // Panel fuer Spielernamen
         playerNamesPanel = new JPanel();
         playerNamesPanel.setBounds(104, 93, 98, 125);
         String playerNames = "<html>";
@@ -246,15 +200,11 @@ public class FrontendView extends JFrame {
         playerNames += "</html>";
         playerNamesPanel.add(new JLabel(playerNames));
         contentPane.add(playerNamesPanel);
-        // Label fuer CurrentBoardCards
         lblCurrentBoardcards = new JLabel("Current BoardCard(s)");
         lblCurrentBoardcards.setBounds(833, 225, 170, 13);
         contentPane.add(lblCurrentBoardcards);
-        // Frontend update
         contentPane.revalidate();
-
         SwingUtilities.updateComponentTreeUI(this);
-
     }
 
     /**
@@ -265,15 +215,11 @@ public class FrontendView extends JFrame {
      * @param gameInstance - Spielinstanz
      */
     public void updateCurrentBoardCardPanels(GameInstance gameInstance) {
-
-        // Pruefung, ob BoardCards vorhanden
         if (gameInstance.getBoardCards() != null) {
-            // wenn ja, mind. 1 neue Karten-Symbole setzen
             try {
                 currentBoardCardPanel4.removeAll();
                 JLabel jl4 = new JLabel();
                 jl4.setBounds(859, 93, 99, 125);
-
                 String fileToBoardCard4 = "/" + gameInstance.getBoardCards().get(0).getSymbol().toString() + "_"
                         + gameInstance.getBoardCards().get(0).getZahl().toString() + ".jpg";
                 jl4.setIcon(new javax.swing.ImageIcon(getClass().getResource(fileToBoardCard4)));
@@ -285,15 +231,11 @@ public class FrontendView extends JFrame {
                 jl4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/emptyCard.jpg")));
                 currentBoardCardPanel4.add(jl4);
             }
-
-///////////////////////////////////////////////////////////////////////////////////
             if (gameInstance.getBoardCards().size() >= 2) {
-
                 try {
                     currentBoardCardPanel3.removeAll();
                     JLabel jl3 = new JLabel();
                     jl3.setBounds(859, 93, 99, 125);
-
                     String fileToBoardCard3 = "/" + gameInstance.getBoardCards().get(1).getSymbol().toString() + "_"
                             + gameInstance.getBoardCards().get(1).getZahl().toString() + ".jpg";
                     jl3.setIcon(new javax.swing.ImageIcon(getClass().getResource(fileToBoardCard3)));
@@ -306,8 +248,6 @@ public class FrontendView extends JFrame {
                     currentBoardCardPanel3.add(jl3);
                 }
             }
-///////////////////////////////////////////////////////////////////////////////////
-
             if (gameInstance.getBoardCards().size() >= 3) {
                 try {
                     currentBoardCardPanel2.removeAll();
@@ -325,7 +265,6 @@ public class FrontendView extends JFrame {
                     currentBoardCardPanel2.add(jl2);
                 }
             }
-///////////////////////////////////////////////////////////////////////////////////
             if (gameInstance.getBoardCards().size() == 4) {
                 try {
                     currentBoardCardPanel1.removeAll();
@@ -343,36 +282,29 @@ public class FrontendView extends JFrame {
                     currentBoardCardPanel1.add(jl1);
                 }
             }
-            // Frontend Update
             updateCardButtons(gameInstance);
             contentPane.revalidate();
         } else {
-            // wenn currentBoardCards = null ( keine BoardCards , z.B. nach Ass oder zu
-            // Spielbeginn )
             currentBoardCardPanel1.removeAll();
             JLabel jl1 = new JLabel();
             jl1.setBounds(859, 93, 99, 125);
             jl1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/emptyCard.jpg")));
             currentBoardCardPanel1.add(jl1);
-
             currentBoardCardPanel2.removeAll();
             JLabel jl2 = new JLabel();
             jl2.setBounds(859, 93, 99, 125);
             jl2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/emptyCard.jpg")));
             currentBoardCardPanel2.add(jl2);
-
             currentBoardCardPanel3.removeAll();
             JLabel jl3 = new JLabel();
             jl3.setBounds(859, 93, 99, 125);
             jl3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/emptyCard.jpg")));
             currentBoardCardPanel3.add(jl3);
-
             currentBoardCardPanel4.removeAll();
             JLabel jl4 = new JLabel();
             jl4.setBounds(859, 93, 99, 125);
             jl4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/emptyCard.jpg")));
             currentBoardCardPanel4.add(jl4);
-
             updateCardButtons(gameInstance);
             contentPane.revalidate();
         }
@@ -387,36 +319,23 @@ public class FrontendView extends JFrame {
      */
     public void updateCardButtons(GameInstance gameInstance) {
         try {
-            // Feld fuer neu anzuzeigende Karte resetten
             btnPlayerCard0 = null;
-            // neues Feld fuer neu anzuzeigende Karte erstellen
             btnPlayerCard0 = new JPanel();
-            // Location des Feldes setzen
             btnPlayerCard0.setBounds(104, 408, 98, 125);
-            // Pruefung, ob Karte vorhanden. Wenn ja, wird Pfad zum entsprechenden Bild als
-            // String gespeichert. Falls nicht,
             String card0File = "/" + gameInstance.getCurrentPlayer().getHand().get(0).getSymbol().toString() + "_"
                     + gameInstance.getCurrentPlayer().getHand().get(0).getZahl().toString() + ".jpg";
             JLabel imageCard0 = new JLabel();
-            // Falls ja wird das Bild zum Pfad in imageCard geladen
             imageCard0.setBounds(104, 408, 98, 125);
-            // als Icon gesetzt
             imageCard0.setIcon(new javax.swing.ImageIcon(getClass().getResource(card0File)));
-            // und auf die Pane geadded
             btnPlayerCard0.add(imageCard0);
             contentPane.add(btnPlayerCard0);
-            // falls nein bleibt das Feld ueber Exception-Handling leer
         } catch (NullPointerException | IndexOutOfBoundsException e) {
-            System.out.println("no card at slot 0");
             JLabel imageCard0 = new JLabel("no card");
             imageCard0.setBounds(104, 408, 98, 125);
             imageCard0.setIcon(new javax.swing.ImageIcon(getClass().getResource("/emptyCard.jpg")));
             btnPlayerCard0.add(imageCard0);
             contentPane.add(btnPlayerCard0);
         }
-
-///////////////////////////////////////////////////////////////////////////////////
-        // Alle weiteren Buttons funktionieren analog zu btnPlayerCard0
         try {
             btnPlayerCard1 = null;
             btnPlayerCard1 = new JPanel();
@@ -438,7 +357,6 @@ public class FrontendView extends JFrame {
             btnPlayerCard1.add(imageCard1);
             contentPane.add(btnPlayerCard1);
         }
-///////////////////////////////////////////////////////////////////////////////////
         try {
             btnPlayerCard2 = null;
             btnPlayerCard2 = new JPanel();
@@ -460,7 +378,6 @@ public class FrontendView extends JFrame {
             btnPlayerCard2.add(imageCard2);
             contentPane.add(btnPlayerCard2);
         }
-///////////////////////////////////////////////////////////////////////////////////
         try {
             btnPlayerCard3 = null;
             btnPlayerCard3 = new JPanel();
@@ -482,8 +399,6 @@ public class FrontendView extends JFrame {
             btnPlayerCard3.add(imageCard3);
             contentPane.add(btnPlayerCard3);
         }
-///////////////////////////////////////////////////////////////////////////////////
-
         try {
             btnPlayerCard4 = null;
             btnPlayerCard4 = new JPanel();
@@ -505,7 +420,6 @@ public class FrontendView extends JFrame {
             btnPlayerCard4.add(imageCard4);
             contentPane.add(btnPlayerCard4);
         }
-///////////////////////////////////////////////////////////////////////////////////
         try {
             btnPlayerCard5 = null;
             btnPlayerCard5 = new JPanel();
@@ -527,7 +441,6 @@ public class FrontendView extends JFrame {
             btnPlayerCard5.add(imageCard5);
             contentPane.add(btnPlayerCard5);
         }
-///////////////////////////////////////////////////////////////////////////////////
         try {
             btnPlayerCard6 = null;
             btnPlayerCard6 = new JPanel();
@@ -549,7 +462,6 @@ public class FrontendView extends JFrame {
             btnPlayerCard6.add(imageCard6);
             contentPane.add(btnPlayerCard6);
         }
-///////////////////////////////////////////////////////////////////////////////////
         try {
             btnPlayerCard7 = null;
             btnPlayerCard7 = new JPanel();
@@ -571,7 +483,6 @@ public class FrontendView extends JFrame {
             btnPlayerCard7.add(imageCard7);
             contentPane.add(btnPlayerCard7);
         }
-///////////////////////////////////////////////////////////////////////////////////
         try {
             btnPlayerCard8 = null;
             btnPlayerCard8 = new JPanel();
@@ -594,7 +505,6 @@ public class FrontendView extends JFrame {
             contentPane.add(btnPlayerCard8);
 
         }
-///////////////////////////////////////////////////////////////////////////////////
         try {
             btnPlayerCard9 = null;
             btnPlayerCard9 = new JPanel();
@@ -616,8 +526,6 @@ public class FrontendView extends JFrame {
             btnPlayerCard9.add(imageCard9);
             contentPane.add(btnPlayerCard9);
         }
-
-///////////////////////////////////////////////////////////////////////////////////
         try {
             btnPlayerCard10 = null;
             btnPlayerCard10 = new JPanel();
@@ -639,8 +547,6 @@ public class FrontendView extends JFrame {
             btnPlayerCard10.add(imageCard10);
             contentPane.add(btnPlayerCard10);
         }
-///////////////////////////////////////////////////////////////////////////////////
-
         try {
             btnPlayerCard11 = null;
             btnPlayerCard11 = new JPanel();
@@ -682,6 +588,5 @@ public class FrontendView extends JFrame {
             e.printStackTrace();
         }
         lblCurrentPlayer.repaint();
-
     }
 }

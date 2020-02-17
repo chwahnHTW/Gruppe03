@@ -1,19 +1,21 @@
 package kbe.rulesmgmt;
 
 import kbe.gamemgmt.GameInstance;
-import kbe.playermgmt.Player;
 
-
+/**
+ * @authors Kaya Löher 				| Kim Anh Nguyen 		| Christian Wahnsiedler
+ * Email-Adresse: 	s0564784@htw-berlin.de	| s0563958@htw-berlin.de| s0557193@htw-berlin.de
+ *
+ * Stellt die Regeln für Spieler zur Verfügung.
+ */
 public interface PlayerRulesService {
     /**
      * Hier werden Karten in Bezug auf ihren Zahlenwert verglichen. Annotations ermöglichen hier später eine externe Konfiguration der Regeln
      * über Setzen der Rangfolge der Wertigkeiten.
      * Standard-Blatt
-     *
-     * @param card1 - erste zu vergleichende Karte
-     * @param card2 - zweite zu vergleichende Karte
+     * @param gameInstance
      * @return Liste in Reihenfolge der Kartenwertigekeiten, soriteirt nach Standard-Blatt
      */
-    public void determineInitialPlayer(GameInstance gameInstance);
+    void determineInitialPlayer(GameInstance gameInstance);
 
 }

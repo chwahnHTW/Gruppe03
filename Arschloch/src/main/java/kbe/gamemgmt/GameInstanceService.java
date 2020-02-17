@@ -5,12 +5,8 @@ package kbe.gamemgmt;
  * Email-Adresse: 	s0564784@htw-berlin.de 	| s0563958@htw-berlin.de| s0557193@htw-berlin.de
  * <p>
  * Eine Klasse, die die Spielinstanz realisiert
- * Hier läuft das Spiel im Großteil ab.
  */
-
-
 public interface GameInstanceService {
-
     /**
      * Eine neue Spielinstanz wird erzeugt und zurückgegeben
      *

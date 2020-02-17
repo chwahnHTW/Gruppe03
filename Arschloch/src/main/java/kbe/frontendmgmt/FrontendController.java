@@ -8,6 +8,7 @@ import kbe.gamemgmt.GameInstanceService;
 import kbe.playermgmt.BotPlayerService;
 import kbe.playermgmt.Player;
 import kbe.playermgmt.PlayerService;
+import kbe.repositories.GameInstanceRepository;
 import kbe.rulesmgmt.PlayerRulesService;
 import kbe.rulesmgmt.PlayerRulesServiceArschlochImpl;
 import kbe.rulesmgmt.PlayerRulesServicePresidentImpl;
@@ -31,80 +32,6 @@ import java.util.List;
 public class FrontendController implements FrontendService {
 
     int passCounter = 0;
-    private GameInstance gameInstance;
-
-    public void setGISI(GameInstanceService GISI) {
-        this.GISI = GISI;
-    }
-
-    public GameInstance getGameInstance() {
-        return gameInstance;
-    }
-
-    public GameInstanceService getGISI() {
-        return GISI;
-    }
-
-    public FrontendView getFrontendView() {
-        return frontendView;
-    }
-
-    public PlayerService getPLAYSI() {
-        return PLAYSI;
-    }
-
-    public BotPlayerService getBotPlayerService() {
-        return botPlayerService;
-    }
-    public CardRulesService getCardRulesService() {
-        return cardRulesService;
-
-
-    public CardService getCardService() {
-        return cardService;
-    }
-
-    @Autowired
-    GameInstanceRepository gameInstanceRepository;
-
-    @Autowired
-    public GameInstanceService GISI;
-
-    public void setFrontendView(FrontendView frontendView) {
-        this.frontendView = frontendView;
-    }
-
-    @Autowired
-    public FrontendView frontendView;
-
-    public void setPLAYSI(PlayerService PLAYSI) {
-        this.PLAYSI = PLAYSI;
-    }
-
-    @Autowired
-    public PlayerService PLAYSI;
-
-    public void setBotPlayerService(BotPlayerService botPlayerService) {
-        this.botPlayerService = botPlayerService;
-    }
-
-    @Autowired
-    public BotPlayerService botPlayerService;
-    
-    @Autowired
-    @Qualifier("playerRulesServiceArschlochImpl")
-    private PlayerRulesService playerRulesArschlochService;
-    
-    @Autowired
-    @Qualifier("playerRulesServicePresidentImpl")
-    private PlayerRulesService playerRulesPresidentService;
-
-    public void setCardService(CardService cardService) {
-        this.cardService = cardService;
-    }
-
-    @Autowired
-    public CardService cardService;
 
     public int getPassCounter() {
         return passCounter;
@@ -113,8 +40,97 @@ public class FrontendController implements FrontendService {
     public void setPassCounter(int passCounter) {
         this.passCounter = passCounter;
     }
-    
+
     String initialPlayer = null;
+
+    private GameInstance gameInstance;
+
+    public GameInstance getGameInstance() {
+        return gameInstance;
+    }
+
+    @Autowired
+    GameInstanceRepository gameInstanceRepository;
+
+    @Autowired
+    public GameInstanceService GISI;
+
+    public GameInstanceService getGISI() {
+        return GISI;
+    }
+
+    public void setGISI(GameInstanceService GISI) {
+        this.GISI = GISI;
+    }
+
+
+    @Autowired
+    public FrontendView frontendView;
+
+    public FrontendView getFrontendView() {
+        return frontendView;
+    }
+
+    public void setFrontendView(FrontendView frontendView) {
+        this.frontendView = frontendView;
+    }
+
+    @Autowired
+    public PlayerService PLAYSI;
+
+    public PlayerService getPLAYSI() {
+        return PLAYSI;
+    }
+
+    public void setPLAYSI(PlayerService PLAYSI) {
+        this.PLAYSI = PLAYSI;
+    }
+
+    @Autowired
+    public BotPlayerService botPlayerService;
+
+    public BotPlayerService getBotPlayerService() {
+        return botPlayerService;
+    }
+
+    public void setBotPlayerService(BotPlayerService botPlayerService) {
+        this.botPlayerService = botPlayerService;
+    }
+
+    @Autowired
+    @Qualifier("playerRulesServiceArschlochImpl")
+    private PlayerRulesService playerRulesArschlochService;
+
+    public PlayerRulesService getPlayerRulesArschlochService() {
+        return playerRulesArschlochService;
+    }
+
+    public void setPlayerRulesArschlochService(PlayerRulesService playerRulesArschlochService) {
+        this.playerRulesArschlochService = playerRulesArschlochService;
+    }
+
+    @Autowired
+    @Qualifier("playerRulesServicePresidentImpl")
+    private PlayerRulesService playerRulesPresidentService;
+
+    public PlayerRulesService getPlayerRulesPresidentService() {
+        return playerRulesPresidentService;
+    }
+
+    public void setPlayerRulesPresidentService(PlayerRulesService playerRulesPresidentService) {
+        this.playerRulesPresidentService = playerRulesPresidentService;
+    }
+
+    @Autowired
+    public CardService cardService;
+
+    public CardService getCardService() {
+        return cardService;
+    }
+
+    public void setCardService(CardService cardService) {
+        this.cardService = cardService;
+    }
 
     @Override
     public void init() {
@@ -137,21 +153,13 @@ public class FrontendController implements FrontendService {
     @Override
     public void validateMove() {
         if (gameInstance.getCurrentPlayer().getName().contains("Bot")) {
-            System.out.println("botPlayerService.validateBotMove(gameInstance)");
-            botPlayerService.validateBotMove(gameInstance);
+            botPlayerService.validateBotMove(gameInstance, passCounter);
         } else {
-
-            // Eingabe öffnen für Auswählen der Karten
             try {
                 String cardIndexes = JOptionPane.showInputDialog(null,
                         "Bitte Karten angeben (Positionen: 0-11, mit Komma getrennt)");
-
-                // Eingabe in Array speichern, ueber Komma getrennt
                 String[] cardsIndexesArray = cardIndexes.split(",");
-                // Liste der zu spielenden Indizes
                 List cardIndexesToBePlayed = new LinkedList<Integer>();
-
-                // für die Länge des Userinputs Indizes der Karten speichern
                 for (int i = 0; i < cardsIndexesArray.length; i++) {
                     int f = Integer.parseInt(cardsIndexesArray[i]);
 
@@ -162,26 +170,15 @@ public class FrontendController implements FrontendService {
                     cardIndexesToBePlayed.add(f);
                 }
 
-                // Liste, in der die aus dem Array ausgelesenen, selektierten Karten erfasst und
-                // gehalten werden
                 List tempCardList = new LinkedList<Card>();
                 Boolean tempCardsEqual = true;
 
-                // geclickte Kartenfelder( Frontend) auslesen
                 for (int i = 0; i < cardIndexesToBePlayed.size(); i++) {
-                    // tempCards werden anhand der eingegeben Zahlen geholt
                     int r = (Integer) cardIndexesToBePlayed.get(i);
                     tempCardList.add((gameInstance.getCurrentPlayer().getHand().get(r)));
-                    // Wenn Karte im Frontend geclickt wurde, wird Sie in selectedCards
-                    // erfasst. Durch dessen Iterierung erhalten wir alle selektierten Karten
-
-                    // tempCards valid? compareTo -> die ausgewählten Karten müssen die gleichen
-                    // Zahlen haben
                     if (tempCardList.size() >= 2) {
-                        // gerade hinzugefügte Card
                         Card x = (Card) tempCardList.get(i);
                         Card y = (Card) ((LinkedList) tempCardList).getFirst();
-
                         int c = x.compareTo(y);
                         if (c == 0) {
                             tempCardsEqual = true;
@@ -190,94 +187,51 @@ public class FrontendController implements FrontendService {
                         }
                     }
                 }
-
-                // Spielzug validieren
-                // hier findet später die Überprüfung statt, ob der Spielzug richtig ist. Wenn
-                // die Liste die von Compare zurückkommt die gleiche ist wie die,die wir in
-                // tempList als selektierte Karten haben
-                // wenn ja, Karten von Hand des CurrentPlayers abziehen und mit getNextPlayer
-                // das Spiel weiterlaufen lassen.
-                // wenn nicht, Auffoderung, erneut Karten auszuwählen
-
-                // tempCards valid? compareTo -> die ausgwählten Karten müssen höher sein als
-                // die BoardCards
-
                 if (tempCardsEqual) {
-                    // BoardCards = null -> alle gespielten KArten sind valide, solange sie
-                    // denselben Zahlenwert haben
                     if (gameInstance.getBoardCards() == null) {
                         gameInstance.setBoardCards(tempCardList);
-                        // Entfernen der Karten des validen Spielzuges aus Hand des Players
                         PLAYSI.removeFromHand(gameInstance.getCurrentPlayer(), tempCardList);
-                        // Prueft, ob aktueller Spieler noch Karten hat, oder nicht
-                        // wenn nein, wird er in result ( "Siegerliste, Rangfolge der Spieler" )
-                        // aufgenommen, um spaeter die Rollen fuer ein potentielles
-                        // weiteres Spiel zu ermitteln
                         addCurrentPlayerToResult(gameInstance);
-                        // setzt naechsten Spieler nach validem Spielzug
                         gameInstance.setCurrentPlayer(PLAYSI.getNextPlayer(gameInstance));
                     } else {
-                        // ungueltiger Spielzug : erneute Eingabe
                         if (tempCardList.size() != gameInstance.getBoardCards().size()) {
                             tempCardList = null;
                             validateMove();
                         }
-                        // Vergleich der selektierten Indizes mit den BoardCards
                         try {
                             Card y = (Card) ((LinkedList) tempCardList).getFirst();
 
                             Card b = gameInstance.getBoardCards().get(0);
 
                             int c = y.compareTo(b);
-                            // valider Spielzug
                             if (c == 1) {
-                                // tempCards werden als Boardcards gesetzt
                                 gameInstance.setBoardCards(tempCardList);
-                                // tempCards werden von der Hand des Spielers entfernt
                                 PLAYSI.removeFromHand(gameInstance.getCurrentPlayer(), tempCardList);
-                                // Pruefung, obn Spieler keine Karten mehr hat
                                 addCurrentPlayerToResult(gameInstance);
-
-                                // nächsten Spieler setzen
                                 gameInstance.setCurrentPlayer(PLAYSI.getNextPlayer(gameInstance));
                             } else {
-                                // falsche Karten ausgewählt
                                 validateMove();
                             }
-                        }
-                        // Exception Handling
-                        catch (IndexOutOfBoundsException e) {
-                            System.out.print("no board cards to validate against, move passed");
+                        } catch (IndexOutOfBoundsException e) {
                             gameInstance.setBoardCards(tempCardList);
                             PLAYSI.removeFromHand(gameInstance.getCurrentPlayer(), tempCardList);
-
                             addCurrentPlayerToResult(gameInstance);
-
                             gameInstance.setCurrentPlayer(PLAYSI.getNextPlayer(gameInstance));
                         }
                     }
                 } else {
-                    // falsche Karten ausgewählt
                     validateMove();
                 }
-                System.out.println(cardIndexesToBePlayed.size());
             } catch (Exception e) {
                 e.getStackTrace();
             }
-            // Wenn BoardCards = Ass, wird das Feld abgeraumt,
             try {
                 if (gameInstance.getBoardCards().get(0).getZahl().toString() == "ASS") {
-
-                    // Setzen der boardCards auf null, Update Frontend
                     gameInstance.setBoardCards(null);
-                    frontendView.updateCurrentBoardCardPanels(gameInstance);
-
                 }
             } catch (NullPointerException | IndexOutOfBoundsException e) {
                 gameInstance.setBoardCards(null);
-                frontendView.updateCurrentBoardCardPanels(gameInstance);
             }
-            // Reset des PAssspielzug-Counters nach jedem validen Spielzug
             passCounter = 0;
         }
     }
@@ -299,49 +253,30 @@ public class FrontendController implements FrontendService {
         if (gameInstance.getCurrentPlayer().getHand().isEmpty()) {
             if (!gameInstance.getResult().contains(gameInstance.getCurrentPlayer())) {
                 gameInstance.setResult(gameInstance.getCurrentPlayer());
-//                System.out.println("RESULT LISTE " + gameInstance.getResult().size());
             }
         }
     }
 
-    /**
-     * Fragt den User ab nach welcher Regel gespielt werden soll.
-     * Ob Arschloch oder President bei einer neuen Runde anfangen soll.
-     * 
-     * @param gameInstance
-     */
-    void askInitialPlayerString (GameInstance gameInstance) {
-    	String initialPlayerForNextRound = JOptionPane.showInputDialog(null,
+    @Override
+    public void askInitialPlayerString(GameInstance gameInstance) {
+        String initialPlayerForNextRound = JOptionPane.showInputDialog(null,
                 "Wer soll bei jeder neuen Runde anfangen (Arschloch (a)/Praesident (p))?");
-    	System.out.println("askInitialPlayerString");
         if (initialPlayerForNextRound.equalsIgnoreCase("a")) {
-        	System.out.println("Arschloch soll anfangen");
-        	initialPlayer = "Arschloch";
-        	System.out.println("Arschloch soll anfangen2");
+            initialPlayer = "Arschloch";
         } else if (initialPlayerForNextRound.equalsIgnoreCase("p")) {
-        	System.out.println("President soll anfangen");
             initialPlayer = "President";
-            System.out.println("President soll anfangen2");
         } else {
-           askInitialPlayerString(gameInstance);
+            askInitialPlayerString(gameInstance);
         }
     }
-    
-    /**
-     * Setzt den Spieler, der anfagen soll,
-     * nachdem über askInitialPlayer nach der Regel gefragt wurde.
-     * 
-     * @param gameInstance
-     * @throws IllegalArgumentException
-     */
+
+    @Override
     public void setInitialPlayer(GameInstance gameInstance) throws IllegalArgumentException {
-    	System.out.println("setInitialPlayer");
+        System.out.println("setInitialPlayer");
         if (initialPlayer == "Arschloch") {
-        	System.out.println("Arschloch soll anfangen");
-        	playerRulesArschlochService = new PlayerRulesServiceArschlochImpl();
-        	playerRulesArschlochService.determineInitialPlayer(gameInstance);
+            playerRulesArschlochService = new PlayerRulesServiceArschlochImpl();
+            playerRulesArschlochService.determineInitialPlayer(gameInstance);
         } else if (initialPlayer == "President") {
-        	System.out.println("President soll anfangen");
             playerRulesPresidentService = new PlayerRulesServicePresidentImpl();
             playerRulesPresidentService.determineInitialPlayer(gameInstance);
         } else {
@@ -353,16 +288,16 @@ public class FrontendController implements FrontendService {
     public Boolean getContinueGame() throws IllegalArgumentException {
         String continueGame = JOptionPane.showInputDialog(null, "Weiterspielen (J/N)?");
         if (continueGame.equalsIgnoreCase("j") | continueGame.equalsIgnoreCase("ja")) {
-        	setInitialPlayer(gameInstance);
-        	showInitialPlayer(gameInstance);
+            setInitialPlayer(gameInstance);
+            showInitialPlayer(gameInstance);
             return true;
         } else {
             return false;
         }
     }
-    
+
     public void showInitialPlayer(GameInstance gameInstance) {
-    	JOptionPane.showMessageDialog(null, "Es fängt an: " + gameInstance.getCurrentPlayer().getName());
+        JOptionPane.showMessageDialog(null, "Es fängt an: " + gameInstance.getCurrentPlayer().getName());
     }
 
     @Override
@@ -448,53 +383,41 @@ public class FrontendController implements FrontendService {
 
     @Override
     public void startNewGame(GameInstance gameInstance) {
-    	askInitialPlayerString(gameInstance);
+        askInitialPlayerString(gameInstance);
         List<Player> players = new LinkedList<>();
         boolean ifBotPlayer = getIfBotPlayer();
         int playerCount = getUserCountInput();
-        
+
         for (int i = 0; i < playerCount; i++) {
-			if(ifBotPlayer) {
-				System.out.println("ifBotPlayer is true");
-				if(i == 0) {
-					System.out.println("i == 0");
-					Player playerHuman = PLAYSI.createPlayer(getUserNameInput());
-					players.add(playerHuman);
-					System.out.println("human added");
-				}
-				String name = "Bot"+(i+1);
-				Player playerBot = PLAYSI.createPlayer(name);
-				players.add(playerBot);
-				System.out.println("bots added");
-			} else { //keine botplayer
-				Player player = PLAYSI.createPlayer(getUserNameInput());
-	            players.add(player);
-			}
-			
-		}
+            if (ifBotPlayer) {
+                if (i == 0) {
+                    Player playerHuman = PLAYSI.createPlayer(getUserNameInput());
+                    players.add(playerHuman);
+                }
+                String name = "Bot" + (i + 1);
+                Player playerBot = PLAYSI.createPlayer(name);
+                players.add(playerBot);
+            } else {
+                Player player = PLAYSI.createPlayer(getUserNameInput());
+                players.add(player);
+            }
+
+        }
         gameInstance.setPlayers(players);
         cardService.dealCardsToPlayers(gameInstance);
 
         gameInstance.setCurrentPlayer(PLAYSI.getNextPlayer(gameInstance));
-        
-//        for (int i = 0; i < playerCount; i++) {
-//            Player player = PLAYSI.createPlayer(getUserNameInput());
-//            players.add(player);
-//        }
-//        gameInstance.setPlayers(players);
-//        cardService.dealCardsToPlayers(gameInstance);
-//
-//        gameInstance.setCurrentPlayer(PLAYSI.getNextPlayer(gameInstance));
     }
 
     @Override
     public void startSavedGame(GameInstance gameInstance) {
-        int gameId = getGameId();
-        gameInstance = getLastPlayedGame(gameId);
-
-        gameInstance.setPlayers(gameInstance.getPlayers());
-        gameInstance.setCurrentPlayer(PLAYSI.getNextPlayer(gameInstance));
-
+        JOptionPane.showMessageDialog(null, "TO DO");
+        System.exit(0);
+//        int gameId = getGameId();
+//        gameInstance = getLastPlayedGame(gameId);
+//
+//        gameInstance.setPlayers(gameInstance.getPlayers());
+//        gameInstance.setCurrentPlayer(PLAYSI.getNextPlayer(gameInstance));
     }
 
     @Override
@@ -513,8 +436,8 @@ public class FrontendController implements FrontendService {
         }
     }
 
-@Override
-    public void startGame(GameInstance instance){
+    @Override
+    public void startGame(GameInstance instance) {
         if (playNewGame()) {
             startNewGame(gameInstance);
 
@@ -524,11 +447,9 @@ public class FrontendController implements FrontendService {
     }
 
     @Override
-    public void pass(GameInstance gameInstance){
+    public void pass(GameInstance gameInstance) {
         passCounter++;
-        // setzen des naechsten Spielers
         gameInstance.setCurrentPlayer(PLAYSI.getNextPlayer(gameInstance));
-        // reset der Current BoardCard, da jeder Spieler 1x gepasst hat
 
         int playersWithCardsCounter = 0;
         for (Player player : gameInstance.getPlayers()) {
@@ -543,42 +464,29 @@ public class FrontendController implements FrontendService {
     }
 
     @Override
-    public void gameStateEvaluation(GameInstance gameInstance){
+    public void gameStateEvaluation(GameInstance gameInstance) {
         String gameState = GISI.calculateGameState(gameInstance);
         if (gameState.equals("Running")) {
         } else {
-            // letzten Spieler in Resultliste speichern, damit Roles richtig gesetzt werden
             for (Player player : gameInstance.getPlayers()) {
                 if (PLAYSI.hasCards(player)) {
                     gameInstance.setResult(player);
                 }
             }
             showResultList(gameInstance);
-            // Weiter spielen? User Abfrage
             Boolean continueGame = getContinueGame();
 
             if (continueGame) {
-                // Rollen herausfinden
                 setPlayerRoles(gameInstance);
 
                 for (int i = 0; i < gameInstance.getResult().size(); i++) {
                     gameInstance.getResult().get(i).setHandCards(new LinkedList<>());
                 }
-                // Spieler in neue Spielrunde uebernehmen
                 gameInstance.setPlayers(gameInstance.getResult());
-                // Karten austeilen
                 getCardService().dealCardsToPlayers(gameInstance);
-                // Karten entsprechend der Rollen austauschen
                 getCardService().swapCards(gameInstance);
-                // Setzen des ersten Spielers der nächsten Runde
-                setInitialPlayerForNextRound(gameInstance);
-                // Update der boardCards auf null, da frisches Spiel
                 gameInstance.setBoardCards(null);
-                // Frontend Update
-
             } else {
-                // wenn nicht weitergespielt werden soll , schließt sich die Anwendung
-
                 System.exit(0);
             }
         }
@@ -605,7 +513,7 @@ public class FrontendController implements FrontendService {
 
     }
 
-    public int getGameIdForUser (GameInstance instance){
+    public int getGameIdForUser(GameInstance instance) {
         return instance.getGameId();
     }
 
@@ -630,4 +538,5 @@ public class FrontendController implements FrontendService {
 //        }
         gameInstanceRepository.save(instance);
     }
+
 }

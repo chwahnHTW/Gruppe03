@@ -5,18 +5,16 @@ import kbe.gamemgmt.GameInstance;
 import java.util.List;
 
 /**
- * @authors Kaya Löher 				| Kim Anh Nguyen 		| Christian Wahnsiedler
+ * @authors         Kaya Löher 				| Kim Anh Nguyen 		| Christian Wahnsiedler
  * Email-Adresse: 	s0564784@htw-berlin.de	| s0563958@htw-berlin.de| s0557193@htw-berlin.de
- * <p>
+ *
  * Diese Klasse stellt den CardService dar.
  * Dieser Service bildet eine Schnittstelle, um ein Kartendeck für das Spiel zur Verfügung stellen zu können.
- * <p>
+ *
  * Eine Karte besteht aus einer Zahl und einer Farbe.
  * Ein normales Kartendeck besteht aus den Zahlen 7 bis Ass und den vier Farben (Herz, Karo, Pik und Kreuz).
  * Es gibt dementsprechend 32 Karten.
  */
-
-
 public interface CardService {
 
     /**
@@ -49,10 +47,12 @@ public interface CardService {
      */
     List<Card> shuffleDeck(List<Card> cardList);
 
-
     /**
      * Am Anfang des Spiels werden zwischen Gewinner und Verlierer des letzten Spiels Karten getauscht.
      * Dies wird hier relaisiert, sofern es ein letztes Spiel gibt und die Teilnehmer dieselben sind
+     *
+     * Der erste Präsident und das erste Arschloch tauschen 2 Karten.
+     * Präsident 2 und Arschloch 2 tauschen ebenfalls 2 Karten
      *
      * @param gameInstance : eine Spielinstanz
      */

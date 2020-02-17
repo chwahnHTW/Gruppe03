@@ -7,10 +7,12 @@ import java.util.LinkedList;
 import java.util.List;
 
 /**
- * @authors Kaya Löher 				| Kim Anh Nguyen 		| Christian Wahnsiedler
+ * @authors         Kaya Löher 				| Kim Anh Nguyen 		| Christian Wahnsiedler
  * Email-Adresse: 	s0564784@htw-berlin.de	| s0563958@htw-berlin.de| s0557193@htw-berlin.de
  * <p>
  * Stellt einen Spieler dar. Ein Spieler besteht aus einem Namen, einer Id und den Karten, die er während eines Spiels besitzt.
+ *
+ * Die Spieler werden in einer Tabelle gespeichert für die Datenbank.
  */
 @Entity
 @Table(name = "Player")
@@ -25,7 +27,6 @@ public class Player {
     @Column(name = "name")
     private String name;
 
-    //    @OneToMany(mappedBy = "Player")
     @OneToMany(cascade = CascadeType.ALL)
     @JoinColumn(name = "handCards")
     private List<Card> handCards;

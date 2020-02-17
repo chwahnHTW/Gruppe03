@@ -43,15 +43,6 @@ public interface FrontendService {
     void addCurrentPlayerToResult(GameInstance gameInstance);
 
     /**
-     * Fragt den User ab, wer die naechste Runde anfangen soll zu legen, und setzt
-     * entweder Arschloch oder Praesident als current player.
-     *
-     * @param gameInstance
-     * @throws IllegalArgumentException
-     */
-    void setInitialPlayer(GameInstance gameInstance) throws IllegalArgumentException;
-
-    /**
      * Methode, die nach Spielabschluss erfaesst, ob weitergepspielt werden soll
      *
      * @return boolean - weiterspielen oder nicht ( true , false )
@@ -151,4 +142,20 @@ public interface FrontendService {
      */
     void saveCurrentGame(GameInstance instance);
 
+    /**
+     * Fragt den User ab nach welcher Regel gespielt werden soll.
+     * Ob Arschloch oder President bei einer neuen Runde anfangen soll.
+     *
+     * @param gameInstance
+     */
+    void askInitialPlayerString(GameInstance gameInstance);
+
+    /**
+     * Setzt den Spieler, der anfagen soll,
+     * nachdem über askInitialPlayer nach der Regel gefragt wurde.
+     *
+     * @param gameInstance
+     * @throws IllegalArgumentException
+     */
+    void setInitialPlayer(GameInstance gameInstance) throws IllegalArgumentException;
 }

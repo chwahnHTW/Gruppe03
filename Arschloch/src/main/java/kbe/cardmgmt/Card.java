@@ -10,7 +10,7 @@ import javax.persistence.*;
  * Eine Karte besteht aus einer Zahl und einer Farbe.
  *
  * Die Karte wird in einer Tabelle gespeichert namens "Cards"
- * Es wird eine Id generiert
+ * Es wird eine Id generiert.
  */
 @Entity
 @Table(name = "Cards")
@@ -65,14 +65,6 @@ public class Card implements Comparable {
         return symbol;
     }
 
-//    @ManyToOne
-//    @JoinColumn(name = "BoardCardsForGameInstance")
-//    private GameInstance gameInstanceBoardCards;
-//
-//    @ManyToOne
-//    @JoinColumn(name = "HandCardsForPlayers")
-//    private Player PlayerHandCards;
-
     public void setSymbol(Symbol symbol) {
         this.symbol = symbol;
     }
@@ -86,7 +78,11 @@ public class Card implements Comparable {
         return symbol + " " + zahl;
     }
 
-    @Override
+    /**
+     * Vergleicht die Karte mit einer anderen Karte
+     * @param other : zweite Karte
+     * @return : 0 = sie sind gleich, -1 = verglichene Karte ist größer, 1 = Karte ist größer
+     */
     public int compareTo(Object other) {
         Card otherCard = (Card) other;
 
@@ -95,26 +91,15 @@ public class Card implements Comparable {
             Integer intOthercard = otherCard.zahl.getKartenWert();
 
             if (intThis == intOthercard) {
-                System.out.println("This:" + intThis);
-                System.out.println("Other:" + intOthercard);
-                System.out.println("Gleicher wert");
                 return 0;
             } else if (intThis < intOthercard) {
-                System.out.println("This:" + intThis);
-                System.out.println("Other:" + intOthercard);
-                System.out.println("this kleiner als other");
                 return -1;
             } else if (intOthercard == null) {
-                System.out.println("intOther NULL");
                 return 1;
             } else {
-                System.out.println("This:" + intThis);
-                System.out.println("Other:" + intOthercard);
-                System.out.println("this groesser als other");
                 return 1;
             }
         } catch (NullPointerException e) {
-            System.out.println("NullPointerException: keine Karte");
             return 1;
         }
 

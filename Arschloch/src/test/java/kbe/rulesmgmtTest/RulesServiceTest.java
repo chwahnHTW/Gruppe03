@@ -1,6 +1,5 @@
 package kbe.rulesmgmtTest;
 
-import kbe.rulesmgmt.CardRulesService;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -11,7 +10,6 @@ import org.junit.Test;
  * In dieser Klasse werden alle Methoden aus dem Rules-Management getestet.
  */
 public class RulesServiceTest {
-    CardRulesService service;
 
     @Before
     // public void setUp() {
