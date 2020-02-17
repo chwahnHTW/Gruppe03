@@ -132,7 +132,7 @@ public class FrontendController implements FrontendService {
      */
     public void validateMove() {
     	
-    	if(gameInstance.getCurrentPlayer().getName() == "BotPlayer") {
+    	if(gameInstance.getCurrentPlayer().getName().contains("Bot")) {
     		botPlayerService.validateBotMove(gameInstance);
     	}
     	else {
@@ -515,7 +515,8 @@ public class FrontendController implements FrontendService {
 					players.add(playerHuman);
 					System.out.println("human added");
 				}
-				Player playerBot = PLAYSI.createPlayer("BotPlayer");
+				String name = "Bot"+(i+1);
+				Player playerBot = PLAYSI.createPlayer(name);
 				players.add(playerBot);
 				System.out.println("bots added");
 			} else { //keine botplayer
