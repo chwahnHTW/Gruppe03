@@ -9,6 +9,7 @@ import kbe.gamemgmt.GameInstance;
  * Diese Klasse stellt die Spielhistorie dar.
  * In der Historie werden vorherige Spielergebnisse gespeichert.
  */
+@Deprecated
 public interface HistoryService {
 
 //    void tueEtwas();
@@ -21,26 +22,12 @@ public interface HistoryService {
     void persist(GameInstance gameInstance);
 
     /**
-     * Hier wird das letzte beendete Spiel aus der Hsitorie abgerufen, um dessen Result zu untersuchen
-     * und zu prüfen, ob Karten getauscht werden müssen, oder nicht, sowie welcher Spieler anfängt
-     *
-     * @return : eine Spielinstanz
-     */
-    GameInstance getLastPlayedGame(int gameId);
-
-    /**
-     * @param instance
-     */
-    void saveCurrentGame(GameInstance instance);
-
-
-    /**
      * Speichert die Spielhistorie in einer CSV Datei ab
      *
      * @param instance
      */
     void saveToCSV(GameInstance instance);
 
-    int getGameIdForUser(GameInstance instance);
+
 
 }
