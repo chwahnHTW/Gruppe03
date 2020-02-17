@@ -1,6 +1,6 @@
 package kbe.configmgmt;
 
-import kbe.frontendmgmt.FrontendService;
+import kbe.frontendmgmt.FrontendController;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.domain.EntityScan;
 import org.springframework.context.ApplicationContext;
@@ -16,6 +16,7 @@ import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
  * Eine Klasse, die die Spielinstanz realisiert
  * Hier läuft das Spiel im Großteil ab.
  */
+
 @SpringBootApplication
 @Configuration
 @ComponentScan(basePackages = {"kbe"})
@@ -27,17 +28,18 @@ import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
         kbe.repositories.PlayerRepository.class,
         kbe.repositories.CardRepository.class,
         kbe.repositories.GameInstanceRepository.class})
-public class ConfigServiceImpl {
+public class configServiceImpl {
 
     private static ApplicationContext applicationContext;
 
-    public static void main(String[] args) {
-        applicationContext = new AnnotationConfigApplicationContext(ConfigServiceImpl.class);
 
-        FrontendService gui = applicationContext.getBean(FrontendService.class);
+    public static void main(String[] args) {
+        applicationContext = new AnnotationConfigApplicationContext(configServiceImpl.class);
+
+        FrontendController gui = applicationContext.getBean(FrontendController.class);
         gui.init();
+
 
     }
 
 }
-

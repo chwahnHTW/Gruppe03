@@ -148,12 +148,7 @@ public class FrontendController implements FrontendService {
 
     @Override
     public void validateMove() {
-    	if(gameInstance.getCurrentPlayer().getName().contains("Bot")) {
-    		botPlayerService.validateBotMove(gameInstance);
-    	}
-    	else {
-    		// Eingabe öffnen für Auswählen der Karten
-        if (gameInstance.getCurrentPlayer().getName() == "BotPlayer") {
+        if (gameInstance.getCurrentPlayer().getName().contains("Bot")) {
             System.out.println("botPlayerService.validateBotMove(gameInstance)");
             botPlayerService.validateBotMove(gameInstance);
         } else {
@@ -296,7 +291,6 @@ public class FrontendController implements FrontendService {
             }
             // Reset des PAssspielzug-Counters nach jedem validen Spielzug
             passCounter = 0;
-    	}
         }
     }
 
@@ -468,36 +462,45 @@ public class FrontendController implements FrontendService {
     }
 
     @Override
-	public void startNewGame(GameInstance gameInstance) {
-		askInitialPlayerString(gameInstance);
-		List<Player> players = new LinkedList<>();
+    public void startNewGame(GameInstance gameInstance) {
+    	askInitialPlayerString(gameInstance);
+        List<Player> players = new LinkedList<>();
         boolean ifBotPlayer = getIfBotPlayer();
         int playerCount = getUserCountInput();
-
+        
         for (int i = 0; i < playerCount; i++) {
-            if (ifBotPlayer) {
-                System.out.println("ifBotPlayer is true");
-                if (i == 0) {
-                    System.out.println("i == 0");
-                    Player playerHuman = PLAYSI.createPlayer(getUserNameInput());
-                    gameInstance.getPlayers().add(playerHuman);
-                    System.out.println("human added");
-                }
-                String name = "Bot"+(i+1);
-                Player playerBot = PLAYSI.createPlayer(name);
-                gameInstance.getPlayers().add(playerBot);
-                System.out.println("bots added");
-            } else { //keine botplayer
-                Player player = PLAYSI.createPlayer(getUserNameInput());
-                players.add(player);
-            }
-        }
+			if(ifBotPlayer) {
+				System.out.println("ifBotPlayer is true");
+				if(i == 0) {
+					System.out.println("i == 0");
+					Player playerHuman = PLAYSI.createPlayer(getUserNameInput());
+					players.add(playerHuman);
+					System.out.println("human added");
+				}
+				String name = "Bot"+(i+1);
+				Player playerBot = PLAYSI.createPlayer(name);
+				players.add(playerBot);
+				System.out.println("bots added");
+			} else { //keine botplayer
+				Player player = PLAYSI.createPlayer(getUserNameInput());
+	            players.add(player);
+			}
+			
+		}
         gameInstance.setPlayers(players);
         cardService.dealCardsToPlayers(gameInstance);
 
         gameInstance.setCurrentPlayer(PLAYSI.getNextPlayer(gameInstance));
-		
-	}
+        
+//        for (int i = 0; i < playerCount; i++) {
+//            Player player = PLAYSI.createPlayer(getUserNameInput());
+//            players.add(player);
+//        }
+//        gameInstance.setPlayers(players);
+//        cardService.dealCardsToPlayers(gameInstance);
+//
+//        gameInstance.setCurrentPlayer(PLAYSI.getNextPlayer(gameInstance));
+    }
     
     @Override
     public void startSavedGame(GameInstance gameInstance) {
