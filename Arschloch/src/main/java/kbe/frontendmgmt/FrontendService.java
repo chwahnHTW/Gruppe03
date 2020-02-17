@@ -49,7 +49,7 @@ public interface FrontendService {
      * @param gameInstance
      * @throws IllegalArgumentException
      */
-    void setInitialPlayerForNextRound(GameInstance gameInstance) throws IllegalArgumentException;
+    void setInitialPlayer(GameInstance gameInstance) throws IllegalArgumentException;
 
     /**
      * Methode, die nach Spielabschluss erfaesst, ob weitergepspielt werden soll

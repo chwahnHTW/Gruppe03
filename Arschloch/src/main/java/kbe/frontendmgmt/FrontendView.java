@@ -189,6 +189,7 @@ public class FrontendView extends JFrame {
                 updateCurrentBoardCardPanels(gameInstance);
                 updateCardButtons(gameInstance);
                 updateCurrentPlayerLabel();
+
             }
         });
         // Hier wird das Frontend mit dem Button btnPlayCards bestückt
