@@ -3,12 +3,12 @@ package kbe.cardmgmt;
 import javax.persistence.*;
 
 /**
- * @authors         Kaya Löher 				| Kim Anh Nguyen 		| Christian Wahnsiedler
+ * @authors Kaya Löher 				| Kim Anh Nguyen 		| Christian Wahnsiedler
  * Email-Adresse: 	s0564784@htw-berlin.de	| s0563958@htw-berlin.de| s0557193@htw-berlin.de
- *
+ * <p>
  * Diese Klasse stellt eine Karte dar.
  * Eine Karte besteht aus einer Zahl und einer Farbe.
- *
+ * <p>
  * Die Karte wird in einer Tabelle gespeichert namens "Cards"
  * Es wird eine Id generiert.
  */
@@ -80,6 +80,7 @@ public class Card implements Comparable {
 
     /**
      * Vergleicht die Karte mit einer anderen Karte
+     *
      * @param other : zweite Karte
      * @return : 0 = sie sind gleich, -1 = verglichene Karte ist größer, 1 = Karte ist größer
      */

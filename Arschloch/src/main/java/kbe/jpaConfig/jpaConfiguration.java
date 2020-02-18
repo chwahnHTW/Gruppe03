@@ -22,9 +22,9 @@ import java.sql.SQLException;
 import java.util.Properties;
 
 /**
- * @authors     Kaya Löher 				| Kim Anh Nguyen 		| Christian Wahnsiedler
+ * @authors Kaya Löher 				| Kim Anh Nguyen 		| Christian Wahnsiedler
  * Email-Adresse: 	s0564784@htw-berlin.de	| s0563958@htw-berlin.de| s0557193@htw-berlin.de
- *
+ * <p>
  * Die Konfiguration für den EntityManager und Jpa, damit die persistence.xml korrekt angesprochen wird.
  */
 @Configuration

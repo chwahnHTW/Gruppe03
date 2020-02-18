@@ -24,10 +24,8 @@ public class FrontendView extends JFrame {
 
     @Autowired
     public FrontendService frontendController;
-
-    private GameInstance gameInstance;
-
     public JLabel lblCurrentPlayer;
+    private GameInstance gameInstance;
     private JPanel contentPane;
     private JButton btnPlaycards;
     private JButton btnPass;

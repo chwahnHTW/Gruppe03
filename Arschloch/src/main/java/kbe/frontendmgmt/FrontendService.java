@@ -35,6 +35,8 @@ public interface FrontendService {
      * haben ( erster Spieler, der fertig ist =
      * gameInstance.getResult().get(0).setRole(Player.Role.PRAESIDENT) usw. ) Simple
      * Implementierung, da momentan nur mit 3 Spielern spielbar
+     *
+     * @param gameInstance : die Spielinstanz
      */
     void setPlayerRoles(GameInstance gameInstance);
 
@@ -42,6 +44,8 @@ public interface FrontendService {
      * Methode, die ueberprueft, ob ein Spieler noch Karten hat, um ihn, falls dem
      * nicht so ist, in die Erbegnissliste einzutragen, anhand derer spaeter die
      * Rollen der Spieler ermittelt werden
+     *
+     * @param gameInstance : die Spielinstanz
      */
     void addCurrentPlayerToResult(GameInstance gameInstance);
 
@@ -49,13 +53,15 @@ public interface FrontendService {
      * Methode, die nach Spielabschluss erfaesst, ob weitergepspielt werden soll
      *
      * @return boolean - weiterspielen oder nicht ( true , false )
+     * @throws IllegalArgumentException
      */
     Boolean getContinueGame() throws IllegalArgumentException;
 
     /**
      * fragt ab, ob ein Spiel neu gestartet werden soll oder ein altes wiederhergestellt werden soll
      *
-     * @return
+     * @return : ob neues Spiel gespielt werden soll
+     * @throws IllegalArgumentException
      */
     Boolean playNewGame() throws IllegalArgumentException;
 
@@ -72,8 +78,8 @@ public interface FrontendService {
     void showSavedGameId();
 
     /**
-     *
-     * @param gameInstance
+     * Zeigt die Liste an, in welcher Reihenfolge die Spieler gewonnen haben.
+     * @param gameInstance : die Spielinstanz
      */
     void showResultList(GameInstance gameInstance);
 
@@ -81,15 +87,13 @@ public interface FrontendService {
      * Methode, um Userinput ( Spieleranzahl ) zu erhalten
      *
      * @return vom Spieler eingegebene Spieleranzahl
-     * @throws IllegalArgumentException
      */
     int getUserCountInput();
 
     /**
      * GameId eingeben, um Spiel später wieder herstellen zu können
      *
-     * @return gameId
-     * @throws IllegalArgumentException
+     * @return die GameId
      */
     int getGameId();
 
@@ -111,37 +115,52 @@ public interface FrontendService {
     /**
      * Fragt, ob User mit Bots spielen möchte.
      *
-     * @return
+     * @return ob mit Bots gespielt werden soll
      * @throws IllegalArgumentException
      */
     Boolean getIfBotPlayer();
 
     /**
      * startet ein Spiel
+     *
      * @param gameInstance : eine Spielinstanz
      */
     void startGame(GameInstance gameInstance);
 
     /**
      * Passen eines Zuges wird hier validiert
-     * @param gameInstance
+     *
+     * @param gameInstance : die Spielinstanz
      */
     void pass(GameInstance gameInstance);
 
+    /**
+     * Hier wird geschaut, welchen Status das Spiel hat.
+     * Running: das Spiel läuft
+     * Finished: das Spiel ist zuende und es findet eine Abfrage statt, ob weitergespielt werden soll.
+     * @param gameInstance : die SPielinstanz
+     */
     void gameStateEvaluation(GameInstance gameInstance);
 
+    /**
+     * Sucht die Game Id um sie dem User anzuzeigen
+     * @param instance : die Spielinstanz
+     * @return die GameId
+     */
     int getGameIdForUser(GameInstance instance);
 
     /**
      * Hier wird das letzte beendete Spiel aus der Hsitorie abgerufen, um dessen Result zu untersuchen
      * und zu prüfen, ob Karten getauscht werden müssen, oder nicht, sowie welcher Spieler anfängt
      *
+     * @param gameId : die GameId eines Spiels, was gespeichert wurde
      * @return : eine Spielinstanz
      */
     GameInstance getLastPlayedGame(int gameId);
 
     /**
-     * @param instance
+     * Hier wird das momentane Spiel gespeichert.
+     * @param instance : die Spielinstanz
      */
     void saveCurrentGame(GameInstance instance);
 
@@ -149,7 +168,7 @@ public interface FrontendService {
      * Fragt den User ab nach welcher Regel gespielt werden soll.
      * Ob Arschloch oder President bei einer neuen Runde anfangen soll.
      *
-     * @param gameInstance
+     * @param gameInstance : die Spielinstanz
      */
     void askInitialPlayerString(GameInstance gameInstance);
 
@@ -157,7 +176,7 @@ public interface FrontendService {
      * Setzt den Spieler, der anfagen soll,
      * nachdem über askInitialPlayer nach der Regel gefragt wurde.
      *
-     * @param gameInstance
+     * @param gameInstance : die Spielinstanz
      * @throws IllegalArgumentException
      */
     void setInitialPlayer(GameInstance gameInstance) throws IllegalArgumentException;
@@ -166,15 +185,15 @@ public interface FrontendService {
      * validiert den Zug eines Botspielers.
      * Funktioniert ähnlich wie PlayerService.validateMove()
      *
-     * @param gameInstance
+     * @param gameInstance : die Spielinstanz
      */
     void validateBotMove(GameInstance gameInstance);
 
     /**
      * Nach validen Spielzug alles updaten.
      *
-     * @param cardsToPlay
-     * @param gameInstance
+     * @param cardsToPlay : Karten, die gespielt werdne sollen
+     * @param gameInstance : die Spielinstanz
      */
     void updateAll(List<Card> cardsToPlay, GameInstance gameInstance);
 
@@ -183,7 +202,7 @@ public interface FrontendService {
      * Funktioniert nur, wenn Boardkarte leer ist.
      *
      * @param gameInstance : die SPielinstanz
-     * @param higherCards :  höhere Karten
+     * @param higherCards  :  höhere Karten
      */
     void setEqualCards(GameInstance gameInstance, List<Card> higherCards);
 }
