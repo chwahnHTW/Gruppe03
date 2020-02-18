@@ -293,6 +293,7 @@ public class FrontendController implements FrontendService {
             System.out.println("temp: " + temp.toString());
         } else if (gameInstance.getBoardCards().size() == 3 && higherCards.size() >= 3) {
             System.out.println("Boardcards 3");
+            System.out.println(higherCards.toString());
             for (int i = 1; i <= higherCards.size(); i++) {
                 System.out.println(i);
                 if (higherCards.get(i).getZahl() == higherCards.get(i-1).getZahl()) {
