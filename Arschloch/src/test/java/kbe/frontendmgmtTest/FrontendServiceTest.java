@@ -1,17 +1,13 @@
 package kbe.frontendmgmtTest;
 
-import kbe.cardmgmt.Card;
 import kbe.frontendmgmt.FrontendController;
 import kbe.frontendmgmt.FrontendService;
 import kbe.gamemgmt.GameInstance;
-import kbe.gamemgmt.GameInstanceService;
-import kbe.gamemgmt.GameInstanceServiceImpl;
 import kbe.playermgmt.Player;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
-import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -31,7 +27,7 @@ public class FrontendServiceTest {
     }
 
     @Test
-    public void testSetPlayerRoles(){
+    public void testSetPlayerRoles() {
         GameInstance gi = new GameInstance();
 
         Player player1 = new Player("Player1", null, null);
@@ -42,7 +38,7 @@ public class FrontendServiceTest {
         players.add(player2);
         players.add(player3);
 
-        for(Player player : players){
+        for (Player player : players) {
             gi.setResult(player);
         }
 
@@ -51,7 +47,7 @@ public class FrontendServiceTest {
     }
 
     @Test
-    public void testAddCurrentPlayerToResult(){
+    public void testAddCurrentPlayerToResult() {
         GameInstance gi = new GameInstance();
 
         Player player1 = new Player("Player1", null, null);
@@ -66,7 +62,7 @@ public class FrontendServiceTest {
     }
 
     @Test
-    public void testStartSavedGame(){
+    public void testStartSavedGame() {
 
     }
 

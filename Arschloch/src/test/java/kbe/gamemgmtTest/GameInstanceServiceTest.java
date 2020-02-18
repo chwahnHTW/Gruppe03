@@ -29,7 +29,7 @@ public class GameInstanceServiceTest {
     }
 
     @Test
-    public void testStartGame(){
+    public void testStartGame() {
         GameInstance gi = service.startGame();
         Assert.assertNotNull(gi);
     }

@@ -10,7 +10,6 @@ import org.junit.Before;
 import org.junit.Test;
 
 import java.util.ArrayList;
-import java.util.LinkedList;
 import java.util.List;
 
 /**
@@ -207,7 +206,7 @@ public class PlayerServiceTest {
     }
 
     @Test
-    public void testCreatePlayer(){
+    public void testCreatePlayer() {
         Player player = service.createPlayer("Player1");
         Assert.assertTrue(player.getName().equals("Player1"));
     }

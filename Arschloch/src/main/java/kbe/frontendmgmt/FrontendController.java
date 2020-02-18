@@ -31,7 +31,27 @@ import java.util.List;
 @Transactional
 public class FrontendController implements FrontendService {
 
+    @Autowired
+    public GameInstanceService GISI;
+    @Autowired
+    public FrontendView frontendView;
+    @Autowired
+    public PlayerService PLAYSI;
+    @Autowired
+    public BotPlayerService botPlayerService;
+    @Autowired
+    public CardService cardService;
     int passCounter = 0;
+    String initialPlayer = null;
+    @Autowired
+    GameInstanceRepository gameInstanceRepository;
+    private GameInstance gameInstance;
+    @Autowired
+    @Qualifier("playerRulesServiceArschlochImpl")
+    private PlayerRulesService playerRulesArschlochService;
+    @Autowired
+    @Qualifier("playerRulesServicePresidentImpl")
+    private PlayerRulesService playerRulesPresidentService;
 
     public int getPassCounter() {
         return passCounter;
@@ -41,19 +61,9 @@ public class FrontendController implements FrontendService {
         this.passCounter = passCounter;
     }
 
-    String initialPlayer = null;
-
-    private GameInstance gameInstance;
-
     public GameInstance getGameInstance() {
         return gameInstance;
     }
-
-    @Autowired
-    GameInstanceRepository gameInstanceRepository;
-
-    @Autowired
-    public GameInstanceService GISI;
 
     public GameInstanceService getGISI() {
         return GISI;
@@ -63,9 +73,6 @@ public class FrontendController implements FrontendService {
         this.GISI = GISI;
     }
 
-    @Autowired
-    public FrontendView frontendView;
-
     public FrontendView getFrontendView() {
         return frontendView;
     }
@@ -73,9 +80,6 @@ public class FrontendController implements FrontendService {
     public void setFrontendView(FrontendView frontendView) {
         this.frontendView = frontendView;
     }
-
-    @Autowired
-    public PlayerService PLAYSI;
 
     public PlayerService getPLAYSI() {
         return PLAYSI;
@@ -85,9 +89,6 @@ public class FrontendController implements FrontendService {
         this.PLAYSI = PLAYSI;
     }
 
-    @Autowired
-    public BotPlayerService botPlayerService;
-
     public BotPlayerService getBotPlayerService() {
         return botPlayerService;
     }
@@ -95,10 +96,6 @@ public class FrontendController implements FrontendService {
     public void setBotPlayerService(BotPlayerService botPlayerService) {
         this.botPlayerService = botPlayerService;
     }
-
-    @Autowired
-    @Qualifier("playerRulesServiceArschlochImpl")
-    private PlayerRulesService playerRulesArschlochService;
 
     public PlayerRulesService getPlayerRulesArschlochService() {
         return playerRulesArschlochService;
@@ -108,10 +105,6 @@ public class FrontendController implements FrontendService {
         this.playerRulesArschlochService = playerRulesArschlochService;
     }
 
-    @Autowired
-    @Qualifier("playerRulesServicePresidentImpl")
-    private PlayerRulesService playerRulesPresidentService;
-
     public PlayerRulesService getPlayerRulesPresidentService() {
         return playerRulesPresidentService;
     }
@@ -119,9 +112,6 @@ public class FrontendController implements FrontendService {
     public void setPlayerRulesPresidentService(PlayerRulesService playerRulesPresidentService) {
         this.playerRulesPresidentService = playerRulesPresidentService;
     }
-
-    @Autowired
-    public CardService cardService;
 
     public CardService getCardService() {
         return cardService;
@@ -277,65 +267,52 @@ public class FrontendController implements FrontendService {
     }
 
     @Override
-    public void setEqualCards(GameInstance gameInstance, List<Card> higherCards){
+    public void setEqualCards(GameInstance gameInstance, List<Card> higherCards) {
         List<Card> temp = new LinkedList<Card>();
         List<Card> cardsToPlay = new LinkedList<Card>();
-        // und die gleiche zahl haben
-        if(gameInstance.getBoardCards().size() == 2) {
-            System.out.println("Boardcards 2");
+        if (gameInstance.getBoardCards().size() == 2) {
             for (int i = 1; i < higherCards.size(); i++) {
-                if (higherCards.get(i).getZahl() == higherCards.get(i-1).getZahl()) {
-                    temp.add(higherCards.get(i-1));
+                if (higherCards.get(i).getZahl() == higherCards.get(i - 1).getZahl()) {
+                    temp.add(higherCards.get(i - 1));
                     temp.add(higherCards.get(i));
                     break;
                 }
             }
-            System.out.println("temp: " + temp.toString());
         } else if (gameInstance.getBoardCards().size() == 3 && higherCards.size() >= 3) {
-            System.out.println("Boardcards 3");
             for (int i = 1; i <= higherCards.size(); i++) {
                 System.out.println(i);
-                if (higherCards.get(i).getZahl() == higherCards.get(i-1).getZahl()) {
-                    if(higherCards.get(i).getZahl() == higherCards.get(i+1).getZahl()) {
-                        temp.add(higherCards.get(i-1));
+                if (higherCards.get(i).getZahl() == higherCards.get(i - 1).getZahl()) {
+                    if (higherCards.get(i).getZahl() == higherCards.get(i + 1).getZahl()) {
+                        temp.add(higherCards.get(i - 1));
                         temp.add(higherCards.get(i));
-                        temp.add(higherCards.get(i+1));
+                        temp.add(higherCards.get(i + 1));
                     }
                     break;
                 }
             }
-            System.out.println("temp: " + temp.toString());
         } else if (gameInstance.getBoardCards().size() == 4 && higherCards.size() >= 4) {
-            System.out.println("Boardcards 4");
             for (int i = 1; i <= higherCards.size(); i++) {
-                if (higherCards.get(i).getZahl() == higherCards.get(i-1).getZahl()){
-                    if(higherCards.get(i).getZahl() == higherCards.get(i+1).getZahl()) {
-                        if(higherCards.get(i).getZahl() == higherCards.get(i+2).getZahl()) {
-                            temp.add(higherCards.get(i-1));
+                if (higherCards.get(i).getZahl() == higherCards.get(i - 1).getZahl()) {
+                    if (higherCards.get(i).getZahl() == higherCards.get(i + 1).getZahl()) {
+                        if (higherCards.get(i).getZahl() == higherCards.get(i + 2).getZahl()) {
+                            temp.add(higherCards.get(i - 1));
                             temp.add(higherCards.get(i));
-                            temp.add(higherCards.get(i+1));
-                            temp.add(higherCards.get(i+2));
-
+                            temp.add(higherCards.get(i + 1));
+                            temp.add(higherCards.get(i + 2));
                         }
-
-                    }break;
+                    }
+                    break;
                 }
-
             }
-            System.out.println("temp: " + temp.toString());
         } else {
             pass(gameInstance);
         }
-
-
         if (temp.size() < gameInstance.getBoardCards().size()) {
-            System.out.println("temp.size() < gameInstance.getBoardCards().size()");
             pass(gameInstance);
         } else {
             for (int i = 0; i < gameInstance.getBoardCards().size(); i++) {
                 cardsToPlay.add(temp.get(i));
             }
-            System.out.println(cardsToPlay);
             updateAll(cardsToPlay, gameInstance);
         }
     }

@@ -13,32 +13,24 @@ import java.util.List;
  * <p>
  * Diese Klasse stellt die Instanz eines Spiels dar.
  * Ein Spiel beinhaltet die Spieler, das momentane Rundenergebnis, die Karten, mit denen gerade gespielt wird und den aktuellen Spieler.
- *
+ * <p>
  * Es gibt eine tabelle für eine Spielinstanz, welche in der Datenbank gespeichert wird
  */
 @Entity
 @Table(name = "GameInstance")
 public class GameInstance {
-    public Integer getGameId() {
-        return gameId;
-    }
-
     @Id
     @GeneratedValue
     private Integer gameId;
-
     @JoinColumn(name = "players")
     @OneToMany(cascade = CascadeType.ALL)
     private List<Player> players;
-
     @JoinColumn(name = "result")
     @OneToMany(cascade = CascadeType.ALL)
     private List<Player> result = new LinkedList<>();
-
     @JoinColumn(name = "boardCards")
     @OneToMany(cascade = CascadeType.ALL)
     private List<Card> boardCards = null;
-
     @JoinColumn(name = "current")
     @OneToOne(cascade = CascadeType.ALL)
     private Player currentPlayer = null;
@@ -48,6 +40,10 @@ public class GameInstance {
      */
     public GameInstance() {
 
+    }
+
+    public Integer getGameId() {
+        return gameId;
     }
 
     /**

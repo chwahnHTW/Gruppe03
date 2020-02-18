@@ -8,7 +8,7 @@ import java.util.List;
 /**
  * @authors Kaya Löher 				| Kim Anh Nguyen 		| Christian Wahnsiedler
  * Email-Adresse: 	s0564784@htw-berlin.de	| s0563958@htw-berlin.de| s0557193@htw-berlin.de
- *
+ * <p>
  * Simuliert einen Botspieler.
  * Der Botspieler spielt selber als Computer.
  * Um einen Botspieler zum Spielen zu bekommen, muss man immer für den Bot "Play Cards" drücken.
@@ -21,7 +21,7 @@ public interface BotPlayerService {
      * Funktioniert nur, wenn Boardkarte leer ist.
      *
      * @param cardList :
-     * @return
+     * @return : Liste von Karten, die gleich sind
      */
     List<Card> setTwoEqualCards(List<Card> cardList);
 
@@ -30,7 +30,7 @@ public interface BotPlayerService {
      *
      * @param botHandCards : die Karten des Bots
      * @param gameInstance : die Spielinstanz
-     * @return
+     * @return : Liste von Karten, die höher sind als die Boardkarten
      */
     List<Card> findHigherCards(List<Card> botHandCards, GameInstance gameInstance);
 

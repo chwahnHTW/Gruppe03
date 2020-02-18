@@ -39,7 +39,6 @@ public class BotPlayerServiceImpl implements BotPlayerService {
             return twoEqualCards;
         }
     }
-  
 
 
     @Override

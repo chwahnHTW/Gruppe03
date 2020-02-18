@@ -8,7 +8,7 @@ import java.util.List;
 /**
  * @authors Kaya Löher 				| Kim Anh Nguyen 		| Christian Wahnsiedler
  * Email-Adresse: 	s0564784@htw-berlin.de 	| s0563958@htw-berlin.de| s0557193@htw-berlin.de
- *
+ * <p>
  * Der Spieler muss vor dem Spiel erstellt werden.
  * Der Spieler bekommt eine Hand an Karten zugewiesen.
  */
@@ -56,6 +56,7 @@ public interface PlayerService {
 
     /**
      * Findet den Spieler, der als nächstes an der Reihe ist.
+     *
      * @param instance : Spielinstanz
      * @return : Spieler
      */
@@ -63,6 +64,7 @@ public interface PlayerService {
 
     /**
      * Findet den Spieler der beginnt - es beginnt bei einem neuen Spiel immer der Spieler mit der Karo Sieben
+     *
      * @param instance : Spielinstanz
      * @return : Spieler
      */
