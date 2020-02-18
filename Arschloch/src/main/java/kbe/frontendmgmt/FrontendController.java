@@ -343,7 +343,6 @@ public class FrontendController implements FrontendService {
 
     @Override
     public void setInitialPlayer(GameInstance gameInstance) throws IllegalArgumentException {
-        System.out.println("setInitialPlayer");
         if (initialPlayer == "Arschloch") {
             playerRulesArschlochService = new PlayerRulesServiceArschlochImpl();
             playerRulesArschlochService.determineInitialPlayer(gameInstance);
@@ -482,13 +481,13 @@ public class FrontendController implements FrontendService {
 
     @Override
     public void startSavedGame(GameInstance gameInstance) {
-//        JOptionPane.showMessageDialog(null, "TO DO");
-//        System.exit(0);
-        int gameId = getGameId();
-        gameInstance = getLastPlayedGame(gameId);
-
-        gameInstance.setPlayers(gameInstance.getPlayers());
-        gameInstance.setCurrentPlayer(PLAYSI.getNextPlayer(gameInstance));
+        JOptionPane.showMessageDialog(null, "Leider funktioniert die Datenbank momentan nicht. Sie werden zu einem neuen Spiel umgeleitet.");
+        startNewGame(gameInstance);
+//        int gameId = getGameId();
+//        gameInstance = getLastPlayedGame(gameId);
+//
+//        gameInstance.setPlayers(gameInstance.getPlayers());
+//        gameInstance.setCurrentPlayer(PLAYSI.getNextPlayer(gameInstance));
     }
 
     @Override
