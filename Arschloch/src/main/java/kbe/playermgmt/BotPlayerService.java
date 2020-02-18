@@ -20,7 +20,7 @@ public interface BotPlayerService {
      * Setzt Karte(n), die gleichwertig sind zueinander.
      * Funktioniert nur, wenn Boardkarte leer ist.
      *
-     * @param cardList
+     * @param cardList :
      * @return
      */
     List<Card> setTwoEqualCards(List<Card> cardList);
@@ -35,8 +35,7 @@ public interface BotPlayerService {
     List<Card> findHigherCards(List<Card> botHandCards, GameInstance gameInstance);
 
     /**
-     * Wenn ein Ass gelegt wurde,
-     * werden die Boardcards abgeräumt und neuer Zug beginnt.
+     * Wenn ein Ass gelegt wurde, werden die Boardcards abgeräumt und neuer Zug beginnt.
      *
      * @param gameInstance
      */

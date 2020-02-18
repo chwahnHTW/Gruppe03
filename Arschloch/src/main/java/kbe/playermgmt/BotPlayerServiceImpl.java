@@ -1,12 +1,7 @@
 package kbe.playermgmt;
 
 import kbe.cardmgmt.Card;
-import kbe.cardmgmt.CardService;
-import kbe.cardmgmt.CardServiceImpl;
-import kbe.frontendmgmt.FrontendController;
 import kbe.gamemgmt.GameInstance;
-import kbe.gamemgmt.GameInstanceService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.LinkedList;
@@ -18,16 +13,6 @@ import java.util.List;
  */
 @Service
 public class BotPlayerServiceImpl implements BotPlayerService {
-
-    @Autowired
-    private FrontendController frontendController;
-    @Autowired
-    private GameInstanceService GISI;
-    @Autowired
-    private PlayerService PLAYSI;
-    private CardService cardService = new CardServiceImpl();
-
-
 
     @Override
     public List<Card> setTwoEqualCards(List<Card> cardList) {
