@@ -28,8 +28,8 @@ public interface BotPlayerService {
     /**
      * Sucht nach Karten, die höher sind als Boardkarten.
      *
-     * @param botHandCards
-     * @param gameInstance
+     * @param botHandCards : die Karten des Bots
+     * @param gameInstance : die Spielinstanz
      * @return
      */
     List<Card> findHigherCards(List<Card> botHandCards, GameInstance gameInstance);
@@ -37,7 +37,16 @@ public interface BotPlayerService {
     /**
      * Wenn ein Ass gelegt wurde, werden die Boardcards abgeräumt und neuer Zug beginnt.
      *
-     * @param gameInstance
+     * @param gameInstance : die Spielinstanz
      */
     void assOnBoard(GameInstance gameInstance);
+
+    /**
+     * Setzt Karte(n), die gleichwertig sind zueinander.
+     * Funktioniert nur, wenn Boardkarte leer ist.
+     *
+     * @param gameInstance : die SPielinstanz
+     * @param higherCards :  höhere Karten
+     */
+    void setEqualCards(GameInstance gameInstance, List<Card> higherCards);
 }

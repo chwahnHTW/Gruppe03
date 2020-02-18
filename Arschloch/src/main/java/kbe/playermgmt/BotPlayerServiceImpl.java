@@ -13,13 +13,8 @@ import java.util.List;
  */
 @Service
 public class BotPlayerServiceImpl implements BotPlayerService {
-    /**
-     * Setzt Karte(n), die gleichwertig sind zueinander.
-     * Funktioniert nur, wenn Boardkarte leer ist.
-     *
-     * @param cardList
-     * @return
-     */
+
+    @Override
     public List<Card> setTwoEqualCards(List<Card> cardList) {
 
         List<Card> twoEqualCards = new LinkedList<Card>();
@@ -46,7 +41,7 @@ public class BotPlayerServiceImpl implements BotPlayerService {
     }
   
     @Override
-    void setEqualCards(GameInstance gameInstance, List<Card> higherCards){
+    public void setEqualCards(GameInstance gameInstance, List<Card> higherCards){
     	List<Card> temp = new LinkedList<Card>();
     	List<Card> cardsToPlay = new LinkedList<Card>();
     	// und die gleiche zahl haben
