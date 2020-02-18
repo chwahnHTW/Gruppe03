@@ -12,18 +12,9 @@ import java.util.List;
  * @authors Kaya Löher 				| Kim Anh Nguyen 		| Christian Wahnsiedler
  * Email-Adresse: 	s0564784@htw-berlin.de	| s0563958@htw-berlin.de| s0557193@htw-berlin.de
  */
-
 @Service
 public class CardServiceImpl implements CardService {
 
-    // wie karten mit bilder mappen? -> Card klasse mit to string?
-
-    /**
-     * Sortiert eine Liste mit Karten nach ihren Zahlen.
-     *
-     * @param
-     * @return
-     */
     @Override
     public List<Card> sortCardsByValue(List<Card> cards) {
         Collections.sort(cards, new CardComparator());
@@ -32,7 +23,7 @@ public class CardServiceImpl implements CardService {
     }
 
     @Override
-    public List<Card> generateDeck() { // default = 32 //optional
+    public List<Card> generateDeck() {
         List<Card> deck = new ArrayList<Card>();
 
         for (Card.Symbol symbol : Card.Symbol.values()) {
@@ -48,105 +39,77 @@ public class CardServiceImpl implements CardService {
 
     @Override
     public List<Card> shuffleDeck(List<Card> deck) {
-        /**
-         * liste deck rein
-         * inhalt mischen
-         */
         Collections.shuffle(deck);
-
         return deck;
     }
 
     @Override
     public void swapCards(GameInstance gameInstance) {
-
-        System.out.println("SwapCards for President1 and Arschloch1");
-        Player president1 = gameInstance.getResult().get(0);//erster praesident, da er zuerst in die liste
-        Player president2 = gameInstance.getResult().get(1); //zweiter praesident, da er als zweites in die Liste
+        Player president1 = gameInstance.getResult().get(0);
+        Player president2 = gameInstance.getResult().get(1);
         int resultSize = gameInstance.getResult().size();
-        Player arschloch1 = gameInstance.getResult().get(resultSize - 1);//arschloch, da er als letztes in die liste hinzugefuegt wird
-        Player arschloch2 = gameInstance.getResult().get(resultSize - 2);//arschloch, da er als vorletztes in die liste hinzugefuegt wird
-        sortCardsByValue(president1.getHand()); //sortieren der Karten nach Zahlenwert
-        sortCardsByValue(president2.getHand()); //sortieren der Karten nach Zahlenwert
-        sortCardsByValue(arschloch1.getHand()); //sortieren der Karten nach Zahlenwert
-        sortCardsByValue(arschloch2.getHand()); //sortieren der Karten nach Zahlenwert
+        Player arschloch1 = gameInstance.getResult().get(resultSize - 1);
+        Player arschloch2 = gameInstance.getResult().get(resultSize - 2);
+        sortCardsByValue(president1.getHand());
+        sortCardsByValue(president2.getHand());
+        sortCardsByValue(arschloch1.getHand());
+        sortCardsByValue(arschloch2.getHand());
 
-        //um hier die Karten, die getauscht werden sollen, temporaer abzulegen
         List<Card> temp1 = new ArrayList<Card>();
 
-        // die 2 besten (hoechste Zahl) karten von arschloch herausfinden und in temp liste
         int handArschloch1 = arschloch1.getHand().size();
-        temp1.add(arschloch1.getHand().get(handArschloch1 - 2)); //index 0
-        temp1.add(arschloch1.getHand().get(handArschloch1 - 1)); //index 1
+        temp1.add(arschloch1.getHand().get(handArschloch1 - 2));
+        temp1.add(arschloch1.getHand().get(handArschloch1 - 1));
 
-        //die 2 schlechtesten Karten von praesident herasufinden und in temp liste
         temp1.add(president1.getHand().get(0));
         temp1.add(president1.getHand().get(1));
 
-        //zu den Handkarten von arschloch und praesident
         president1.setHand(temp1.get(0));
         president1.setHand(temp1.get(1));
         arschloch1.setHand(temp1.get(2));
         arschloch1.setHand(temp1.get(3));
 
-        //loeschen der getauschten Karten aus beiden spielern
         arschloch1.getHand().remove(arschloch1.getHand().size() - 3);
-        arschloch1.getHand().remove(arschloch1.getHand().size() - 3); //weil index wieder nach vorn rutscht
+        arschloch1.getHand().remove(arschloch1.getHand().size() - 3);
 
         president1.getHand().remove(0);
         president1.getHand().remove(0);
 
         if (gameInstance.getResult().size() > 3) {
-            System.out.println("SwapCards for President2 and Arschloch2");
-            //um hier die Karten, die getauscht werden sollen, temporaer abzulegen
             List<Card> temp2 = new ArrayList<Card>();
 
-            // die 2 besten (hoechste Zahl) karten von arschloch herausfinden und in temp liste
             int handArschloch2 = arschloch2.getHand().size();
-            temp2.add(arschloch2.getHand().get(handArschloch2 - 2)); //index 0
-            temp2.add(arschloch2.getHand().get(handArschloch2 - 1)); //index 1
+            temp2.add(arschloch2.getHand().get(handArschloch2 - 2));
+            temp2.add(arschloch2.getHand().get(handArschloch2 - 1));
 
-            //die 2 schlechtesten Karten von praesident herasufinden und in temp liste
             temp2.add(president2.getHand().get(0));
             temp2.add(president2.getHand().get(1));
 
-            //zu den Handkarten von arschloch und praesident
             president2.setHand(temp2.get(0));
             president2.setHand(temp2.get(1));
             arschloch2.setHand(temp2.get(2));
             arschloch2.setHand(temp2.get(3));
 
-            //loeschen der getauschten Karten aus beiden spielern
             arschloch2.getHand().remove(arschloch2.getHand().size() - 3);
-            arschloch2.getHand().remove(arschloch2.getHand().size() - 3); //weil index wieder nach vorn rutscht
+            arschloch2.getHand().remove(arschloch2.getHand().size() - 3);
 
             president2.getHand().remove(0);
             president2.getHand().remove(0);
         }
-
     }
 
     @Override
     public void dealCardsToPlayers(GameInstance gameInstance) {
-
-        //gemischtes deck erstellen
         List<Card> deck = shuffleDeck(generateDeck());
 
-        //anzahl spieler ermittenln
         int anzahlPlayer = gameInstance.getPlayers().size();
 
         for (int i = 0; i < deck.size(); i++) {
-            // i%anzahlPlayer, damit durhc jeden Player iteriert wird
             gameInstance.getPlayers().get(i % anzahlPlayer).setHand(deck.get(i));
         }
 
         for (int j = 0; j < gameInstance.getPlayers().size(); j++) {
             sortCardsByValue(gameInstance.getPlayers().get(j).getHandCards());
-            System.out.println("*!*!*!*!*!*!*!*!**!*!");
-            System.out.println(gameInstance.getPlayers().get(j).getHandCards());
         }
-
     }
-
-
 }

@@ -23,10 +23,10 @@ import junit.framework.Assert;
  * In dieser Klasse werden alle Methoden aus dem Rules-Management getestet.
  */
 public class RulesServiceTest {
-	
 	@Qualifier("playerRulesServiceArschlochImpl")
 	private PlayerRulesService arschlochRuleService;
 	private PlayerRulesService presidentRuleService;
+
 
     @Before
     public void setUp() {

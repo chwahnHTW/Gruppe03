@@ -21,10 +21,15 @@ import javax.sql.DataSource;
 import java.sql.SQLException;
 import java.util.Properties;
 
+/**
+ * @authors     Kaya Löher 				| Kim Anh Nguyen 		| Christian Wahnsiedler
+ * Email-Adresse: 	s0564784@htw-berlin.de	| s0563958@htw-berlin.de| s0557193@htw-berlin.de
+ *
+ * Die Konfiguration für den EntityManager und Jpa, damit die persistence.xml korrekt angesprochen wird.
+ */
 @Configuration
 @EnableTransactionManagement
 public class jpaConfiguration {
-
 
     @Bean
     public DataSource dataSource() {
@@ -39,12 +44,8 @@ public class jpaConfiguration {
         return builder.setType(EmbeddedDatabaseType.H2).build();
     }
 
-
     @Bean
     public EntityManagerFactory entityManagerFactory(LocalContainerEntityManagerFactoryBean entityManagerFactoryBean) throws SQLException {
-
-        System.out.println(" blabla hallo entity");
-
         entityManagerFactoryBean.setPackagesToScan("kbe");
         entityManagerFactoryBean.setDataSource(dataSource());
         entityManagerFactoryBean.afterPropertiesSet();
@@ -75,7 +76,6 @@ public class jpaConfiguration {
         properties.setProperty("hibernate.show_sql", "true");
         properties.setProperty("hibernate.jdbc.fetch_size", "100");
         properties.setProperty("hibernate.hbm2ddl.auto", "update");
-//        properties.setProperty()
 
         lef.setJpaProperties(properties);
         return lef;
@@ -83,8 +83,6 @@ public class jpaConfiguration {
 
     @Bean
     public EntityManager entityManager(EntityManagerFactory entityManagerFactory) {
-        System.out.println(" hallo hallo entity");
-//        EntityManagerFactory emf = Persistence.createEntityManagerFactory("arschloch");
         return entityManagerFactory.createEntityManager();
     }
 

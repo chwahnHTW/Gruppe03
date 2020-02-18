@@ -10,9 +10,9 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 
 /**
- * @authors Kaya Löher 				| Kim Anh Nguyen 		| Christian Wahnsiedler
+ * @authors         Kaya Löher 				| Kim Anh Nguyen 		| Christian Wahnsiedler
  * Email-Adresse: 	s0564784@htw-berlin.de 	| s0563958@htw-berlin.de| s0557193@htw-berlin.de
- * <p>
+ *
  * Eine Klasse, die die Spielinstanz realisiert
  * Hier läuft das Spiel im Großteil ab.
  */
@@ -27,12 +27,12 @@ import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
         kbe.repositories.PlayerRepository.class,
         kbe.repositories.CardRepository.class,
         kbe.repositories.GameInstanceRepository.class})
-public class configServiceImpl {
+public class ConfigServiceImpl {
 
     private static ApplicationContext applicationContext;
 
     public static void main(String[] args) {
-        applicationContext = new AnnotationConfigApplicationContext(configServiceImpl.class);
+        applicationContext = new AnnotationConfigApplicationContext(ConfigServiceImpl.class);
 
         FrontendService gui = applicationContext.getBean(FrontendService.class);
         gui.init();

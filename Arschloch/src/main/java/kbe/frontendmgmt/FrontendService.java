@@ -1,6 +1,9 @@
 package kbe.frontendmgmt;
 
+import kbe.cardmgmt.Card;
 import kbe.gamemgmt.GameInstance;
+
+import java.util.List;
 
 /**
  * @authors Kaya Löher 				| Kim Anh Nguyen 		| Christian Wahnsiedler
@@ -41,15 +44,6 @@ public interface FrontendService {
      * Rollen der Spieler ermittelt werden
      */
     void addCurrentPlayerToResult(GameInstance gameInstance);
-
-    /**
-     * Fragt den User ab, wer die naechste Runde anfangen soll zu legen, und setzt
-     * entweder Arschloch oder Praesident als current player.
-     *
-     * @param gameInstance
-     * @throws IllegalArgumentException
-     */
-    void setInitialPlayer(GameInstance gameInstance) throws IllegalArgumentException;
 
     /**
      * Methode, die nach Spielabschluss erfaesst, ob weitergepspielt werden soll
@@ -150,5 +144,38 @@ public interface FrontendService {
      * @param instance
      */
     void saveCurrentGame(GameInstance instance);
+
+    /**
+     * Fragt den User ab nach welcher Regel gespielt werden soll.
+     * Ob Arschloch oder President bei einer neuen Runde anfangen soll.
+     *
+     * @param gameInstance
+     */
+    void askInitialPlayerString(GameInstance gameInstance);
+
+    /**
+     * Setzt den Spieler, der anfagen soll,
+     * nachdem über askInitialPlayer nach der Regel gefragt wurde.
+     *
+     * @param gameInstance
+     * @throws IllegalArgumentException
+     */
+    void setInitialPlayer(GameInstance gameInstance) throws IllegalArgumentException;
+
+    /**
+     * validiert den Zug eines Botspielers.
+     * Funktioniert ähnlich wie PlayerService.validateMove()
+     *
+     * @param gameInstance
+     */
+    void validateBotMove(GameInstance gameInstance);
+
+    /**
+     * Nach validen Spielzug alles updaten.
+     *
+     * @param cardsToPlay
+     * @param gameInstance
+     */
+    void updateAll(List<Card> cardsToPlay, GameInstance gameInstance);
 
 }
