@@ -153,7 +153,7 @@ public class FrontendController implements FrontendService {
     @Override
     public void validateMove() {
         if (gameInstance.getCurrentPlayer().getName().contains("Bot")) {
-            botPlayerService.validateBotMove(gameInstance, passCounter);
+            validateBotMove(gameInstance);
         } else {
             try {
                 String cardIndexes = JOptionPane.showInputDialog(null,
@@ -233,6 +233,77 @@ public class FrontendController implements FrontendService {
                 gameInstance.setBoardCards(null);
             }
             passCounter = 0;
+        }
+    }
+
+    @Override
+    public void validateBotMove(GameInstance gameInstance) {
+        List<Card> cardsToPlay = new LinkedList<Card>();
+        List<Card> botHandCards = new LinkedList<Card>();
+        botHandCards = cardService.sortCardsByValue(gameInstance.getCurrentPlayer().getHand());
+        List<Card> higherCards = new LinkedList<Card>();
+        if (gameInstance.getBoardCards() == null) {
+            if (botHandCards.size() < 2) {
+                cardsToPlay = botHandCards;
+            } else if (botHandCards.size() >= 2) {
+                cardsToPlay = botPlayerService.setTwoEqualCards(botHandCards);
+            }
+            updateAll(cardsToPlay, gameInstance);
+        } else if (gameInstance.getBoardCards().size() == 1) {
+            higherCards = botPlayerService.findHigherCards(botHandCards, gameInstance);
+            if (higherCards.isEmpty()) {
+                pass(gameInstance);
+            } else {
+                cardsToPlay.add(higherCards.get(0));
+                updateAll(cardsToPlay, gameInstance);
+            }
+        } else if (gameInstance.getBoardCards().size() == 2) {
+            List<Card> temp = new LinkedList<Card>();
+            higherCards = botPlayerService.findHigherCards(botHandCards, gameInstance);
+            if (higherCards.isEmpty()) {
+                pass(gameInstance);
+            } else {
+                for (int i = 1; i < higherCards.size(); i++) {
+                    if (higherCards.get(i - 1).getZahl().equals(higherCards.get(i).getZahl())) {
+                        temp.add(higherCards.get(i - 1));
+                        temp.add(higherCards.get(i));
+                    }
+                }
+                if (temp.size() < 2) {
+                    pass(gameInstance);
+                } else {
+                    cardsToPlay.add(temp.get(0));
+                    cardsToPlay.add(temp.get(1));
+                    updateAll(cardsToPlay, gameInstance);
+                }
+            }
+        }
+        botPlayerService.assOnBoard(gameInstance);
+    }
+
+    @Override
+    public void updateAll(List<Card> cardsToPlay, GameInstance gameInstance) {
+        gameInstance.setBoardCards(cardsToPlay);
+        PLAYSI.removeFromHand(gameInstance.getCurrentPlayer(), cardsToPlay);
+        addCurrentPlayerToResult(gameInstance);
+        gameInstance.setCurrentPlayer(PLAYSI.getNextPlayer(gameInstance));
+        setPassCounter(0);
+    }
+
+    @Override
+    public void pass(GameInstance gameInstance) {
+        passCounter++;
+        gameInstance.setCurrentPlayer(PLAYSI.getNextPlayer(gameInstance));
+
+        int playersWithCardsCounter = 0;
+        for (Player player : gameInstance.getPlayers()) {
+            if (PLAYSI.hasCards(player)) {
+                playersWithCardsCounter++;
+            }
+        }
+
+        if (passCounter == playersWithCardsCounter - 1) {
+            gameInstance.setBoardCards(null);
         }
     }
 
@@ -411,13 +482,13 @@ public class FrontendController implements FrontendService {
 
     @Override
     public void startSavedGame(GameInstance gameInstance) {
-        JOptionPane.showMessageDialog(null, "TO DO");
-        System.exit(0);
-//        int gameId = getGameId();
-//        gameInstance = getLastPlayedGame(gameId);
-//
-//        gameInstance.setPlayers(gameInstance.getPlayers());
-//        gameInstance.setCurrentPlayer(PLAYSI.getNextPlayer(gameInstance));
+//        JOptionPane.showMessageDialog(null, "TO DO");
+//        System.exit(0);
+        int gameId = getGameId();
+        gameInstance = getLastPlayedGame(gameId);
+
+        gameInstance.setPlayers(gameInstance.getPlayers());
+        gameInstance.setCurrentPlayer(PLAYSI.getNextPlayer(gameInstance));
     }
 
     @Override
@@ -446,22 +517,7 @@ public class FrontendController implements FrontendService {
         }
     }
 
-    @Override
-    public void pass(GameInstance gameInstance) {
-        passCounter++;
-        gameInstance.setCurrentPlayer(PLAYSI.getNextPlayer(gameInstance));
 
-        int playersWithCardsCounter = 0;
-        for (Player player : gameInstance.getPlayers()) {
-            if (PLAYSI.hasCards(player)) {
-                playersWithCardsCounter++;
-            }
-        }
-
-        if (passCounter == playersWithCardsCounter - 1) {
-            gameInstance.setBoardCards(null);
-        }
-    }
 
     @Override
     public void gameStateEvaluation(GameInstance gameInstance) {
@@ -482,6 +538,7 @@ public class FrontendController implements FrontendService {
                 for (int i = 0; i < gameInstance.getResult().size(); i++) {
                     gameInstance.getResult().get(i).setHandCards(new LinkedList<>());
                 }
+                gameInstance.getPlayers().clear();
                 gameInstance.setPlayers(gameInstance.getResult());
                 getCardService().dealCardsToPlayers(gameInstance);
                 getCardService().swapCards(gameInstance);

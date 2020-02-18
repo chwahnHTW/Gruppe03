@@ -1,6 +1,9 @@
 package kbe.frontendmgmt;
 
+import kbe.cardmgmt.Card;
 import kbe.gamemgmt.GameInstance;
+
+import java.util.List;
 
 /**
  * @authors Kaya Löher 				| Kim Anh Nguyen 		| Christian Wahnsiedler
@@ -158,4 +161,21 @@ public interface FrontendService {
      * @throws IllegalArgumentException
      */
     void setInitialPlayer(GameInstance gameInstance) throws IllegalArgumentException;
+
+    /**
+     * validiert den Zug eines Botspielers.
+     * Funktioniert ähnlich wie PlayerService.validateMove()
+     *
+     * @param gameInstance
+     */
+    void validateBotMove(GameInstance gameInstance);
+
+    /**
+     * Nach validen Spielzug alles updaten.
+     *
+     * @param cardsToPlay
+     * @param gameInstance
+     */
+    void updateAll(List<Card> cardsToPlay, GameInstance gameInstance);
+
 }
