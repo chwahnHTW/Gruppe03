@@ -64,6 +64,7 @@ public class PlayerServiceImpl implements PlayerService {
         //Liste der Spieler im Spiel mit Reihenfolge, wie gesessen wird
         //currentplayer ++
         // für die Länge der Spielerliste suche currentplayer
+        
         for (int i = 0; i < instance.getPlayers().size(); i++) {
             //wenn current spieler i entspricht
             Player player = instance.getPlayers().get(i);

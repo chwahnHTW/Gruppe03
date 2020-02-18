@@ -57,26 +57,13 @@ public class BotPlayerServiceImpl implements BotPlayerService {
                 cardsToPlay.add(higherCards.get(0));
                 updateAll(cardsToPlay, gameInstance);
             }
-        } else if (gameInstance.getBoardCards().size() == 2) {
-            List<Card> temp = new LinkedList<Card>();
+        } else if (gameInstance.getBoardCards().size() >= 2) {
+            
             higherCards = findHigherCards(botHandCards, gameInstance);
             if (higherCards.isEmpty()) {
                 botPass(gameInstance);
             } else {
-                // und die gleiche zahl haben
-                for (int i = 1; i < higherCards.size(); i++) {
-                    if (higherCards.get(i - 1).getZahl().equals(higherCards.get(i).getZahl())) {
-                        temp.add(higherCards.get(i - 1));
-                        temp.add(higherCards.get(i));
-                    }
-                }
-                if (temp.size() < 2) {
-                    botPass(gameInstance);
-                } else {
-                    cardsToPlay.add(temp.get(0));
-                    cardsToPlay.add(temp.get(1));
-                    updateAll(cardsToPlay, gameInstance);
-                }
+                setEqualCards(gameInstance, higherCards);
             }
         }
         assOnBoard(gameInstance);
@@ -130,6 +117,69 @@ public class BotPlayerServiceImpl implements BotPlayerService {
         } else {
             twoEqualCards.add(x);
             return twoEqualCards;
+        }
+    }
+    
+    void setEqualCards(GameInstance gameInstance, List<Card> higherCards){
+    	List<Card> temp = new LinkedList<Card>();
+    	List<Card> cardsToPlay = new LinkedList<Card>();
+    	// und die gleiche zahl haben
+    	if(gameInstance.getBoardCards().size() == 2) {
+    		System.out.println("Boardcards 2");
+    		for (int i = 1; i < higherCards.size(); i++) {
+                if (higherCards.get(i).getZahl() == higherCards.get(i-1).getZahl()) {
+                    temp.add(higherCards.get(i-1));
+                    temp.add(higherCards.get(i));
+                    break;
+                }
+            }
+    		System.out.println("temp: " + temp.toString());
+    	} else if (gameInstance.getBoardCards().size() == 3 && higherCards.size() >= 3) {
+    		System.out.println("Boardcards 3");
+    		for (int i = 1; i <= higherCards.size(); i++) {
+    			System.out.println(i);
+                if (higherCards.get(i).getZahl() == higherCards.get(i-1).getZahl()) {
+                	if(higherCards.get(i).getZahl() == higherCards.get(i+1).getZahl()) {
+                		temp.add(higherCards.get(i-1));
+                        temp.add(higherCards.get(i));
+                        temp.add(higherCards.get(i+1));
+                	}
+                	break;
+                }
+    		}
+    		System.out.println("temp: " + temp.toString());
+    	} else if (gameInstance.getBoardCards().size() == 4 && higherCards.size() >= 4) {
+    		System.out.println("Boardcards 4");
+    		for (int i = 1; i <= higherCards.size(); i++) {
+                if (higherCards.get(i).getZahl() == higherCards.get(i-1).getZahl()){
+                	if(higherCards.get(i).getZahl() == higherCards.get(i+1).getZahl()) {
+                		if(higherCards.get(i).getZahl() == higherCards.get(i+2).getZahl()) {
+                			temp.add(higherCards.get(i-1));
+                            temp.add(higherCards.get(i));
+                            temp.add(higherCards.get(i+1));
+                            temp.add(higherCards.get(i+2));
+                            
+                		}
+                		
+                	}break;
+                }
+                    
+    		}
+    		System.out.println("temp: " + temp.toString());
+    	} else {
+    		botPass(gameInstance);
+    	}
+
+        
+        if (temp.size() < gameInstance.getBoardCards().size()) {
+        	System.out.println("temp.size() < gameInstance.getBoardCards().size()");
+            botPass(gameInstance);
+        } else {
+            for (int i = 0; i < gameInstance.getBoardCards().size(); i++) {
+            	cardsToPlay.add(temp.get(i));
+            }
+            System.out.println(cardsToPlay);
+            updateAll(cardsToPlay, gameInstance);
         }
     }
 
