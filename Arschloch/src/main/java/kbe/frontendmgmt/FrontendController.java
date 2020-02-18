@@ -63,7 +63,6 @@ public class FrontendController implements FrontendService {
         this.GISI = GISI;
     }
 
-
     @Autowired
     public FrontendView frontendView;
 
@@ -262,19 +261,7 @@ public class FrontendController implements FrontendService {
             if (higherCards.isEmpty()) {
                 pass(gameInstance);
             } else {
-                for (int i = 1; i < higherCards.size(); i++) {
-                    if (higherCards.get(i - 1).getZahl().equals(higherCards.get(i).getZahl())) {
-                        temp.add(higherCards.get(i - 1));
-                        temp.add(higherCards.get(i));
-                    }
-                }
-                if (temp.size() < 2) {
-                    pass(gameInstance);
-                } else {
-                    cardsToPlay.add(temp.get(0));
-                    cardsToPlay.add(temp.get(1));
-                    updateAll(cardsToPlay, gameInstance);
-                }
+                botPlayerService.setEqualCards(gameInstance, higherCards);
             }
         }
         botPlayerService.assOnBoard(gameInstance);
@@ -538,6 +525,7 @@ public class FrontendController implements FrontendService {
                 gameInstance.setPlayers(gameInstance.getResult());
                 cardService.dealCardsToPlayers(gameInstance);
                 cardService.swapCards(gameInstance);
+
                 gameInstance.setBoardCards(null);
             } else {
                 System.exit(0);
