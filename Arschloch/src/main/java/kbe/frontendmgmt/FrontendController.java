@@ -531,8 +531,8 @@ public class FrontendController implements FrontendService {
 
     @Override
     public void startSavedGame(GameInstance gameInstance) {
-        JOptionPane.showMessageDialog(null, "Leider funktioniert die Datenbank momentan nicht. Sie werden zu einem neuen Spiel umgeleitet.");
-        startNewGame(gameInstance);
+        JOptionPane.showMessageDialog(null, "Leider funktioniert die Datenbank momentan nicht. Sie werden wieder zum Start umgeleitet.");
+        startGame(gameInstance);
 //        int gameId = getGameId();
 //        gameInstance = getLastPlayedGame(gameId);
 //
