@@ -178,4 +178,12 @@ public interface FrontendService {
      */
     void updateAll(List<Card> cardsToPlay, GameInstance gameInstance);
 
+    /**
+     * Setzt Karte(n), die gleichwertig sind zueinander.
+     * Funktioniert nur, wenn Boardkarte leer ist.
+     *
+     * @param gameInstance : die SPielinstanz
+     * @param higherCards :  höhere Karten
+     */
+    void setEqualCards(GameInstance gameInstance, List<Card> higherCards);
 }
