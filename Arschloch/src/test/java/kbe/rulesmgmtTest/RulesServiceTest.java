@@ -12,7 +12,6 @@ import java.util.List;
 
 import org.junit.Before;
 import org.junit.Test;
-import org.springframework.beans.factory.annotation.Qualifier;
 
 import junit.framework.Assert;
 
@@ -24,7 +23,6 @@ import junit.framework.Assert;
  */
 public class RulesServiceTest {
 	
-	@Qualifier("playerRulesServiceArschlochImpl")
 	private PlayerRulesService arschlochRuleService;
 	private PlayerRulesService presidentRuleService;
 
