@@ -137,7 +137,6 @@ public class FrontendController implements FrontendService {
         System.out.println("Initializing.......");
         gameInstance = GISI.startGame();
         frontendView.createFrontendView(gameInstance);
-
     }
 
     /**
@@ -516,8 +515,6 @@ public class FrontendController implements FrontendService {
         }
     }
 
-
-
     @Override
     public void gameStateEvaluation(GameInstance gameInstance) {
         String gameState = GISI.calculateGameState(gameInstance);
@@ -539,8 +536,8 @@ public class FrontendController implements FrontendService {
                 }
                 gameInstance.getPlayers().clear();
                 gameInstance.setPlayers(gameInstance.getResult());
-                getCardService().dealCardsToPlayers(gameInstance);
-                getCardService().swapCards(gameInstance);
+                cardService.dealCardsToPlayers(gameInstance);
+                cardService.swapCards(gameInstance);
                 gameInstance.setBoardCards(null);
             } else {
                 System.exit(0);
@@ -550,23 +547,8 @@ public class FrontendController implements FrontendService {
 
     @Override
     public GameInstance getLastPlayedGame(int gameId) {
-
         GameInstance gameInstance = gameInstanceRepository.findByGameId(gameId);
-//        List<Player> players = gameInstanceRepository.findPlayersByGameId(gameId);
-//        for (Player player : players) {
-//            Player player1 = new Player();
-//            player1.setName(player.getName());
-//            player1.setRole(player.getRole());
-//        }
-//
-//        List<Card> cards = cardRepository.findAllCards();
-//        for (Card card : cards) {
-//            Card card1 = new Card();
-//            card1.setSymbol(card.getSymbol());
-//            card1.setZahl(card.getZahl());
-//        }
         return gameInstance;
-
     }
 
     public int getGameIdForUser(GameInstance instance) {
@@ -575,23 +557,6 @@ public class FrontendController implements FrontendService {
 
     @Override
     public void saveCurrentGame(GameInstance instance) {
-//        gameInstanceRepository.deleteAll();
-//        playerRepository.deleteAll();
-//        cardRepository.deleteAll();
-//
-//        List<Player> players = instance.getPlayers();
-//        for (Player player : players) {
-//
-//            for (Card card : player.getHandCards()) {
-//                cardRepository.save(card);
-//            }
-//            playerRepository.save(player);
-//        }
-//        if (!instance.getBoardCards().isEmpty()) {
-//            for (Card card : instance.getBoardCards()) {
-//                cardRepository.save(card);
-//            }
-//        }
         gameInstanceRepository.save(instance);
     }
 
