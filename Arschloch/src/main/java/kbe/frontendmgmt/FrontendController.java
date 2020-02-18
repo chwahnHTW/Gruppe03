@@ -255,8 +255,8 @@ public class FrontendController implements FrontendService {
                 cardsToPlay.add(higherCards.get(0));
                 updateAll(cardsToPlay, gameInstance);
             }
-        } else if (gameInstance.getBoardCards().size() == 2) {
-            List<Card> temp = new LinkedList<Card>();
+        } else if (gameInstance.getBoardCards().size() >= 2) {
+            
             higherCards = botPlayerService.findHigherCards(botHandCards, gameInstance);
             if (higherCards.isEmpty()) {
                 pass(gameInstance);
@@ -326,18 +326,33 @@ public class FrontendController implements FrontendService {
         } else {
             pass(gameInstance);
         }
+        
+        System.out.println(temp);
+        System.out.println(temp.size());
+        System.out.println(temp.toString());
 
-
-        if (temp.size() < gameInstance.getBoardCards().size()) {
-            System.out.println("temp.size() < gameInstance.getBoardCards().size()");
-            pass(gameInstance);
+        if(temp==null) {
+        	pass(gameInstance);
+        } else if(temp.size() < gameInstance.getBoardCards().size()) {
+        	pass(gameInstance);
         } else {
-            for (int i = 0; i < gameInstance.getBoardCards().size(); i++) {
+        	for (int i = 0; i < gameInstance.getBoardCards().size(); i++) {
                 cardsToPlay.add(temp.get(i));
             }
             System.out.println(cardsToPlay);
             updateAll(cardsToPlay, gameInstance);
         }
+
+//        if (temp.size() < gameInstance.getBoardCards().size() | temp==null) {
+//            System.out.println("temp.size() < gameInstance.getBoardCards().size()");
+//            pass(gameInstance);
+//        } else {
+//            for (int i = 0; i < gameInstance.getBoardCards().size(); i++) {
+//                cardsToPlay.add(temp.get(i));
+//            }
+//            System.out.println(cardsToPlay);
+//            updateAll(cardsToPlay, gameInstance);
+//        }
     }
 
     @Override
