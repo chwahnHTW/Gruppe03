@@ -279,11 +279,6 @@ public class FrontendController implements FrontendService {
                 }
             }
         } else if (gameInstance.getBoardCards().size() == 3 && higherCards.size() >= 3) {
-<<<<<<< HEAD
-=======
-            System.out.println("Boardcards 3");
-            System.out.println(higherCards.toString());
->>>>>>> 837d3c8639dd19272f3a72041ae2c38ed44cf2c8
             for (int i = 1; i <= higherCards.size(); i++) {
                 System.out.println(i);
                 if (higherCards.get(i).getZahl() == higherCards.get(i - 1).getZahl()) {
@@ -312,21 +307,19 @@ public class FrontendController implements FrontendService {
         } else {
             pass(gameInstance);
         }
-<<<<<<< HEAD
+
         if (temp.size() < gameInstance.getBoardCards().size()) {
             pass(gameInstance);
-=======
-        
-        if(temp==null) {
-        	pass(gameInstance);
-        } else if(temp.size() < gameInstance.getBoardCards().size()) {
-        	pass(gameInstance);
->>>>>>> 837d3c8639dd19272f3a72041ae2c38ed44cf2c8
-        } else {
-        	for (int i = 0; i < gameInstance.getBoardCards().size(); i++) {
-                cardsToPlay.add(temp.get(i));
+            if (temp == null) {
+                pass(gameInstance);
+            } else if (temp.size() < gameInstance.getBoardCards().size()) {
+                pass(gameInstance);
+            } else {
+                for (int i = 0; i < gameInstance.getBoardCards().size(); i++) {
+                    cardsToPlay.add(temp.get(i));
+                }
+                updateAll(cardsToPlay, gameInstance);
             }
-            updateAll(cardsToPlay, gameInstance);
         }
     }
 
